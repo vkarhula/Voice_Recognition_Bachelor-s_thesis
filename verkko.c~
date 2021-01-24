@@ -1,0 +1,813 @@
+/*
+ * verkko.c
+ *
+ *  Created on: 14.2.2009
+ *      Author: Administrator
+ */
+
+#include <stdio.h>
+#include <io.h>
+
+#include <dev/board.h>
+#include <sys/timer.h>
+
+#include <arpa/inet.h>
+#include <sys/confnet.h>	//Verkon configurointi
+#include <sys/socket.h>
+
+#include <sys/thread.h>
+
+#include "verkko.h"
+
+#define MYMAC   0x00, 0x06, 0x98, 0x00, 0x00, 0x00
+#define MYIP	"10.10.4.1"
+#define MYMASK "255.255.255.0"
+#define UDP_BCA "10.10.255.255"//TODO:Broadcast osoitteelle järkevää käyttöä
+
+#define LPORT 161
+
+static prog_char LP[] = "Listening on port: ";
+
+/*
+ * Globaalit muuttujat
+ */
+UDPSOCKET *sock;
+u_long addr;
+u_short port;
+u_char data[200];
+u_short  size;
+u_char parsittudata[200];
+
+
+
+struct viesti vv;    // vastaanotettu viesti
+struct viesti lv;    // lähetettävä viesti
+
+
+struct snmp vast;	//vastaanotettu SNMP-struct
+struct snmp lahteva;//lähetettävä SNMP-struct
+
+/* Threadit SNMP-viestien lähettämiseen ja vastaanottamiseen */
+THREAD(Control, arg)
+{
+	NutThreadSetPriority(16);
+	while (1) {
+		/*
+		 *
+		 */
+		printf("\nSending message.\n");
+		receiveMessage();
+		NutSleep(125);
+	}
+}
+THREAD(Kanava, arg)
+{
+	NutThreadSetPriority(32);
+	while (1) {
+		printf("\nReceiving message\n");
+		receiveMessage();
+		NutSleep(125);
+	}
+}
+
+/*
+ * Funktio: initializeNetwork()
+ * Suorittaa EIR:n verkkotoiminnallisuuksien alustamisen.
+ */
+void initializeNetwork(void) {
+
+	//TODO: NutUdpSetSockOpt(sock, SO_RCVBUF, &udp_bufsiz, sizeof(udp_bufsiz)); Tällä varataan bufferiin lisätilaa useampia viestejä varten
+    /*
+     * Register Ethernet controller.
+     */
+    while ( NutRegisterDevice(&DEV_ETHER, 0, 0/*0x8300, 5*/) !=0 )
+    	printf("Registering network device failed");
+    printf("\n\n============= Starting Network ===============\n");
+
+    /*
+     * LAN configuration using fixed values.
+     */
+    u_char mac[] = {MYMAC};
+    u_long ip_addr = inet_addr(MYIP);
+    u_long ip_mask = inet_addr(MYMASK);
+
+    NutNetIfConfig("eth0", mac, ip_addr, ip_mask);
+    printf("%s ready\n", inet_ntoa(confnet.cdn_ip_addr));
+
+
+	sock = NutUdpCreateSocket(LPORT);
+	_write_P(_fileno(stdout), LP, sizeof(LP));
+	printf("%d \n", LPORT);
+
+	//NutThreadCreate("T1", Control, 0, 768);
+	//NutThreadCreate("T2", Kanava, 0, 768);
+
+	while (1) {	//jäädään kuuntelemaan viestejä
+		//parseOutboundMessage();
+		//receiveMessage();
+		NutSleep(125);
+	}
+
+}
+
+/*
+ * Funktio: receiveMessage ottaa vastaan kanavasta tulevat viestit.
+ */
+void receiveMessage(void) {
+	int i;
+
+	while (1) {
+
+		//TODO: pienennä timeout-aikaa, kuhan muu toteutus valmis
+		/* Talletetaan kanavasta tuleva data */
+		vv.daatankoko = NutUdpReceiveFrom(sock, &vv.osoite, &vv.portti,
+				vv.daatta, sizeof(vv.daatta), 5000);
+		//TODO:Muistin varaus vv:lle malloc()
+		/* Tulostetaan vastaanotettu data */
+		if (vv.daatankoko > 0) {
+
+			printf("\nGot %d bytes from %s:%d\n", vv.daatankoko, inet_ntoa(
+					vv.osoite), vv.portti);
+
+			//Tulostetaan vastaanotetut tavut
+			for (i = 0; i < vv.daatankoko; i++) {
+				printf("%x.", vv.daatta[i]);
+				if (i == 9 || i == 19 || i == 29 || i == 39 || i == 49)
+					printf("\n");
+			}
+			printf("\n");
+
+			snmpReceive();
+
+			//Tulostetaan vastaanotettu viesti
+			printf("Vastaanotettu viesti: ");
+			for (i = 0; i < vast.value.value_length; i++) {
+				printf("%c", vast.value.value_value[i]);
+			}
+			printf("\n");
+
+			//checkOID();
+			snmpSend();		/******************* 18.3.2009 ************/
+
+			//sendMessage(ip_addr2, vv.daatta, vv.daatankoko);
+			NutSleep(125);
+		}
+		NutSleep(100);
+	}
+}
+
+/*
+ * Funktio: snmpReceive
+ * Parsii vastaanotetun SNMP viestin uuteen structiin ja näin
+ * TODO: mahdollistaa useiden viestien vastaanottamisen?
+ */
+void snmpReceive(void)
+{
+	int indeksi;
+	vast.message.message_type = vv.daatta[0];
+	vast.message.message_length = vv.daatta[1];
+
+	vast.version.version_type = vv.daatta[2];
+	vast.version.version_length = vv.daatta[3];
+	vast.version.version_value = vv.daatta[4];
+
+	vast.comm_string.comm_string_type = vv.daatta[5];
+	vast.comm_string.comm_string_length = vv.daatta[6];
+
+	int i;
+	for(i = 0 ; i < vast.comm_string.comm_string_length ; i++){
+		vast.comm_string.comm_string_value[i] = vv.daatta[7 + i];
+	}
+	indeksi = 7 + i;
+
+	vast.PDU.PDU_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.PDU.PDU_length = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.requestID.requestID_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.requestID.requestID_length = vv.daatta[indeksi];
+	indeksi++;
+
+	if(vast.requestID.requestID_length > 1){
+		for(i = 0 ; i < vast.requestID.requestID_length ; i++){
+			vast.requestID.requestID_value[i] = vv.daatta[indeksi];
+			indeksi++;
+		}
+	}
+	else{
+		vast.requestID.requestID_value[0] = vv.daatta[indeksi];
+		indeksi++;
+	}
+
+	vast.error.error_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.error.error_length = vv.daatta[indeksi];
+	indeksi++;
+	vast.error.error_value = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.error_index.error_index_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.error_index.error_index_length = vv.daatta[indeksi];
+	indeksi++;
+	vast.error_index.error_index_value = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.varbind_list.varbind_list_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.varbind_list.varbind_list_length = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.varbind.varbind_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.varbind.varbind_length = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.OID.OID_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.OID.OID_length = vv.daatta[indeksi];
+	indeksi++;
+
+	for(i = 0 ; i < vast.OID.OID_length ; i++){
+		vast.OID.OID_value[i] = vv.daatta[indeksi];
+		indeksi++;
+	}
+
+	vast.value.value_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.value.value_length = vv.daatta[indeksi];
+	indeksi++;
+
+	for(i = 0 ; i < vast.value.value_length ; i++){
+		vast.value.value_value[i] = vv.daatta[indeksi];
+		indeksi++;
+	}
+
+/* Parsitun SNMP viestin testitulostus */
+	printf("vast.message.message_type: %x\n",vast.message.message_type);
+	printf("vast.message.message_length: %x\n",vast.message.message_length);
+
+	printf("vast.version.version_type: %x\n",vast.version.version_type);
+	printf("vast.version.version_length: %x\n",vast.version.version_length);
+	printf("vast.version.version_value: %x\n",vast.version.version_value);
+
+	printf("vast.comm_string.comm_string_type: %x\n",vast.comm_string.comm_string_type);
+	printf("vast.comm_string.comm_string_length: %x\n",vast.comm_string.comm_string_length);
+
+
+	for(i = 0 ; i < vast.comm_string.comm_string_length ; i++){
+		printf("vast.comm_string.comm_string_value[%d]: %x\n", i, vast.comm_string.comm_string_value[i]);
+	}
+
+	printf("vast.PDU.PDU_type: %x\n",vast.PDU.PDU_type);
+	printf("vast.PDU.PDU_length: %x\n",vast.PDU.PDU_length);
+
+	printf("vast.requestID.requestID_type: %x\n",vast.requestID.requestID_type);
+	printf("vast.requestID.requestID_length: %x\n",vast.requestID.requestID_length);
+
+
+
+	if(vast.requestID.requestID_length > 1){
+		for(i = 0 ; i < vast.requestID.requestID_length ; i++){
+			printf("vast.requestID.requestID_value[%d]: %x\n", i, vast.requestID.requestID_value[i]);
+		}
+	}
+	else{
+		printf("vast.requestID.requestID_value[0]: %x\n",vast.requestID.requestID_value[0]);
+	}
+
+	printf("vast.error.error_type: %x\n",vast.error.error_type);
+	printf("vast.error.error_length: %x\n",vast.error.error_length);
+	printf("vast.error.error_value: %x\n",vast.error.error_value);
+
+	printf("vast.error_index.error_index_type: %x\n",vast.error_index.error_index_type);
+	printf("vast.error_index.error_index_length: %x\n",vast.error_index.error_index_length);
+	printf("vast.error_index.error_index_value: %x\n",vast.error_index.error_index_value);
+
+	printf("vast.varbind_list.varbind_list_type: %x\n",vast.varbind_list.varbind_list_type);
+	printf("vast.varbind_list.varbind_list_length: %x\n",vast.varbind_list.varbind_list_length);
+
+	printf("vast.varbind.varbind_type: %x\n",vast.varbind.varbind_type);
+	printf("vast.varbind.varbind_length: %x\n",vast.varbind.varbind_length);
+
+	printf("vast.OID.OID_type: %x\n",vast.OID.OID_type);
+	printf("vast.OID.OID_length: %x\n",vast.OID.OID_length);
+
+
+
+	for(i = 0 ; i < vast.OID.OID_length ; i++){
+		printf("vast.OID.OID_value[%d]: %x\n", i, vast.OID.OID_value[i]);
+	}
+
+	printf("vast.value.value_type: %x\n",vast.value.value_type);
+	printf("vast.value.value_length: %x\n",vast.value.value_length);
+
+
+
+
+	for(i = 0 ; i < vast.value.value_length ; i++){
+		printf("vast.value.value_value[%d]: %x\n", i, vast.value.value_value[i]);
+	}
+
+}
+
+/*
+ * Funktio: void snmpSend()
+ * Parsii lähetettävän SNMP viestin tavu tavulta.
+ *
+ * Lähetettävien viestien numerot:
+ * 	1: READY-TO-PLAY (GET-REQUEST (OID:1) )
+ * 	2: START-TURN (SET-REQUEST (OID:2 ) )
+ * 	3: START-TURN (SET-REQUEST (OID:2) höystettynä vuoronumerolla (value = vuoronumero))
+ *  4: SALVO (SET-REQUEST (OID:3) value = sequence of 5 integers)
+ *  5:
+ * 	TODO: Numerointi loppuun
+ * TODO: Korjaa tavut, jotka rakennetaan vast-viestistä
+ * TODO: Testaus
+ */
+void snmpSend(void/*Parametriksi ainakin lähetettävän viestin numero ja mahdollista muuta dataa*/)
+{
+	int indeksi;
+	lahteva.message.message_type = 0x30;
+//	lahteva.message.message_length = vv.daatta[1];
+
+	lahteva.version.version_type = 0x02;
+	lahteva.version.version_length = 0x01;
+	lahteva.version.version_value = 0x00;
+
+	lahteva.comm_string.comm_string_type = 0x04;
+	lahteva.comm_string.comm_string_length = vast.comm_string.comm_string_length;
+
+	/* Korjausehdotus alla olevalle for-silmukalle
+	 * lahteva.comm_string.comm_string_length = 10;//Battleship
+	 * lahteva.comm_string.comm_string_value[0] = B;
+	 * lahteva.comm_string.comm_string_value[1] = a;
+	 * lahteva.comm_string.comm_string_value[2] = t;
+	 * lahteva.comm_string.comm_string_value[3] = t;
+	 * lahteva.comm_string.comm_string_value[4] = l;
+	 * lahteva.comm_string.comm_string_value[5] = e;
+	 * lahteva.comm_string.comm_string_value[6] = s;
+	 * lahteva.comm_string.comm_string_value[7] = h;
+	 * lahteva.comm_string.comm_string_value[8] = i;
+	 * lahteva.comm_string.comm_string_value[9] = p;
+	 */
+	int i;
+	for(i = 0 ; i < lahteva.comm_string.comm_string_length ; i++){
+		lahteva.comm_string.comm_string_value[i] = vast.comm_string.comm_string_value[i];
+	}
+	indeksi = 7 + i;
+
+//	lahteva.PDU.PDU_type = vv.daatta[indeksi];
+
+	lahteva.PDU.PDU_type = 0xA2;	//GET-RESPONSE
+
+	indeksi++;
+//	lahteva.PDU.PDU_length = vv.daatta[indeksi];	//lasketaan kenttien pituudet mmyöhempänä
+	indeksi++;
+
+	lahteva.requestID.requestID_type = vast.requestID.requestID_type;
+	indeksi++;
+	lahteva.requestID.requestID_length = vast.requestID.requestID_length;
+	indeksi++;
+
+	if(lahteva.requestID.requestID_length > 1){
+		for(i = 0 ; i < lahteva.requestID.requestID_length ; i++){
+			lahteva.requestID.requestID_value[i] = vast.requestID.requestID_value[i];
+			indeksi++;
+		}
+	}
+	else{
+		lahteva.requestID.requestID_value[0] = vast.requestID.requestID_value[0];
+		indeksi++;
+	}
+
+	lahteva.error.error_type = 0x02;
+	indeksi++;
+	lahteva.error.error_length = 0x01;
+	indeksi++;
+	lahteva.error.error_value = 0x00;
+	indeksi++;
+
+	lahteva.error_index.error_index_type = 0x02;
+	indeksi++;
+	lahteva.error_index.error_index_length = 0x01;
+	indeksi++;
+	lahteva.error_index.error_index_value = 0x00;
+	indeksi++;
+
+	lahteva.varbind_list.varbind_list_type = 0x30;
+	indeksi++;
+//	lahteva.varbind_list.varbind_list_length = vv.daatta[indeksi];
+	indeksi++;
+
+	lahteva.varbind.varbind_type = 0x30;
+	indeksi++;
+//	lahteva.varbind.varbind_length = vv.daatta[indeksi];
+	indeksi++;
+
+	lahteva.OID.OID_type = 0x06;
+	indeksi++;
+	lahteva.OID.OID_length = 0x07;
+	indeksi++;
+
+	lahteva.OID.OID_value[0] = 0x2B;
+	indeksi++;
+	lahteva.OID.OID_value[1] = 0x06;
+	indeksi++;
+	lahteva.OID.OID_value[2] = 0x01;
+	indeksi++;
+	lahteva.OID.OID_value[3] = 0x03;
+	indeksi++;
+	lahteva.OID.OID_value[4] = 0x37;
+	indeksi++;
+	lahteva.OID.OID_value[5] = 0x00;
+	indeksi++;
+//	lahteva.OID.OID_value[0] = 0x43;
+	indeksi++;
+
+	/* 18.3.2009 */
+	lahteva.OID.OID_value[6] = 1; //READY-TO-PLAY	//////////***************OID ei toimi
+	/* 18.3.2009 */
+
+//	lahteva.value.value_type = vv.daatta[indeksi];
+
+	/* 18.3.2009 */
+	lahteva.value.value_type = 0x02;	//Integer
+	/* 18.3.2009 */
+
+	indeksi++;
+//	lahteva.value.value_length = vv.daatta[indeksi];
+
+	/* 18.3.2009 */
+	lahteva.value.value_length = 0;	//Integer, ready-to-play, noot
+	/* 18.3.2009 */
+
+	indeksi++;
+
+/*	for(i = 0 ; i < lahteva.value.value_length ; i++){
+		lahteva.value.value_value[i] = vv.daatta[indeksi];
+		indeksi++;
+	}
+*/
+
+	//calculateLengths(&lahteva);
+
+
+}
+
+
+/*
+ * Funktio: sendMessage
+ * Hoitaa viestien lähetyksen kanavaan.
+ */
+void sendMessageToChannel(u_long osoite, u_short portti, u_char viesti[200], u_short koko)
+{
+	int error;
+/******************** testi **********************/
+osoite = inet_addr("10.10.4.20");		//Näissä jotaki häikkää???
+portti = 33258;
+//printf("***************osoite: %s", osoite);
+/******************** testi **********************/
+	//printf("Sending to %s:%d\n",inet_ntoa(osoite),LPORT); obsolete
+	//printf("Sending to %s:%d\n", inet_ntoa(lv.osoite), lv.portti);
+printf("Sending to %s:%d\n", inet_ntoa(osoite), vv.portti);
+	printf("lv.daatankoko on: %d\n", lv.daatankoko);
+
+	error = NutUdpSendTo(sock, osoite, vv.portti, viesti, koko);/************************/
+
+	if(error == 0)
+		printf("SNMP-viesti lähetetty onnistuneesti.\n");
+	else
+		printf("SNMP-viestin lähetys epäonnistui.\n");
+
+}
+
+/*******************************************/
+/* Lähetettävän SNMP-viestin testitulostus */
+/*******************************************/
+
+void testiTulostus(void) {
+	int i;
+	printf("\n\n*** Tästä alkaa testitulostus. ***\n");
+	printf("lahteva.message.message_type: %x\n", lahteva.message.message_type);
+	printf("lahteva.message.message_length: %x\n", lahteva.message.message_length);
+
+	printf("lahteva.version.version_type: %x\n", lahteva.version.version_type);
+	printf("lahteva.version.version_length: %x\n", lahteva.version.version_length);
+	printf("lahteva.version.version_value: %x\n", lahteva.version.version_value);
+
+	printf("lahteva.comm_string.comm_string_type: %x\n",
+			lahteva.comm_string.comm_string_type);
+	printf("lahteva.comm_string.comm_string_length: %x\n",
+			lahteva.comm_string.comm_string_length);
+
+	for (i = 0; i < lahteva.comm_string.comm_string_length; i++) {
+		printf("lahteva.comm_string.comm_string_value[%d]: %x\n", i,
+				lahteva.comm_string.comm_string_value[i]);
+	}
+
+	printf("lahteva.PDU.PDU_type: %x\n", lahteva.PDU.PDU_type);
+	printf("lahteva.PDU.PDU_length: %x\n", lahteva.PDU.PDU_length);
+
+	printf("lahteva.requestID.requestID_type: %x\n", lahteva.requestID.requestID_type);
+	printf("lahteva.requestID.requestID_length: %x\n",
+			lahteva.requestID.requestID_length);
+
+	if (lahteva.requestID.requestID_length > 1) {
+		for (i = 0; i < lahteva.requestID.requestID_length; i++) {
+			printf("lahteva.requestID.requestID_value[%d]: %x\n", i,
+					lahteva.requestID.requestID_value[i]);
+		}
+	} else {
+		printf("lahteva.requestID.requestID_value[0]: %x\n",
+				lahteva.requestID.requestID_value[0]);
+	}
+
+	printf("lahteva.error.error_type: %x\n", lahteva.error.error_type);
+	printf("lahteva.error.error_length: %x\n", lahteva.error.error_length);
+	printf("lahteva.error.error_value: %x\n", lahteva.error.error_value);
+
+	printf("lahteva.error_index.error_index_type: %x\n",
+			lahteva.error_index.error_index_type);
+	printf("lahteva.error_index.error_index_length: %x\n",
+			lahteva.error_index.error_index_length);
+	printf("lahteva.error_index.error_index_value: %x\n",
+			lahteva.error_index.error_index_value);
+
+	printf("lahteva.varbind_list.varbind_list_type: %x\n",
+			lahteva.varbind_list.varbind_list_type);
+	printf("lahteva.varbind_list.varbind_list_length: %x\n",
+			lahteva.varbind_list.varbind_list_length);
+
+	printf("lahteva.varbind.varbind_type: %x\n", lahteva.varbind.varbind_type);
+	printf("lahteva.varbind.varbind_length: %x\n", lahteva.varbind.varbind_length);
+
+	printf("lahteva.OID.OID_type: %x\n", lahteva.OID.OID_type);
+	printf("lahteva.OID.OID_length: %x\n", lahteva.OID.OID_length);
+
+	for (i = 0; i < lahteva.OID.OID_length; i++) {
+		printf("lahteva.OID.OID_value[%d]: %x\n", i, lahteva.OID.OID_value[i]);
+	}
+
+	printf("lahteva.value.value_type: %x\n", lahteva.value.value_type);
+	printf("lahteva.value.value_length: %x\n", lahteva.value.value_length);
+
+	for (i = 0; i < lahteva.value.value_length; i++) {
+		printf("lahteva.value.value_value[%d]: %x\n", i, lahteva.value.value_value[i]);
+	}
+}
+/*********************** testitulostus loppuu ***********************/
+
+
+/*
+ * Parsii lähetettävän SNMP-viestin tavu tavulta.
+ *
+ *  Lähetettävien viestien numerot:
+ * 	1: READY-TO-PLAY (GET-REQUEST (OID:1) )
+ * 	2: START-TURN (SET-REQUEST (OID:2 ) )	//TODO: Tarviiko NRO. 3:a vai yhdistetäänkö tähän
+ * 	3: START-TURN (SET-REQUEST (OID:2) höystettynä vuoronumerolla (value = vuoronumero))
+ *  4: SALVO (SET-REQUEST (OID:3) value = sequence of 5 integers)
+ *  5: SALVO_RESULTS (GET-REQUEST (OID:4))
+ *  6: CHAT (SET-REQUEST (OID: 5))
+ *  7: Ending the game (TRAP (OID: 6) value = optional octet string)
+ */
+void parseOutboundMessage(u_char OIDlastValue, u_char value[50]) {
+	int i;
+	struct snmp outb;
+
+	outb.message.message_type = 0x30;
+
+	outb.version.version_type = 0x02;
+	outb.version.version_length = 0x01;
+	outb.version.version_value = 0x00;
+
+	outb.comm_string.comm_string_type = 0x04;
+	outb.comm_string.comm_string_length	= 0x0A;
+	outb.comm_string.comm_string_value[0] = 'B';
+	outb.comm_string.comm_string_value[1] = 'a';
+	outb.comm_string.comm_string_value[2] = 't';
+	outb.comm_string.comm_string_value[3] = 't';
+	outb.comm_string.comm_string_value[4] = 'l';
+	outb.comm_string.comm_string_value[5] = 'e';
+	outb.comm_string.comm_string_value[6] = 's';
+	outb.comm_string.comm_string_value[7] = 'h';
+	outb.comm_string.comm_string_value[8] = 'i';
+	outb.comm_string.comm_string_value[9] = 'p';
+
+	outb.requestID.requestID_type = 0x02;
+	outb.requestID.requestID_length = 0x01;
+	outb.requestID.requestID_value[0] = 0x04;
+
+	outb.error.error_type = 0x02;
+	outb.error.error_length = 0x01;
+	outb.error.error_value = 0x00;
+
+	outb.error_index.error_index_type = 0x02;
+	outb.error_index.error_index_length = 0x01;
+	outb.error_index.error_index_value = 0x00;
+
+	outb.varbind_list.varbind_list_type = 0x30;
+
+	outb.varbind.varbind_type = 0x30;
+
+	outb.OID.OID_type = 0x06;
+	outb.OID.OID_length = 0x07;
+	outb.OID.OID_value[0] = 0x2B;
+	outb.OID.OID_value[1] = 0x06;
+	outb.OID.OID_value[2] = 0x01;
+	outb.OID.OID_value[3] = 0x03;
+	outb.OID.OID_value[4] = 0x37;
+	outb.OID.OID_value[5] = 0x00;
+
+	outb.value.value_length = (u_char)sizeof(value);
+	for (i = 0; i < outb.value.value_length ; i++)
+		outb.value.value_value[i] = value[i];
+
+
+	switch (OIDlastValue) {
+	case 1:
+		outb.PDU.PDU_type = 0xA0;
+		outb.OID.OID_value[6] = 0x01;
+		outb.value.value_type = 0x05;
+//TODO: osoite = inet_addr(UDP_BCA);???
+//TODO: portti = 161;???
+		break;
+	}
+
+	outb.varbind.varbind_length = outb.value.value_length + 2 + outb.OID.OID_length + 2;
+	outb.varbind_list.varbind_list_length = outb.varbind.varbind_length + 2;
+	outb.PDU.PDU_length = outb.varbind_list.varbind_list_length + 10 + outb.requestID.requestID_length;
+	outb.message.message_length = outb.PDU.PDU_length + 7 + outb.comm_string.comm_string_length;
+}
+
+/*
+ * Laskee SNMP-viestin pituuskenttien arvot
+ */
+void calculateLengths(struct snmp *laskettava) {
+	//Lasketaan pituuskenttien arvot
+	lahteva.varbind.varbind_length = lahteva.value.value_length + 2 + lahteva.OID.OID_length + 2;
+	lahteva.varbind_list.varbind_list_length = lahteva.varbind.varbind_length + 2;
+	lahteva.PDU.PDU_length = lahteva.varbind_list.varbind_list_length + 10 + lahteva.requestID.requestID_length;
+	lahteva.message.message_length = lahteva.PDU.PDU_length + 7 + lahteva.comm_string.comm_string_length;
+}
+
+void compileOutboundMessage() {
+	//Parsitaan kanavaan lähetettävä viesti
+	indeksi = 0;
+	lv.daatta[indeksi] = lahteva.message.message_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.message.message_length;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.version.version_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.version.version_length;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.version.version_value;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.comm_string.comm_string_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.comm_string.comm_string_length;
+	indeksi++;
+	for (i = 0; i < lahteva.comm_string.comm_string_length; i++) {
+		lv.daatta[indeksi] = lahteva.comm_string.comm_string_value[i];
+		indeksi++;
+	}
+	lv.daatta[indeksi] = lahteva.PDU.PDU_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.PDU.PDU_length;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.requestID.requestID_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.requestID.requestID_length;
+	indeksi++;
+	for (i = 0; i < lahteva.requestID.requestID_length; i++) {
+		lv.daatta[indeksi] = lahteva.requestID.requestID_value[i];
+		indeksi++;
+	}
+	lv.daatta[indeksi] = 0x02; //error type
+	indeksi++;
+	lv.daatta[indeksi] = 0x01; //error length
+	indeksi++;
+	lv.daatta[indeksi] = 0x00; //error value
+	indeksi++;
+	lv.daatta[indeksi] = 0x02; //error index type
+	indeksi++;
+	lv.daatta[indeksi] = 0x01; //error index length
+	indeksi++;
+	lv.daatta[indeksi] = 0x00; //error index value
+	indeksi++;
+	lv.daatta[indeksi] = 0x30; //varbind list type
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.varbind_list.varbind_list_length;
+	indeksi++;
+	lv.daatta[indeksi] = 0x30; //varbind type
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.varbind.varbind_length;
+	indeksi++;
+	lv.daatta[indeksi] = 0x06; //OID type
+	indeksi++;
+	lv.daatta[indeksi] = 0x07; //OID length
+	indeksi++;
+	for (i = 0; i < lahteva.OID.OID_length; i++) {
+		lv.daatta[indeksi] = lahteva.OID.OID_value[i];
+		indeksi++;
+	}
+	lv.daatta[indeksi] = lahteva.value.value_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.value.value_length;
+	indeksi++;
+	for (i = 0; i < lahteva.value.value_length; i++) {
+		lv.daatta[indeksi] = lahteva.value.value_value[i];
+		indeksi++;
+	}
+
+	lv.daatankoko = lahteva.message.message_length + 2;
+
+	//Lähetetään viesti kanavaan
+	sendMessageToChannel(vv.osoite, vv.portti, lv.daatta, lv.daatankoko);
+
+}
+char nimi[20];
+*nimi = "structin nimi";
+
+printStruct(nimi, &structi);
+
+/*
+ * Funktio, joka tulostaa SNMP-structin.
+ */
+void printStruct(char* nimi, struct snmp *tulostettava) {
+	int i;
+
+	printf("\n\n*** Tästä alkaa structin tulostus. ***\n");
+	printf("%s.message.message_type: %x\n", ,lahteva.message.message_type);
+	printf("lahteva.message.message_length: %x\n", lahteva.message.message_length);
+
+	printf("lahteva.version.version_type: %x\n", lahteva.version.version_type);
+	printf("lahteva.version.version_length: %x\n", lahteva.version.version_length);
+	printf("lahteva.version.version_value: %x\n", lahteva.version.version_value);
+
+	printf("lahteva.comm_string.comm_string_type: %x\n",
+			lahteva.comm_string.comm_string_type);
+	printf("lahteva.comm_string.comm_string_length: %x\n",
+			lahteva.comm_string.comm_string_length);
+
+	for (i = 0; i < lahteva.comm_string.comm_string_length; i++) {
+		printf("lahteva.comm_string.comm_string_value[%d]: %x\n", i,
+				lahteva.comm_string.comm_string_value[i]);
+	}
+
+	printf("lahteva.PDU.PDU_type: %x\n", lahteva.PDU.PDU_type);
+	printf("lahteva.PDU.PDU_length: %x\n", lahteva.PDU.PDU_length);
+
+	printf("lahteva.requestID.requestID_type: %x\n", lahteva.requestID.requestID_type);
+	printf("lahteva.requestID.requestID_length: %x\n",
+			lahteva.requestID.requestID_length);
+
+	if (lahteva.requestID.requestID_length > 1) {
+		for (i = 0; i < lahteva.requestID.requestID_length; i++) {
+			printf("lahteva.requestID.requestID_value[%d]: %x\n", i,
+					lahteva.requestID.requestID_value[i]);
+		}
+	} else {
+		printf("lahteva.requestID.requestID_value[0]: %x\n",
+				lahteva.requestID.requestID_value[0]);
+	}
+
+	printf("lahteva.error.error_type: %x\n", lahteva.error.error_type);
+	printf("lahteva.error.error_length: %x\n", lahteva.error.error_length);
+	printf("lahteva.error.error_value: %x\n", lahteva.error.error_value);
+
+	printf("lahteva.error_index.error_index_type: %x\n",
+			lahteva.error_index.error_index_type);
+	printf("lahteva.error_index.error_index_length: %x\n",
+			lahteva.error_index.error_index_length);
+	printf("lahteva.error_index.error_index_value: %x\n",
+			lahteva.error_index.error_index_value);
+
+	printf("lahteva.varbind_list.varbind_list_type: %x\n",
+			lahteva.varbind_list.varbind_list_type);
+	printf("lahteva.varbind_list.varbind_list_length: %x\n",
+			lahteva.varbind_list.varbind_list_length);
+
+	printf("lahteva.varbind.varbind_type: %x\n", lahteva.varbind.varbind_type);
+	printf("lahteva.varbind.varbind_length: %x\n", lahteva.varbind.varbind_length);
+
+	printf("lahteva.OID.OID_type: %x\n", lahteva.OID.OID_type);
+	printf("lahteva.OID.OID_length: %x\n", lahteva.OID.OID_length);
+
+	for (i = 0; i < lahteva.OID.OID_length; i++) {
+		printf("lahteva.OID.OID_value[%d]: %x\n", i, lahteva.OID.OID_value[i]);
+	}
+
+	printf("lahteva.value.value_type: %x\n", lahteva.value.value_type);
+	printf("lahteva.value.value_length: %x\n", lahteva.value.value_length);
+
+	for (i = 0; i < lahteva.value.value_length; i++) {
+		printf("lahteva.value.value_value[%d]: %x\n", i, lahteva.value.value_value[i]);
+	}
+}
+
+
+

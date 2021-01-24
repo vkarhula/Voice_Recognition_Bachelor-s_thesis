@@ -1,0 +1,4200 @@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 1
+
+
+   1              		.file	"laiva.c"
+   2              	@ GNU C (GCC) version 4.3.2 (arm-elf)
+   3              	@	compiled by GNU C version 3.4.5 (mingw special), GMP version 4.2.2, MPFR version 2.3.1.
+   4              	@ GGC heuristics: --param ggc-min-expand=99 --param ggc-min-heapsize=131006
+   5              	@ options passed:  -IC:/ethernut-4.7.4/nutbld/include
+   6              	@ -IC:/ethernut-4.7.4/nutbld -IC:/ethernut-4.7.4/nut/include -imultilib
+   7              	@ interwork -iprefix c:\program files\yagarto\bin\../lib/gcc/arm-elf/4.3.2/
+   8              	@ -D__USES_INITFINI__ -DELEKTOR_IR1 laiva.c -mcpu=arm7tdmi
+   9              	@ -mthumb-interwork -auxbase-strip laiva.o -Os -Wall -Wstrict-prototypes
+  10              	@ -fomit-frame-pointer -fverbose-asm
+  11              	@ options enabled:  -falign-loops -fargument-alias -fauto-inc-dec
+  12              	@ -fbranch-count-reg -fcaller-saves -fcommon -fcprop-registers
+  13              	@ -fcrossjumping -fcse-follow-jumps -fdefer-pop
+  14              	@ -fdelete-null-pointer-checks -fearly-inlining
+  15              	@ -feliminate-unused-debug-types -fexpensive-optimizations
+  16              	@ -fforward-propagate -ffunction-cse -fgcse -fgcse-lm
+  17              	@ -fguess-branch-probability -fident -fif-conversion -fif-conversion2
+  18              	@ -finline-functions -finline-functions-called-once
+  19              	@ -finline-small-functions -fipa-pure-const -fipa-reference -fivopts
+  20              	@ -fkeep-static-consts -fleading-underscore -fmath-errno -fmerge-constants
+  21              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  22              	@ -foptimize-register-move -foptimize-sibling-calls -fpeephole -fpeephole2
+  23              	@ -freg-struct-return -fregmove -freorder-functions -frerun-cse-after-loop
+  24              	@ -fsched-interblock -fsched-spec -fsched-stalled-insns-dep
+  25              	@ -fschedule-insns -fschedule-insns2 -fsigned-zeros -fsplit-ivs-in-unroller
+  26              	@ -fsplit-wide-types -fstrict-aliasing -fstrict-overflow -fthread-jumps
+  27              	@ -ftoplevel-reorder -ftrapping-math -ftree-ccp -ftree-copy-prop
+  28              	@ -ftree-copyrename -ftree-cselim -ftree-dce -ftree-dominator-opts
+  29              	@ -ftree-dse -ftree-fre -ftree-loop-im -ftree-loop-ivcanon
+  30              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-reassoc
+  31              	@ -ftree-salias -ftree-scev-cprop -ftree-sink -ftree-sra -ftree-store-ccp
+  32              	@ -ftree-ter -ftree-vect-loop-version -ftree-vrp -funit-at-a-time
+  33              	@ -fverbose-asm -fzero-initialized-in-bss -mlittle-endian -msched-prolog
+  34              	@ -mthumb-interwork
+  35              	
+  36              	@ Compiler executable checksum: 6db586a17c82d36a40d1394fc9f8b6f8
+  37              	
+  38              		.text
+  39              		.align	2
+  40              		.global	countHitsFromSea
+  41              		.type	countHitsFromSea, %function
+  42              	countHitsFromSea:
+  43              		@ Function supports interworking.
+  44              		@ args = 0, pretend = 0, frame = 0
+  45              		@ frame_needed = 0, uses_anonymous_args = 0
+  46              		@ link register save eliminated.
+  47 0000 70002DE9 		stmfd	sp!, {r4, r5, r6}	@,
+  48 0004 0118A0E1 		mov	r1, r1, asl #16	@ tmp180, lowestHitValue,
+  49 0008 0040A0E3 		mov	r4, #0	@ count,
+  50 000c 0050A0E1 		mov	r5, r0	@ ivtmp.89, sea
+  51 0010 2168A0E1 		mov	r6, r1, lsr #16	@ lowestHitValue, tmp180,
+  52 0014 0400A0E1 		mov	r0, r4	@ j, count
+  53 0018 100000EA 		b	.L2	@
+  54              	.L4:
+  55 001c 01308CE2 		add	r3, ip, #1	@ tmp184, i,
+  56 0020 0338A0E1 		mov	r3, r3, asl #16	@ tmp185, tmp184,
+  57 0024 B020D1E1 		ldrh	r2, [r1, #0]	@ tmp181,* ivtmp.78
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 2
+
+
+  58 0028 23C8A0E1 		mov	ip, r3, lsr #16	@ i, tmp185,
+  59 002c 013084E2 		add	r3, r4, #1	@ tmp182, count,
+  60 0030 060052E1 		cmp	r2, r6	@ tmp181, lowestHitValue
+  61 0034 0338A0E1 		mov	r3, r3, asl #16	@ tmp183, tmp182,
+  62 0038 2348A021 		movcs	r4, r3, lsr #16	@ count, tmp183,
+  63 003c 0A005CE3 		cmp	ip, #10	@ i,
+  64 0040 021081E2 		add	r1, r1, #2	@ ivtmp.78, ivtmp.78,
+  65 0044 F4FFFF1A 		bne	.L4	@,
+  66 0048 013080E2 		add	r3, r0, #1	@ tmp186, j,
+  67 004c 0338A0E1 		mov	r3, r3, asl #16	@ tmp187, tmp186,
+  68 0050 2308A0E1 		mov	r0, r3, lsr #16	@ j, tmp187,
+  69 0054 0A0050E3 		cmp	r0, #10	@ j,
+  70 0058 145085E2 		add	r5, r5, #20	@ ivtmp.89, ivtmp.89,
+  71 005c 0200000A 		beq	.L5	@,
+  72              	.L2:
+  73 0060 0510A0E1 		mov	r1, r5	@ ivtmp.78, ivtmp.89
+  74 0064 00C0A0E3 		mov	ip, #0	@ i,
+  75 0068 EBFFFFEA 		b	.L4	@
+  76              	.L5:
+  77 006c 0400A0E1 		mov	r0, r4	@, count
+  78 0070 7000BDE8 		ldmfd	sp!, {r4, r5, r6}
+  79 0074 1EFF2FE1 		bx	lr
+  80              		.size	countHitsFromSea, .-countHitsFromSea
+  81              		.align	2
+  82              		.global	resetShip
+  83              		.type	resetShip, %function
+  84              	resetShip:
+  85              		@ Function supports interworking.
+  86              		@ args = 0, pretend = 0, frame = 0
+  87              		@ frame_needed = 0, uses_anonymous_args = 0
+  88              		@ link register save eliminated.
+  89 0078 0030A0E3 		mov	r3, #0	@ tmp141,
+  90 007c B422C0E1 		strh	r2, [r0, #36]	@ movhi	@ mark, <variable>.mark
+  91 0080 B010C0E1 		strh	r1, [r0, #0]	@ movhi	@ size, <variable>.size
+  92 0084 B232C0E1 		strh	r3, [r0, #34]	@ movhi	@ tmp141, <variable>.nroCoordReady
+  93 0088 B230C0E1 		strh	r3, [r0, #2]	@ movhi	@ tmp141, <variable>.shipStatus
+  94 008c B430C0E1 		strh	r3, [r0, #4]	@ movhi	@ tmp141, <variable>.coordStatus
+  95 0090 B630C0E1 		strh	r3, [r0, #6]	@ movhi	@ tmp141, <variable>.coordStatus
+  96 0094 B830C0E1 		strh	r3, [r0, #8]	@ movhi	@ tmp141, <variable>.coordStatus
+  97 0098 BA30C0E1 		strh	r3, [r0, #10]	@ movhi	@ tmp141, <variable>.coordStatus
+  98 009c BC30C0E1 		strh	r3, [r0, #12]	@ movhi	@ tmp141, <variable>.coordStatus
+  99 00a0 BE30C0E1 		strh	r3, [r0, #14]	@ movhi	@ tmp141, <variable>.coordinates
+ 100 00a4 B031C0E1 		strh	r3, [r0, #16]	@ movhi	@ tmp141, <variable>.coordinates
+ 101 00a8 B231C0E1 		strh	r3, [r0, #18]	@ movhi	@ tmp141, <variable>.coordinates
+ 102 00ac B431C0E1 		strh	r3, [r0, #20]	@ movhi	@ tmp141, <variable>.coordinates
+ 103 00b0 B631C0E1 		strh	r3, [r0, #22]	@ movhi	@ tmp141, <variable>.coordinates
+ 104 00b4 B831C0E1 		strh	r3, [r0, #24]	@ movhi	@ tmp141, <variable>.coordinates
+ 105 00b8 BA31C0E1 		strh	r3, [r0, #26]	@ movhi	@ tmp141, <variable>.coordinates
+ 106 00bc BC31C0E1 		strh	r3, [r0, #28]	@ movhi	@ tmp141, <variable>.coordinates
+ 107 00c0 BE31C0E1 		strh	r3, [r0, #30]	@ movhi	@ tmp141, <variable>.coordinates
+ 108 00c4 B032C0E1 		strh	r3, [r0, #32]	@ movhi	@ tmp141, <variable>.coordinates
+ 109 00c8 1EFF2FE1 		bx	lr	@
+ 110              		.size	resetShip, .-resetShip
+ 111              		.align	2
+ 112              		.global	resetWholeGame
+ 113              		.type	resetWholeGame, %function
+ 114              	resetWholeGame:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 3
+
+
+ 115              		@ Function supports interworking.
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118 00cc F0472DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}	@,
+ 119 00d0 00C0A0E3 		mov	ip, #0	@ ivtmp.142,
+ 120 00d4 3CA29FE5 		ldr	sl, .L20	@ tmp384,
+ 121 00d8 3C829FE5 		ldr	r8, .L20+4	@ tmp385,
+ 122 00dc 3C729FE5 		ldr	r7, .L20+8	@ tmp386,
+ 123 00e0 3C629FE5 		ldr	r6, .L20+12	@ tmp387,
+ 124 00e4 3C529FE5 		ldr	r5, .L20+16	@ tmp388,
+ 125 00e8 0C10A0E1 		mov	r1, ip	@ ivtmp.149, ivtmp.142
+ 126              	.L13:
+ 127 00ec 1430A0E3 		mov	r3, #20	@ tmp192,
+ 128 00f0 930C02E0 		mul	r2, r3, ip	@ tmp191, tmp192, ivtmp.142
+ 129 00f4 30329FE5 		ldr	r3, .L20+20	@ tmp184,
+ 130 00f8 0000A0E3 		mov	r0, #0	@ movhi	@,
+ 131 00fc B10083E1 		strh	r0, [r3, r1]	@ movhi	@, ourCoord
+ 132 0100 28329FE5 		ldr	r3, .L20+24	@ tmp188,
+ 133 0104 B10083E1 		strh	r0, [r3, r1]	@ movhi	@, oppCoord
+ 134 0108 24329FE5 		ldr	r3, .L20+28	@ tmp202,
+ 135 010c 024083E0 		add	r4, r3, r2	@ ivtmp.141, tmp202, tmp191
+ 136 0110 20329FE5 		ldr	r3, .L20+32	@ tmp193,
+ 137 0114 02E083E0 		add	lr, r3, r2	@ ivtmp.137, tmp193, tmp191
+ 138 0118 1C329FE5 		ldr	r3, .L20+36	@ tmp196,
+ 139 011c B1008AE1 		strh	r0, [sl, r1]	@ movhi	@, temp
+ 140 0120 020083E0 		add	r0, r3, r2	@ ivtmp.139, tmp196, tmp191
+ 141 0124 14329FE5 		ldr	r3, .L20+40	@ tmp199,
+ 142 0128 022083E0 		add	r2, r3, r2	@ ivtmp.140, tmp199, tmp191
+ 143 012c 0030A0E3 		mov	r3, #0	@ i,
+ 144              	.L11:
+ 145 0130 013083E2 		add	r3, r3, #1	@ tmp211, i,
+ 146 0134 0338A0E1 		mov	r3, r3, asl #16	@ tmp212, tmp211,
+ 147 0138 2338A0E1 		mov	r3, r3, lsr #16	@ i, tmp212,
+ 148 013c 0090A0E3 		mov	r9, #0	@ movhi	@,
+ 149 0140 0A0053E3 		cmp	r3, #10	@ i,
+ 150 0144 B290CEE0 		strh	r9, [lr], #2	@ movhi	@, sea
+ 151 0148 B290C0E0 		strh	r9, [r0], #2	@ movhi	@, oppSea
+ 152 014c B290C2E0 		strh	r9, [r2], #2	@ movhi	@, targetSea
+ 153 0150 B290C4E0 		strh	r9, [r4], #2	@ movhi	@, oppTargetSea
+ 154 0154 F5FFFF1A 		bne	.L11	@,
+ 155 0158 E4419FE5 		ldr	r4, .L20+44	@ tmp380,
+ 156 015c E4E19FE5 		ldr	lr, .L20+48	@ tmp381,
+ 157 0160 E4019FE5 		ldr	r0, .L20+52	@ tmp382,
+ 158 0164 E4219FE5 		ldr	r2, .L20+56	@ tmp383,
+ 159 0168 0030A0E3 		mov	r3, #0	@ ivtmp.123,
+ 160              	.L12:
+ 161 016c 0090A0E3 		mov	r9, #0	@ movhi	@,
+ 162 0170 B39088E1 		strh	r9, [r8, r3]	@ movhi	@, targetSeaShotX
+ 163 0174 B39087E1 		strh	r9, [r7, r3]	@ movhi	@, targetSeaShotY
+ 164 0178 B39086E1 		strh	r9, [r6, r3]	@ movhi	@, targetOppSeaShotX
+ 165 017c B39085E1 		strh	r9, [r5, r3]	@ movhi	@, targetOppSeaShotY
+ 166 0180 B39084E1 		strh	r9, [r4, r3]	@ movhi	@, targetOppShotX
+ 167 0184 B3908EE1 		strh	r9, [lr, r3]	@ movhi	@, targetOppShotY
+ 168 0188 B39080E1 		strh	r9, [r0, r3]	@ movhi	@, seaShotEffects
+ 169 018c B39082E1 		strh	r9, [r2, r3]	@ movhi	@, oppShotEffects
+ 170 0190 023083E2 		add	r3, r3, #2	@ ivtmp.123, ivtmp.123,
+ 171 0194 0A0053E3 		cmp	r3, #10	@ ivtmp.123,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 4
+
+
+ 172 0198 F3FFFF1A 		bne	.L12	@,
+ 173 019c 01C08CE2 		add	ip, ip, #1	@ ivtmp.142, ivtmp.142,
+ 174 01a0 0A005CE3 		cmp	ip, #10	@ ivtmp.142,
+ 175 01a4 021081E2 		add	r1, r1, #2	@ ivtmp.149, ivtmp.149,
+ 176 01a8 CFFFFF1A 		bne	.L13	@,
+ 177 01ac 0030A0E3 		mov	r3, #0	@ ivtmp.115,
+ 178 01b0 9C119FE5 		ldr	r1, .L20+60	@ tmp373,
+ 179 01b4 9C219FE5 		ldr	r2, .L20+64	@ tmp375,
+ 180 01b8 0350A0E1 		mov	r5, r3	@ tmp374, ivtmp.115
+ 181              	.L14:
+ 182 01bc 835081E7 		str	r5, [r1, r3, asl #1]	@ tmp374, vastustajaLista
+ 183 01c0 B35082E1 		strh	r5, [r2, r3]	@ movhi	@ tmp374, u_shortLista
+ 184 01c4 023083E2 		add	r3, r3, #2	@ ivtmp.115, ivtmp.115,
+ 185 01c8 280053E3 		cmp	r3, #40	@ ivtmp.115,
+ 186 01cc FAFFFF1A 		bne	.L14	@,
+ 187 01d0 84419FE5 		ldr	r4, .L20+68	@ tmp253,
+ 188 01d4 0130A0E3 		mov	r3, #1	@ movhi	@,
+ 189 01d8 0290A0E3 		mov	r9, #2	@ movhi	@,
+ 190 01dc B030C4E1 		strh	r3, [r4, #0]	@ movhi	@, game.turn
+ 191 01e0 B032C4E1 		strh	r3, [r4, #32]	@ movhi	@, <variable>.playerCode
+ 192 01e4 74019FE5 		ldr	r0, .L20+72	@,
+ 193 01e8 0510A0E3 		mov	r1, #5	@,
+ 194 01ec 0620A0E3 		mov	r2, #6	@,
+ 195 01f0 BA51C4E1 		strh	r5, [r4, #26]	@ movhi	@ tmp374, game.gameStatus
+ 196 01f4 B250C4E1 		strh	r5, [r4, #2]	@ movhi	@ tmp374, game.playerAnnounced
+ 197 01f8 045084E5 		str	r5, [r4, #4]	@ tmp374, game.playerAddress
+ 198 01fc B850C4E1 		strh	r5, [r4, #8]	@ movhi	@ tmp374, game.selectedOpponentHasAnswered
+ 199 0200 BA50C4E1 		strh	r5, [r4, #10]	@ movhi	@ tmp374, game.opponentAnswer
+ 200 0204 BC50C4E1 		strh	r5, [r4, #12]	@ movhi	@ tmp374, game.coordGetOk
+ 201 0208 BE50C4E1 		strh	r5, [r4, #14]	@ movhi	@ tmp374, game.coordSend
+ 202 020c B051C4E1 		strh	r5, [r4, #16]	@ movhi	@ tmp374, game.resultsSend
+ 203 0210 B251C4E1 		strh	r5, [r4, #18]	@ movhi	@ tmp374, game.resultsAsked
+ 204 0214 B451C4E1 		strh	r5, [r4, #20]	@ movhi	@ tmp374, game.resultReady
+ 205 0218 B651C4E1 		strh	r5, [r4, #22]	@ movhi	@ tmp374, game.startTurn
+ 206 021c B851C4E1 		strh	r5, [r4, #24]	@ movhi	@ tmp374, game.previousTurn_SunkenShips
+ 207 0220 BC51C4E1 		strh	r5, [r4, #28]	@ movhi	@ tmp374, game.speechMode
+ 208 0224 B252C4E1 		strh	r5, [r4, #34]	@ movhi	@ tmp374, <variable>.shipsSetStatus
+ 209 0228 B453C4E1 		strh	r5, [r4, #52]	@ movhi	@ tmp374, <variable>.allShipsSunken
+ 210 022c B253C4E1 		strh	r5, [r4, #50]	@ movhi	@ tmp374, <variable>.nroHits
+ 211 0230 B652C4E1 		strh	r5, [r4, #38]	@ movhi	@ tmp374, <variable>.nroSunkenShips
+ 212 0234 B452C4E1 		strh	r5, [r4, #36]	@ movhi	@ tmp374, <variable>.playerStatus
+ 213 0238 B852C4E1 		strh	r5, [r4, #40]	@ movhi	@ tmp374, <variable>.sunkenShips
+ 214 023c BA52C4E1 		strh	r5, [r4, #42]	@ movhi	@ tmp374, <variable>.sunkenShips
+ 215 0240 BC52C4E1 		strh	r5, [r4, #44]	@ movhi	@ tmp374, <variable>.sunkenShips
+ 216 0244 BE52C4E1 		strh	r5, [r4, #46]	@ movhi	@ tmp374, <variable>.sunkenShips
+ 217 0248 B053C4E1 		strh	r5, [r4, #48]	@ movhi	@ tmp374, <variable>.sunkenShips
+ 218 024c B893C4E1 		strh	r9, [r4, #56]	@ movhi	@, <variable>.playerCode
+ 219 0250 BA53C4E1 		strh	r5, [r4, #58]	@ movhi	@ tmp374, <variable>.shipsSetStatus
+ 220 0254 BC54C4E1 		strh	r5, [r4, #76]	@ movhi	@ tmp374, <variable>.allShipsSunken
+ 221 0258 BA54C4E1 		strh	r5, [r4, #74]	@ movhi	@ tmp374, <variable>.nroHits
+ 222 025c BE53C4E1 		strh	r5, [r4, #62]	@ movhi	@ tmp374, <variable>.nroSunkenShips
+ 223 0260 BC53C4E1 		strh	r5, [r4, #60]	@ movhi	@ tmp374, <variable>.playerStatus
+ 224 0264 B054C4E1 		strh	r5, [r4, #64]	@ movhi	@ tmp374, <variable>.sunkenShips
+ 225 0268 B254C4E1 		strh	r5, [r4, #66]	@ movhi	@ tmp374, <variable>.sunkenShips
+ 226 026c B454C4E1 		strh	r5, [r4, #68]	@ movhi	@ tmp374, <variable>.sunkenShips
+ 227 0270 B654C4E1 		strh	r5, [r4, #70]	@ movhi	@ tmp374, <variable>.sunkenShips
+ 228 0274 B854C4E1 		strh	r5, [r4, #72]	@ movhi	@ tmp374, <variable>.sunkenShips
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 5
+
+
+ 229 0278 FEFFFFEB 		bl	resetShip	@
+ 230 027c E0009FE5 		ldr	r0, .L20+76	@,
+ 231 0280 0410A0E3 		mov	r1, #4	@,
+ 232 0284 0520A0E3 		mov	r2, #5	@,
+ 233 0288 FEFFFFEB 		bl	resetShip	@
+ 234 028c D4009FE5 		ldr	r0, .L20+80	@,
+ 235 0290 0310A0E3 		mov	r1, #3	@,
+ 236 0294 0420A0E3 		mov	r2, #4	@,
+ 237 0298 FEFFFFEB 		bl	resetShip	@
+ 238 029c 0310A0E3 		mov	r1, #3	@,
+ 239 02a0 0120A0E1 		mov	r2, r1	@,
+ 240 02a4 C0009FE5 		ldr	r0, .L20+84	@,
+ 241 02a8 FEFFFFEB 		bl	resetShip	@
+ 242 02ac 0210A0E3 		mov	r1, #2	@,
+ 243 02b0 0120A0E1 		mov	r2, r1	@,
+ 244 02b4 B4009FE5 		ldr	r0, .L20+88	@,
+ 245 02b8 FEFFFFEB 		bl	resetShip	@
+ 246 02bc B0009FE5 		ldr	r0, .L20+92	@,
+ 247 02c0 0510A0E3 		mov	r1, #5	@,
+ 248 02c4 0620A0E3 		mov	r2, #6	@,
+ 249 02c8 FEFFFFEB 		bl	resetShip	@
+ 250 02cc A4009FE5 		ldr	r0, .L20+96	@,
+ 251 02d0 0410A0E3 		mov	r1, #4	@,
+ 252 02d4 0520A0E3 		mov	r2, #5	@,
+ 253 02d8 FEFFFFEB 		bl	resetShip	@
+ 254 02dc 98009FE5 		ldr	r0, .L20+100	@,
+ 255 02e0 0310A0E3 		mov	r1, #3	@,
+ 256 02e4 0420A0E3 		mov	r2, #4	@,
+ 257 02e8 FEFFFFEB 		bl	resetShip	@
+ 258 02ec 0310A0E3 		mov	r1, #3	@,
+ 259 02f0 0120A0E1 		mov	r2, r1	@,
+ 260 02f4 84009FE5 		ldr	r0, .L20+104	@,
+ 261 02f8 FEFFFFEB 		bl	resetShip	@
+ 262 02fc 0210A0E3 		mov	r1, #2	@,
+ 263 0300 7C009FE5 		ldr	r0, .L20+108	@,
+ 264 0304 0120A0E1 		mov	r2, r1	@,
+ 265 0308 FEFFFFEB 		bl	resetShip	@
+ 266 030c B252C4E1 		strh	r5, [r4, #34]	@ movhi	@ tmp374, <variable>.shipsSetStatus
+ 267 0310 F047BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+ 268 0314 1EFF2FE1 		bx	lr
+ 269              	.L21:
+ 270              		.align	2
+ 271              	.L20:
+ 272 0318 00000000 		.word	temp
+ 273 031c 00000000 		.word	targetSeaShotX
+ 274 0320 00000000 		.word	targetSeaShotY
+ 275 0324 00000000 		.word	targetOppSeaShotX
+ 276 0328 00000000 		.word	targetOppSeaShotY
+ 277 032c 00000000 		.word	ourCoord
+ 278 0330 00000000 		.word	oppCoord
+ 279 0334 00000000 		.word	oppTargetSea
+ 280 0338 00000000 		.word	sea
+ 281 033c 00000000 		.word	oppSea
+ 282 0340 00000000 		.word	targetSea
+ 283 0344 00000000 		.word	targetOppShotX
+ 284 0348 00000000 		.word	targetOppShotY
+ 285 034c 00000000 		.word	seaShotEffects
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 6
+
+
+ 286 0350 00000000 		.word	oppShotEffects
+ 287 0354 00000000 		.word	vastustajaLista
+ 288 0358 00000000 		.word	u_shortLista
+ 289 035c 00000000 		.word	game
+ 290 0360 00000000 		.word	air5
+ 291 0364 00000000 		.word	bat4
+ 292 0368 00000000 		.word	cru3
+ 293 036c 00000000 		.word	sub3
+ 294 0370 00000000 		.word	des2
+ 295 0374 00000000 		.word	oppAir5
+ 296 0378 00000000 		.word	oppBat4
+ 297 037c 00000000 		.word	oppCru3
+ 298 0380 00000000 		.word	oppSub3
+ 299 0384 00000000 		.word	oppDes2
+ 300              		.size	resetWholeGame, .-resetWholeGame
+ 301              		.align	2
+ 302              		.global	returnAllShipHits
+ 303              		.type	returnAllShipHits, %function
+ 304              	returnAllShipHits:
+ 305              		@ Function supports interworking.
+ 306              		@ args = 4, pretend = 0, frame = 0
+ 307              		@ frame_needed = 0, uses_anonymous_args = 0
+ 308              		@ link register save eliminated.
+ 309 0388 F0052DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, sl}	@,
+ 310 038c 0070A0E3 		mov	r7, #0	@ boatHit,
+ 311 0390 00C0A0E1 		mov	ip, r0	@ ivtmp.188, boat1
+ 312 0394 B040D0E1 		ldrh	r4, [r0, #0]	@ D.3698, <variable>.size
+ 313 0398 0260A0E1 		mov	r6, r2	@ boat3, boat3
+ 314 039c 0380A0E1 		mov	r8, r3	@ boat4, boat4
+ 315 03a0 18A09DE5 		ldr	sl, [sp, #24]	@ boat5, boat5
+ 316 03a4 0700A0E1 		mov	r0, r7	@ i, boatHit
+ 317 03a8 050000EA 		b	.L23	@
+ 318              	.L25:
+ 319 03ac B430DCE1 		ldrh	r3, [ip, #4]	@ tmp162, <variable>.coordStatus
+ 320 03b0 010053E3 		cmp	r3, #1	@ tmp162,
+ 321 03b4 01308702 		addeq	r3, r7, #1	@ tmp163, boatHit,
+ 322 03b8 0338A001 		moveq	r3, r3, asl #16	@ tmp164, tmp163,
+ 323 03bc 2378A001 		moveq	r7, r3, lsr #16	@ boatHit, tmp164,
+ 324 03c0 02C08CE2 		add	ip, ip, #2	@ ivtmp.188, ivtmp.188,
+ 325              	.L23:
+ 326 03c4 013080E2 		add	r3, r0, #1	@ tmp165, i,
+ 327 03c8 0338A0E1 		mov	r3, r3, asl #16	@ tmp166, tmp165,
+ 328 03cc 040050E1 		cmp	r0, r4	@ i, D.3698
+ 329 03d0 2308A0E1 		mov	r0, r3, lsr #16	@ i, tmp166,
+ 330 03d4 F4FFFF3A 		bcc	.L25	@,
+ 331 03d8 0000A0E3 		mov	r0, #0	@ boatHit.192,
+ 332 03dc 0120A0E1 		mov	r2, r1	@ ivtmp.182, boat2
+ 333 03e0 00C0A0E1 		mov	ip, r0	@ i, boatHit.192
+ 334 03e4 B010D1E1 		ldrh	r1, [r1, #0]	@ D.3705, <variable>.size
+ 335 03e8 050000EA 		b	.L26	@
+ 336              	.L28:
+ 337 03ec B430D2E1 		ldrh	r3, [r2, #4]	@ tmp167, <variable>.coordStatus
+ 338 03f0 010053E3 		cmp	r3, #1	@ tmp167,
+ 339 03f4 01308002 		addeq	r3, r0, #1	@ tmp168, boatHit.192,
+ 340 03f8 0338A001 		moveq	r3, r3, asl #16	@ tmp169, tmp168,
+ 341 03fc 2308A001 		moveq	r0, r3, lsr #16	@ boatHit.192, tmp169,
+ 342 0400 022082E2 		add	r2, r2, #2	@ ivtmp.182, ivtmp.182,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 7
+
+
+ 343              	.L26:
+ 344 0404 01308CE2 		add	r3, ip, #1	@ tmp170, i,
+ 345 0408 0338A0E1 		mov	r3, r3, asl #16	@ tmp171, tmp170,
+ 346 040c 01005CE1 		cmp	ip, r1	@ i, D.3705
+ 347 0410 23C8A0E1 		mov	ip, r3, lsr #16	@ i, tmp171,
+ 348 0414 F4FFFF3A 		bcc	.L28	@,
+ 349 0418 0050A0E3 		mov	r5, #0	@ boatHit.193,
+ 350 041c 06C0A0E1 		mov	ip, r6	@ ivtmp.176, boat3
+ 351 0420 B020D6E1 		ldrh	r2, [r6, #0]	@ D.3712, <variable>.size
+ 352 0424 0510A0E1 		mov	r1, r5	@ i, boatHit.193
+ 353 0428 050000EA 		b	.L29	@
+ 354              	.L31:
+ 355 042c B430DCE1 		ldrh	r3, [ip, #4]	@ tmp172, <variable>.coordStatus
+ 356 0430 010053E3 		cmp	r3, #1	@ tmp172,
+ 357 0434 01308502 		addeq	r3, r5, #1	@ tmp173, boatHit.193,
+ 358 0438 0338A001 		moveq	r3, r3, asl #16	@ tmp174, tmp173,
+ 359 043c 2358A001 		moveq	r5, r3, lsr #16	@ boatHit.193, tmp174,
+ 360 0440 02C08CE2 		add	ip, ip, #2	@ ivtmp.176, ivtmp.176,
+ 361              	.L29:
+ 362 0444 013081E2 		add	r3, r1, #1	@ tmp175, i,
+ 363 0448 0338A0E1 		mov	r3, r3, asl #16	@ tmp176, tmp175,
+ 364 044c 020051E1 		cmp	r1, r2	@ i, D.3712
+ 365 0450 2318A0E1 		mov	r1, r3, lsr #16	@ i, tmp176,
+ 366 0454 F4FFFF3A 		bcc	.L31	@,
+ 367 0458 0040A0E3 		mov	r4, #0	@ boatHit.194,
+ 368 045c 0810A0E1 		mov	r1, r8	@ ivtmp.170, boat4
+ 369 0460 B0C0D8E1 		ldrh	ip, [r8, #0]	@ D.3719, <variable>.size
+ 370 0464 0420A0E1 		mov	r2, r4	@ i, boatHit.194
+ 371 0468 050000EA 		b	.L32	@
+ 372              	.L34:
+ 373 046c B430D1E1 		ldrh	r3, [r1, #4]	@ tmp177, <variable>.coordStatus
+ 374 0470 010053E3 		cmp	r3, #1	@ tmp177,
+ 375 0474 01308402 		addeq	r3, r4, #1	@ tmp178, boatHit.194,
+ 376 0478 0338A001 		moveq	r3, r3, asl #16	@ tmp179, tmp178,
+ 377 047c 2348A001 		moveq	r4, r3, lsr #16	@ boatHit.194, tmp179,
+ 378 0480 021081E2 		add	r1, r1, #2	@ ivtmp.170, ivtmp.170,
+ 379              	.L32:
+ 380 0484 013082E2 		add	r3, r2, #1	@ tmp180, i,
+ 381 0488 0338A0E1 		mov	r3, r3, asl #16	@ tmp181, tmp180,
+ 382 048c 0C0052E1 		cmp	r2, ip	@ i, D.3719
+ 383 0490 2328A0E1 		mov	r2, r3, lsr #16	@ i, tmp181,
+ 384 0494 F4FFFF3A 		bcc	.L34	@,
+ 385 0498 0010A0E3 		mov	r1, #0	@ boatHit.195,
+ 386 049c 0AC0A0E1 		mov	ip, sl	@ ivtmp.164, boat5
+ 387 04a0 B060DAE1 		ldrh	r6, [sl, #0]	@ D.3726, <variable>.size
+ 388 04a4 0120A0E1 		mov	r2, r1	@ i, boatHit.195
+ 389 04a8 050000EA 		b	.L35	@
+ 390              	.L37:
+ 391 04ac B430DCE1 		ldrh	r3, [ip, #4]	@ tmp182, <variable>.coordStatus
+ 392 04b0 010053E3 		cmp	r3, #1	@ tmp182,
+ 393 04b4 01308102 		addeq	r3, r1, #1	@ tmp183, boatHit.195,
+ 394 04b8 0338A001 		moveq	r3, r3, asl #16	@ tmp184, tmp183,
+ 395 04bc 2318A001 		moveq	r1, r3, lsr #16	@ boatHit.195, tmp184,
+ 396 04c0 02C08CE2 		add	ip, ip, #2	@ ivtmp.164, ivtmp.164,
+ 397              	.L35:
+ 398 04c4 013082E2 		add	r3, r2, #1	@ tmp185, i,
+ 399 04c8 0338A0E1 		mov	r3, r3, asl #16	@ tmp186, tmp185,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 8
+
+
+ 400 04cc 060052E1 		cmp	r2, r6	@ i, D.3726
+ 401 04d0 2328A0E1 		mov	r2, r3, lsr #16	@ i, tmp186,
+ 402 04d4 F4FFFF3A 		bcc	.L37	@,
+ 403 04d8 070080E0 		add	r0, r0, r7	@ tmp187, boatHit.192, boatHit
+ 404 04dc 050080E0 		add	r0, r0, r5	@ tmp189, tmp187, boatHit.193
+ 405 04e0 040080E0 		add	r0, r0, r4	@ tmp191, tmp189, boatHit.194
+ 406 04e4 010080E0 		add	r0, r0, r1	@ tmp194, tmp191, boatHit.195
+ 407 04e8 0008A0E1 		mov	r0, r0, asl #16	@ tmp196, tmp194,
+ 408 04ec 2008A0E1 		mov	r0, r0, lsr #16	@, tmp196,
+ 409 04f0 F005BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, sl}
+ 410 04f4 1EFF2FE1 		bx	lr
+ 411              		.size	returnAllShipHits, .-returnAllShipHits
+ 412              		.align	2
+ 413              		.global	returnShipHitCount
+ 414              		.type	returnShipHitCount, %function
+ 415              	returnShipHitCount:
+ 416              		@ Function supports interworking.
+ 417              		@ args = 0, pretend = 0, frame = 0
+ 418              		@ frame_needed = 0, uses_anonymous_args = 0
+ 419              		@ link register save eliminated.
+ 420 04f8 0020A0E3 		mov	r2, #0	@ i,
+ 421 04fc 0010A0E1 		mov	r1, r0	@ ivtmp.208, boat
+ 422 0500 B0C0D0E1 		ldrh	ip, [r0, #0]	@ D.2698, <variable>.size
+ 423 0504 0200A0E1 		mov	r0, r2	@ hits, i
+ 424 0508 050000EA 		b	.L40	@
+ 425              	.L42:
+ 426 050c B430D1E1 		ldrh	r3, [r1, #4]	@ tmp139, <variable>.coordStatus
+ 427 0510 010053E3 		cmp	r3, #1	@ tmp139,
+ 428 0514 01308002 		addeq	r3, r0, #1	@ tmp140, hits,
+ 429 0518 0338A001 		moveq	r3, r3, asl #16	@ tmp141, tmp140,
+ 430 051c 2308A001 		moveq	r0, r3, lsr #16	@ hits, tmp141,
+ 431 0520 021081E2 		add	r1, r1, #2	@ ivtmp.208, ivtmp.208,
+ 432              	.L40:
+ 433 0524 013082E2 		add	r3, r2, #1	@ tmp142, i,
+ 434 0528 0338A0E1 		mov	r3, r3, asl #16	@ tmp143, tmp142,
+ 435 052c 0C0052E1 		cmp	r2, ip	@ i, D.2698
+ 436 0530 2328A0E1 		mov	r2, r3, lsr #16	@ i, tmp143,
+ 437 0534 F4FFFF3A 		bcc	.L42	@,
+ 438 0538 1EFF2FE1 		bx	lr	@
+ 439              		.size	returnShipHitCount, .-returnShipHitCount
+ 440              		.align	2
+ 441              		.global	markShotEffectsToPlayerStruct
+ 442              		.type	markShotEffectsToPlayerStruct, %function
+ 443              	markShotEffectsToPlayerStruct:
+ 444              		@ Function supports interworking.
+ 445              		@ args = 0, pretend = 0, frame = 0
+ 446              		@ frame_needed = 0, uses_anonymous_args = 0
+ 447              		@ link register save eliminated.
+ 448 053c 0118A0E1 		mov	r1, r1, asl #16	@ tmp139, result,
+ 449 0540 2118A0E1 		mov	r1, r1, lsr #16	@ result, tmp139,
+ 450 0544 010051E3 		cmp	r1, #1	@ result,
+ 451 0548 1F00009A 		bls	.L45	@,
+ 452 054c 023041E2 		sub	r3, r1, #2	@ tmp140, result,
+ 453 0550 030053E3 		cmp	r3, #3	@ tmp140,
+ 454 0554 03F19F97 		ldrls	pc, [pc, r3, asl #2]	@ tmp140
+ 455 0558 1B0000EA 		b	.L45	@
+ 456              	.L50:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 9
+
+
+ 457 055c 6C050000 		.word	.L46
+ 458 0560 80050000 		.word	.L47
+ 459 0564 A8050000 		.word	.L48
+ 460 0568 BC050000 		.word	.L49
+ 461              	.L46:
+ 462 056c B830D0E1 		ldrh	r3, [r0, #8]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 463 0570 000053E3 		cmp	r3, #0	@ <variable>.sunkenShips,
+ 464 0574 0230A003 		moveq	r3, #2	@ movhi	@,
+ 465 0578 B830C001 		streqh	r3, [r0, #8]	@ movhi	@, <variable>.sunkenShips
+ 466 057c 120000EA 		b	.L45	@
+ 467              	.L47:
+ 468 0580 BA30D0E1 		ldrh	r3, [r0, #10]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 469 0584 000053E3 		cmp	r3, #0	@ <variable>.sunkenShips,
+ 470 0588 0330A003 		moveq	r3, #3	@ movhi	@,
+ 471 058c BA30C001 		streqh	r3, [r0, #10]	@ movhi	@, <variable>.sunkenShips
+ 472 0590 0D00000A 		beq	.L45	@,
+ 473 0594 BC30D0E1 		ldrh	r3, [r0, #12]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 474 0598 000053E3 		cmp	r3, #0	@ <variable>.sunkenShips,
+ 475 059c 0330A003 		moveq	r3, #3	@ movhi	@,
+ 476 05a0 BC30C001 		streqh	r3, [r0, #12]	@ movhi	@, <variable>.sunkenShips
+ 477 05a4 080000EA 		b	.L45	@
+ 478              	.L48:
+ 479 05a8 BE30D0E1 		ldrh	r3, [r0, #14]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 480 05ac 000053E3 		cmp	r3, #0	@ <variable>.sunkenShips,
+ 481 05b0 0430A003 		moveq	r3, #4	@ movhi	@,
+ 482 05b4 BE30C001 		streqh	r3, [r0, #14]	@ movhi	@, <variable>.sunkenShips
+ 483 05b8 030000EA 		b	.L45	@
+ 484              	.L49:
+ 485 05bc B031D0E1 		ldrh	r3, [r0, #16]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 486 05c0 000053E3 		cmp	r3, #0	@ <variable>.sunkenShips,
+ 487 05c4 0530A003 		moveq	r3, #5	@ movhi	@,
+ 488 05c8 B031C001 		streqh	r3, [r0, #16]	@ movhi	@, <variable>.sunkenShips
+ 489              	.L45:
+ 490 05cc 0030A0E3 		mov	r3, #0	@ movhi	@,
+ 491 05d0 B630C0E1 		strh	r3, [r0, #6]	@ movhi	@, <variable>.nroSunkenShips
+ 492 05d4 0020A0E1 		mov	r2, r0	@ ivtmp.225, player
+ 493 05d8 0A1080E2 		add	r1, r0, #10	@ tmp171, player,
+ 494              	.L53:
+ 495 05dc B830D2E1 		ldrh	r3, [r2, #8]	@ tmp158, <variable>.sunkenShips
+ 496 05e0 000053E3 		cmp	r3, #0	@ tmp158,
+ 497 05e4 B630D011 		ldrneh	r3, [r0, #6]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 498 05e8 022082E2 		add	r2, r2, #2	@ ivtmp.225, ivtmp.225,
+ 499 05ec 01308312 		addne	r3, r3, #1	@ tmp161, <variable>.nroSunkenShips,
+ 500 05f0 B630C011 		strneh	r3, [r0, #6]	@ movhi	@ tmp161, <variable>.nroSunkenShips
+ 501 05f4 010052E1 		cmp	r2, r1	@ ivtmp.225, tmp171
+ 502 05f8 F7FFFF1A 		bne	.L53	@,
+ 503 05fc B630D0E1 		ldrh	r3, [r0, #6]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 504 0600 050053E3 		cmp	r3, #5	@ <variable>.nroSunkenShips,
+ 505 0604 0130A003 		moveq	r3, #1	@ movhi	@,
+ 506 0608 B431C001 		streqh	r3, [r0, #20]	@ movhi	@, <variable>.allShipsSunken
+ 507 060c 1EFF2FE1 		bx	lr	@
+ 508              		.size	markShotEffectsToPlayerStruct, .-markShotEffectsToPlayerStruct
+ 509              		.align	2
+ 510              		.global	returnSeaValue
+ 511              		.type	returnSeaValue, %function
+ 512              	returnSeaValue:
+ 513              		@ Function supports interworking.
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 10
+
+
+ 514              		@ args = 0, pretend = 0, frame = 0
+ 515              		@ frame_needed = 0, uses_anonymous_args = 0
+ 516              		@ link register save eliminated.
+ 517 0610 0118A0E1 		mov	r1, r1, asl #16	@ tmp139, y,
+ 518 0614 2118A0E1 		mov	r1, r1, lsr #16	@ y, tmp139,
+ 519 0618 0A30A0E3 		mov	r3, #10	@ tmp143,
+ 520 061c 910303E0 		mul	r3, r1, r3	@ tmp142, y, tmp143
+ 521 0620 0008A0E1 		mov	r0, r0, asl #16	@ tmp136, x,
+ 522 0624 203883E0 		add	r3, r3, r0, lsr #16	@, tmp144, tmp142, tmp136,
+ 523 0628 8330A0E1 		mov	r3, r3, asl #1	@ tmp145, tmp144,
+ 524 062c B30092E1 		ldrh	r0, [r2, r3]	@,
+ 525 0630 1EFF2FE1 		bx	lr	@
+ 526              		.size	returnSeaValue, .-returnSeaValue
+ 527              		.align	2
+ 528              		.global	setShipToSea
+ 529              		.type	setShipToSea, %function
+ 530              	setShipToSea:
+ 531              		@ Function supports interworking.
+ 532              		@ args = 0, pretend = 0, frame = 116
+ 533              		@ frame_needed = 0, uses_anonymous_args = 0
+ 534 0634 F04F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}	@,
+ 535 0638 00A0A0E1 		mov	sl, r0	@ boat, boat
+ 536 063c B232DAE1 		ldrh	r3, [sl, #34]	@ <variable>.nroCoordReady, <variable>.nroCoordReady
+ 537 0640 B000D0E1 		ldrh	r0, [r0, #0]	@ <variable>.size, <variable>.size
+ 538 0644 030050E1 		cmp	r0, r3	@ <variable>.size, <variable>.nroCoordReady
+ 539 0648 74D04DE2 		sub	sp, sp, #116	@,,
+ 540 064c 0000A013 		movne	r0, #0	@,
+ 541 0650 1C208DE5 		str	r2, [sp, #28]	@ sea, sea
+ 542 0654 20008D15 		strne	r0, [sp, #32]	@, result
+ 543 0658 0000A003 		moveq	r0, #0	@ i,
+ 544 065c 0C00001A 		bne	.L61	@,
+ 545 0660 010000EA 		b	.L62	@
+ 546              	.L63:
+ 547 0664 BCC091E1 		ldrh	ip, [r1, ip]	@,
+ 548 0668 BEC0CEE1 		strh	ip, [lr, #14]	@ movhi	@, <variable>.coordinates
+ 549              	.L62:
+ 550 066c B020DAE1 		ldrh	r2, [sl, #0]	@ <variable>.size, <variable>.size
+ 551 0670 013080E2 		add	r3, r0, #1	@ tmp246, i,
+ 552 0674 0338A0E1 		mov	r3, r3, asl #16	@ tmp247, tmp246,
+ 553 0678 820050E1 		cmp	r0, r2, asl #1	@ i, <variable>.size,
+ 554 067c 80E08AE0 		add	lr, sl, r0, asl #1	@, tmp240, boat, i,
+ 555 0680 80C0A0E1 		mov	ip, r0, asl #1	@ tmp242, i,
+ 556 0684 2308A0E1 		mov	r0, r3, lsr #16	@ i, tmp247,
+ 557 0688 F5FFFFBA 		blt	.L63	@,
+ 558 068c 0110A0E3 		mov	r1, #1	@,
+ 559 0690 20108DE5 		str	r1, [sp, #32]	@, result
+ 560              	.L61:
+ 561 0694 00B0A0E3 		mov	fp, #0	@ i.282,
+ 562 0698 24008DE2 		add	r0, sp, #36	@,,
+ 563 069c 0010A0E3 		mov	r1, #0	@,
+ 564 06a0 5020A0E3 		mov	r2, #80	@,
+ 565 06a4 FEFFFFEB 		bl	memset	@
+ 566 06a8 0B90A0E1 		mov	r9, fp	@ j, i.282
+ 567 06ac 0BE0A0E1 		mov	lr, fp	@ k, i.282
+ 568 06b0 190000EA 		b	.L64	@
+ 569              	.L65:
+ 570 06b4 18209DE5 		ldr	r2, [sp, #24]	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 11
+
+
+ 571 06b8 14C09DE5 		ldr	ip, [sp, #20]	@,
+ 572 06bc BE30D2E1 		ldrh	r3, [r2, #14]	@ x, <variable>.coordinates
+ 573 06c0 BE20DCE1 		ldrh	r2, [ip, #14]	@ y, <variable>.coordinates
+ 574 06c4 0A10A0E3 		mov	r1, #10	@ tmp270,
+ 575 06c8 923121E0 		mla	r1, r2, r1, r3	@ tmp270, y, tmp270, x
+ 576 06cc B03546E1 		strh	r3, [r6, #-80]	@ movhi	@ x, saf
+ 577 06d0 10609DE5 		ldr	r6, [sp, #16]	@,
+ 578 06d4 010042E2 		sub	r0, r2, #1	@ tmp286, y,
+ 579 06d8 B00546E1 		strh	r0, [r6, #-80]	@ movhi	@ tmp286, saf
+ 580 06dc 0C009DE5 		ldr	r0, [sp, #12]	@,
+ 581 06e0 01C083E2 		add	ip, r3, #1	@ tmp294, x,
+ 582 06e4 B0C540E1 		strh	ip, [r0, #-80]	@ movhi	@ tmp294, saf
+ 583 06e8 08609DE5 		ldr	r6, [sp, #8]	@,
+ 584 06ec 01109DE8 		ldmia	sp, {r0, ip}	@ phole ldm
+ 585 06f0 015043E2 		sub	r5, r3, #1	@ tmp324, x,
+ 586 06f4 014082E2 		add	r4, r2, #1	@ tmp316, y,
+ 587 06f8 B02546E1 		strh	r2, [r6, #-80]	@ movhi	@ y, saf
+ 588 06fc B0354CE1 		strh	r3, [ip, #-80]	@ movhi	@ x, saf
+ 589 0700 B04540E1 		strh	r4, [r0, #-80]	@ movhi	@ tmp316, saf
+ 590 0704 B05547E1 		strh	r5, [r7, #-80]	@ movhi	@ tmp324, saf
+ 591 0708 B02548E1 		strh	r2, [r8, #-80]	@ movhi	@ y, saf
+ 592 070c 1C209DE5 		ldr	r2, [sp, #28]	@, sea
+ 593 0710 B432DAE1 		ldrh	r3, [sl, #36]	@, <variable>.mark
+ 594 0714 8110A0E1 		mov	r1, r1, asl #1	@ tmp271, tmp270,
+ 595 0718 B13082E1 		strh	r3, [r2, r1]	@ movhi	@,
+ 596              	.L64:
+ 597 071c 013089E2 		add	r3, r9, #1	@ tmp258, j,
+ 598 0720 0338A0E1 		mov	r3, r3, asl #16	@ tmp260, tmp258,
+ 599 0724 A3378AE0 		add	r3, sl, r3, lsr #15	@,, boat, tmp260,
+ 600 0728 01008EE2 		add	r0, lr, #1	@ tmp279, k,
+ 601 072c 89608AE0 		add	r6, sl, r9, asl #1	@,, boat, j,
+ 602 0730 02C08EE2 		add	ip, lr, #2	@ tmp287, k,
+ 603 0734 0008A0E1 		mov	r0, r0, asl #16	@ tmp281, tmp279,
+ 604 0738 14308DE5 		str	r3, [sp, #20]	@,
+ 605 073c 023089E2 		add	r3, r9, #2	@ tmp266, j,
+ 606 0740 74908DE2 		add	r9, sp, #116	@,,
+ 607 0744 A09789E0 		add	r9, r9, r0, lsr #15	@,,, tmp281,
+ 608 0748 0CC8A0E1 		mov	ip, ip, asl #16	@ tmp289, tmp287,
+ 609 074c 74008DE2 		add	r0, sp, #116	@,,
+ 610 0750 AC0780E0 		add	r0, r0, ip, lsr #15	@,,, tmp289,
+ 611 0754 18608DE5 		str	r6, [sp, #24]	@,
+ 612 0758 05608EE2 		add	r6, lr, #5	@ tmp309, k,
+ 613 075c 0668A0E1 		mov	r6, r6, asl #16	@ tmp311, tmp309,
+ 614 0760 0C008DE5 		str	r0, [sp, #12]	@,
+ 615 0764 74008DE2 		add	r0, sp, #116	@,,
+ 616 0768 A60780E0 		add	r0, r0, r6, lsr #15	@,,, tmp311,
+ 617 076c 03408EE2 		add	r4, lr, #3	@ tmp295, k,
+ 618 0770 04508EE2 		add	r5, lr, #4	@ tmp302, k,
+ 619 0774 00008DE5 		str	r0, [sp, #0]	@,
+ 620 0778 B000DAE1 		ldrh	r0, [sl, #0]	@ <variable>.size, <variable>.size
+ 621 077c 06708EE2 		add	r7, lr, #6	@ tmp317, k,
+ 622 0780 07808EE2 		add	r8, lr, #7	@ tmp325, k,
+ 623 0784 08208EE2 		add	r2, lr, #8	@ tmp332, k,
+ 624 0788 01108BE2 		add	r1, fp, #1	@ tmp334, i.282,
+ 625 078c 0448A0E1 		mov	r4, r4, asl #16	@ tmp297, tmp295,
+ 626 0790 0558A0E1 		mov	r5, r5, asl #16	@ tmp304, tmp302,
+ 627 0794 10908DE5 		str	r9, [sp, #16]	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 12
+
+
+ 628 0798 74C08DE2 		add	ip, sp, #116	@,,
+ 629 079c 74908DE2 		add	r9, sp, #116	@,,
+ 630 07a0 74608DE2 		add	r6, sp, #116	@,,
+ 631 07a4 A49789E0 		add	r9, r9, r4, lsr #15	@,,, tmp297,
+ 632 07a8 0778A0E1 		mov	r7, r7, asl #16	@ tmp319, tmp317,
+ 633 07ac 0888A0E1 		mov	r8, r8, asl #16	@ tmp327, tmp325,
+ 634 07b0 A5C78CE0 		add	ip, ip, r5, lsr #15	@,,, tmp304,
+ 635 07b4 0338A0E1 		mov	r3, r3, asl #16	@ tmp267, tmp266,
+ 636 07b8 0228A0E1 		mov	r2, r2, asl #16	@ tmp333, tmp332,
+ 637 07bc 0118A0E1 		mov	r1, r1, asl #16	@ tmp335, tmp334,
+ 638 07c0 0B0050E1 		cmp	r0, fp	@ <variable>.size, i.282
+ 639 07c4 08908DE5 		str	r9, [sp, #8]	@,
+ 640 07c8 A77786E0 		add	r7, r6, r7, lsr #15	@, tmp322,, tmp319,
+ 641 07cc A88786E0 		add	r8, r6, r8, lsr #15	@, tmp330,, tmp327,
+ 642 07d0 04C08DE5 		str	ip, [sp, #4]	@,
+ 643 07d4 8E6086E0 		add	r6, r6, lr, asl #1	@, tmp277,, k,
+ 644 07d8 2398A0E1 		mov	r9, r3, lsr #16	@ j, tmp267,
+ 645 07dc 22E8A0E1 		mov	lr, r2, lsr #16	@ k, tmp333,
+ 646 07e0 21B8A0E1 		mov	fp, r1, lsr #16	@ i.282, tmp335,
+ 647 07e4 B2FFFF8A 		bhi	.L65	@,
+ 648 07e8 0000A0E3 		mov	r0, #0	@ i.283,
+ 649 07ec 0A40A0E3 		mov	r4, #10	@ tmp369,
+ 650 07f0 100000EA 		b	.L66	@
+ 651              	.L68:
+ 652 07f4 B02551E1 		ldrh	r2, [r1, #-80]	@ x.299, saf
+ 653 07f8 B0C55CE1 		ldrh	ip, [ip, #-80]	@ y.301, saf
+ 654 07fc 942C23E0 		mla	r3, r4, ip, r2	@ tmp350, tmp369, y.301, x.299
+ 655 0800 1C909DE5 		ldr	r9, [sp, #28]	@, sea
+ 656 0804 83E0A0E1 		mov	lr, r3, asl #1	@ tmp351, tmp350,
+ 657 0808 BE1099E1 		ldrh	r1, [r9, lr]	@ tmp353,
+ 658 080c B432DAE1 		ldrh	r3, [sl, #36]	@ <variable>.mark, <variable>.mark
+ 659 0810 090052E3 		cmp	r2, #9	@ x.299,
+ 660 0814 0020A093 		movls	r2, #0	@, tmp357
+ 661 0818 0120A083 		movhi	r2, #1	@, tmp357
+ 662 081c 030051E1 		cmp	r1, r3	@ tmp353, <variable>.mark
+ 663 0820 01208203 		orreq	r2, r2, #1	@,, tmp360, tmp357
+ 664 0824 000052E3 		cmp	r2, #0	@ tmp360,
+ 665 0828 0200001A 		bne	.L66	@,
+ 666 082c 09005CE3 		cmp	ip, #9	@ y.301,
+ 667 0830 01C0A093 		movls	ip, #1	@ movhi	@,
+ 668 0834 BEC08991 		strlsh	ip, [r9, lr]	@ movhi	@,
+ 669              	.L66:
+ 670 0838 013080E2 		add	r3, r0, #1	@ tmp341, i.283,
+ 671 083c 0338A0E1 		mov	r3, r3, asl #16	@ tmp343, tmp341,
+ 672 0840 74108DE2 		add	r1, sp, #116	@,,
+ 673 0844 B020DAE1 		ldrh	r2, [sl, #0]	@ <variable>.size, <variable>.size
+ 674 0848 A3C781E0 		add	ip, r1, r3, lsr #15	@, tmp346,, tmp343,
+ 675 084c 023080E2 		add	r3, r0, #2	@ tmp363, i.283,
+ 676 0850 0338A0E1 		mov	r3, r3, asl #16	@ tmp364, tmp363,
+ 677 0854 820150E1 		cmp	r0, r2, asl #3	@ i.283, <variable>.size,
+ 678 0858 801081E0 		add	r1, r1, r0, asl #1	@, tmp339,, i.283,
+ 679 085c 2308A0E1 		mov	r0, r3, lsr #16	@ i.283, tmp364,
+ 680 0860 E3FFFFBA 		blt	.L68	@,
+ 681 0864 20009DE5 		ldr	r0, [sp, #32]	@, result
+ 682 0868 74D08DE2 		add	sp, sp, #116	@,,
+ 683 086c F04FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 684 0870 1EFF2FE1 		bx	lr
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 13
+
+
+ 685              		.size	setShipToSea, .-setShipToSea
+ 686              		.align	2
+ 687              		.global	findUpY
+ 688              		.type	findUpY, %function
+ 689              	findUpY:
+ 690              		@ Function supports interworking.
+ 691              		@ args = 0, pretend = 0, frame = 0
+ 692              		@ frame_needed = 0, uses_anonymous_args = 0
+ 693              		@ link register save eliminated.
+ 694 0874 0008A0E1 		mov	r0, r0, asl #16	@ tmp138, size,
+ 695 0878 B220D1E1 		ldrh	r2, [r1, #2]	@ foo.323,
+ 696 087c B630D1E1 		ldrh	r3, [r1, #6]	@ tmp141,
+ 697 0880 20C8A0E1 		mov	ip, r0, lsr #16	@ size, tmp138,
+ 698 0884 020053E1 		cmp	r3, r2	@ tmp141, foo.323
+ 699 0888 0300A031 		movcc	r0, r3	@ foo, tmp141
+ 700 088c 0200A021 		movcs	r0, r2	@ foo, foo.323
+ 701 0890 02005CE3 		cmp	ip, #2	@ size,
+ 702 0894 1EFF2F91 		bxls	lr	@
+ 703 0898 BA30D1E1 		ldrh	r3, [r1, #10]	@ tmp145,
+ 704 089c 030050E1 		cmp	r0, r3	@ foo, tmp145
+ 705 08a0 0300A021 		movcs	r0, r3	@ foo, tmp145
+ 706 08a4 03005CE3 		cmp	ip, #3	@ size,
+ 707 08a8 1EFF2F91 		bxls	lr	@
+ 708 08ac BE30D1E1 		ldrh	r3, [r1, #14]	@ tmp149,
+ 709 08b0 030050E1 		cmp	r0, r3	@ foo, tmp149
+ 710 08b4 0300A021 		movcs	r0, r3	@ foo, tmp149
+ 711 08b8 1EFF2FE1 		bx	lr	@
+ 712              		.size	findUpY, .-findUpY
+ 713              		.align	2
+ 714              		.global	findDownY
+ 715              		.type	findDownY, %function
+ 716              	findDownY:
+ 717              		@ Function supports interworking.
+ 718              		@ args = 0, pretend = 0, frame = 0
+ 719              		@ frame_needed = 0, uses_anonymous_args = 0
+ 720              		@ link register save eliminated.
+ 721 08bc 0008A0E1 		mov	r0, r0, asl #16	@ tmp138, size,
+ 722 08c0 B220D1E1 		ldrh	r2, [r1, #2]	@ foo.331,
+ 723 08c4 B630D1E1 		ldrh	r3, [r1, #6]	@ tmp141,
+ 724 08c8 20C8A0E1 		mov	ip, r0, lsr #16	@ size, tmp138,
+ 725 08cc 020053E1 		cmp	r3, r2	@ tmp141, foo.331
+ 726 08d0 0300A021 		movcs	r0, r3	@ foo, tmp141
+ 727 08d4 0200A031 		movcc	r0, r2	@ foo, foo.331
+ 728 08d8 02005CE3 		cmp	ip, #2	@ size,
+ 729 08dc 1EFF2F91 		bxls	lr	@
+ 730 08e0 BA30D1E1 		ldrh	r3, [r1, #10]	@ tmp145,
+ 731 08e4 030050E1 		cmp	r0, r3	@ foo, tmp145
+ 732 08e8 0300A031 		movcc	r0, r3	@ foo, tmp145
+ 733 08ec 03005CE3 		cmp	ip, #3	@ size,
+ 734 08f0 1EFF2F91 		bxls	lr	@
+ 735 08f4 BE30D1E1 		ldrh	r3, [r1, #14]	@ tmp149,
+ 736 08f8 030050E1 		cmp	r0, r3	@ foo, tmp149
+ 737 08fc 0300A031 		movcc	r0, r3	@ foo, tmp149
+ 738 0900 1EFF2FE1 		bx	lr	@
+ 739              		.size	findDownY, .-findDownY
+ 740              		.align	2
+ 741              		.global	findLeftX
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 14
+
+
+ 742              		.type	findLeftX, %function
+ 743              	findLeftX:
+ 744              		@ Function supports interworking.
+ 745              		@ args = 0, pretend = 0, frame = 0
+ 746              		@ frame_needed = 0, uses_anonymous_args = 0
+ 747              		@ link register save eliminated.
+ 748 0904 0008A0E1 		mov	r0, r0, asl #16	@ tmp138, size,
+ 749 0908 B020D1E1 		ldrh	r2, [r1, #0]	@ foo.339,* temp
+ 750 090c B430D1E1 		ldrh	r3, [r1, #4]	@ tmp141,
+ 751 0910 20C8A0E1 		mov	ip, r0, lsr #16	@ size, tmp138,
+ 752 0914 020053E1 		cmp	r3, r2	@ tmp141, foo.339
+ 753 0918 0300A031 		movcc	r0, r3	@ foo, tmp141
+ 754 091c 0200A021 		movcs	r0, r2	@ foo, foo.339
+ 755 0920 02005CE3 		cmp	ip, #2	@ size,
+ 756 0924 1EFF2F91 		bxls	lr	@
+ 757 0928 B830D1E1 		ldrh	r3, [r1, #8]	@ tmp145,
+ 758 092c 030050E1 		cmp	r0, r3	@ foo, tmp145
+ 759 0930 0300A021 		movcs	r0, r3	@ foo, tmp145
+ 760 0934 03005CE3 		cmp	ip, #3	@ size,
+ 761 0938 1EFF2F91 		bxls	lr	@
+ 762 093c BC30D1E1 		ldrh	r3, [r1, #12]	@ tmp149,
+ 763 0940 030050E1 		cmp	r0, r3	@ foo, tmp149
+ 764 0944 0300A021 		movcs	r0, r3	@ foo, tmp149
+ 765 0948 1EFF2FE1 		bx	lr	@
+ 766              		.size	findLeftX, .-findLeftX
+ 767              		.align	2
+ 768              		.global	findRightX
+ 769              		.type	findRightX, %function
+ 770              	findRightX:
+ 771              		@ Function supports interworking.
+ 772              		@ args = 0, pretend = 0, frame = 0
+ 773              		@ frame_needed = 0, uses_anonymous_args = 0
+ 774              		@ link register save eliminated.
+ 775 094c 0008A0E1 		mov	r0, r0, asl #16	@ tmp138, size,
+ 776 0950 B020D1E1 		ldrh	r2, [r1, #0]	@ right.347,* temp
+ 777 0954 B430D1E1 		ldrh	r3, [r1, #4]	@ tmp141,
+ 778 0958 20C8A0E1 		mov	ip, r0, lsr #16	@ size, tmp138,
+ 779 095c 020053E1 		cmp	r3, r2	@ tmp141, right.347
+ 780 0960 0300A021 		movcs	r0, r3	@ right, tmp141
+ 781 0964 0200A031 		movcc	r0, r2	@ right, right.347
+ 782 0968 02005CE3 		cmp	ip, #2	@ size,
+ 783 096c 1EFF2F91 		bxls	lr	@
+ 784 0970 B830D1E1 		ldrh	r3, [r1, #8]	@ tmp145,
+ 785 0974 030050E1 		cmp	r0, r3	@ right, tmp145
+ 786 0978 0300A031 		movcc	r0, r3	@ right, tmp145
+ 787 097c 03005CE3 		cmp	ip, #3	@ size,
+ 788 0980 1EFF2F91 		bxls	lr	@
+ 789 0984 BC30D1E1 		ldrh	r3, [r1, #12]	@ tmp149,
+ 790 0988 030050E1 		cmp	r0, r3	@ right, tmp149
+ 791 098c 0300A031 		movcc	r0, r3	@ right, tmp149
+ 792 0990 1EFF2FE1 		bx	lr	@
+ 793              		.size	findRightX, .-findRightX
+ 794              		.align	2
+ 795              		.global	seekUp
+ 796              		.type	seekUp, %function
+ 797              	seekUp:
+ 798              		@ Function supports interworking.
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 15
+
+
+ 799              		@ args = 4, pretend = 0, frame = 0
+ 800              		@ frame_needed = 0, uses_anonymous_args = 0
+ 801              		@ link register save eliminated.
+ 802 0994 0338A0E1 		mov	r3, r3, asl #16	@ tmp144, y,
+ 803 0998 70002DE9 		stmfd	sp!, {r4, r5, r6}	@,
+ 804 099c 0228A0E1 		mov	r2, r2, asl #16	@ tmp141, x,
+ 805 09a0 23C8B0E1 		movs	ip, r3, lsr #16	@ y, tmp144,
+ 806 09a4 0150A0E1 		mov	r5, r1	@ i, i
+ 807 09a8 2248A0E1 		mov	r4, r2, lsr #16	@ x, tmp141,
+ 808 09ac 0C609DE5 		ldr	r6, [sp, #12]	@ temp, temp
+ 809 09b0 1200000A 		beq	.L83	@,
+ 810 09b4 0A30A0E3 		mov	r3, #10	@ tmp147,
+ 811 09b8 9C4323E0 		mla	r3, ip, r3, r4	@ tmp148, y, tmp147, x
+ 812 09bc 833080E0 		add	r3, r0, r3, asl #1	@, tmp150, sea, tmp148,
+ 813 09c0 B43153E1 		ldrh	r3, [r3, #-20]	@ tmp152,
+ 814 09c4 000053E3 		cmp	r3, #0	@ tmp152,
+ 815 09c8 0C00001A 		bne	.L83	@,
+ 816 09cc B020D1E1 		ldrh	r2, [r1, #0]	@ D.3259,* i
+ 817 09d0 013082E2 		add	r3, r2, #1	@ tmp155, D.3259,
+ 818 09d4 0338A0E1 		mov	r3, r3, asl #16	@ tmp156, tmp155,
+ 819 09d8 2338A0E1 		mov	r3, r3, lsr #16	@ D.3260, tmp156,
+ 820 09dc 010083E2 		add	r0, r3, #1	@ tmp160, D.3260,
+ 821 09e0 01104CE2 		sub	r1, ip, #1	@ tmp159, y,
+ 822 09e4 8220A0E1 		mov	r2, r2, asl #1	@ tmp153, D.3259,
+ 823 09e8 8330A0E1 		mov	r3, r3, asl #1	@ tmp157, D.3260,
+ 824 09ec B24086E1 		strh	r4, [r6, r2]	@ movhi	@ x,
+ 825 09f0 B31086E1 		strh	r1, [r6, r3]	@ movhi	@ tmp159,
+ 826 09f4 B000C5E1 		strh	r0, [r5, #0]	@ movhi	@ tmp160,* i
+ 827 09f8 0100A0E3 		mov	r0, #1	@ found,
+ 828 09fc 000000EA 		b	.L84	@
+ 829              	.L83:
+ 830 0a00 0000A0E3 		mov	r0, #0	@ found,
+ 831              	.L84:
+ 832 0a04 7000BDE8 		ldmfd	sp!, {r4, r5, r6}
+ 833 0a08 1EFF2FE1 		bx	lr
+ 834              		.size	seekUp, .-seekUp
+ 835              		.align	2
+ 836              		.global	seekLeft
+ 837              		.type	seekLeft, %function
+ 838              	seekLeft:
+ 839              		@ Function supports interworking.
+ 840              		@ args = 4, pretend = 0, frame = 0
+ 841              		@ frame_needed = 0, uses_anonymous_args = 0
+ 842              		@ link register save eliminated.
+ 843 0a0c 0228A0E1 		mov	r2, r2, asl #16	@ tmp141, x,
+ 844 0a10 70002DE9 		stmfd	sp!, {r4, r5, r6}	@,
+ 845 0a14 0338A0E1 		mov	r3, r3, asl #16	@ tmp144, y,
+ 846 0a18 22C8B0E1 		movs	ip, r2, lsr #16	@ x, tmp141,
+ 847 0a1c 0150A0E1 		mov	r5, r1	@ i, i
+ 848 0a20 2348A0E1 		mov	r4, r3, lsr #16	@ y, tmp144,
+ 849 0a24 0C609DE5 		ldr	r6, [sp, #12]	@ temp, temp
+ 850 0a28 1400000A 		beq	.L87	@,
+ 851 0a2c 0930E0E3 		mvn	r3, #9	@ tmp148,
+ 852 0a30 01206CE2 		rsb	r2, ip, #1	@ tmp146, x,
+ 853 0a34 932422E0 		mla	r2, r3, r4, r2	@ tmp149, tmp148, y, tmp146
+ 854 0a38 083083E2 		add	r3, r3, #8	@ tmp151, tmp151,
+ 855 0a3c 920303E0 		mul	r3, r2, r3	@ tmp150, tmp149, tmp151
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 16
+
+
+ 856 0a40 B33090E1 		ldrh	r3, [r0, r3]	@ tmp153,
+ 857 0a44 000053E3 		cmp	r3, #0	@ tmp153,
+ 858 0a48 0C00001A 		bne	.L87	@,
+ 859 0a4c B020D1E1 		ldrh	r2, [r1, #0]	@ D.3282,* i
+ 860 0a50 013082E2 		add	r3, r2, #1	@ tmp157, D.3282,
+ 861 0a54 0338A0E1 		mov	r3, r3, asl #16	@ tmp158, tmp157,
+ 862 0a58 2338A0E1 		mov	r3, r3, lsr #16	@ D.3283, tmp158,
+ 863 0a5c 010083E2 		add	r0, r3, #1	@ tmp161, D.3283,
+ 864 0a60 01104CE2 		sub	r1, ip, #1	@ tmp156, x,
+ 865 0a64 8220A0E1 		mov	r2, r2, asl #1	@ tmp154, D.3282,
+ 866 0a68 8330A0E1 		mov	r3, r3, asl #1	@ tmp159, D.3283,
+ 867 0a6c B21086E1 		strh	r1, [r6, r2]	@ movhi	@ tmp156,
+ 868 0a70 B34086E1 		strh	r4, [r6, r3]	@ movhi	@ y,
+ 869 0a74 B000C5E1 		strh	r0, [r5, #0]	@ movhi	@ tmp161,* i
+ 870 0a78 0100A0E3 		mov	r0, #1	@ found,
+ 871 0a7c 000000EA 		b	.L88	@
+ 872              	.L87:
+ 873 0a80 0000A0E3 		mov	r0, #0	@ found,
+ 874              	.L88:
+ 875 0a84 7000BDE8 		ldmfd	sp!, {r4, r5, r6}
+ 876 0a88 1EFF2FE1 		bx	lr
+ 877              		.size	seekLeft, .-seekLeft
+ 878              		.align	2
+ 879              		.global	seekDown
+ 880              		.type	seekDown, %function
+ 881              	seekDown:
+ 882              		@ Function supports interworking.
+ 883              		@ args = 4, pretend = 0, frame = 0
+ 884              		@ frame_needed = 0, uses_anonymous_args = 0
+ 885              		@ link register save eliminated.
+ 886 0a8c 0338A0E1 		mov	r3, r3, asl #16	@ tmp144, y,
+ 887 0a90 2338A0E1 		mov	r3, r3, lsr #16	@ y, tmp144,
+ 888 0a94 70002DE9 		stmfd	sp!, {r4, r5, r6}	@,
+ 889 0a98 0228A0E1 		mov	r2, r2, asl #16	@ tmp141, x,
+ 890 0a9c 090053E3 		cmp	r3, #9	@ y,
+ 891 0aa0 0150A0E1 		mov	r5, r1	@ i, i
+ 892 0aa4 2248A0E1 		mov	r4, r2, lsr #16	@ x, tmp141,
+ 893 0aa8 0C609DE5 		ldr	r6, [sp, #12]	@ temp, temp
+ 894 0aac 1200000A 		beq	.L91	@,
+ 895 0ab0 01C083E2 		add	ip, r3, #1	@ tmp146, y,
+ 896 0ab4 0A30A0E3 		mov	r3, #10	@ tmp148,
+ 897 0ab8 9C4323E0 		mla	r3, ip, r3, r4	@ tmp149, tmp146, tmp148, x
+ 898 0abc 8330A0E1 		mov	r3, r3, asl #1	@ tmp150, tmp149,
+ 899 0ac0 B33090E1 		ldrh	r3, [r0, r3]	@ tmp152,
+ 900 0ac4 000053E3 		cmp	r3, #0	@ tmp152,
+ 901 0ac8 0B00001A 		bne	.L91	@,
+ 902 0acc B030D1E1 		ldrh	r3, [r1, #0]	@ D.3306,* i
+ 903 0ad0 012083E2 		add	r2, r3, #1	@ tmp155, D.3306,
+ 904 0ad4 0228A0E1 		mov	r2, r2, asl #16	@ tmp156, tmp155,
+ 905 0ad8 2228A0E1 		mov	r2, r2, lsr #16	@ D.3307, tmp156,
+ 906 0adc 011082E2 		add	r1, r2, #1	@ tmp160, D.3307,
+ 907 0ae0 8330A0E1 		mov	r3, r3, asl #1	@ tmp153, D.3306,
+ 908 0ae4 8220A0E1 		mov	r2, r2, asl #1	@ tmp157, D.3307,
+ 909 0ae8 B34086E1 		strh	r4, [r6, r3]	@ movhi	@ x,
+ 910 0aec 0100A0E3 		mov	r0, #1	@ found,
+ 911 0af0 B2C086E1 		strh	ip, [r6, r2]	@ movhi	@ tmp146,
+ 912 0af4 B010C5E1 		strh	r1, [r5, #0]	@ movhi	@ tmp160,* i
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 17
+
+
+ 913 0af8 000000EA 		b	.L92	@
+ 914              	.L91:
+ 915 0afc 0000A0E3 		mov	r0, #0	@ found,
+ 916              	.L92:
+ 917 0b00 7000BDE8 		ldmfd	sp!, {r4, r5, r6}
+ 918 0b04 1EFF2FE1 		bx	lr
+ 919              		.size	seekDown, .-seekDown
+ 920              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 921              	.LC0:
+ 922 0000 0A0A0920 		.ascii	"\012\012\011   Meid\344n laivasto     \011\011   Va"
+ 922      20204D65 
+ 922      6964E46E 
+ 922      206C6169 
+ 922      76617374 
+ 923 0021 73747573 		.ascii	"stustajan laivasto\000"
+ 923      74616A61 
+ 923      6E206C61 
+ 923      69766173 
+ 923      746F00
+ 924              	.LC1:
+ 925 0034 0A092020 		.ascii	"\012\011   0 1 2 3 4 5 6 7 8 9\011\011   0 1 2 3 4 "
+ 925      20302031 
+ 925      20322033 
+ 925      20342035 
+ 925      20362037 
+ 926 005b 35203620 		.ascii	"5 6 7 8 9\000"
+ 926      37203820 
+ 926      3900
+ 927              	.LC2:
+ 928 0065 0A0900   		.ascii	"\012\011\000"
+ 929              	.LC3:
+ 930 0068 0A092564 		.ascii	"\012\011%d \000"
+ 930      2000
+ 931              	.LC4:
+ 932 006e 202D00   		.ascii	" -\000"
+ 933              	.LC5:
+ 934 0071 20256400 		.ascii	" %d\000"
+ 935              	.LC6:
+ 936 0075 090900   		.ascii	"\011\011\000"
+ 937              	.LC7:
+ 938 0078 25642000 		.ascii	"%d \000"
+ 939              	.LC8:
+ 940 007c 0A00     		.ascii	"\012\000"
+ 941              		.text
+ 942              		.align	2
+ 943              		.global	showTwoSeaParallel
+ 944              		.type	showTwoSeaParallel, %function
+ 945              	showTwoSeaParallel:
+ 946              		@ Function supports interworking.
+ 947              		@ args = 0, pretend = 0, frame = 0
+ 948              		@ frame_needed = 0, uses_anonymous_args = 0
+ 949 0b08 F0452DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}	@,
+ 950 0b0c 00A0A0E1 		mov	sl, r0	@ sea1, sea1
+ 951 0b10 E8009FE5 		ldr	r0, .L106	@,
+ 952 0b14 0180A0E1 		mov	r8, r1	@ sea2, sea2
+ 953 0b18 FEFFFFEB 		bl	puts	@
+ 954 0b1c E0009FE5 		ldr	r0, .L106+4	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 18
+
+
+ 955 0b20 FEFFFFEB 		bl	printf	@
+ 956 0b24 DC009FE5 		ldr	r0, .L106+8	@,
+ 957 0b28 FEFFFFEB 		bl	printf	@
+ 958 0b2c 0060A0E3 		mov	r6, #0	@ ivtmp.410,
+ 959 0b30 0670A0E1 		mov	r7, r6	@ ivtmp.417, ivtmp.410
+ 960              	.L101:
+ 961 0b34 D0009FE5 		ldr	r0, .L106+12	@,
+ 962 0b38 0610A0E1 		mov	r1, r6	@, ivtmp.410
+ 963 0b3c FEFFFFEB 		bl	printf	@
+ 964 0b40 07508AE0 		add	r5, sl, r7	@ ivtmp.408, sea1, ivtmp.417
+ 965 0b44 0040A0E3 		mov	r4, #0	@ i,
+ 966              	.L97:
+ 967 0b48 B010D5E1 		ldrh	r1, [r5, #0]	@ D.3407,* ivtmp.408
+ 968 0b4c 000051E3 		cmp	r1, #0	@ D.3407,
+ 969 0b50 B8009FE5 		ldr	r0, .L106+16	@,
+ 970 0b54 0100001A 		bne	.L95	@,
+ 971 0b58 FEFFFFEB 		bl	printf	@
+ 972 0b5c 010000EA 		b	.L96	@
+ 973              	.L95:
+ 974 0b60 AC009FE5 		ldr	r0, .L106+20	@,
+ 975 0b64 FEFFFFEB 		bl	printf	@
+ 976              	.L96:
+ 977 0b68 013084E2 		add	r3, r4, #1	@ tmp156, i,
+ 978 0b6c 0338A0E1 		mov	r3, r3, asl #16	@ tmp157, tmp156,
+ 979 0b70 2348A0E1 		mov	r4, r3, lsr #16	@ i, tmp157,
+ 980 0b74 0A0054E3 		cmp	r4, #10	@ i,
+ 981 0b78 025085E2 		add	r5, r5, #2	@ ivtmp.408, ivtmp.408,
+ 982 0b7c F1FFFF1A 		bne	.L97	@,
+ 983 0b80 90009FE5 		ldr	r0, .L106+24	@,
+ 984 0b84 FEFFFFEB 		bl	printf	@
+ 985 0b88 8C009FE5 		ldr	r0, .L106+28	@,
+ 986 0b8c 0610A0E1 		mov	r1, r6	@, ivtmp.410
+ 987 0b90 FEFFFFEB 		bl	printf	@
+ 988 0b94 075088E0 		add	r5, r8, r7	@ ivtmp.400, sea2, ivtmp.417
+ 989 0b98 0040A0E3 		mov	r4, #0	@ k,
+ 990              	.L100:
+ 991 0b9c B010D5E1 		ldrh	r1, [r5, #0]	@ D.3413,* ivtmp.400
+ 992 0ba0 000051E3 		cmp	r1, #0	@ D.3413,
+ 993 0ba4 64009FE5 		ldr	r0, .L106+16	@,
+ 994 0ba8 0100001A 		bne	.L98	@,
+ 995 0bac FEFFFFEB 		bl	printf	@
+ 996 0bb0 010000EA 		b	.L99	@
+ 997              	.L98:
+ 998 0bb4 58009FE5 		ldr	r0, .L106+20	@,
+ 999 0bb8 FEFFFFEB 		bl	printf	@
+ 1000              	.L99:
+ 1001 0bbc 013084E2 		add	r3, r4, #1	@ tmp162, k,
+ 1002 0bc0 0338A0E1 		mov	r3, r3, asl #16	@ tmp163, tmp162,
+ 1003 0bc4 2348A0E1 		mov	r4, r3, lsr #16	@ k, tmp163,
+ 1004 0bc8 0A0054E3 		cmp	r4, #10	@ k,
+ 1005 0bcc 025085E2 		add	r5, r5, #2	@ ivtmp.400, ivtmp.400,
+ 1006 0bd0 F1FFFF1A 		bne	.L100	@,
+ 1007 0bd4 016086E2 		add	r6, r6, #1	@ ivtmp.410, ivtmp.410,
+ 1008 0bd8 0A0056E3 		cmp	r6, #10	@ ivtmp.410,
+ 1009 0bdc 147087E2 		add	r7, r7, #20	@ ivtmp.417, ivtmp.417,
+ 1010 0be0 D3FFFF1A 		bne	.L101	@,
+ 1011 0be4 34009FE5 		ldr	r0, .L106+32	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 19
+
+
+ 1012 0be8 FEFFFFEB 		bl	puts	@
+ 1013 0bec 30309FE5 		ldr	r3, .L106+36	@ tmp165,
+ 1014 0bf0 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1015 0bf4 FEFFFFEB 		bl	fflush	@
+ 1016 0bf8 F045BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}
+ 1017 0bfc 1EFF2FE1 		bx	lr
+ 1018              	.L107:
+ 1019              		.align	2
+ 1020              	.L106:
+ 1021 0c00 00000000 		.word	.LC0
+ 1022 0c04 34000000 		.word	.LC1
+ 1023 0c08 65000000 		.word	.LC2
+ 1024 0c0c 68000000 		.word	.LC3
+ 1025 0c10 6E000000 		.word	.LC4
+ 1026 0c14 71000000 		.word	.LC5
+ 1027 0c18 75000000 		.word	.LC6
+ 1028 0c1c 78000000 		.word	.LC7
+ 1029 0c20 7C000000 		.word	.LC8
+ 1030 0c24 00000000 		.word	__iob
+ 1031              		.size	showTwoSeaParallel, .-showTwoSeaParallel
+ 1032              		.section	.rodata.str1.1
+ 1033              	.LC9:
+ 1034 007e 0A202020 		.ascii	"\012   0 1 2 3 4 5 6 7 8 9\000"
+ 1034      30203120 
+ 1034      32203320 
+ 1034      34203520 
+ 1034      36203720 
+ 1035              	.LC10:
+ 1036 0096 0A256420 		.ascii	"\012%d \000"
+ 1036      00
+ 1037              		.text
+ 1038              		.align	2
+ 1039              		.global	showSea
+ 1040              		.type	showSea, %function
+ 1041              	showSea:
+ 1042              		@ Function supports interworking.
+ 1043              		@ args = 0, pretend = 0, frame = 0
+ 1044              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1045 0c28 F0402DE9 		stmfd	sp!, {r4, r5, r6, r7, lr}	@,
+ 1046 0c2c 0040A0E1 		mov	r4, r0	@ sea, sea
+ 1047 0c30 68009FE5 		ldr	r0, .L114	@,
+ 1048 0c34 FEFFFFEB 		bl	puts	@
+ 1049 0c38 0460A0E1 		mov	r6, r4	@ ivtmp.447, sea
+ 1050 0c3c 0050A0E3 		mov	r5, #0	@ ivtmp.439,
+ 1051              	.L110:
+ 1052 0c40 5C009FE5 		ldr	r0, .L114+4	@,
+ 1053 0c44 0510A0E1 		mov	r1, r5	@, ivtmp.439
+ 1054 0c48 FEFFFFEB 		bl	printf	@
+ 1055 0c4c 0670A0E1 		mov	r7, r6	@ ivtmp.445, ivtmp.447
+ 1056 0c50 0040A0E3 		mov	r4, #0	@ i,
+ 1057              	.L109:
+ 1058 0c54 4C009FE5 		ldr	r0, .L114+8	@,
+ 1059 0c58 B210D7E0 		ldrh	r1, [r7], #2	@,
+ 1060 0c5c FEFFFFEB 		bl	printf	@
+ 1061 0c60 013084E2 		add	r3, r4, #1	@ tmp146, i,
+ 1062 0c64 0338A0E1 		mov	r3, r3, asl #16	@ tmp147, tmp146,
+ 1063 0c68 2348A0E1 		mov	r4, r3, lsr #16	@ i, tmp147,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 20
+
+
+ 1064 0c6c 0A0054E3 		cmp	r4, #10	@ i,
+ 1065 0c70 F7FFFF1A 		bne	.L109	@,
+ 1066 0c74 015085E2 		add	r5, r5, #1	@ ivtmp.439, ivtmp.439,
+ 1067 0c78 0A0055E3 		cmp	r5, #10	@ ivtmp.439,
+ 1068 0c7c 146086E2 		add	r6, r6, #20	@ ivtmp.447, ivtmp.447,
+ 1069 0c80 EEFFFF1A 		bne	.L110	@,
+ 1070 0c84 20009FE5 		ldr	r0, .L114+12	@,
+ 1071 0c88 FEFFFFEB 		bl	puts	@
+ 1072 0c8c 1C309FE5 		ldr	r3, .L114+16	@ tmp149,
+ 1073 0c90 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1074 0c94 FEFFFFEB 		bl	fflush	@
+ 1075 0c98 F040BDE8 		ldmfd	sp!, {r4, r5, r6, r7, lr}
+ 1076 0c9c 1EFF2FE1 		bx	lr
+ 1077              	.L115:
+ 1078              		.align	2
+ 1079              	.L114:
+ 1080 0ca0 7E000000 		.word	.LC9
+ 1081 0ca4 96000000 		.word	.LC10
+ 1082 0ca8 71000000 		.word	.LC5
+ 1083 0cac 7C000000 		.word	.LC8
+ 1084 0cb0 00000000 		.word	__iob
+ 1085              		.size	showSea, .-showSea
+ 1086              		.align	2
+ 1087              		.global	seekRight
+ 1088              		.type	seekRight, %function
+ 1089              	seekRight:
+ 1090              		@ Function supports interworking.
+ 1091              		@ args = 4, pretend = 0, frame = 0
+ 1092              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1093 0cb4 0228A0E1 		mov	r2, r2, asl #16	@ tmp141, x,
+ 1094 0cb8 22C8A0E1 		mov	ip, r2, lsr #16	@ x, tmp141,
+ 1095 0cbc 30402DE9 		stmfd	sp!, {r4, r5, lr}	@,
+ 1096 0cc0 0338A0E1 		mov	r3, r3, asl #16	@ tmp144, y,
+ 1097 0cc4 09005CE3 		cmp	ip, #9	@ x,
+ 1098 0cc8 0140A0E1 		mov	r4, r1	@ i, i
+ 1099 0ccc 23E8A0E1 		mov	lr, r3, lsr #16	@ y, tmp144,
+ 1100 0cd0 0C509DE5 		ldr	r5, [sp, #12]	@ temp, temp
+ 1101 0cd4 1200000A 		beq	.L117	@,
+ 1102 0cd8 0A30A0E3 		mov	r3, #10	@ tmp147,
+ 1103 0cdc 9EC323E0 		mla	r3, lr, r3, ip	@ tmp148, y, tmp147, x
+ 1104 0ce0 833080E0 		add	r3, r0, r3, asl #1	@, tmp150, sea, tmp148,
+ 1105 0ce4 B230D3E1 		ldrh	r3, [r3, #2]	@ tmp152,
+ 1106 0ce8 000053E3 		cmp	r3, #0	@ tmp152,
+ 1107 0cec 0C00001A 		bne	.L117	@,
+ 1108 0cf0 B020D1E1 		ldrh	r2, [r1, #0]	@ D.3329,* i
+ 1109 0cf4 013082E2 		add	r3, r2, #1	@ tmp156, D.3329,
+ 1110 0cf8 0338A0E1 		mov	r3, r3, asl #16	@ tmp157, tmp156,
+ 1111 0cfc 2338A0E1 		mov	r3, r3, lsr #16	@ D.3330, tmp157,
+ 1112 0d00 010083E2 		add	r0, r3, #1	@ tmp160, D.3330,
+ 1113 0d04 01108CE2 		add	r1, ip, #1	@ tmp155, x,
+ 1114 0d08 8220A0E1 		mov	r2, r2, asl #1	@ tmp153, D.3329,
+ 1115 0d0c 8330A0E1 		mov	r3, r3, asl #1	@ tmp158, D.3330,
+ 1116 0d10 B21085E1 		strh	r1, [r5, r2]	@ movhi	@ tmp155,
+ 1117 0d14 B3E085E1 		strh	lr, [r5, r3]	@ movhi	@ y,
+ 1118 0d18 B000C4E1 		strh	r0, [r4, #0]	@ movhi	@ tmp160,* i
+ 1119 0d1c 0140A0E3 		mov	r4, #1	@ found,
+ 1120 0d20 000000EA 		b	.L118	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 21
+
+
+ 1121              	.L117:
+ 1122 0d24 0040A0E3 		mov	r4, #0	@ found,
+ 1123              	.L118:
+ 1124 0d28 10309FE5 		ldr	r3, .L120	@ tmp161,
+ 1125 0d2c 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1126 0d30 FEFFFFEB 		bl	fflush	@
+ 1127 0d34 0400A0E1 		mov	r0, r4	@, found
+ 1128 0d38 3040BDE8 		ldmfd	sp!, {r4, r5, lr}
+ 1129 0d3c 1EFF2FE1 		bx	lr
+ 1130              	.L121:
+ 1131              		.align	2
+ 1132              	.L120:
+ 1133 0d40 00000000 		.word	__iob
+ 1134              		.size	seekRight, .-seekRight
+ 1135              		.section	.rodata.str1.1
+ 1136              	.LC11:
+ 1137 009b 0A0A5465 		.ascii	"\012\012Tempin sis\344lt\366:\000"
+ 1137      6D70696E 
+ 1137      20736973 
+ 1137      E46C74F6 
+ 1137      3A00
+ 1138              	.LC12:
+ 1139 00ad 0A25642E 		.ascii	"\012%d. \000"
+ 1139      2000
+ 1140              		.text
+ 1141              		.align	2
+ 1142              		.global	tempTul
+ 1143              		.type	tempTul, %function
+ 1144              	tempTul:
+ 1145              		@ Function supports interworking.
+ 1146              		@ args = 0, pretend = 0, frame = 0
+ 1147              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1148 0d44 30402DE9 		stmfd	sp!, {r4, r5, lr}	@,
+ 1149 0d48 0050A0E1 		mov	r5, r0	@ temp, temp
+ 1150 0d4c 44009FE5 		ldr	r0, .L127	@,
+ 1151 0d50 FEFFFFEB 		bl	printf	@
+ 1152 0d54 0040A0E3 		mov	r4, #0	@ ivtmp.473,
+ 1153              	.L124:
+ 1154 0d58 010014E3 		tst	r4, #1	@ ivtmp.473,
+ 1155 0d5c 0410A001 		moveq	r1, r4	@, ivtmp.473
+ 1156 0d60 34009F05 		ldreq	r0, .L127+4	@,
+ 1157 0d64 FEFFFF0B 		bleq	printf	@
+ 1158              	.L123:
+ 1159 0d68 8430A0E1 		mov	r3, r4, asl #1	@ tmp142, ivtmp.473,
+ 1160 0d6c B31095E1 		ldrh	r1, [r5, r3]	@,
+ 1161 0d70 014084E2 		add	r4, r4, #1	@ ivtmp.473, ivtmp.473,
+ 1162 0d74 24009FE5 		ldr	r0, .L127+8	@,
+ 1163 0d78 FEFFFFEB 		bl	printf	@
+ 1164 0d7c 0A0054E3 		cmp	r4, #10	@ ivtmp.473,
+ 1165 0d80 F4FFFF1A 		bne	.L124	@,
+ 1166 0d84 18309FE5 		ldr	r3, .L127+12	@ tmp144,
+ 1167 0d88 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1168 0d8c FEFFFFEB 		bl	fflush	@
+ 1169 0d90 3040BDE8 		ldmfd	sp!, {r4, r5, lr}
+ 1170 0d94 1EFF2FE1 		bx	lr
+ 1171              	.L128:
+ 1172              		.align	2
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 22
+
+
+ 1173              	.L127:
+ 1174 0d98 9B000000 		.word	.LC11
+ 1175 0d9c AD000000 		.word	.LC12
+ 1176 0da0 78000000 		.word	.LC7
+ 1177 0da4 00000000 		.word	__iob
+ 1178              		.size	tempTul, .-tempTul
+ 1179              		.align	2
+ 1180              		.global	didShipSink
+ 1181              		.type	didShipSink, %function
+ 1182              	didShipSink:
+ 1183              		@ Function supports interworking.
+ 1184              		@ args = 0, pretend = 0, frame = 0
+ 1185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1186 0da8 10402DE9 		stmfd	sp!, {r4, lr}	@,
+ 1187 0dac B0C0D0E1 		ldrh	ip, [r0, #0]	@ D.2986, <variable>.size
+ 1188 0db0 0010A0E1 		mov	r1, r0	@ ivtmp.501, boat
+ 1189 0db4 0020A0E3 		mov	r2, #0	@ i,
+ 1190 0db8 0140A0E3 		mov	r4, #1	@ status,
+ 1191 0dbc 030000EA 		b	.L130	@
+ 1192              	.L131:
+ 1193 0dc0 B230D1E1 		ldrh	r3, [r1, #2]	@ tmp148, <variable>.coordStatus
+ 1194 0dc4 940303E0 		mul	r3, r4, r3	@ tmp149, status, tmp148
+ 1195 0dc8 0338A0E1 		mov	r3, r3, asl #16	@ tmp150, tmp149,
+ 1196 0dcc 2348A0E1 		mov	r4, r3, lsr #16	@ status, tmp150,
+ 1197              	.L130:
+ 1198 0dd0 013082E2 		add	r3, r2, #1	@ tmp151, i,
+ 1199 0dd4 0338A0E1 		mov	r3, r3, asl #16	@ tmp152, tmp151,
+ 1200 0dd8 0C0052E1 		cmp	r2, ip	@ i, D.2986
+ 1201 0ddc 021081E2 		add	r1, r1, #2	@ ivtmp.501, ivtmp.501,
+ 1202 0de0 2328A0E1 		mov	r2, r3, lsr #16	@ i, tmp152,
+ 1203 0de4 F5FFFF3A 		bcc	.L131	@,
+ 1204 0de8 010054E3 		cmp	r4, #1	@ status,
+ 1205 0dec 0230A003 		moveq	r3, #2	@ movhi	@,
+ 1206 0df0 B230C001 		streqh	r3, [r0, #2]	@ movhi	@, <variable>.shipStatus
+ 1207 0df4 10309FE5 		ldr	r3, .L134	@ tmp155,
+ 1208 0df8 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1209 0dfc FEFFFFEB 		bl	fflush	@
+ 1210 0e00 0400A0E1 		mov	r0, r4	@, status
+ 1211 0e04 1040BDE8 		ldmfd	sp!, {r4, lr}
+ 1212 0e08 1EFF2FE1 		bx	lr
+ 1213              	.L135:
+ 1214              		.align	2
+ 1215              	.L134:
+ 1216 0e0c 00000000 		.word	__iob
+ 1217              		.size	didShipSink, .-didShipSink
+ 1218              		.align	2
+ 1219              		.global	markShipHit
+ 1220              		.type	markShipHit, %function
+ 1221              	markShipHit:
+ 1222              		@ Function supports interworking.
+ 1223              		@ args = 0, pretend = 0, frame = 0
+ 1224              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1225 0e10 0118A0E1 		mov	r1, r1, asl #16	@ tmp143, x,
+ 1226 0e14 0228A0E1 		mov	r2, r2, asl #16	@ tmp146, y,
+ 1227 0e18 00C0A0E3 		mov	ip, #0	@ i,
+ 1228 0e1c 30402DE9 		stmfd	sp!, {r4, r5, lr}	@,
+ 1229 0e20 2158A0E1 		mov	r5, r1, lsr #16	@ x, tmp143,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 23
+
+
+ 1230 0e24 0C40A0E1 		mov	r4, ip	@ hit, i
+ 1231 0e28 2218A0E1 		mov	r1, r2, lsr #16	@ y, tmp146,
+ 1232 0e2c 0A0000EA 		b	.L137	@
+ 1233              	.L139:
+ 1234 0e30 BE30D3E1 		ldrh	r3, [r3, #14]	@ tmp152, <variable>.coordinates
+ 1235 0e34 050053E1 		cmp	r3, r5	@ tmp152, x
+ 1236 0e38 0600001A 		bne	.L138	@,
+ 1237 0e3c 823080E0 		add	r3, r0, r2, asl #1	@, tmp156, boat, j,
+ 1238 0e40 B031D3E1 		ldrh	r3, [r3, #16]	@ tmp158, <variable>.coordinates
+ 1239 0e44 010053E1 		cmp	r3, r1	@ tmp158, y
+ 1240 0e48 8C308000 		addeq	r3, r0, ip, asl #1	@, tmp160, boat, i,
+ 1241 0e4c 0120A003 		moveq	r2, #1	@ movhi	@,
+ 1242 0e50 B420C301 		streqh	r2, [r3, #4]	@ movhi	@, <variable>.coordStatus
+ 1243 0e54 0140A003 		moveq	r4, #1	@ hit,
+ 1244              	.L138:
+ 1245 0e58 2EC8A0E1 		mov	ip, lr, lsr #16	@ i, tmp165,
+ 1246              	.L137:
+ 1247 0e5c 01308CE2 		add	r3, ip, #1	@ tmp164, i,
+ 1248 0e60 B020D0E1 		ldrh	r2, [r0, #0]	@ <variable>.size, <variable>.size
+ 1249 0e64 03E8A0E1 		mov	lr, r3, asl #16	@ tmp165, tmp164,
+ 1250 0e68 8C38A0E1 		mov	r3, ip, asl #17	@ tmp168, i,
+ 1251 0e6c 0C0052E1 		cmp	r2, ip	@ <variable>.size, i
+ 1252 0e70 2328A0E1 		mov	r2, r3, lsr #16	@ j, tmp168,
+ 1253 0e74 823080E0 		add	r3, r0, r2, asl #1	@, tmp150, boat, j,
+ 1254 0e78 ECFFFF8A 		bhi	.L139	@,
+ 1255 0e7c 18309FE5 		ldr	r3, .L142	@ tmp172,
+ 1256 0e80 010054E3 		cmp	r4, #1	@ hit,
+ 1257 0e84 B240C001 		streqh	r4, [r0, #2]	@ movhi	@ hit, <variable>.shipStatus
+ 1258 0e88 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1259 0e8c FEFFFFEB 		bl	fflush	@
+ 1260 0e90 0400A0E1 		mov	r0, r4	@, hit
+ 1261 0e94 3040BDE8 		ldmfd	sp!, {r4, r5, lr}
+ 1262 0e98 1EFF2FE1 		bx	lr
+ 1263              	.L143:
+ 1264              		.align	2
+ 1265              	.L142:
+ 1266 0e9c 00000000 		.word	__iob
+ 1267              		.size	markShipHit, .-markShipHit
+ 1268              		.align	2
+ 1269              		.global	checkShotEffects
+ 1270              		.type	checkShotEffects, %function
+ 1271              	checkShotEffects:
+ 1272              		@ Function supports interworking.
+ 1273              		@ args = 24, pretend = 0, frame = 0
+ 1274              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1275 0ea0 F04F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}	@,
+ 1276 0ea4 04D04DE2 		sub	sp, sp, #4	@,,
+ 1277 0ea8 B053DDE1 		ldrh	r5, [sp, #48]	@ y, y
+ 1278 0eac 090055E3 		cmp	r5, #9	@ y,
+ 1279 0eb0 0080A0E1 		mov	r8, r0	@ air5, air5
+ 1280 0eb4 01A0A0E1 		mov	sl, r1	@ bat4, bat4
+ 1281 0eb8 0290A0E1 		mov	r9, r2	@ cru3, cru3
+ 1282 0ebc 03B0A0E1 		mov	fp, r3	@ sub3, sub3
+ 1283 0ec0 3C709DE5 		ldr	r7, [sp, #60]	@ player, player
+ 1284 0ec4 BC42DDE1 		ldrh	r4, [sp, #44]	@ x, x
+ 1285 0ec8 4A00008A 		bhi	.L145	@,
+ 1286 0ecc 090054E3 		cmp	r4, #9	@ x,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 24
+
+
+ 1287 0ed0 4800008A 		bhi	.L145	@,
+ 1288 0ed4 0A30A0E3 		mov	r3, #10	@ tmp167,
+ 1289 0ed8 954323E0 		mla	r3, r5, r3, r4	@ tmp168, y, tmp167, x
+ 1290 0edc 34209DE5 		ldr	r2, [sp, #52]	@ sea, sea
+ 1291 0ee0 8330A0E1 		mov	r3, r3, asl #1	@ tmp169, tmp168,
+ 1292 0ee4 B33092E1 		ldrh	r3, [r2, r3]	@ tmp171,
+ 1293 0ee8 023043E2 		sub	r3, r3, #2	@ tmp172, tmp171,
+ 1294 0eec 040053E3 		cmp	r3, #4	@ tmp172,
+ 1295 0ef0 03F19F97 		ldrls	pc, [pc, r3, asl #2]	@ tmp172
+ 1296 0ef4 3F0000EA 		b	.L145	@
+ 1297              	.L151:
+ 1298 0ef8 0C0F0000 		.word	.L146
+ 1299 0efc 3C0F0000 		.word	.L147
+ 1300 0f00 6C0F0000 		.word	.L148
+ 1301 0f04 9C0F0000 		.word	.L149
+ 1302 0f08 CC0F0000 		.word	.L150
+ 1303              	.L146:
+ 1304 0f0c 0410A0E1 		mov	r1, r4	@, x
+ 1305 0f10 0520A0E1 		mov	r2, r5	@, y
+ 1306 0f14 28009DE5 		ldr	r0, [sp, #40]	@, des2
+ 1307 0f18 FEFFFFEB 		bl	markShipHit	@
+ 1308 0f1c 0410A0E1 		mov	r1, r4	@, x
+ 1309 0f20 0520A0E1 		mov	r2, r5	@, y
+ 1310 0f24 0060A0E1 		mov	r6, r0	@ hit,
+ 1311 0f28 28009DE5 		ldr	r0, [sp, #40]	@, des2
+ 1312 0f2c FEFFFFEB 		bl	didShipSink	@
+ 1313 0f30 0240A0E3 		mov	r4, #2	@ result,
+ 1314 0f34 0020A0E3 		mov	r2, #0	@ sunkenInd,
+ 1315 0f38 320000EA 		b	.L152	@
+ 1316              	.L147:
+ 1317 0f3c 0410A0E1 		mov	r1, r4	@, x
+ 1318 0f40 0520A0E1 		mov	r2, r5	@, y
+ 1319 0f44 0B00A0E1 		mov	r0, fp	@, sub3
+ 1320 0f48 FEFFFFEB 		bl	markShipHit	@
+ 1321 0f4c 0410A0E1 		mov	r1, r4	@, x
+ 1322 0f50 0520A0E1 		mov	r2, r5	@, y
+ 1323 0f54 0060A0E1 		mov	r6, r0	@ hit,
+ 1324 0f58 0B00A0E1 		mov	r0, fp	@, sub3
+ 1325 0f5c FEFFFFEB 		bl	didShipSink	@
+ 1326 0f60 0340A0E3 		mov	r4, #3	@ result,
+ 1327 0f64 0120A0E3 		mov	r2, #1	@ sunkenInd,
+ 1328 0f68 260000EA 		b	.L152	@
+ 1329              	.L148:
+ 1330 0f6c 0410A0E1 		mov	r1, r4	@, x
+ 1331 0f70 0520A0E1 		mov	r2, r5	@, y
+ 1332 0f74 0900A0E1 		mov	r0, r9	@, cru3
+ 1333 0f78 FEFFFFEB 		bl	markShipHit	@
+ 1334 0f7c 0410A0E1 		mov	r1, r4	@, x
+ 1335 0f80 0520A0E1 		mov	r2, r5	@, y
+ 1336 0f84 0060A0E1 		mov	r6, r0	@ hit,
+ 1337 0f88 0900A0E1 		mov	r0, r9	@, cru3
+ 1338 0f8c FEFFFFEB 		bl	didShipSink	@
+ 1339 0f90 0340A0E3 		mov	r4, #3	@ result,
+ 1340 0f94 0220A0E3 		mov	r2, #2	@ sunkenInd,
+ 1341 0f98 1A0000EA 		b	.L152	@
+ 1342              	.L149:
+ 1343 0f9c 0100A0E1 		mov	r0, r1	@, bat4
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 25
+
+
+ 1344 0fa0 0520A0E1 		mov	r2, r5	@, y
+ 1345 0fa4 0410A0E1 		mov	r1, r4	@, x
+ 1346 0fa8 FEFFFFEB 		bl	markShipHit	@
+ 1347 0fac 0410A0E1 		mov	r1, r4	@, x
+ 1348 0fb0 0520A0E1 		mov	r2, r5	@, y
+ 1349 0fb4 0060A0E1 		mov	r6, r0	@ hit,
+ 1350 0fb8 0A00A0E1 		mov	r0, sl	@, bat4
+ 1351 0fbc FEFFFFEB 		bl	didShipSink	@
+ 1352 0fc0 0440A0E3 		mov	r4, #4	@ result,
+ 1353 0fc4 0320A0E3 		mov	r2, #3	@ sunkenInd,
+ 1354 0fc8 0E0000EA 		b	.L152	@
+ 1355              	.L150:
+ 1356 0fcc 0410A0E1 		mov	r1, r4	@, x
+ 1357 0fd0 0520A0E1 		mov	r2, r5	@, y
+ 1358 0fd4 FEFFFFEB 		bl	markShipHit	@
+ 1359 0fd8 0410A0E1 		mov	r1, r4	@, x
+ 1360 0fdc 0520A0E1 		mov	r2, r5	@, y
+ 1361 0fe0 0060A0E1 		mov	r6, r0	@ hit,
+ 1362 0fe4 0800A0E1 		mov	r0, r8	@, air5
+ 1363 0fe8 FEFFFFEB 		bl	didShipSink	@
+ 1364 0fec 0540A0E3 		mov	r4, #5	@ result,
+ 1365 0ff0 0420A0E3 		mov	r2, #4	@ sunkenInd,
+ 1366 0ff4 030000EA 		b	.L152	@
+ 1367              	.L145:
+ 1368 0ff8 0040A0E3 		mov	r4, #0	@ result,
+ 1369 0ffc 0460A0E1 		mov	r6, r4	@ hit, result
+ 1370 1000 0400A0E1 		mov	r0, r4	@ sunken, result
+ 1371 1004 0420A0E1 		mov	r2, r4	@ sunkenInd, result
+ 1372              	.L152:
+ 1373 1008 94309FE5 		ldr	r3, .L160	@ tmp183,
+ 1374 100c B610D7E1 		ldrh	r1, [r7, #6]	@, <variable>.nroSunkenShips
+ 1375 1010 010056E3 		cmp	r6, #1	@ hit,
+ 1376 1014 B811C3E1 		strh	r1, [r3, #24]	@ movhi	@, game.previousTurn_SunkenShips
+ 1377 1018 0040A013 		movne	r4, #0	@ result,
+ 1378 101c 1400001A 		bne	.L154	@,
+ 1379 1020 010050E3 		cmp	r0, #1	@ sunken,
+ 1380 1024 0640A011 		movne	r4, r6	@ result, hit
+ 1381 1028 1100001A 		bne	.L154	@,
+ 1382 102c 823087E0 		add	r3, r7, r2, asl #1	@, tmp187, player, sunkenInd,
+ 1383 1030 B840C3E1 		strh	r4, [r3, #8]	@ movhi	@ result, <variable>.sunkenShips
+ 1384 1034 0030A0E3 		mov	r3, #0	@ movhi	@,
+ 1385 1038 B630C7E1 		strh	r3, [r7, #6]	@ movhi	@, <variable>.nroSunkenShips
+ 1386 103c 0720A0E1 		mov	r2, r7	@ ivtmp.553, player
+ 1387 1040 0A1087E2 		add	r1, r7, #10	@ tmp202, player,
+ 1388              	.L157:
+ 1389 1044 B830D2E1 		ldrh	r3, [r2, #8]	@ tmp191, <variable>.sunkenShips
+ 1390 1048 000053E3 		cmp	r3, #0	@ tmp191,
+ 1391 104c B630D711 		ldrneh	r3, [r7, #6]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 1392 1050 022082E2 		add	r2, r2, #2	@ ivtmp.553, ivtmp.553,
+ 1393 1054 01308312 		addne	r3, r3, #1	@ tmp194, <variable>.nroSunkenShips,
+ 1394 1058 B630C711 		strneh	r3, [r7, #6]	@ movhi	@ tmp194, <variable>.nroSunkenShips
+ 1395 105c 010052E1 		cmp	r2, r1	@ ivtmp.553, tmp202
+ 1396 1060 F7FFFF1A 		bne	.L157	@,
+ 1397 1064 B630D7E1 		ldrh	r3, [r7, #6]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 1398 1068 050053E3 		cmp	r3, #5	@ <variable>.nroSunkenShips,
+ 1399 106c 01C0A003 		moveq	ip, #1	@ movhi	@,
+ 1400 1070 B4C1C701 		streqh	ip, [r7, #20]	@ movhi	@, <variable>.allShipsSunken
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 26
+
+
+ 1401              	.L154:
+ 1402 1074 28C09DE5 		ldr	ip, [sp, #40]	@, des2
+ 1403 1078 0800A0E1 		mov	r0, r8	@, air5
+ 1404 107c 0A10A0E1 		mov	r1, sl	@, bat4
+ 1405 1080 0920A0E1 		mov	r2, r9	@, cru3
+ 1406 1084 0B30A0E1 		mov	r3, fp	@, sub3
+ 1407 1088 00C08DE5 		str	ip, [sp, #0]	@,
+ 1408 108c FEFFFFEB 		bl	returnAllShipHits	@
+ 1409 1090 B201C7E1 		strh	r0, [r7, #18]	@ movhi	@, <variable>.nroHits
+ 1410 1094 0400A0E1 		mov	r0, r4	@, result
+ 1411 1098 04D08DE2 		add	sp, sp, #4	@,,
+ 1412 109c F04FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 1413 10a0 1EFF2FE1 		bx	lr
+ 1414              	.L161:
+ 1415              		.align	2
+ 1416              	.L160:
+ 1417 10a4 00000000 		.word	game
+ 1418              		.size	checkShotEffects, .-checkShotEffects
+ 1419              		.section	.rodata.str1.1
+ 1420              	.LC13:
+ 1421 00b3 0A095641 		.ascii	"\012\011VASTUSTAJA\000"
+ 1421      53545553 
+ 1421      54414A41 
+ 1421      00
+ 1422              	.LC14:
+ 1423 00c0 0A094D45 		.ascii	"\012\011ME\000"
+ 1423      00
+ 1424              	.LC15:
+ 1425 00c5 0A6E726F 		.ascii	"\012nroSunkenShips = %d, sunkenShips[] = {%d, %d, %"
+ 1425      53756E6B 
+ 1425      656E5368 
+ 1425      69707320 
+ 1425      3D202564 
+ 1426 00f5 642C2025 		.ascii	"d, %d, %d}\000"
+ 1426      642C2025 
+ 1426      647D00
+ 1427              	.LC16:
+ 1428 0100 0A0A726F 		.ascii	"\012\012roHits = %d, allShipsSunken = %d\000"
+ 1428      48697473 
+ 1428      203D2025 
+ 1428      642C2061 
+ 1428      6C6C5368 
+ 1429              	.LC17:
+ 1430 0123 0A096F73 		.ascii	"\012\011osumien lkm = %d, \000"
+ 1430      756D6965 
+ 1430      6E206C6B 
+ 1430      6D203D20 
+ 1430      25642C20 
+ 1431              	.LC18:
+ 1432 0138 75706F6E 		.ascii	"uponneiden laivojen lkm = %d \012\011uponneetLaivat"
+ 1432      6E656964 
+ 1432      656E206C 
+ 1432      6169766F 
+ 1432      6A656E20 
+ 1433 0165 5B5D203D 		.ascii	"[] = {%d, %d, %d, %d, %d}\000"
+ 1433      207B2564 
+ 1433      2C202564 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 27
+
+
+ 1433      2C202564 
+ 1433      2C202564 
+ 1434              		.text
+ 1435              		.align	2
+ 1436              		.global	showPlayer
+ 1437              		.type	showPlayer, %function
+ 1438              	showPlayer:
+ 1439              		@ Function supports interworking.
+ 1440              		@ args = 0, pretend = 0, frame = 0
+ 1441              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1442 10a8 70402DE9 		stmfd	sp!, {r4, r5, r6, lr}	@,
+ 1443 10ac B030D0E1 		ldrh	r3, [r0, #0]	@ <variable>.playerCode, <variable>.playerCode
+ 1444 10b0 010053E3 		cmp	r3, #1	@ <variable>.playerCode,
+ 1445 10b4 0060A0E1 		mov	r6, r0	@ player, player
+ 1446 10b8 0CD04DE2 		sub	sp, sp, #12	@,,
+ 1447 10bc 9C009F05 		ldreq	r0, .L169	@,
+ 1448 10c0 9C009F15 		ldrne	r0, .L169+4	@,
+ 1449 10c4 FEFFFFEB 		bl	printf	@
+ 1450 10c8 98309FE5 		ldr	r3, .L169+8	@ tmp137,
+ 1451 10cc B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1452 10d0 010053E3 		cmp	r3, #1	@ verbose,
+ 1453 10d4 0E00001A 		bne	.L165	@,
+ 1454 10d8 BCC0D6E1 		ldrh	ip, [r6, #12]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1455 10dc BEE0D6E1 		ldrh	lr, [r6, #14]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1456 10e0 B041D6E1 		ldrh	r4, [r6, #16]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1457 10e4 B610D6E1 		ldrh	r1, [r6, #6]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 1458 10e8 B820D6E1 		ldrh	r2, [r6, #8]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1459 10ec BA30D6E1 		ldrh	r3, [r6, #10]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1460 10f0 74009FE5 		ldr	r0, .L169+12	@,
+ 1461 10f4 00508DE8 		stmia	sp, {ip, lr}	@ phole stm
+ 1462 10f8 08408DE5 		str	r4, [sp, #8]	@ <variable>.sunkenShips,
+ 1463 10fc FEFFFFEB 		bl	printf	@
+ 1464 1100 B421D6E1 		ldrh	r2, [r6, #20]	@, <variable>.allShipsSunken
+ 1465 1104 B211D6E1 		ldrh	r1, [r6, #18]	@, <variable>.nroHits
+ 1466 1108 60009FE5 		ldr	r0, .L169+16	@,
+ 1467 110c FEFFFFEB 		bl	printf	@
+ 1468 1110 0C0000EA 		b	.L166	@
+ 1469              	.L165:
+ 1470 1114 B211D6E1 		ldrh	r1, [r6, #18]	@, <variable>.nroHits
+ 1471 1118 54009FE5 		ldr	r0, .L169+20	@,
+ 1472 111c FEFFFFEB 		bl	printf	@
+ 1473 1120 B051D6E1 		ldrh	r5, [r6, #16]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1474 1124 BCC0D6E1 		ldrh	ip, [r6, #12]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1475 1128 BE40D6E1 		ldrh	r4, [r6, #14]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1476 112c B610D6E1 		ldrh	r1, [r6, #6]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 1477 1130 B820D6E1 		ldrh	r2, [r6, #8]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1478 1134 BA30D6E1 		ldrh	r3, [r6, #10]	@ <variable>.sunkenShips, <variable>.sunkenShips
+ 1479 1138 38009FE5 		ldr	r0, .L169+24	@,
+ 1480 113c 00C08DE5 		str	ip, [sp, #0]	@ <variable>.sunkenShips,
+ 1481 1140 30008DE9 		stmib	sp, {r4, r5}	@ phole stm
+ 1482 1144 FEFFFFEB 		bl	printf	@
+ 1483              	.L166:
+ 1484 1148 2C309FE5 		ldr	r3, .L169+28	@ tmp158,
+ 1485 114c 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1486 1150 FEFFFFEB 		bl	fflush	@
+ 1487 1154 0CD08DE2 		add	sp, sp, #12	@,,
+ 1488 1158 7040BDE8 		ldmfd	sp!, {r4, r5, r6, lr}
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 28
+
+
+ 1489 115c 1EFF2FE1 		bx	lr
+ 1490              	.L170:
+ 1491              		.align	2
+ 1492              	.L169:
+ 1493 1160 B3000000 		.word	.LC13
+ 1494 1164 C0000000 		.word	.LC14
+ 1495 1168 00000000 		.word	verbose
+ 1496 116c C5000000 		.word	.LC15
+ 1497 1170 00010000 		.word	.LC16
+ 1498 1174 23010000 		.word	.LC17
+ 1499 1178 38010000 		.word	.LC18
+ 1500 117c 00000000 		.word	__iob
+ 1501              		.size	showPlayer, .-showPlayer
+ 1502              		.align	2
+ 1503              		.global	setShotsToTargetSea
+ 1504              		.type	setShotsToTargetSea, %function
+ 1505              	setShotsToTargetSea:
+ 1506              		@ Function supports interworking.
+ 1507              		@ args = 0, pretend = 0, frame = 0
+ 1508              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1509 1180 0338A0E1 		mov	r3, r3, asl #16	@ tmp142, targetShotY,
+ 1510 1184 23C8A0E1 		mov	ip, r3, lsr #16	@ targetShotY, tmp142,
+ 1511 1188 0228A0E1 		mov	r2, r2, asl #16	@ tmp139, targetShotX,
+ 1512 118c 09005CE3 		cmp	ip, #9	@ targetShotY,
+ 1513 1190 04E02DE5 		str	lr, [sp, #-4]!	@,
+ 1514 1194 2228A0E1 		mov	r2, r2, lsr #16	@ targetShotX, tmp139,
+ 1515 1198 0900008A 		bhi	.L172	@,
+ 1516 119c 090052E3 		cmp	r2, #9	@ targetShotX,
+ 1517 11a0 0700008A 		bhi	.L172	@,
+ 1518 11a4 0A30A0E3 		mov	r3, #10	@ tmp144,
+ 1519 11a8 9C2323E0 		mla	r3, ip, r3, r2	@ tmp145, targetShotY, tmp144, targetShotX
+ 1520 11ac 8330A0E1 		mov	r3, r3, asl #1	@ tmp146, tmp145,
+ 1521 11b0 B33090E1 		ldrh	r3, [r0, r3]	@ value.598,
+ 1522 11b4 010053E3 		cmp	r3, #1	@ value.598,
+ 1523 11b8 0000A093 		movls	r0, #0	@, value
+ 1524 11bc 0100A083 		movhi	r0, #1	@, value
+ 1525 11c0 000000EA 		b	.L173	@
+ 1526              	.L172:
+ 1527 11c4 0000A0E3 		mov	r0, #0	@ value,
+ 1528              	.L173:
+ 1529 11c8 0A30A0E3 		mov	r3, #10	@ tmp150,
+ 1530 11cc 9C2323E0 		mla	r3, ip, r3, r2	@ tmp151, targetShotY, tmp150, targetShotX
+ 1531 11d0 022080E2 		add	r2, r0, #2	@ tmp154, value,
+ 1532 11d4 8330A0E1 		mov	r3, r3, asl #1	@ tmp152, tmp151,
+ 1533 11d8 B32081E1 		strh	r2, [r1, r3]	@ movhi	@ tmp154,
+ 1534 11dc 0C309FE5 		ldr	r3, .L175	@ tmp155,
+ 1535 11e0 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1536 11e4 FEFFFFEB 		bl	fflush	@
+ 1537 11e8 04E09DE4 		ldr	lr, [sp], #4
+ 1538 11ec 1EFF2FE1 		bx	lr
+ 1539              	.L176:
+ 1540              		.align	2
+ 1541              	.L175:
+ 1542 11f0 00000000 		.word	__iob
+ 1543              		.size	setShotsToTargetSea, .-setShotsToTargetSea
+ 1544              		.align	2
+ 1545              		.global	setShotsToOurTargetSea
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 29
+
+
+ 1546              		.type	setShotsToOurTargetSea, %function
+ 1547              	setShotsToOurTargetSea:
+ 1548              		@ Function supports interworking.
+ 1549              		@ args = 0, pretend = 0, frame = 0
+ 1550              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1551 11f4 0228A0E1 		mov	r2, r2, asl #16	@ tmp139, y,
+ 1552 11f8 22C8A0E1 		mov	ip, r2, lsr #16	@ y, tmp139,
+ 1553 11fc 0118A0E1 		mov	r1, r1, asl #16	@ tmp136, x,
+ 1554 1200 0338A0E1 		mov	r3, r3, asl #16	@ tmp142, shotResult,
+ 1555 1204 09005CE3 		cmp	ip, #9	@ y,
+ 1556 1208 04E02DE5 		str	lr, [sp, #-4]!	@,
+ 1557 120c 2118A0E1 		mov	r1, r1, lsr #16	@ x, tmp136,
+ 1558 1210 2328A0E1 		mov	r2, r3, lsr #16	@ shotResult, tmp142,
+ 1559 1214 0500008A 		bhi	.L178	@,
+ 1560 1218 090051E3 		cmp	r1, #9	@ x,
+ 1561 121c 0A30A093 		movls	r3, #10	@ tmp144,
+ 1562 1220 9C132390 		mlals	r3, ip, r3, r1	@ tmp145, y, tmp144, x
+ 1563 1224 02208292 		addls	r2, r2, #2	@ tmp148, shotResult,
+ 1564 1228 8330A091 		movls	r3, r3, asl #1	@ tmp146, tmp145,
+ 1565 122c B3208091 		strlsh	r2, [r0, r3]	@ movhi	@ tmp148,
+ 1566              	.L178:
+ 1567 1230 0C309FE5 		ldr	r3, .L180	@ tmp149,
+ 1568 1234 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1569 1238 FEFFFFEB 		bl	fflush	@
+ 1570 123c 04E09DE4 		ldr	lr, [sp], #4
+ 1571 1240 1EFF2FE1 		bx	lr
+ 1572              	.L181:
+ 1573              		.align	2
+ 1574              	.L180:
+ 1575 1244 00000000 		.word	__iob
+ 1576              		.size	setShotsToOurTargetSea, .-setShotsToOurTargetSea
+ 1577              		.section	.rodata.str1.1
+ 1578              	.LC19:
+ 1579 017f 0A0A6D61 		.ascii	"\012\012mark = %d, \000"
+ 1579      726B203D 
+ 1579      2025642C 
+ 1579      2000
+ 1580              	.LC20:
+ 1581 018d 73697A65 		.ascii	"size = %d, \000"
+ 1581      203D2025 
+ 1581      642C2000 
+ 1582              	.LC21:
+ 1583 0199 73686970 		.ascii	"shipStatus = %d, \000"
+ 1583      53746174 
+ 1583      7573203D 
+ 1583      2025642C 
+ 1583      2000
+ 1584              	.LC22:
+ 1585 01ab 6E726F43 		.ascii	"nroCoordReady = %d\000"
+ 1585      6F6F7264 
+ 1585      52656164 
+ 1585      79203D20 
+ 1585      256400
+ 1586              	.LC23:
+ 1587 01be 0A636F6F 		.ascii	"\012coordinates are:\000"
+ 1587      7264696E 
+ 1587      61746573 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 30
+
+
+ 1587      20617265 
+ 1587      3A00
+ 1588              	.LC24:
+ 1589 01d0 0A537461 		.ascii	"\012Status per coordinate: \000"
+ 1589      74757320 
+ 1589      70657220 
+ 1589      636F6F72 
+ 1589      64696E61 
+ 1590              		.text
+ 1591              		.align	2
+ 1592              		.global	showShip
+ 1593              		.type	showShip, %function
+ 1594              	showShip:
+ 1595              		@ Function supports interworking.
+ 1596              		@ args = 0, pretend = 0, frame = 0
+ 1597              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1598 1248 30402DE9 		stmfd	sp!, {r4, r5, lr}	@,
+ 1599 124c B412D0E1 		ldrh	r1, [r0, #36]	@, <variable>.mark
+ 1600 1250 0050A0E1 		mov	r5, r0	@ boat, boat
+ 1601 1254 B4009FE5 		ldr	r0, .L189	@,
+ 1602 1258 FEFFFFEB 		bl	printf	@
+ 1603 125c B010D5E1 		ldrh	r1, [r5, #0]	@, <variable>.size
+ 1604 1260 AC009FE5 		ldr	r0, .L189+4	@,
+ 1605 1264 FEFFFFEB 		bl	printf	@
+ 1606 1268 B210D5E1 		ldrh	r1, [r5, #2]	@, <variable>.shipStatus
+ 1607 126c A4009FE5 		ldr	r0, .L189+8	@,
+ 1608 1270 FEFFFFEB 		bl	printf	@
+ 1609 1274 B212D5E1 		ldrh	r1, [r5, #34]	@, <variable>.nroCoordReady
+ 1610 1278 9C009FE5 		ldr	r0, .L189+12	@,
+ 1611 127c FEFFFFEB 		bl	printf	@
+ 1612 1280 98009FE5 		ldr	r0, .L189+16	@,
+ 1613 1284 FEFFFFEB 		bl	printf	@
+ 1614 1288 0040A0E3 		mov	r4, #0	@ i,
+ 1615 128c 090000EA 		b	.L183	@
+ 1616              	.L185:
+ 1617 1290 010014E3 		tst	r4, #1	@ i,
+ 1618 1294 0A00A003 		moveq	r0, #10	@,
+ 1619 1298 FEFFFF0B 		bleq	putchar	@
+ 1620              	.L184:
+ 1621 129c 843085E0 		add	r3, r5, r4, asl #1	@, tmp151, boat, i,
+ 1622 12a0 BE10D3E1 		ldrh	r1, [r3, #14]	@, <variable>.coordinates
+ 1623 12a4 78009FE5 		ldr	r0, .L189+20	@,
+ 1624 12a8 FEFFFFEB 		bl	printf	@
+ 1625 12ac 013084E2 		add	r3, r4, #1	@ tmp154, i,
+ 1626 12b0 0338A0E1 		mov	r3, r3, asl #16	@ tmp155, tmp154,
+ 1627 12b4 2348A0E1 		mov	r4, r3, lsr #16	@ i, tmp155,
+ 1628              	.L183:
+ 1629 12b8 B030D5E1 		ldrh	r3, [r5, #0]	@ <variable>.size, <variable>.size
+ 1630 12bc 830054E1 		cmp	r4, r3, asl #1	@ i, <variable>.size,
+ 1631 12c0 F2FFFFBA 		blt	.L185	@,
+ 1632 12c4 5C009FE5 		ldr	r0, .L189+24	@,
+ 1633 12c8 FEFFFFEB 		bl	printf	@
+ 1634 12cc 0040A0E3 		mov	r4, #0	@ i.628,
+ 1635 12d0 040000EA 		b	.L186	@
+ 1636              	.L187:
+ 1637 12d4 B410D2E1 		ldrh	r1, [r2, #4]	@, <variable>.coordStatus
+ 1638 12d8 FEFFFFEB 		bl	printf	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 31
+
+
+ 1639 12dc 013084E2 		add	r3, r4, #1	@ tmp164, i.628,
+ 1640 12e0 0338A0E1 		mov	r3, r3, asl #16	@ tmp165, tmp164,
+ 1641 12e4 2348A0E1 		mov	r4, r3, lsr #16	@ i.628, tmp165,
+ 1642              	.L186:
+ 1643 12e8 B030D5E1 		ldrh	r3, [r5, #0]	@ <variable>.size, <variable>.size
+ 1644 12ec 040053E1 		cmp	r3, r4	@ <variable>.size, i.628
+ 1645 12f0 842085E0 		add	r2, r5, r4, asl #1	@, tmp161, boat, i.628,
+ 1646 12f4 28009FE5 		ldr	r0, .L189+20	@,
+ 1647 12f8 F5FFFF8A 		bhi	.L187	@,
+ 1648 12fc 28309FE5 		ldr	r3, .L189+28	@ tmp167,
+ 1649 1300 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1650 1304 FEFFFFEB 		bl	fflush	@
+ 1651 1308 3040BDE8 		ldmfd	sp!, {r4, r5, lr}
+ 1652 130c 1EFF2FE1 		bx	lr
+ 1653              	.L190:
+ 1654              		.align	2
+ 1655              	.L189:
+ 1656 1310 7F010000 		.word	.LC19
+ 1657 1314 8D010000 		.word	.LC20
+ 1658 1318 99010000 		.word	.LC21
+ 1659 131c AB010000 		.word	.LC22
+ 1660 1320 BE010000 		.word	.LC23
+ 1661 1324 71000000 		.word	.LC5
+ 1662 1328 D0010000 		.word	.LC24
+ 1663 132c 00000000 		.word	__iob
+ 1664              		.size	showShip, .-showShip
+ 1665              		.align	2
+ 1666              		.global	findSecondCoordinate
+ 1667              		.type	findSecondCoordinate, %function
+ 1668              	findSecondCoordinate:
+ 1669              		@ Function supports interworking.
+ 1670              		@ args = 8, pretend = 0, frame = 0
+ 1671              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1672 1330 F0472DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}	@,
+ 1673 1334 04D04DE2 		sub	sp, sp, #4	@,,
+ 1674 1338 B4A2DDE1 		ldrh	sl, [sp, #36]	@ x, x
+ 1675 133c B882DDE1 		ldrh	r8, [sp, #40]	@ y, y
+ 1676 1340 0090A0E1 		mov	r9, r0	@ boat, boat
+ 1677 1344 0170A0E1 		mov	r7, r1	@ sea, sea
+ 1678 1348 0260A0E1 		mov	r6, r2	@ temp, temp
+ 1679 134c 0350A0E1 		mov	r5, r3	@ i, i
+ 1680              	.L204:
+ 1681 1350 FEFFFFEB 		bl	rand	@
+ 1682 1354 0E0110E2 		ands	r0, r0, #-2147483645	@ tmp147,,
+ 1683 1358 01004042 		submi	r0, r0, #1	@ tmp147, tmp147,
+ 1684 135c 000FE041 		mvnmi	r0, r0, asl #30	@ tmp147, tmp147,
+ 1685 1360 200FE041 		mvnmi	r0, r0, lsr #30	@ tmp147, tmp147,
+ 1686 1364 01008042 		addmi	r0, r0, #1	@ tmp147, tmp147,
+ 1687 1368 0038A0E1 		mov	r3, r0, asl #16	@ tmp150, tmp147,
+ 1688 136c 2338A0E1 		mov	r3, r3, lsr #16	@ tmp149, tmp150,
+ 1689 1370 030053E3 		cmp	r3, #3	@ tmp149,
+ 1690 1374 03F19F97 		ldrls	pc, [pc, r3, asl #2]	@ tmp149
+ 1691 1378 F4FFFFEA 		b	.L204	@
+ 1692              	.L197:
+ 1693 137c 8C130000 		.word	.L193
+ 1694 1380 A8130000 		.word	.L194
+ 1695 1384 C4130000 		.word	.L195
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 32
+
+
+ 1696 1388 E0130000 		.word	.L196
+ 1697              	.L193:
+ 1698 138c 0700A0E1 		mov	r0, r7	@, sea
+ 1699 1390 0510A0E1 		mov	r1, r5	@, i
+ 1700 1394 0A20A0E1 		mov	r2, sl	@, x
+ 1701 1398 0830A0E1 		mov	r3, r8	@, y
+ 1702 139c 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1703 13a0 FEFFFFEB 		bl	seekRight	@
+ 1704 13a4 130000EA 		b	.L205	@
+ 1705              	.L194:
+ 1706 13a8 0700A0E1 		mov	r0, r7	@, sea
+ 1707 13ac 0510A0E1 		mov	r1, r5	@, i
+ 1708 13b0 0A20A0E1 		mov	r2, sl	@, x
+ 1709 13b4 0830A0E1 		mov	r3, r8	@, y
+ 1710 13b8 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1711 13bc FEFFFFEB 		bl	seekDown	@
+ 1712 13c0 0C0000EA 		b	.L205	@
+ 1713              	.L195:
+ 1714 13c4 0700A0E1 		mov	r0, r7	@, sea
+ 1715 13c8 0510A0E1 		mov	r1, r5	@, i
+ 1716 13cc 0A20A0E1 		mov	r2, sl	@, x
+ 1717 13d0 0830A0E1 		mov	r3, r8	@, y
+ 1718 13d4 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1719 13d8 FEFFFFEB 		bl	seekLeft	@
+ 1720 13dc 050000EA 		b	.L205	@
+ 1721              	.L196:
+ 1722 13e0 0700A0E1 		mov	r0, r7	@, sea
+ 1723 13e4 0510A0E1 		mov	r1, r5	@, i
+ 1724 13e8 0A20A0E1 		mov	r2, sl	@, x
+ 1725 13ec 0830A0E1 		mov	r3, r8	@, y
+ 1726 13f0 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1727 13f4 FEFFFFEB 		bl	seekUp	@
+ 1728              	.L205:
+ 1729 13f8 000050E3 		cmp	r0, #0	@ found,
+ 1730 13fc 0040A0E1 		mov	r4, r0	@ found,
+ 1731 1400 D2FFFF0A 		beq	.L204	@,
+ 1732 1404 010050E3 		cmp	r0, #1	@ found,
+ 1733 1408 0230A003 		moveq	r3, #2	@ movhi	@,
+ 1734 140c B232C901 		streqh	r3, [r9, #34]	@ movhi	@, <variable>.nroCoordReady
+ 1735 1410 14309FE5 		ldr	r3, .L206	@ tmp157,
+ 1736 1414 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1737 1418 FEFFFFEB 		bl	fflush	@
+ 1738 141c 0400A0E1 		mov	r0, r4	@, found
+ 1739 1420 04D08DE2 		add	sp, sp, #4	@,,
+ 1740 1424 F047BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+ 1741 1428 1EFF2FE1 		bx	lr
+ 1742              	.L207:
+ 1743              		.align	2
+ 1744              	.L206:
+ 1745 142c 00000000 		.word	__iob
+ 1746              		.size	findSecondCoordinate, .-findSecondCoordinate
+ 1747              		.align	2
+ 1748              		.global	findNextCoordinate
+ 1749              		.type	findNextCoordinate, %function
+ 1750              	findNextCoordinate:
+ 1751              		@ Function supports interworking.
+ 1752              		@ args = 8, pretend = 0, frame = 0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 33
+
+
+ 1753              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1754 1430 F04F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}	@,
+ 1755 1434 B0C0D2E1 		ldrh	ip, [r2, #0]	@ tmp155,* temp
+ 1756 1438 0260A0E1 		mov	r6, r2	@ temp, temp
+ 1757 143c B420D2E1 		ldrh	r2, [r2, #4]	@ tmp156,
+ 1758 1440 02005CE1 		cmp	ip, r2	@ tmp155, tmp156
+ 1759 1444 04D04DE2 		sub	sp, sp, #4	@,,
+ 1760 1448 00B0A0E1 		mov	fp, r0	@ boat, boat
+ 1761 144c 0170A0E1 		mov	r7, r1	@ sea, sea
+ 1762 1450 0380A0E1 		mov	r8, r3	@ i, i
+ 1763 1454 2E00001A 		bne	.L209	@,
+ 1764 1458 FEFFFFEB 		bl	rand	@
+ 1765 145c B242DBE1 		ldrh	r4, [fp, #34]	@ D.3123, <variable>.nroCoordReady
+ 1766 1460 0050A0E1 		mov	r5, r0	@ D.3120,
+ 1767 1464 0610A0E1 		mov	r1, r6	@, temp
+ 1768 1468 0400A0E1 		mov	r0, r4	@, D.3123
+ 1769 146c FEFFFFEB 		bl	findDownY	@
+ 1770 1470 0610A0E1 		mov	r1, r6	@, temp
+ 1771 1474 0090A0E1 		mov	r9, r0	@ downY,
+ 1772 1478 0400A0E1 		mov	r0, r4	@, D.3123
+ 1773 147c FEFFFFEB 		bl	findUpY	@
+ 1774 1480 065115E2 		ands	r5, r5, #-2147483647	@ tmp160, D.3120,
+ 1775 1484 01504542 		submi	r5, r5, #1	@ tmp160, tmp160,
+ 1776 1488 855FE041 		mvnmi	r5, r5, asl #31	@ tmp160, tmp160,
+ 1777 148c A55FE041 		mvnmi	r5, r5, lsr #31	@ tmp160, tmp160,
+ 1778 1490 01508542 		addmi	r5, r5, #1	@ tmp160, tmp160,
+ 1779 1494 0558B0E1 		movs	r5, r5, asl #16	@, tmp160,
+ 1780 1498 00A0A0E1 		mov	sl, r0	@ upY,
+ 1781 149c B020D6E1 		ldrh	r2, [r6, #0]	@ tmp194,* temp
+ 1782 14a0 0D00001A 		bne	.L210	@,
+ 1783 14a4 0930A0E1 		mov	r3, r9	@, downY
+ 1784 14a8 0700A0E1 		mov	r0, r7	@, sea
+ 1785 14ac 0810A0E1 		mov	r1, r8	@, i
+ 1786 14b0 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1787 14b4 FEFFFFEB 		bl	seekDown	@
+ 1788 14b8 004050E2 		subs	r4, r0, #0	@ found,
+ 1789 14bc 4600001A 		bne	.L212	@,
+ 1790 14c0 B020D6E1 		ldrh	r2, [r6, #0]	@ tmp167,* temp
+ 1791 14c4 0700A0E1 		mov	r0, r7	@, sea
+ 1792 14c8 0810A0E1 		mov	r1, r8	@, i
+ 1793 14cc 0A30A0E1 		mov	r3, sl	@, upY
+ 1794 14d0 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1795 14d4 FEFFFFEB 		bl	seekUp	@
+ 1796 14d8 3C0000EA 		b	.L218	@
+ 1797              	.L210:
+ 1798 14dc 0030A0E1 		mov	r3, r0	@, upY
+ 1799 14e0 0810A0E1 		mov	r1, r8	@, i
+ 1800 14e4 0700A0E1 		mov	r0, r7	@, sea
+ 1801 14e8 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1802 14ec FEFFFFEB 		bl	seekUp	@
+ 1803 14f0 004050E2 		subs	r4, r0, #0	@ found,
+ 1804 14f4 3800001A 		bne	.L212	@,
+ 1805 14f8 B020D6E1 		ldrh	r2, [r6, #0]	@ tmp171,* temp
+ 1806 14fc 0700A0E1 		mov	r0, r7	@, sea
+ 1807 1500 0810A0E1 		mov	r1, r8	@, i
+ 1808 1504 0930A0E1 		mov	r3, r9	@, downY
+ 1809 1508 00608DE5 		str	r6, [sp, #0]	@ temp,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 34
+
+
+ 1810 150c FEFFFFEB 		bl	seekDown	@
+ 1811 1510 2E0000EA 		b	.L218	@
+ 1812              	.L209:
+ 1813 1514 FEFFFFEB 		bl	rand	@
+ 1814 1518 B242DBE1 		ldrh	r4, [fp, #34]	@ temp.714, <variable>.nroCoordReady
+ 1815 151c 0050A0E1 		mov	r5, r0	@ D.3133,
+ 1816 1520 0610A0E1 		mov	r1, r6	@, temp
+ 1817 1524 0400A0E1 		mov	r0, r4	@, temp.714
+ 1818 1528 FEFFFFEB 		bl	findRightX	@
+ 1819 152c 0610A0E1 		mov	r1, r6	@, temp
+ 1820 1530 0090A0E1 		mov	r9, r0	@ rightX,
+ 1821 1534 0400A0E1 		mov	r0, r4	@, temp.714
+ 1822 1538 FEFFFFEB 		bl	findLeftX	@
+ 1823 153c 065115E2 		ands	r5, r5, #-2147483647	@ tmp176, D.3133,
+ 1824 1540 01504542 		submi	r5, r5, #1	@ tmp176, tmp176,
+ 1825 1544 855FE041 		mvnmi	r5, r5, asl #31	@ tmp176, tmp176,
+ 1826 1548 A55FE041 		mvnmi	r5, r5, lsr #31	@ tmp176, tmp176,
+ 1827 154c 01508542 		addmi	r5, r5, #1	@ tmp176, tmp176,
+ 1828 1550 0558B0E1 		movs	r5, r5, asl #16	@, tmp176,
+ 1829 1554 00A0A0E1 		mov	sl, r0	@ leftX,
+ 1830 1558 0E00001A 		bne	.L214	@,
+ 1831 155c B230D6E1 		ldrh	r3, [r6, #2]	@ tmp181,
+ 1832 1560 0920A0E1 		mov	r2, r9	@, rightX
+ 1833 1564 0700A0E1 		mov	r0, r7	@, sea
+ 1834 1568 0810A0E1 		mov	r1, r8	@, i
+ 1835 156c 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1836 1570 FEFFFFEB 		bl	seekRight	@
+ 1837 1574 004050E2 		subs	r4, r0, #0	@ found,
+ 1838 1578 1700001A 		bne	.L212	@,
+ 1839 157c B230D6E1 		ldrh	r3, [r6, #2]	@ tmp183,
+ 1840 1580 0700A0E1 		mov	r0, r7	@, sea
+ 1841 1584 0810A0E1 		mov	r1, r8	@, i
+ 1842 1588 0A20A0E1 		mov	r2, sl	@, leftX
+ 1843 158c 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1844 1590 FEFFFFEB 		bl	seekLeft	@
+ 1845 1594 0D0000EA 		b	.L218	@
+ 1846              	.L214:
+ 1847 1598 B230D6E1 		ldrh	r3, [r6, #2]	@ tmp185,
+ 1848 159c 0020A0E1 		mov	r2, r0	@, leftX
+ 1849 15a0 0810A0E1 		mov	r1, r8	@, i
+ 1850 15a4 0700A0E1 		mov	r0, r7	@, sea
+ 1851 15a8 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1852 15ac FEFFFFEB 		bl	seekLeft	@
+ 1853 15b0 004050E2 		subs	r4, r0, #0	@ found,
+ 1854 15b4 0800001A 		bne	.L212	@,
+ 1855 15b8 B230D6E1 		ldrh	r3, [r6, #2]	@ tmp187,
+ 1856 15bc 0700A0E1 		mov	r0, r7	@, sea
+ 1857 15c0 0810A0E1 		mov	r1, r8	@, i
+ 1858 15c4 0920A0E1 		mov	r2, r9	@, rightX
+ 1859 15c8 00608DE5 		str	r6, [sp, #0]	@ temp,
+ 1860 15cc FEFFFFEB 		bl	seekRight	@
+ 1861              	.L218:
+ 1862 15d0 000050E3 		cmp	r0, #0	@ found,
+ 1863 15d4 0040A0E1 		mov	r4, r0	@ found,
+ 1864 15d8 0200000A 		beq	.L216	@,
+ 1865              	.L212:
+ 1866 15dc B232DBE1 		ldrh	r3, [fp, #34]	@ <variable>.nroCoordReady, <variable>.nroCoordReady
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 35
+
+
+ 1867 15e0 013083E2 		add	r3, r3, #1	@ tmp191, <variable>.nroCoordReady,
+ 1868 15e4 B232CBE1 		strh	r3, [fp, #34]	@ movhi	@ tmp191, <variable>.nroCoordReady
+ 1869              	.L216:
+ 1870 15e8 14309FE5 		ldr	r3, .L219	@ tmp192,
+ 1871 15ec 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1872 15f0 FEFFFFEB 		bl	fflush	@
+ 1873 15f4 0400A0E1 		mov	r0, r4	@, found
+ 1874 15f8 04D08DE2 		add	sp, sp, #4	@,,
+ 1875 15fc F04FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 1876 1600 1EFF2FE1 		bx	lr
+ 1877              	.L220:
+ 1878              		.align	2
+ 1879              	.L219:
+ 1880 1604 00000000 		.word	__iob
+ 1881              		.size	findNextCoordinate, .-findNextCoordinate
+ 1882              		.global	__modsi3
+ 1883              		.align	2
+ 1884              		.global	findLocationToShip
+ 1885              		.type	findLocationToShip, %function
+ 1886              	findLocationToShip:
+ 1887              		@ Function supports interworking.
+ 1888              		@ args = 0, pretend = 0, frame = 4
+ 1889              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1890 1608 F0472DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}	@,
+ 1891 160c 0030A0E3 		mov	r3, #0	@ movhi	@,
+ 1892 1610 0CD04DE2 		sub	sp, sp, #12	@,,
+ 1893 1614 BA30CDE1 		strh	r3, [sp, #10]	@ movhi	@, i
+ 1894 1618 0060A0E1 		mov	r6, r0	@ boat, boat
+ 1895 161c 0190A0E1 		mov	r9, r1	@ sea, sea
+ 1896 1620 02A0A0E1 		mov	sl, r2	@ temp, temp
+ 1897 1624 0A40A0E3 		mov	r4, #10	@ tmp190,
+ 1898              	.L222:
+ 1899 1628 FEFFFFEB 		bl	rand	@
+ 1900 162c 0A10A0E3 		mov	r1, #10	@,
+ 1901 1630 FEFFFFEB 		bl	__modsi3	@
+ 1902 1634 0008A0E1 		mov	r0, r0, asl #16	@ tmp154,,
+ 1903 1638 2088A0E1 		mov	r8, r0, lsr #16	@ x, tmp154,
+ 1904 163c FEFFFFEB 		bl	rand	@
+ 1905 1640 0A10A0E3 		mov	r1, #10	@,
+ 1906 1644 FEFFFFEB 		bl	__modsi3	@
+ 1907 1648 0008A0E1 		mov	r0, r0, asl #16	@ tmp161,,
+ 1908 164c 2078A0E1 		mov	r7, r0, lsr #16	@ y, tmp161,
+ 1909 1650 948723E0 		mla	r3, r4, r7, r8	@ tmp164, tmp190, y, x
+ 1910 1654 8330A0E1 		mov	r3, r3, asl #1	@ tmp165, tmp164,
+ 1911 1658 B33099E1 		ldrh	r3, [r9, r3]	@ tmp167,
+ 1912 165c 000053E3 		cmp	r3, #0	@ tmp167,
+ 1913 1660 F0FFFF1A 		bne	.L222	@,
+ 1914 1664 BA20DDE1 		ldrh	r2, [sp, #10]	@ i.41, i
+ 1915 1668 013082E2 		add	r3, r2, #1	@ tmp170, i.41,
+ 1916 166c 0338A0E1 		mov	r3, r3, asl #16	@ tmp171, tmp170,
+ 1917 1670 2338A0E1 		mov	r3, r3, lsr #16	@ i.42, tmp171,
+ 1918 1674 011083E2 		add	r1, r3, #1	@ tmp174, i.42,
+ 1919 1678 0C508DE2 		add	r5, sp, #12	@ tmp177,,
+ 1920 167c B21065E1 		strh	r1, [r5, #-2]!	@ movhi	@ tmp174, i
+ 1921 1680 8220A0E1 		mov	r2, r2, asl #1	@ tmp168, i.41,
+ 1922 1684 8330A0E1 		mov	r3, r3, asl #1	@ tmp172, i.42,
+ 1923 1688 B2808AE1 		strh	r8, [sl, r2]	@ movhi	@ x,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 36
+
+
+ 1924 168c B3708AE1 		strh	r7, [sl, r3]	@ movhi	@ y,
+ 1925 1690 0130A0E3 		mov	r3, #1	@ movhi	@,
+ 1926 1694 B232C6E1 		strh	r3, [r6, #34]	@ movhi	@, <variable>.nroCoordReady
+ 1927 1698 0600A0E1 		mov	r0, r6	@, boat
+ 1928 169c 0530A0E1 		mov	r3, r5	@, tmp177
+ 1929 16a0 0910A0E1 		mov	r1, r9	@, sea
+ 1930 16a4 0A20A0E1 		mov	r2, sl	@, temp
+ 1931 16a8 00808DE5 		str	r8, [sp, #0]	@ x,
+ 1932 16ac 04708DE5 		str	r7, [sp, #4]	@ y,
+ 1933 16b0 FEFFFFEB 		bl	findSecondCoordinate	@
+ 1934 16b4 B030D6E1 		ldrh	r3, [r6, #0]	@ <variable>.size, <variable>.size
+ 1935 16b8 020053E3 		cmp	r3, #2	@ <variable>.size,
+ 1936 16bc 0040A0E1 		mov	r4, r0	@ found,
+ 1937 16c0 0700009A 		bls	.L223	@,
+ 1938 16c4 0530A0E1 		mov	r3, r5	@, tmp177
+ 1939 16c8 0600A0E1 		mov	r0, r6	@, boat
+ 1940 16cc 0910A0E1 		mov	r1, r9	@, sea
+ 1941 16d0 0A20A0E1 		mov	r2, sl	@, temp
+ 1942 16d4 00808DE5 		str	r8, [sp, #0]	@ x,
+ 1943 16d8 04708DE5 		str	r7, [sp, #4]	@ y,
+ 1944 16dc FEFFFFEB 		bl	findNextCoordinate	@
+ 1945 16e0 0040A0E1 		mov	r4, r0	@ found,
+ 1946              	.L223:
+ 1947 16e4 B030D6E1 		ldrh	r3, [r6, #0]	@ <variable>.size, <variable>.size
+ 1948 16e8 030053E3 		cmp	r3, #3	@ <variable>.size,
+ 1949 16ec 0700009A 		bls	.L224	@,
+ 1950 16f0 0600A0E1 		mov	r0, r6	@, boat
+ 1951 16f4 0910A0E1 		mov	r1, r9	@, sea
+ 1952 16f8 0A20A0E1 		mov	r2, sl	@, temp
+ 1953 16fc 0A308DE2 		add	r3, sp, #10	@,,
+ 1954 1700 00808DE5 		str	r8, [sp, #0]	@ x,
+ 1955 1704 04708DE5 		str	r7, [sp, #4]	@ y,
+ 1956 1708 FEFFFFEB 		bl	findNextCoordinate	@
+ 1957 170c 0040A0E1 		mov	r4, r0	@ found,
+ 1958              	.L224:
+ 1959 1710 B030D6E1 		ldrh	r3, [r6, #0]	@ <variable>.size, <variable>.size
+ 1960 1714 040053E3 		cmp	r3, #4	@ <variable>.size,
+ 1961 1718 0700009A 		bls	.L225	@,
+ 1962 171c 0600A0E1 		mov	r0, r6	@, boat
+ 1963 1720 0910A0E1 		mov	r1, r9	@, sea
+ 1964 1724 0A20A0E1 		mov	r2, sl	@, temp
+ 1965 1728 0A308DE2 		add	r3, sp, #10	@,,
+ 1966 172c 00808DE5 		str	r8, [sp, #0]	@ x,
+ 1967 1730 04708DE5 		str	r7, [sp, #4]	@ y,
+ 1968 1734 FEFFFFEB 		bl	findNextCoordinate	@
+ 1969 1738 0040A0E1 		mov	r4, r0	@ found,
+ 1970              	.L225:
+ 1971 173c 14309FE5 		ldr	r3, .L228	@ tmp188,
+ 1972 1740 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 1973 1744 FEFFFFEB 		bl	fflush	@
+ 1974 1748 0400A0E1 		mov	r0, r4	@, found
+ 1975 174c 0CD08DE2 		add	sp, sp, #12	@,,
+ 1976 1750 F047BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+ 1977 1754 1EFF2FE1 		bx	lr
+ 1978              	.L229:
+ 1979              		.align	2
+ 1980              	.L228:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 37
+
+
+ 1981 1758 00000000 		.word	__iob
+ 1982              		.size	findLocationToShip, .-findLocationToShip
+ 1983              		.align	2
+ 1984              		.global	findLocationToAllShips
+ 1985              		.type	findLocationToAllShips, %function
+ 1986              	findLocationToAllShips:
+ 1987              		@ Function supports interworking.
+ 1988              		@ args = 12, pretend = 0, frame = 0
+ 1989              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1990 175c F0472DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}	@,
+ 1991 1760 20909DE5 		ldr	r9, [sp, #32]	@ des2, des2
+ 1992 1764 24509DE5 		ldr	r5, [sp, #36]	@ sea, sea
+ 1993 1768 28409DE5 		ldr	r4, [sp, #40]	@ temp, temp
+ 1994 176c 0060A0E1 		mov	r6, r0	@ air5, air5
+ 1995 1770 0170A0E1 		mov	r7, r1	@ bat4, bat4
+ 1996 1774 0280A0E1 		mov	r8, r2	@ cru3, cru3
+ 1997 1778 03A0A0E1 		mov	sl, r3	@ sub3, sub3
+ 1998              	.L231:
+ 1999 177c 0600A0E1 		mov	r0, r6	@, air5
+ 2000 1780 0510A0E1 		mov	r1, r5	@, sea
+ 2001 1784 0420A0E1 		mov	r2, r4	@, temp
+ 2002 1788 FEFFFFEB 		bl	findLocationToShip	@
+ 2003 178c 000050E3 		cmp	r0, #0	@ tmp145
+ 2004 1790 F9FFFF0A 		beq	.L231	@,
+ 2005 1794 010050E3 		cmp	r0, #1	@ tmp145,
+ 2006 1798 0600A001 		moveq	r0, r6	@, air5
+ 2007 179c 0410A001 		moveq	r1, r4	@, temp
+ 2008 17a0 0520A001 		moveq	r2, r5	@, sea
+ 2009 17a4 FEFFFF0B 		bleq	setShipToSea	@
+ 2010              	.L241:
+ 2011 17a8 0700A0E1 		mov	r0, r7	@, bat4
+ 2012 17ac 0510A0E1 		mov	r1, r5	@, sea
+ 2013 17b0 0420A0E1 		mov	r2, r4	@, temp
+ 2014 17b4 FEFFFFEB 		bl	findLocationToShip	@
+ 2015 17b8 000050E3 		cmp	r0, #0	@ tmp146
+ 2016 17bc F9FFFF0A 		beq	.L241	@,
+ 2017 17c0 010050E3 		cmp	r0, #1	@ tmp146,
+ 2018 17c4 0700A001 		moveq	r0, r7	@, bat4
+ 2019 17c8 0410A001 		moveq	r1, r4	@, temp
+ 2020 17cc 0520A001 		moveq	r2, r5	@, sea
+ 2021 17d0 FEFFFF0B 		bleq	setShipToSea	@
+ 2022              	.L240:
+ 2023 17d4 0800A0E1 		mov	r0, r8	@, cru3
+ 2024 17d8 0510A0E1 		mov	r1, r5	@, sea
+ 2025 17dc 0420A0E1 		mov	r2, r4	@, temp
+ 2026 17e0 FEFFFFEB 		bl	findLocationToShip	@
+ 2027 17e4 000050E3 		cmp	r0, #0	@ tmp147
+ 2028 17e8 F9FFFF0A 		beq	.L240	@,
+ 2029 17ec 010050E3 		cmp	r0, #1	@ tmp147,
+ 2030 17f0 0800A001 		moveq	r0, r8	@, cru3
+ 2031 17f4 0410A001 		moveq	r1, r4	@, temp
+ 2032 17f8 0520A001 		moveq	r2, r5	@, sea
+ 2033 17fc FEFFFF0B 		bleq	setShipToSea	@
+ 2034              	.L239:
+ 2035 1800 0A00A0E1 		mov	r0, sl	@, sub3
+ 2036 1804 0510A0E1 		mov	r1, r5	@, sea
+ 2037 1808 0420A0E1 		mov	r2, r4	@, temp
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 38
+
+
+ 2038 180c FEFFFFEB 		bl	findLocationToShip	@
+ 2039 1810 000050E3 		cmp	r0, #0	@ tmp148
+ 2040 1814 F9FFFF0A 		beq	.L239	@,
+ 2041 1818 010050E3 		cmp	r0, #1	@ tmp148,
+ 2042 181c 0A00A001 		moveq	r0, sl	@, sub3
+ 2043 1820 0410A001 		moveq	r1, r4	@, temp
+ 2044 1824 0520A001 		moveq	r2, r5	@, sea
+ 2045 1828 FEFFFF0B 		bleq	setShipToSea	@
+ 2046              	.L238:
+ 2047 182c 0900A0E1 		mov	r0, r9	@, des2
+ 2048 1830 0510A0E1 		mov	r1, r5	@, sea
+ 2049 1834 0420A0E1 		mov	r2, r4	@, temp
+ 2050 1838 FEFFFFEB 		bl	findLocationToShip	@
+ 2051 183c 000050E3 		cmp	r0, #0	@ tmp149
+ 2052 1840 F9FFFF0A 		beq	.L238	@,
+ 2053 1844 010050E3 		cmp	r0, #1	@ tmp149,
+ 2054 1848 0900A001 		moveq	r0, r9	@, des2
+ 2055 184c 0410A001 		moveq	r1, r4	@, temp
+ 2056 1850 0520A001 		moveq	r2, r5	@, sea
+ 2057 1854 FEFFFF0B 		bleq	setShipToSea	@
+ 2058              	.L236:
+ 2059 1858 0C309FE5 		ldr	r3, .L247	@ tmp150,
+ 2060 185c 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2061 1860 FEFFFFEB 		bl	fflush	@
+ 2062 1864 F047BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+ 2063 1868 1EFF2FE1 		bx	lr
+ 2064              	.L248:
+ 2065              		.align	2
+ 2066              	.L247:
+ 2067 186c 00000000 		.word	__iob
+ 2068              		.size	findLocationToAllShips, .-findLocationToAllShips
+ 2069              		.align	2
+ 2070              		.global	giveMaxFiveShots
+ 2071              		.type	giveMaxFiveShots, %function
+ 2072              	giveMaxFiveShots:
+ 2073              		@ Function supports interworking.
+ 2074              		@ args = 0, pretend = 0, frame = 0
+ 2075              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2076 1870 0008A0E1 		mov	r0, r0, asl #16	@ tmp149, shotCount,
+ 2077 1874 F0472DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}	@,
+ 2078 1878 0180A0E1 		mov	r8, r1	@ shotX, shotX
+ 2079 187c 0270A0E1 		mov	r7, r2	@ shotY, shotY
+ 2080 1880 03A0A0E1 		mov	sl, r3	@ sea, sea
+ 2081 1884 2068A0E1 		mov	r6, r0, lsr #16	@ shotCount, tmp149,
+ 2082 1888 0040A0E3 		mov	r4, #0	@ i,
+ 2083 188c 0A90A0E3 		mov	r9, #10	@ tmp187,
+ 2084 1890 140000EA 		b	.L262	@
+ 2085              	.L260:
+ 2086 1894 FEFFFFEB 		bl	rand	@
+ 2087 1898 0A10A0E3 		mov	r1, #10	@,
+ 2088 189c FEFFFFEB 		bl	__modsi3	@
+ 2089 18a0 0008A0E1 		mov	r0, r0, asl #16	@ tmp159,,
+ 2090 18a4 2058A0E1 		mov	r5, r0, lsr #16	@ x, tmp159,
+ 2091 18a8 FEFFFFEB 		bl	rand	@
+ 2092 18ac 0A10A0E3 		mov	r1, #10	@,
+ 2093 18b0 FEFFFFEB 		bl	__modsi3	@
+ 2094 18b4 0008A0E1 		mov	r0, r0, asl #16	@ tmp166,,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 39
+
+
+ 2095 18b8 2008A0E1 		mov	r0, r0, lsr #16	@ y, tmp166,
+ 2096 18bc 995023E0 		mla	r3, r9, r0, r5	@ tmp169, tmp187, y, x
+ 2097 18c0 8330A0E1 		mov	r3, r3, asl #1	@ tmp170, tmp169,
+ 2098 18c4 B3309AE1 		ldrh	r3, [sl, r3]	@ tmp172,
+ 2099 18c8 000053E3 		cmp	r3, #0	@ tmp172,
+ 2100 18cc F0FFFF1A 		bne	.L260	@,
+ 2101 18d0 8420A0E1 		mov	r2, r4, asl #1	@ D.2823, i,
+ 2102 18d4 013084E2 		add	r3, r4, #1	@ tmp173, i,
+ 2103 18d8 B25088E1 		strh	r5, [r8, r2]	@ movhi	@ x,* D.2823
+ 2104 18dc 0338A0E1 		mov	r3, r3, asl #16	@ tmp174, tmp173,
+ 2105 18e0 B20087E1 		strh	r0, [r7, r2]	@ movhi	@ y,* D.2823
+ 2106 18e4 2348A0E1 		mov	r4, r3, lsr #16	@ i, tmp174,
+ 2107              	.L262:
+ 2108 18e8 060054E1 		cmp	r4, r6	@ i, shotCount
+ 2109 18ec 0010A023 		movcs	r1, #0	@ i.811,
+ 2110 18f0 01E0A021 		movcs	lr, r1	@ virhe, i.811
+ 2111 18f4 1B00002A 		bcs	.L252	@,
+ 2112 18f8 E5FFFFEA 		b	.L260	@
+ 2113              	.L257:
+ 2114 18fc 8130A0E1 		mov	r3, r1, asl #1	@ temp.813, i.811,
+ 2115 1900 0020A0E3 		mov	r2, #0	@ j,
+ 2116 1904 B35097E1 		ldrh	r5, [r7, r3]	@ y.817,* temp.813
+ 2117 1908 B34098E1 		ldrh	r4, [r8, r3]	@ x.815,* temp.813
+ 2118 190c 02C0A0E1 		mov	ip, r2	@ sama, j
+ 2119 1910 0E0000EA 		b	.L253	@
+ 2120              	.L256:
+ 2121 1914 B03098E1 		ldrh	r3, [r8, r0]	@ tmp175,* D.2827
+ 2122 1918 040053E1 		cmp	r3, r4	@ tmp175, x.815
+ 2123 191c 0400001A 		bne	.L254	@,
+ 2124 1920 B03097E1 		ldrh	r3, [r7, r0]	@ tmp176,* D.2827
+ 2125 1924 050053E1 		cmp	r3, r5	@ tmp176, y.817
+ 2126 1928 01308C02 		addeq	r3, ip, #1	@ tmp177, sama,
+ 2127 192c 0338A001 		moveq	r3, r3, asl #16	@ tmp178, tmp177,
+ 2128 1930 23C8A001 		moveq	ip, r3, lsr #16	@ sama, tmp178,
+ 2129              	.L254:
+ 2130 1934 02005CE3 		cmp	ip, #2	@ sama,
+ 2131 1938 0620A021 		movcs	r2, r6	@, j, shotCount
+ 2132 193c 013082E2 		add	r3, r2, #1	@ tmp179, j,
+ 2133 1940 0338A0E1 		mov	r3, r3, asl #16	@ tmp180, tmp179,
+ 2134 1944 01E0A023 		movcs	lr, #1	@, virhe,
+ 2135 1948 0610A021 		movcs	r1, r6	@, i.811, shotCount
+ 2136 194c 2328A0E1 		mov	r2, r3, lsr #16	@ j, tmp180,
+ 2137              	.L253:
+ 2138 1950 060052E1 		cmp	r2, r6	@ j, shotCount
+ 2139 1954 8200A0E1 		mov	r0, r2, asl #1	@ D.2827, j,
+ 2140 1958 EDFFFF3A 		bcc	.L256	@,
+ 2141 195c 013081E2 		add	r3, r1, #1	@ tmp181, i.811,
+ 2142 1960 0338A0E1 		mov	r3, r3, asl #16	@ tmp182, tmp181,
+ 2143 1964 2318A0E1 		mov	r1, r3, lsr #16	@ i.811, tmp182,
+ 2144              	.L252:
+ 2145 1968 060051E1 		cmp	r1, r6	@ i.811, shotCount
+ 2146 196c E2FFFF3A 		bcc	.L257	@,
+ 2147 1970 01005EE3 		cmp	lr, #1	@ virhe,
+ 2148 1974 0040A003 		moveq	r4, #0	@ i,
+ 2149 1978 DAFFFF0A 		beq	.L262	@
+ 2150              	.L258:
+ 2151 197c 0C309FE5 		ldr	r3, .L263	@ tmp183,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 40
+
+
+ 2152 1980 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2153 1984 FEFFFFEB 		bl	fflush	@
+ 2154 1988 F047BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+ 2155 198c 1EFF2FE1 		bx	lr
+ 2156              	.L264:
+ 2157              		.align	2
+ 2158              	.L263:
+ 2159 1990 00000000 		.word	__iob
+ 2160              		.size	giveMaxFiveShots, .-giveMaxFiveShots
+ 2161              		.section	.rodata.str1.1
+ 2162              	.LC25:
+ 2163 01e9 0A416E6E 		.ascii	"\012Anna yksi ammuskoordinaatti, arvot v\344lill\344"
+ 2163      6120796B 
+ 2163      73692061 
+ 2163      6D6D7573 
+ 2163      6B6F6F72 
+ 2164 0214 20302D39 		.ascii	" 0-9: x y \000"
+ 2164      3A207820 
+ 2164      792000
+ 2165              	.LC26:
+ 2166 021f 20256420 		.ascii	" %d \000"
+ 2166      00
+ 2167              	.LC27:
+ 2168 0224 616E6E6F 		.ascii	"annoit (%d, %d) \000"
+ 2168      69742028 
+ 2168      25642C20 
+ 2168      25642920 
+ 2168      00
+ 2169              		.text
+ 2170              		.align	2
+ 2171              		.global	askTarget
+ 2172              		.type	askTarget, %function
+ 2173              	askTarget:
+ 2174              		@ Function supports interworking.
+ 2175              		@ args = 0, pretend = 0, frame = 0
+ 2176              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2177 1994 F0412DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+ 2178 1998 74609FE5 		ldr	r6, .L267	@ tmp142,
+ 2179 199c 0080A0E1 		mov	r8, r0	@ inX, inX
+ 2180 19a0 70009FE5 		ldr	r0, .L267+4	@,
+ 2181 19a4 0170A0E1 		mov	r7, r1	@ inY, inY
+ 2182 19a8 FEFFFFEB 		bl	printf	@
+ 2183 19ac 000096E5 		ldr	r0, [r6, #0]	@, __iob
+ 2184 19b0 FEFFFFEB 		bl	getc	@
+ 2185 19b4 0058A0E1 		mov	r5, r0, asl #16	@ tmp143,,
+ 2186 19b8 2558A0E1 		mov	r5, r5, lsr #16	@ x, tmp143,
+ 2187 19bc 305045E2 		sub	r5, r5, #48	@ D.3011, x,
+ 2188 19c0 0510A0E1 		mov	r1, r5	@, D.3011
+ 2189 19c4 50009FE5 		ldr	r0, .L267+8	@,
+ 2190 19c8 FEFFFFEB 		bl	printf	@
+ 2191 19cc 000096E5 		ldr	r0, [r6, #0]	@, __iob
+ 2192 19d0 FEFFFFEB 		bl	getc	@
+ 2193 19d4 0048A0E1 		mov	r4, r0, asl #16	@ tmp146,,
+ 2194 19d8 2448A0E1 		mov	r4, r4, lsr #16	@ y, tmp146,
+ 2195 19dc 304044E2 		sub	r4, r4, #48	@ D.3014, y,
+ 2196 19e0 0410A0E1 		mov	r1, r4	@, D.3014
+ 2197 19e4 34009FE5 		ldr	r0, .L267+12	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 41
+
+
+ 2198 19e8 FEFFFFEB 		bl	printf	@
+ 2199 19ec B050C8E1 		strh	r5, [r8, #0]	@ movhi	@ D.3011,* inX
+ 2200 19f0 0510A0E1 		mov	r1, r5	@, D.3011
+ 2201 19f4 B040C7E1 		strh	r4, [r7, #0]	@ movhi	@ D.3014,* inY
+ 2202 19f8 0420A0E1 		mov	r2, r4	@, D.3014
+ 2203 19fc 20009FE5 		ldr	r0, .L267+16	@,
+ 2204 1a00 FEFFFFEB 		bl	printf	@
+ 2205 1a04 000096E5 		ldr	r0, [r6, #0]	@, __iob
+ 2206 1a08 FEFFFFEB 		bl	fflush	@
+ 2207 1a0c F041BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, lr}
+ 2208 1a10 1EFF2FE1 		bx	lr
+ 2209              	.L268:
+ 2210              		.align	2
+ 2211              	.L267:
+ 2212 1a14 00000000 		.word	__iob
+ 2213 1a18 E9010000 		.word	.LC25
+ 2214 1a1c 71000000 		.word	.LC5
+ 2215 1a20 1F020000 		.word	.LC26
+ 2216 1a24 24020000 		.word	.LC27
+ 2217              		.size	askTarget, .-askTarget
+ 2218              		.align	2
+ 2219              		.global	askMaxFiveShots
+ 2220              		.type	askMaxFiveShots, %function
+ 2221              	askMaxFiveShots:
+ 2222              		@ Function supports interworking.
+ 2223              		@ args = 0, pretend = 0, frame = 0
+ 2224              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2225 1a28 F0412DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+ 2226 1a2c 0008A0E1 		mov	r0, r0, asl #16	@ tmp139, shotCount,
+ 2227 1a30 0050A0E3 		mov	r5, #0	@ i,
+ 2228 1a34 0180A0E1 		mov	r8, r1	@ shotX, shotX
+ 2229 1a38 0270A0E1 		mov	r7, r2	@ shotY, shotY
+ 2230 1a3c 2068A0E1 		mov	r6, r0, lsr #16	@ shotCount, tmp139,
+ 2231 1a40 0540A0E1 		mov	r4, r5	@ ivtmp.850, i
+ 2232 1a44 030000EA 		b	.L270	@
+ 2233              	.L271:
+ 2234 1a48 FEFFFFEB 		bl	askTarget	@
+ 2235 1a4c 013085E2 		add	r3, r5, #1	@ tmp144, i,
+ 2236 1a50 0338A0E1 		mov	r3, r3, asl #16	@ tmp145, tmp144,
+ 2237 1a54 2358A0E1 		mov	r5, r3, lsr #16	@ i, tmp145,
+ 2238              	.L270:
+ 2239 1a58 060055E1 		cmp	r5, r6	@ i, shotCount
+ 2240 1a5c 040088E0 		add	r0, r8, r4	@, shotX, ivtmp.850
+ 2241 1a60 041087E0 		add	r1, r7, r4	@, shotY, ivtmp.850
+ 2242 1a64 024084E2 		add	r4, r4, #2	@ ivtmp.850, ivtmp.850,
+ 2243 1a68 F6FFFF3A 		bcc	.L271	@,
+ 2244 1a6c F041BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, lr}
+ 2245 1a70 1EFF2FE1 		bx	lr
+ 2246              		.size	askMaxFiveShots, .-askMaxFiveShots
+ 2247              		.section	.rodata.str1.1
+ 2248              	.LC28:
+ 2249 0235 0A4A6F73 		.ascii	"\012Jos haluat keskeytt\344\344, anna 1 ja paina En"
+ 2249      2068616C 
+ 2249      75617420 
+ 2249      6B65736B 
+ 2249      65797474 
+ 2250 025f 7465722E 		.ascii	"ter. Jatkaaksesi anna muu numero. \000"
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 42
+
+
+ 2250      204A6174 
+ 2250      6B61616B 
+ 2250      73657369 
+ 2250      20616E6E 
+ 2251              		.text
+ 2252              		.align	2
+ 2253              		.global	askIfUserWantsToCancel
+ 2254              		.type	askIfUserWantsToCancel, %function
+ 2255              	askIfUserWantsToCancel:
+ 2256              		@ Function supports interworking.
+ 2257              		@ args = 0, pretend = 0, frame = 0
+ 2258              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2259 1a74 04E02DE5 		str	lr, [sp, #-4]!	@,
+ 2260 1a78 34009FE5 		ldr	r0, .L276	@,
+ 2261 1a7c FEFFFFEB 		bl	printf	@
+ 2262 1a80 30309FE5 		ldr	r3, .L276+4	@ tmp135,
+ 2263 1a84 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2264 1a88 FEFFFFEB 		bl	getc	@
+ 2265 1a8c 0008A0E1 		mov	r0, r0, asl #16	@ tmp137,,
+ 2266 1a90 310850E3 		cmp	r0, #3211264	@ tmp137,
+ 2267 1a94 20309F05 		ldreq	r3, .L276+8	@ tmp138,
+ 2268 1a98 0220A003 		moveq	r2, #2	@ movhi	@,
+ 2269 1a9c BA21C301 		streqh	r2, [r3, #26]	@ movhi	@, game.gameStatus
+ 2270 1aa0 10309FE5 		ldr	r3, .L276+4	@ tmp141,
+ 2271 1aa4 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2272 1aa8 FEFFFFEB 		bl	fflush	@
+ 2273 1aac 04E09DE4 		ldr	lr, [sp], #4
+ 2274 1ab0 1EFF2FE1 		bx	lr
+ 2275              	.L277:
+ 2276              		.align	2
+ 2277              	.L276:
+ 2278 1ab4 35020000 		.word	.LC28
+ 2279 1ab8 00000000 		.word	__iob
+ 2280 1abc 00000000 		.word	game
+ 2281              		.size	askIfUserWantsToCancel, .-askIfUserWantsToCancel
+ 2282              		.section	.rodata.str1.1
+ 2283              	.LC29:
+ 2284 0282 0A0A4741 		.ascii	"\012\012GAME \011turn = %d, gameStatus = %d\000"
+ 2284      4D452009 
+ 2284      7475726E 
+ 2284      203D2025 
+ 2284      642C2067 
+ 2285              	.LC30:
+ 2286 02a5 0A706C61 		.ascii	"\012playerAnnounced = %d, playerAddress = %s\000"
+ 2286      79657241 
+ 2286      6E6E6F75 
+ 2286      6E636564 
+ 2286      203D2025 
+ 2287              	.LC31:
+ 2288 02cf 0A73656C 		.ascii	"\012selectedOpponentHasAnswered = %d, opponentAnswe"
+ 2288      65637465 
+ 2288      644F7070 
+ 2288      6F6E656E 
+ 2288      74486173 
+ 2289 02ff 72203D20 		.ascii	"r = %d\000"
+ 2289      256400
+ 2290              	.LC32:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 43
+
+
+ 2291 0306 0A0A0947 		.ascii	"\012\012\011GAME \011turn = %d\000"
+ 2291      414D4520 
+ 2291      09747572 
+ 2291      6E203D20 
+ 2291      256400
+ 2292              		.text
+ 2293              		.align	2
+ 2294              		.global	showGameStatus
+ 2295              		.type	showGameStatus, %function
+ 2296              	showGameStatus:
+ 2297              		@ Function supports interworking.
+ 2298              		@ args = 0, pretend = 0, frame = 0
+ 2299              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2300 1ac0 88309FE5 		ldr	r3, .L282	@ tmp135,
+ 2301 1ac4 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2302 1ac8 010053E3 		cmp	r3, #1	@ verbose,
+ 2303 1acc 30402DE9 		stmfd	sp!, {r4, r5, lr}	@,
+ 2304 1ad0 7C509FE5 		ldr	r5, .L282+4	@ tmp156,
+ 2305 1ad4 0F00001A 		bne	.L279	@,
+ 2306 1ad8 B010D5E1 		ldrh	r1, [r5, #0]	@, game.turn
+ 2307 1adc BA21D5E1 		ldrh	r2, [r5, #26]	@, game.gameStatus
+ 2308 1ae0 70009FE5 		ldr	r0, .L282+8	@,
+ 2309 1ae4 FEFFFFEB 		bl	printf	@
+ 2310 1ae8 040095E5 		ldr	r0, [r5, #4]	@, game.playerAddress
+ 2311 1aec B240D5E1 		ldrh	r4, [r5, #2]	@ D.2758, game.playerAnnounced
+ 2312 1af0 FEFFFFEB 		bl	inet_ntoa	@
+ 2313 1af4 0410A0E1 		mov	r1, r4	@, D.2758
+ 2314 1af8 0020A0E1 		mov	r2, r0	@ D.2760,
+ 2315 1afc 58009FE5 		ldr	r0, .L282+12	@,
+ 2316 1b00 FEFFFFEB 		bl	printf	@
+ 2317 1b04 BA20D5E1 		ldrh	r2, [r5, #10]	@, game.opponentAnswer
+ 2318 1b08 B810D5E1 		ldrh	r1, [r5, #8]	@, game.selectedOpponentHasAnswered
+ 2319 1b0c 4C009FE5 		ldr	r0, .L282+16	@,
+ 2320 1b10 FEFFFFEB 		bl	printf	@
+ 2321 1b14 020000EA 		b	.L280	@
+ 2322              	.L279:
+ 2323 1b18 BA11D5E1 		ldrh	r1, [r5, #26]	@, game.gameStatus
+ 2324 1b1c 40009FE5 		ldr	r0, .L282+20	@,
+ 2325 1b20 FEFFFFEB 		bl	printf	@
+ 2326              	.L280:
+ 2327 1b24 3C009FE5 		ldr	r0, .L282+24	@,
+ 2328 1b28 FEFFFFEB 		bl	showPlayer	@
+ 2329 1b2c 38009FE5 		ldr	r0, .L282+28	@,
+ 2330 1b30 FEFFFFEB 		bl	showPlayer	@
+ 2331 1b34 0A00A0E3 		mov	r0, #10	@,
+ 2332 1b38 FEFFFFEB 		bl	putchar	@
+ 2333 1b3c 2C309FE5 		ldr	r3, .L282+32	@ tmp155,
+ 2334 1b40 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2335 1b44 FEFFFFEB 		bl	fflush	@
+ 2336 1b48 3040BDE8 		ldmfd	sp!, {r4, r5, lr}
+ 2337 1b4c 1EFF2FE1 		bx	lr
+ 2338              	.L283:
+ 2339              		.align	2
+ 2340              	.L282:
+ 2341 1b50 00000000 		.word	verbose
+ 2342 1b54 00000000 		.word	game
+ 2343 1b58 82020000 		.word	.LC29
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 44
+
+
+ 2344 1b5c A5020000 		.word	.LC30
+ 2345 1b60 CF020000 		.word	.LC31
+ 2346 1b64 06030000 		.word	.LC32
+ 2347 1b68 20000000 		.word	game+32
+ 2348 1b6c 38000000 		.word	game+56
+ 2349 1b70 00000000 		.word	__iob
+ 2350              		.size	showGameStatus, .-showGameStatus
+ 2351              		.section	.rodata.str1.1
+ 2352              	.LC33:
+ 2353 0319 0A0A0950 		.ascii	"\012\012\011PELI LOPPUI\012\012Tulokset: \000"
+ 2353      454C4920 
+ 2353      4C4F5050 
+ 2353      55490A0A 
+ 2353      54756C6F 
+ 2354              	.LC34:
+ 2355 0334 09544153 		.ascii	"\011TASAPELI\000"
+ 2355      4150454C 
+ 2355      4900
+ 2356              	.LC35:
+ 2357 033e 09564153 		.ascii	"\011VASTUSTAJA VOITTI!\000"
+ 2357      54555354 
+ 2357      414A4120 
+ 2357      564F4954 
+ 2357      54492100 
+ 2358              	.LC36:
+ 2359 0352 094D4520 		.ascii	"\011ME VOITIMME!\000"
+ 2359      564F4954 
+ 2359      494D4D45 
+ 2359      2100
+ 2360              	.LC37:
+ 2361 0360 0950656C 		.ascii	"\011Peli keskeytettiin.\000"
+ 2361      69206B65 
+ 2361      736B6579 
+ 2361      74657474 
+ 2361      69696E2E 
+ 2362              	.LC38:
+ 2363 0375 0A0A094D 		.ascii	"\012\012\011Me saimme %d osumaa ja upotimme %d laiv"
+ 2363      65207361 
+ 2363      696D6D65 
+ 2363      20256420 
+ 2363      6F73756D 
+ 2364 039f 61612E00 		.ascii	"aa.\000"
+ 2365              	.LC39:
+ 2366 03a3 0A095661 		.ascii	"\012\011Vastustaja sai %d osumaa ja upotti %d laiva"
+ 2366      73747573 
+ 2366      74616A61 
+ 2366      20736169 
+ 2366      20256420 
+ 2367 03d0 612E0A0A 		.ascii	"a.\012\012\000"
+ 2367      00
+ 2368              		.text
+ 2369              		.align	2
+ 2370              		.global	showGameEndResult
+ 2371              		.type	showGameEndResult, %function
+ 2372              	showGameEndResult:
+ 2373              		@ Function supports interworking.
+ 2374              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 45
+
+
+ 2375              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2376 1b74 10402DE9 		stmfd	sp!, {r4, lr}	@,
+ 2377 1b78 0C019FE5 		ldr	r0, .L291	@,
+ 2378 1b7c FEFFFFEB 		bl	printf	@
+ 2379 1b80 08219FE5 		ldr	r2, .L291+4	@ tmp134,
+ 2380 1b84 B433D2E1 		ldrh	r3, [r2, #52]	@ <variable>.allShipsSunken, <variable>.allShipsSunken
+ 2381 1b88 010053E3 		cmp	r3, #1	@ <variable>.allShipsSunken,
+ 2382 1b8c 0400001A 		bne	.L285	@,
+ 2383 1b90 BC34D2E1 		ldrh	r3, [r2, #76]	@ <variable>.allShipsSunken, <variable>.allShipsSunken
+ 2384 1b94 010053E3 		cmp	r3, #1	@ <variable>.allShipsSunken,
+ 2385 1b98 F4009F05 		ldreq	r0, .L291+8	@,
+ 2386 1b9c F4009F15 		ldrne	r0, .L291+12	@,
+ 2387 1ba0 FEFFFFEB 		bl	printf	@
+ 2388              	.L285:
+ 2389 1ba4 E4209FE5 		ldr	r2, .L291+4	@ tmp140,
+ 2390 1ba8 BC34D2E1 		ldrh	r3, [r2, #76]	@ <variable>.allShipsSunken, <variable>.allShipsSunken
+ 2391 1bac 010053E3 		cmp	r3, #1	@ <variable>.allShipsSunken,
+ 2392 1bb0 1C00001A 		bne	.L287	@,
+ 2393 1bb4 B433D2E1 		ldrh	r3, [r2, #52]	@ <variable>.allShipsSunken, <variable>.allShipsSunken
+ 2394 1bb8 010053E3 		cmp	r3, #1	@ <variable>.allShipsSunken,
+ 2395 1bbc 1900000A 		beq	.L287	@,
+ 2396 1bc0 D4009FE5 		ldr	r0, .L291+16	@,
+ 2397 1bc4 FEFFFFEB 		bl	printf	@
+ 2398 1bc8 FEFFFFEB 		bl	led1On	@
+ 2399 1bcc FEFFFFEB 		bl	led2On	@
+ 2400 1bd0 FEFFFFEB 		bl	led3On	@
+ 2401 1bd4 FEFFFFEB 		bl	led4On	@
+ 2402 1bd8 7D0FA0E3 		mov	r0, #500	@,
+ 2403 1bdc FEFFFFEB 		bl	NutSleep	@
+ 2404 1be0 FEFFFFEB 		bl	led1Off	@
+ 2405 1be4 FEFFFFEB 		bl	led2Off	@
+ 2406 1be8 FEFFFFEB 		bl	led3Off	@
+ 2407 1bec FEFFFFEB 		bl	led4Off	@
+ 2408 1bf0 C800A0E3 		mov	r0, #200	@,
+ 2409 1bf4 FEFFFFEB 		bl	NutSleep	@
+ 2410 1bf8 FEFFFFEB 		bl	led1On	@
+ 2411 1bfc FEFFFFEB 		bl	led2On	@
+ 2412 1c00 FEFFFFEB 		bl	led3On	@
+ 2413 1c04 FEFFFFEB 		bl	led4On	@
+ 2414 1c08 7D0FA0E3 		mov	r0, #500	@,
+ 2415 1c0c FEFFFFEB 		bl	NutSleep	@
+ 2416 1c10 FEFFFFEB 		bl	led1Off	@
+ 2417 1c14 FEFFFFEB 		bl	led2Off	@
+ 2418 1c18 FEFFFFEB 		bl	led3Off	@
+ 2419 1c1c FEFFFFEB 		bl	led4Off	@
+ 2420 1c20 C800A0E3 		mov	r0, #200	@,
+ 2421 1c24 FEFFFFEB 		bl	NutSleep	@
+ 2422              	.L287:
+ 2423 1c28 60209FE5 		ldr	r2, .L291+4	@ tmp145,
+ 2424 1c2c B433D2E1 		ldrh	r3, [r2, #52]	@ <variable>.allShipsSunken, <variable>.allShipsSunken
+ 2425 1c30 010053E3 		cmp	r3, #1	@ <variable>.allShipsSunken,
+ 2426 1c34 0600000A 		beq	.L288	@,
+ 2427 1c38 BC34D2E1 		ldrh	r3, [r2, #76]	@ <variable>.allShipsSunken, <variable>.allShipsSunken
+ 2428 1c3c 010053E3 		cmp	r3, #1	@ <variable>.allShipsSunken,
+ 2429 1c40 0300000A 		beq	.L288	@,
+ 2430 1c44 BA31D2E1 		ldrh	r3, [r2, #26]	@ game.gameStatus, game.gameStatus
+ 2431 1c48 020053E3 		cmp	r3, #2	@ game.gameStatus,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 46
+
+
+ 2432 1c4c 4C009F05 		ldreq	r0, .L291+20	@,
+ 2433 1c50 FEFFFF0B 		bleq	printf	@
+ 2434              	.L288:
+ 2435 1c54 34409FE5 		ldr	r4, .L291+4	@ tmp153,
+ 2436 1c58 44009FE5 		ldr	r0, .L291+24	@,
+ 2437 1c5c BA14D4E1 		ldrh	r1, [r4, #74]	@, <variable>.nroHits
+ 2438 1c60 BE23D4E1 		ldrh	r2, [r4, #62]	@, <variable>.nroSunkenShips
+ 2439 1c64 FEFFFFEB 		bl	printf	@
+ 2440 1c68 B622D4E1 		ldrh	r2, [r4, #38]	@, <variable>.nroSunkenShips
+ 2441 1c6c B213D4E1 		ldrh	r1, [r4, #50]	@, <variable>.nroHits
+ 2442 1c70 30009FE5 		ldr	r0, .L291+28	@,
+ 2443 1c74 FEFFFFEB 		bl	printf	@
+ 2444 1c78 2C309FE5 		ldr	r3, .L291+32	@ tmp162,
+ 2445 1c7c 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2446 1c80 FEFFFFEB 		bl	fflush	@
+ 2447 1c84 1040BDE8 		ldmfd	sp!, {r4, lr}
+ 2448 1c88 1EFF2FE1 		bx	lr
+ 2449              	.L292:
+ 2450              		.align	2
+ 2451              	.L291:
+ 2452 1c8c 19030000 		.word	.LC33
+ 2453 1c90 00000000 		.word	game
+ 2454 1c94 34030000 		.word	.LC34
+ 2455 1c98 3E030000 		.word	.LC35
+ 2456 1c9c 52030000 		.word	.LC36
+ 2457 1ca0 60030000 		.word	.LC37
+ 2458 1ca4 75030000 		.word	.LC38
+ 2459 1ca8 A3030000 		.word	.LC39
+ 2460 1cac 00000000 		.word	__iob
+ 2461              		.size	showGameEndResult, .-showGameEndResult
+ 2462              		.section	.rodata.str1.1
+ 2463              	.LC40:
+ 2464 03d5 0A094B75 		.ascii	"\012\011Kuinka haluat pelata?\012\0111 = tietokone "
+ 2464      696E6B61 
+ 2464      2068616C 
+ 2464      75617420 
+ 2464      70656C61 
+ 2465 03fc 70656C61 		.ascii	"pelaa puolestani arpoen satunnaisesti ammusten sija"
+ 2465      61207075 
+ 2465      6F6C6573 
+ 2465      74616E69 
+ 2465      20617270 
+ 2466 042f 696E6E69 		.ascii	"innit\012\0112 = annan itse kohdekoordinaatit \012\012"
+ 2466      740A0932 
+ 2466      203D2061 
+ 2466      6E6E616E 
+ 2466      20697473 
+ 2467 0459 09416E6E 		.ascii	"\011Anna valintasi: \000"
+ 2467      61207661 
+ 2467      6C696E74 
+ 2467      6173693A 
+ 2467      2000
+ 2468              	.LC41:
+ 2469 046b 636C7300 		.ascii	"cls\000"
+ 2470              		.text
+ 2471              		.align	2
+ 2472              		.global	startOnePlayerGame
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 47
+
+
+ 2473              		.type	startOnePlayerGame, %function
+ 2474              	startOnePlayerGame:
+ 2475              		@ Function supports interworking.
+ 2476              		@ args = 0, pretend = 0, frame = 4
+ 2477              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2478 1cb0 F04F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}	@,
+ 2479 1cb4 34639FE5 		ldr	r6, .L311	@ tmp152,
+ 2480 1cb8 01C0A0E3 		mov	ip, #1	@ movhi	@,
+ 2481 1cbc 30539FE5 		ldr	r5, .L311+4	@ tmp160,
+ 2482 1cc0 BCC3C6E1 		strh	ip, [r6, #60]	@ movhi	@, <variable>.playerStatus
+ 2483 1cc4 2C739FE5 		ldr	r7, .L311+8	@ tmp159,
+ 2484 1cc8 2CC39FE5 		ldr	ip, .L311+12	@,
+ 2485 1ccc 1CD04DE2 		sub	sp, sp, #28	@,,
+ 2486 1cd0 28039FE5 		ldr	r0, .L311+16	@,
+ 2487 1cd4 28139FE5 		ldr	r1, .L311+20	@,
+ 2488 1cd8 28239FE5 		ldr	r2, .L311+24	@,
+ 2489 1cdc 28339FE5 		ldr	r3, .L311+28	@,
+ 2490 1ce0 80108DE8 		stmia	sp, {r7, ip}	@ phole stm
+ 2491 1ce4 08508DE5 		str	r5, [sp, #8]	@ tmp160,
+ 2492 1ce8 FEFFFFEB 		bl	findLocationToAllShips	@
+ 2493 1cec 1CC39FE5 		ldr	ip, .L311+32	@ tmp165,
+ 2494 1cf0 00C08DE5 		str	ip, [sp, #0]	@ tmp165,
+ 2495 1cf4 18C39FE5 		ldr	ip, .L311+36	@,
+ 2496 1cf8 18139FE5 		ldr	r1, .L311+40	@,
+ 2497 1cfc 18239FE5 		ldr	r2, .L311+44	@,
+ 2498 1d00 18339FE5 		ldr	r3, .L311+48	@,
+ 2499 1d04 18039FE5 		ldr	r0, .L311+52	@,
+ 2500 1d08 18439FE5 		ldr	r4, .L311+56	@ tmp168,
+ 2501 1d0c 04C08DE5 		str	ip, [sp, #4]	@,
+ 2502 1d10 08508DE5 		str	r5, [sp, #8]	@ tmp160,
+ 2503 1d14 FEFFFFEB 		bl	findLocationToAllShips	@
+ 2504 1d18 0C039FE5 		ldr	r0, .L311+60	@,
+ 2505 1d1c FEFFFFEB 		bl	printf	@
+ 2506 1d20 000094E5 		ldr	r0, [r4, #0]	@, __iob
+ 2507 1d24 FEFFFFEB 		bl	getc	@
+ 2508 1d28 0008A0E1 		mov	r0, r0, asl #16	@ tmp169,,
+ 2509 1d2c 2008A0E1 		mov	r0, r0, lsr #16	@, tmp169,
+ 2510 1d30 18008DE5 		str	r0, [sp, #24]	@, choice
+ 2511 1d34 00A0A0E3 		mov	sl, #0	@ turn,
+ 2512              	.L308:
+ 2513 1d38 F0029FE5 		ldr	r0, .L311+64	@,
+ 2514 1d3c FEFFFFEB 		bl	system	@
+ 2515 1d40 E0229FE5 		ldr	r2, .L311+56	@,
+ 2516 1d44 000092E5 		ldr	r0, [r2, #0]	@, __iob
+ 2517 1d48 FEFFFFEB 		bl	fflush	@
+ 2518 1d4c 01308AE2 		add	r3, sl, #1	@ tmp172, turn,
+ 2519 1d50 0338A0E1 		mov	r3, r3, asl #16	@ tmp173, tmp172,
+ 2520 1d54 23A8A0E1 		mov	sl, r3, lsr #16	@ turn, tmp173,
+ 2521 1d58 9C029FE5 		ldr	r0, .L311+12	@,
+ 2522 1d5c B0129FE5 		ldr	r1, .L311+36	@,
+ 2523 1d60 B0A0C6E1 		strh	sl, [r6, #0]	@ movhi	@ turn, game.turn
+ 2524 1d64 FEFFFFEB 		bl	showTwoSeaParallel	@
+ 2525 1d68 B602D6E1 		ldrh	r0, [r6, #38]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 2526 1d6c C0729FE5 		ldr	r7, .L311+68	@ targetSea.9,
+ 2527 1d70 050060E2 		rsb	r0, r0, #5	@ tmp178, <variable>.nroSunkenShips,
+ 2528 1d74 0008A0E1 		mov	r0, r0, asl #16	@ tmp180, tmp178,
+ 2529 1d78 0730A0E1 		mov	r3, r7	@, targetSea.9
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 48
+
+
+ 2530 1d7c 2008A0E1 		mov	r0, r0, lsr #16	@, tmp180,
+ 2531 1d80 B0129FE5 		ldr	r1, .L311+72	@,
+ 2532 1d84 B0229FE5 		ldr	r2, .L311+76	@,
+ 2533 1d88 FEFFFFEB 		bl	giveMaxFiveShots	@
+ 2534 1d8c 18309DE5 		ldr	r3, [sp, #24]	@, choice
+ 2535 1d90 310053E3 		cmp	r3, #49	@,
+ 2536 1d94 BE33D6E1 		ldrh	r3, [r6, #62]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 2537 1d98 0700001A 		bne	.L294	@,
+ 2538 1d9c 050063E2 		rsb	r0, r3, #5	@ tmp186, <variable>.nroSunkenShips,
+ 2539 1da0 0008A0E1 		mov	r0, r0, asl #16	@ tmp188, tmp186,
+ 2540 1da4 2008A0E1 		mov	r0, r0, lsr #16	@, tmp188,
+ 2541 1da8 90129FE5 		ldr	r1, .L311+80	@,
+ 2542 1dac 90229FE5 		ldr	r2, .L311+84	@,
+ 2543 1db0 90329FE5 		ldr	r3, .L311+88	@,
+ 2544 1db4 FEFFFFEB 		bl	giveMaxFiveShots	@
+ 2545 1db8 050000EA 		b	.L295	@
+ 2546              	.L294:
+ 2547 1dbc 050063E2 		rsb	r0, r3, #5	@ tmp195, <variable>.nroSunkenShips,
+ 2548 1dc0 0008A0E1 		mov	r0, r0, asl #16	@ tmp197, tmp195,
+ 2549 1dc4 2008A0E1 		mov	r0, r0, lsr #16	@, tmp197,
+ 2550 1dc8 70129FE5 		ldr	r1, .L311+80	@,
+ 2551 1dcc 70229FE5 		ldr	r2, .L311+84	@,
+ 2552 1dd0 FEFFFFEB 		bl	askMaxFiveShots	@
+ 2553              	.L295:
+ 2554 1dd4 0040A0E3 		mov	r4, #0	@ i,
+ 2555 1dd8 58929FE5 		ldr	r9, .L311+72	@ tmp298,
+ 2556 1ddc 58829FE5 		ldr	r8, .L311+76	@ tmp299,
+ 2557 1de0 150000EA 		b	.L296	@
+ 2558              	.L297:
+ 2559 1de4 B5C099E1 		ldrh	ip, [r9, r5]	@ tmp208, targetSeaShotX
+ 2560 1de8 B5E098E1 		ldrh	lr, [r8, r5]	@ tmp212, targetSeaShotY
+ 2561 1dec 04C08DE5 		str	ip, [sp, #4]	@ tmp208,
+ 2562 1df0 00C29FE5 		ldr	ip, .L311+8	@,
+ 2563 1df4 00C08DE5 		str	ip, [sp, #0]	@,
+ 2564 1df8 FCC19FE5 		ldr	ip, .L311+12	@,
+ 2565 1dfc 0CC08DE5 		str	ip, [sp, #12]	@,
+ 2566 1e00 44C29FE5 		ldr	ip, .L311+92	@,
+ 2567 1e04 08E08DE5 		str	lr, [sp, #8]	@ tmp212,
+ 2568 1e08 14C08DE5 		str	ip, [sp, #20]	@,
+ 2569 1e0c 10708DE5 		str	r7, [sp, #16]	@ targetSea.9,
+ 2570 1e10 FEFFFFEB 		bl	checkShotEffects	@
+ 2571 1e14 34229FE5 		ldr	r2, .L311+96	@,
+ 2572 1e18 B50082E1 		strh	r0, [r2, r5]	@ movhi	@, seaShotEffects
+ 2573 1e1c 0710A0E1 		mov	r1, r7	@, targetSea.9
+ 2574 1e20 B53098E1 		ldrh	r3, [r8, r5]	@,
+ 2575 1e24 D0019FE5 		ldr	r0, .L311+12	@,
+ 2576 1e28 B52099E1 		ldrh	r2, [r9, r5]	@,
+ 2577 1e2c FEFFFFEB 		bl	setShotsToTargetSea	@
+ 2578 1e30 013084E2 		add	r3, r4, #1	@ tmp224, i,
+ 2579 1e34 0338A0E1 		mov	r3, r3, asl #16	@ tmp225, tmp224,
+ 2580 1e38 2348A0E1 		mov	r4, r3, lsr #16	@ i, tmp225,
+ 2581              	.L296:
+ 2582 1e3c B6C2D6E1 		ldrh	ip, [r6, #38]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 2583 1e40 05C06CE2 		rsb	ip, ip, #5	@ tmp228, <variable>.nroSunkenShips,
+ 2584 1e44 0C0054E1 		cmp	r4, ip	@ i, tmp228
+ 2585 1e48 8450A0E1 		mov	r5, r4, asl #1	@ tmp206, i,
+ 2586 1e4c B0119FE5 		ldr	r1, .L311+20	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 49
+
+
+ 2587 1e50 B0219FE5 		ldr	r2, .L311+24	@,
+ 2588 1e54 B0319FE5 		ldr	r3, .L311+28	@,
+ 2589 1e58 A0019FE5 		ldr	r0, .L311+16	@,
+ 2590 1e5c E0FFFFBA 		blt	.L297	@,
+ 2591 1e60 0040A0E3 		mov	r4, #0	@ i.1016,
+ 2592 1e64 DC719FE5 		ldr	r7, .L311+88	@ tmp288,
+ 2593 1e68 D0919FE5 		ldr	r9, .L311+80	@ tmp290,
+ 2594 1e6c D0819FE5 		ldr	r8, .L311+84	@ tmp291,
+ 2595 1e70 DCB19FE5 		ldr	fp, .L311+100	@ tmp295,
+ 2596 1e74 140000EA 		b	.L298	@
+ 2597              	.L299:
+ 2598 1e78 B5C099E1 		ldrh	ip, [r9, r5]	@ tmp237, targetOppShotX
+ 2599 1e7c B5E098E1 		ldrh	lr, [r8, r5]	@ tmp241, targetOppShotY
+ 2600 1e80 04C08DE5 		str	ip, [sp, #4]	@ tmp237,
+ 2601 1e84 84C19FE5 		ldr	ip, .L311+32	@,
+ 2602 1e88 00C08DE5 		str	ip, [sp, #0]	@,
+ 2603 1e8c 80C19FE5 		ldr	ip, .L311+36	@,
+ 2604 1e90 0CC08DE5 		str	ip, [sp, #12]	@,
+ 2605 1e94 BCC19FE5 		ldr	ip, .L311+104	@,
+ 2606 1e98 08E08DE5 		str	lr, [sp, #8]	@ tmp241,
+ 2607 1e9c 14C08DE5 		str	ip, [sp, #20]	@,
+ 2608 1ea0 10708DE5 		str	r7, [sp, #16]	@ tmp288,
+ 2609 1ea4 FEFFFFEB 		bl	checkShotEffects	@
+ 2610 1ea8 B5008BE1 		strh	r0, [fp, r5]	@ movhi	@, oppShotEffects
+ 2611 1eac 0710A0E1 		mov	r1, r7	@, tmp288
+ 2612 1eb0 B53098E1 		ldrh	r3, [r8, r5]	@,
+ 2613 1eb4 58019FE5 		ldr	r0, .L311+36	@,
+ 2614 1eb8 B52099E1 		ldrh	r2, [r9, r5]	@,
+ 2615 1ebc FEFFFFEB 		bl	setShotsToTargetSea	@
+ 2616 1ec0 013084E2 		add	r3, r4, #1	@ tmp253, i.1016,
+ 2617 1ec4 0338A0E1 		mov	r3, r3, asl #16	@ tmp254, tmp253,
+ 2618 1ec8 2348A0E1 		mov	r4, r3, lsr #16	@ i.1016, tmp254,
+ 2619              	.L298:
+ 2620 1ecc BEC3D6E1 		ldrh	ip, [r6, #62]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 2621 1ed0 05C06CE2 		rsb	ip, ip, #5	@ tmp257, <variable>.nroSunkenShips,
+ 2622 1ed4 0C0054E1 		cmp	r4, ip	@ i.1016, tmp257
+ 2623 1ed8 8450A0E1 		mov	r5, r4, asl #1	@ tmp235, i.1016,
+ 2624 1edc 34119FE5 		ldr	r1, .L311+40	@,
+ 2625 1ee0 34219FE5 		ldr	r2, .L311+44	@,
+ 2626 1ee4 34319FE5 		ldr	r3, .L311+48	@,
+ 2627 1ee8 34019FE5 		ldr	r0, .L311+52	@,
+ 2628 1eec E1FFFFBA 		blt	.L299	@,
+ 2629 1ef0 3C019FE5 		ldr	r0, .L311+68	@,
+ 2630 1ef4 4C119FE5 		ldr	r1, .L311+88	@,
+ 2631 1ef8 FEFFFFEB 		bl	showTwoSeaParallel	@
+ 2632 1efc 0050A0E3 		mov	r5, #0	@ i.1017,
+ 2633 1f00 FEFFFFEB 		bl	showGameStatus	@
+ 2634 1f04 48819FE5 		ldr	r8, .L311+100	@ tmp284,
+ 2635 1f08 110000EA 		b	.L300	@
+ 2636              	.L302:
+ 2637 1f0c B23098E1 		ldrh	r3, [r8, r2]	@ tmp262,
+ 2638 1f10 010053E3 		cmp	r3, #1	@ tmp262,
+ 2639 1f14 0B00009A 		bls	.L301	@,
+ 2640 1f18 FEFFFFEB 		bl	led1On	@
+ 2641 1f1c FEFFFFEB 		bl	led2On	@
+ 2642 1f20 FEFFFFEB 		bl	led3On	@
+ 2643 1f24 FEFFFFEB 		bl	led4On	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 50
+
+
+ 2644 1f28 7D0FA0E3 		mov	r0, #500	@,
+ 2645 1f2c FEFFFFEB 		bl	NutSleep	@
+ 2646 1f30 FEFFFFEB 		bl	led1Off	@
+ 2647 1f34 FEFFFFEB 		bl	led2Off	@
+ 2648 1f38 FEFFFFEB 		bl	led3Off	@
+ 2649 1f3c FEFFFFEB 		bl	led4Off	@
+ 2650 1f40 C800A0E3 		mov	r0, #200	@,
+ 2651 1f44 FEFFFFEB 		bl	NutSleep	@
+ 2652              	.L301:
+ 2653 1f48 013085E2 		add	r3, r5, #1	@ tmp263, i.1017,
+ 2654 1f4c 0338A0E1 		mov	r3, r3, asl #16	@ tmp264, tmp263,
+ 2655 1f50 2358A0E1 		mov	r5, r3, lsr #16	@ i.1017, tmp264,
+ 2656              	.L300:
+ 2657 1f54 B831D6E1 		ldrh	r3, [r6, #24]	@ game.previousTurn_SunkenShips, game.previousTurn_SunkenShips
+ 2658 1f58 053063E2 		rsb	r3, r3, #5	@ tmp267, game.previousTurn_SunkenShips,
+ 2659 1f5c 030055E1 		cmp	r5, r3	@ i.1017, tmp267
+ 2660 1f60 8520A0E1 		mov	r2, r5, asl #1	@ tmp259, i.1017,
+ 2661 1f64 E8FFFFBA 		blt	.L302	@,
+ 2662 1f68 B8209FE5 		ldr	r2, .L311+56	@,
+ 2663 1f6c 000092E5 		ldr	r0, [r2, #0]	@, __iob
+ 2664 1f70 FEFFFFEB 		bl	fflush	@
+ 2665 1f74 74C09FE5 		ldr	ip, .L311	@,
+ 2666 1f78 B632DCE1 		ldrh	r3, [ip, #38]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 2667 1f7c 050053E3 		cmp	r3, #5	@ <variable>.nroSunkenShips,
+ 2668 1f80 0500000A 		beq	.L303	@,
+ 2669 1f84 BE33DCE1 		ldrh	r3, [ip, #62]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 2670 1f88 050053E3 		cmp	r3, #5	@ <variable>.nroSunkenShips,
+ 2671 1f8c 0200000A 		beq	.L303	@,
+ 2672 1f90 BA31DCE1 		ldrh	r3, [ip, #26]	@ game.gameStatus, game.gameStatus
+ 2673 1f94 020053E3 		cmp	r3, #2	@ game.gameStatus,
+ 2674 1f98 0400001A 		bne	.L304	@,
+ 2675              	.L303:
+ 2676 1f9c FEFFFFEB 		bl	showGameEndResult	@
+ 2677 1fa0 80309FE5 		ldr	r3, .L311+56	@ tmp275,
+ 2678 1fa4 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2679 1fa8 FEFFFFEB 		bl	fflush	@
+ 2680 1fac 0C0000EA 		b	.L309	@
+ 2681              	.L304:
+ 2682 1fb0 FEFFFFEB 		bl	askIfUserWantsToCancel	@
+ 2683 1fb4 34209FE5 		ldr	r2, .L311	@,
+ 2684 1fb8 BA31D2E1 		ldrh	r3, [r2, #26]	@ game.gameStatus, game.gameStatus
+ 2685 1fbc 020053E3 		cmp	r3, #2	@ game.gameStatus,
+ 2686 1fc0 0050A013 		movne	r5, #0	@ endGame,
+ 2687 1fc4 0100001A 		bne	.L307	@,
+ 2688 1fc8 FEFFFFEB 		bl	showGameEndResult	@
+ 2689 1fcc 0150A0E3 		mov	r5, #1	@ endGame,
+ 2690              	.L307:
+ 2691 1fd0 50309FE5 		ldr	r3, .L311+56	@,
+ 2692 1fd4 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2693 1fd8 FEFFFFEB 		bl	fflush	@
+ 2694 1fdc 000055E3 		cmp	r5, #0	@ endGame,
+ 2695 1fe0 54FFFF0A 		beq	.L308	@,
+ 2696              	.L309:
+ 2697 1fe4 1CD08DE2 		add	sp, sp, #28	@,,
+ 2698 1fe8 F04FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 2699 1fec 1EFF2FE1 		bx	lr
+ 2700              	.L312:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 51
+
+
+ 2701              		.align	2
+ 2702              	.L311:
+ 2703 1ff0 00000000 		.word	game
+ 2704 1ff4 00000000 		.word	temp
+ 2705 1ff8 00000000 		.word	des2
+ 2706 1ffc 00000000 		.word	sea
+ 2707 2000 00000000 		.word	air5
+ 2708 2004 00000000 		.word	bat4
+ 2709 2008 00000000 		.word	cru3
+ 2710 200c 00000000 		.word	sub3
+ 2711 2010 00000000 		.word	oppDes2
+ 2712 2014 00000000 		.word	oppSea
+ 2713 2018 00000000 		.word	oppBat4
+ 2714 201c 00000000 		.word	oppCru3
+ 2715 2020 00000000 		.word	oppSub3
+ 2716 2024 00000000 		.word	oppAir5
+ 2717 2028 00000000 		.word	__iob
+ 2718 202c D5030000 		.word	.LC40
+ 2719 2030 6B040000 		.word	.LC41
+ 2720 2034 00000000 		.word	targetSea
+ 2721 2038 00000000 		.word	targetSeaShotX
+ 2722 203c 00000000 		.word	targetSeaShotY
+ 2723 2040 00000000 		.word	targetOppShotX
+ 2724 2044 00000000 		.word	targetOppShotY
+ 2725 2048 00000000 		.word	oppTargetSea
+ 2726 204c 20000000 		.word	game+32
+ 2727 2050 00000000 		.word	seaShotEffects
+ 2728 2054 00000000 		.word	oppShotEffects
+ 2729 2058 38000000 		.word	game+56
+ 2730              		.size	startOnePlayerGame, .-startOnePlayerGame
+ 2731              		.section	.rodata.str1.1
+ 2732              	.LC42:
+ 2733 046f 0A566173 		.ascii	"\012Vastataan vastustajan l\344hett\344m\344\344\344"
+ 2733      74617461 
+ 2733      616E2076 
+ 2733      61737475 
+ 2733      7374616A 
+ 2734 0491 6E204C61 		.ascii	"n Laivat valmiit? -kyselyyn\000"
+ 2734      69766174 
+ 2734      2076616C 
+ 2734      6D696974 
+ 2734      3F202D6B 
+ 2735              	.LC43:
+ 2736 04ad 0A4CE468 		.ascii	"\012L\344hetet\344\344n vastustajalle Laivat valmii"
+ 2736      65746574 
+ 2736      E4E46E20 
+ 2736      76617374 
+ 2736      75737461 
+ 2737 04d4 743F202D 		.ascii	"t? -kysely\000"
+ 2737      6B797365 
+ 2737      6C7900
+ 2738              	.LC44:
+ 2739 04df 0A4D6F6C 		.ascii	"\012Molemmat pelaajat ovat saaneet asetettua laivat"
+ 2739      656D6D61 
+ 2739      74207065 
+ 2739      6C61616A 
+ 2739      6174206F 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 52
+
+
+ 2740 050f 20706169 		.ascii	" paikoilleen.\000"
+ 2740      6B6F696C 
+ 2740      6C65656E 
+ 2740      2E00
+ 2741              	.LC45:
+ 2742 051d 0A6A6120 		.ascii	"\012ja l\344hett\344neet ja kuitanneet viestit.\000"
+ 2742      6CE46865 
+ 2742      7474E46E 
+ 2742      65657420 
+ 2742      6A61206B 
+ 2743              	.LC46:
+ 2744 0544 0A4B7569 		.ascii	"\012Kuinka haluat pelata?\0121 = tietokone pelaa pu"
+ 2744      6E6B6120 
+ 2744      68616C75 
+ 2744      61742070 
+ 2744      656C6174 
+ 2745 0571 6F6C6573 		.ascii	"olestani arpoen satunnaisesti ammusten sijainnit\012"
+ 2745      74616E69 
+ 2745      20617270 
+ 2745      6F656E20 
+ 2745      73617475 
+ 2746 05a2 32203D20 		.ascii	"2 = annan itse kohdekoordinaatit \012Anna valintasi"
+ 2746      616E6E61 
+ 2746      6E206974 
+ 2746      7365206B 
+ 2746      6F686465 
+ 2747 05d2 3A2000   		.ascii	": \000"
+ 2748              	.LC47:
+ 2749 05d5 0A566173 		.ascii	"\012Vastustajan kohdemeri, vas. oikeat laivat, oik."
+ 2749      74757374 
+ 2749      616A616E 
+ 2749      206B6F68 
+ 2749      64656D65 
+ 2750 0605 20766173 		.ascii	" vastustajan ammunnat\000"
+ 2750      74757374 
+ 2750      616A616E 
+ 2750      20616D6D 
+ 2750      756E6E61 
+ 2751              	.LC48:
+ 2752 061b 0A4D6569 		.ascii	"\012Meid\344n ammunnat vastustajan merelle\000"
+ 2752      64E46E20 
+ 2752      616D6D75 
+ 2752      6E6E6174 
+ 2752      20766173 
+ 2753              	.LC49:
+ 2754 0640 0A6D6569 		.ascii	"\012meid\344n l\344hett\344m\344t koordinaatit\000"
+ 2754      64E46E20 
+ 2754      6CE46865 
+ 2754      7474E46D 
+ 2754      E474206B 
+ 2755              	.LC50:
+ 2756 0660 0925642C 		.ascii	"\011%d, %d\000"
+ 2756      20256400 
+ 2757              	.LC51:
+ 2758 0668 0A232323 		.ascii	"\012###Vastustaja on l\344hett\344nyt koordinaattin"
+ 2758      56617374 
+ 2758      75737461 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 53
+
+
+ 2758      6A61206F 
+ 2758      6E206CE4 
+ 2759 0692 73612E00 		.ascii	"sa.\000"
+ 2760              	.LC52:
+ 2761 0696 0A2D3E20 		.ascii	"\012-> autom. vastaus verkon puolelta.\000"
+ 2761      6175746F 
+ 2761      6D2E2076 
+ 2761      61737461 
+ 2761      75732076 
+ 2762              	.LC53:
+ 2763 06ba 0A232323 		.ascii	"\012###Omat koordinaatit l\344hetetty\000"
+ 2763      4F6D6174 
+ 2763      206B6F6F 
+ 2763      7264696E 
+ 2763      61617469 
+ 2764              	.LC54:
+ 2765 06da 0A6F6B31 		.ascii	"\012ok1 = %d, ok2 = %d, ok3 = %d\000"
+ 2765      203D2025 
+ 2765      642C206F 
+ 2765      6B32203D 
+ 2765      2025642C 
+ 2766              	.LC55:
+ 2767 06f8 0A232323 		.ascii	"\012###Vastustaja on kuitannut l\344hett\344m\344mm"
+ 2767      56617374 
+ 2767      75737461 
+ 2767      6A61206F 
+ 2767      6E206B75 
+ 2768 071f 65206B6F 		.ascii	"e koordinaatit\000"
+ 2768      6F726469 
+ 2768      6E616174 
+ 2768      697400
+ 2769              	.LC56:
+ 2770 072e 0A232323 		.ascii	"\012#####SALVO ohi.\000"
+ 2770      23235341 
+ 2770      4C564F20 
+ 2770      6F68692E 
+ 2770      00
+ 2771              	.LC57:
+ 2772 073f 0A566173 		.ascii	"\012Vastustajan l\344hett\344m\344t koordinaatit\000"
+ 2772      74757374 
+ 2772      616A616E 
+ 2772      206CE468 
+ 2772      657474E4 
+ 2773              	.LC58:
+ 2774 0764 0A092825 		.ascii	"\012\011(%d, %d), \000"
+ 2774      642C2025 
+ 2774      64292C20 
+ 2774      00
+ 2775              	.LC59:
+ 2776 0771 0A566173 		.ascii	"\012Vastustajalle l\344hetett\344v\344t tulokset: \000"
+ 2776      74757374 
+ 2776      616A616C 
+ 2776      6C65206C 
+ 2776      E4686574 
+ 2777              	.LC60:
+ 2778 0798 0A232323 		.ascii	"\012########game.resultsAsked = %d, game.resultsSen"
+ 2778      23232323 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 54
+
+
+ 2778      2367616D 
+ 2778      652E7265 
+ 2778      73756C74 
+ 2779 07c8 64203D20 		.ascii	"d = %d\000"
+ 2779      256400
+ 2780              	.LC61:
+ 2781 07cf 0A4D6569 		.ascii	"\012Meid\344n ammustemme aih.tulokset: \000"
+ 2781      64E46E20 
+ 2781      616D6D75 
+ 2781      7374656D 
+ 2781      6D652061 
+ 2782              	.LC62:
+ 2783 07f1 0A566173 		.ascii	"\012Vastataan vastustajan l\344hett\344m\344\344\344"
+ 2783      74617461 
+ 2783      616E2076 
+ 2783      61737475 
+ 2783      7374616A 
+ 2784 0813 6E207575 		.ascii	"n uuden kierroksen Set_requestiin\000"
+ 2784      64656E20 
+ 2784      6B696572 
+ 2784      726F6B73 
+ 2784      656E2053 
+ 2785              	.LC63:
+ 2786 0835 0A4CE468 		.ascii	"\012L\344hetet\344\344n vastustajalle uuden kierrok"
+ 2786      65746574 
+ 2786      E4E46E20 
+ 2786      76617374 
+ 2786      75737461 
+ 2787 085c 73656E20 		.ascii	"sen merkiksi set_request()\000"
+ 2787      6D65726B 
+ 2787      696B7369 
+ 2787      20736574 
+ 2787      5F726571 
+ 2788              	.LC64:
+ 2789 0877 0A4F646F 		.ascii	"\012Odotetaan whilessa, ett\344 startTurn nousisi -"
+ 2789      74657461 
+ 2789      616E2077 
+ 2789      68696C65 
+ 2789      7373612C 
+ 2790 08a4 3E3100   		.ascii	">1\000"
+ 2791              		.text
+ 2792              		.align	2
+ 2793              		.global	startTwoPlayerGame
+ 2794              		.type	startTwoPlayerGame, %function
+ 2795              	startTwoPlayerGame:
+ 2796              		@ Function supports interworking.
+ 2797              		@ args = 0, pretend = 0, frame = 4
+ 2798              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2799 205c F04F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}	@,
+ 2800 2060 5CC69FE5 		ldr	ip, .L357	@ tmp177,
+ 2801 2064 1CD04DE2 		sub	sp, sp, #28	@,,
+ 2802 2068 00C08DE5 		str	ip, [sp, #0]	@ tmp177,
+ 2803 206c 54C69FE5 		ldr	ip, .L357+4	@ tmp178,
+ 2804 2070 54469FE5 		ldr	r4, .L357+8	@ tmp179,
+ 2805 2074 08C08DE5 		str	ip, [sp, #8]	@ tmp178,
+ 2806 2078 50C69FE5 		ldr	ip, .L357+12	@,
+ 2807 207c 50369FE5 		ldr	r3, .L357+16	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 55
+
+
+ 2808 2080 50069FE5 		ldr	r0, .L357+20	@,
+ 2809 2084 50169FE5 		ldr	r1, .L357+24	@,
+ 2810 2088 50269FE5 		ldr	r2, .L357+28	@,
+ 2811 208c 04C08DE5 		str	ip, [sp, #4]	@,
+ 2812 2090 FEFFFFEB 		bl	findLocationToAllShips	@
+ 2813 2094 B232D4E1 		ldrh	r3, [r4, #34]	@ <variable>.shipsSetStatus, <variable>.shipsSetStatus
+ 2814 2098 010053E3 		cmp	r3, #1	@ <variable>.shipsSetStatus,
+ 2815 209c 40C69FE5 		ldr	ip, .L357+32	@ tmp440,
+ 2816 20a0 0700001A 		bne	.L314	@,
+ 2817 20a4 00E0A0E3 		mov	lr, #0	@ movhi	@,
+ 2818 20a8 0C10A0E1 		mov	r1, ip	@, tmp440
+ 2819 20ac 0200A0E3 		mov	r0, #2	@,
+ 2820 20b0 B0E0CCE1 		strh	lr, [ip, #0]	@ movhi	@, oneValue
+ 2821 20b4 FEFFFFEB 		bl	parseSnmpResponse	@
+ 2822 20b8 28069FE5 		ldr	r0, .L357+36	@,
+ 2823 20bc FEFFFFEB 		bl	printf	@
+ 2824 20c0 0F0000EA 		b	.L315	@
+ 2825              	.L314:
+ 2826 20c4 20369FE5 		ldr	r3, .L357+40	@ tmp189,
+ 2827 20c8 01E0A0E3 		mov	lr, #1	@ movhi	@,
+ 2828 20cc 0C10A0E1 		mov	r1, ip	@, tmp440
+ 2829 20d0 0200A0E3 		mov	r0, #2	@,
+ 2830 20d4 0120A0E3 		mov	r2, #1	@,
+ 2831 20d8 B0E0C3E1 		strh	lr, [r3, #0]	@ movhi	@, length
+ 2832 20dc B0E0CCE1 		strh	lr, [ip, #0]	@ movhi	@, oneValue
+ 2833 20e0 FEFFFFEB 		bl	parseOutboundMessage	@
+ 2834 20e4 04069FE5 		ldr	r0, .L357+44	@,
+ 2835 20e8 FEFFFFEB 		bl	printf	@
+ 2836 20ec 000000EA 		b	.L316	@
+ 2837              	.L317:
+ 2838 20f0 FEFFFFEB 		bl	NutSleep	@
+ 2839              	.L316:
+ 2840 20f4 B232D4E1 		ldrh	r3, [r4, #34]	@ <variable>.shipsSetStatus, <variable>.shipsSetStatus
+ 2841 20f8 010053E3 		cmp	r3, #1	@ <variable>.shipsSetStatus,
+ 2842 20fc 7D00A0E3 		mov	r0, #125	@,
+ 2843 2100 FAFFFF0A 		beq	.L317	@,
+ 2844              	.L315:
+ 2845 2104 C0459FE5 		ldr	r4, .L357+8	@ tmp196,
+ 2846 2108 0020A0E3 		mov	r2, #0	@ movhi	@,
+ 2847 210c B621C4E1 		strh	r2, [r4, #22]	@ movhi	@, game.startTurn
+ 2848 2110 DC059FE5 		ldr	r0, .L357+48	@,
+ 2849 2114 FEFFFFEB 		bl	printf	@
+ 2850 2118 D8059FE5 		ldr	r0, .L357+52	@,
+ 2851 211c FEFFFFEB 		bl	printf	@
+ 2852 2120 0030A0E3 		mov	r3, #0	@ movhi	@,
+ 2853 2124 B232C4E1 		strh	r3, [r4, #34]	@ movhi	@, <variable>.shipsSetStatus
+ 2854 2128 CC059FE5 		ldr	r0, .L357+56	@,
+ 2855 212c FEFFFFEB 		bl	printf	@
+ 2856 2130 C8359FE5 		ldr	r3, .L357+60	@ tmp205,
+ 2857 2134 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2858 2138 FEFFFFEB 		bl	getc	@
+ 2859 213c 0008A0E1 		mov	r0, r0, asl #16	@ tmp206,,
+ 2860 2140 2008A0E1 		mov	r0, r0, lsr #16	@, tmp206,
+ 2861 2144 18008DE5 		str	r0, [sp, #24]	@, choice
+ 2862 2148 0470A0E1 		mov	r7, r4	@ tmp488, tmp196
+ 2863 214c 01B0A0E3 		mov	fp, #1	@ turn,
+ 2864              	.L348:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 56
+
+
+ 2865 2150 00C0A0E3 		mov	ip, #0	@ movhi	@,
+ 2866 2154 B4C1C7E1 		strh	ip, [r7, #20]	@ movhi	@, game.resultReady
+ 2867 2158 A4059FE5 		ldr	r0, .L357+64	@,
+ 2868 215c FEFFFFEB 		bl	printf	@
+ 2869 2160 A0159FE5 		ldr	r1, .L357+68	@,
+ 2870 2164 64059FE5 		ldr	r0, .L357+12	@,
+ 2871 2168 FEFFFFEB 		bl	showTwoSeaParallel	@
+ 2872 216c 98059FE5 		ldr	r0, .L357+72	@,
+ 2873 2170 FEFFFFEB 		bl	printf	@
+ 2874 2174 94059FE5 		ldr	r0, .L357+76	@,
+ 2875 2178 FEFFFFEB 		bl	showSea	@
+ 2876 217c 18E09DE5 		ldr	lr, [sp, #24]	@, choice
+ 2877 2180 31005EE3 		cmp	lr, #49	@,
+ 2878 2184 BE33D7E1 		ldrh	r3, [r7, #62]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 2879 2188 0700001A 		bne	.L318	@,
+ 2880 218c 050063E2 		rsb	r0, r3, #5	@ tmp215, <variable>.nroSunkenShips,
+ 2881 2190 0008A0E1 		mov	r0, r0, asl #16	@ tmp217, tmp215,
+ 2882 2194 2008A0E1 		mov	r0, r0, lsr #16	@, tmp217,
+ 2883 2198 74159FE5 		ldr	r1, .L357+80	@,
+ 2884 219c 74259FE5 		ldr	r2, .L357+84	@,
+ 2885 21a0 60359FE5 		ldr	r3, .L357+68	@,
+ 2886 21a4 FEFFFFEB 		bl	giveMaxFiveShots	@
+ 2887 21a8 050000EA 		b	.L319	@
+ 2888              	.L318:
+ 2889 21ac 050063E2 		rsb	r0, r3, #5	@ tmp223, <variable>.nroSunkenShips,
+ 2890 21b0 0008A0E1 		mov	r0, r0, asl #16	@ tmp225, tmp223,
+ 2891 21b4 2008A0E1 		mov	r0, r0, lsr #16	@, tmp225,
+ 2892 21b8 54159FE5 		ldr	r1, .L357+80	@,
+ 2893 21bc 54259FE5 		ldr	r2, .L357+84	@,
+ 2894 21c0 FEFFFFEB 		bl	askMaxFiveShots	@
+ 2895              	.L319:
+ 2896 21c4 50059FE5 		ldr	r0, .L357+88	@,
+ 2897 21c8 FEFFFFEB 		bl	printf	@
+ 2898 21cc 4C559FE5 		ldr	r5, .L357+92	@ ivtmp.1163,
+ 2899 21d0 3C859FE5 		ldr	r8, .L357+80	@ tmp485,
+ 2900 21d4 3C659FE5 		ldr	r6, .L357+84	@ tmp486,
+ 2901 21d8 0040A0E3 		mov	r4, #0	@ ivtmp.1161,
+ 2902              	.L320:
+ 2903 21dc B42096E1 		ldrh	r2, [r6, r4]	@, targetOppShotY
+ 2904 21e0 B41098E1 		ldrh	r1, [r8, r4]	@, targetOppShotX
+ 2905 21e4 38059FE5 		ldr	r0, .L357+96	@,
+ 2906 21e8 FEFFFFEB 		bl	printf	@
+ 2907 21ec B42098E1 		ldrh	r2, [r8, r4]	@, targetOppShotX
+ 2908 21f0 B020C5E1 		strh	r2, [r5, #0]	@ movhi	@,* ivtmp.1163
+ 2909 21f4 B43096E1 		ldrh	r3, [r6, r4]	@, targetOppShotY
+ 2910 21f8 024084E2 		add	r4, r4, #2	@ ivtmp.1161, ivtmp.1161,
+ 2911 21fc 0A0054E3 		cmp	r4, #10	@ ivtmp.1161,
+ 2912 2200 B230C5E1 		strh	r3, [r5, #2]	@ movhi	@,
+ 2913 2204 045085E2 		add	r5, r5, #4	@ ivtmp.1163, ivtmp.1163,
+ 2914 2208 F3FFFF1A 		bne	.L320	@,
+ 2915 220c 0040A0E3 		mov	r4, #0	@ ok3,
+ 2916 2210 0450A0E1 		mov	r5, r4	@ ok1, ok3
+ 2917 2214 0480A0E1 		mov	r8, r4	@ ok2, ok3
+ 2918 2218 0460A0E1 		mov	r6, r4	@ viive, ok3
+ 2919 221c 000000EA 		b	.L321	@
+ 2920              	.L326:
+ 2921 2220 0150A0E3 		mov	r5, #1	@ ok1,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 57
+
+
+ 2922              	.L321:
+ 2923 2224 BE20D7E1 		ldrh	r2, [r7, #14]	@ game.coordSend, game.coordSend
+ 2924 2228 013025E2 		eor	r3, r5, #1	@ tmp251, ok1,
+ 2925 222c 010052E3 		cmp	r2, #1	@ game.coordSend,
+ 2926 2230 0030A013 		movne	r3, #0	@, tmp254
+ 2927 2234 01300302 		andeq	r3, r3, #1	@,, tmp254, tmp251
+ 2928 2238 000053E3 		cmp	r3, #0	@ tmp254,
+ 2929 223c 0900000A 		beq	.L322	@,
+ 2930 2240 E0049FE5 		ldr	r0, .L357+100	@,
+ 2931 2244 FEFFFFEB 		bl	printf	@
+ 2932 2248 DC049FE5 		ldr	r0, .L357+104	@,
+ 2933 224c FEFFFFEB 		bl	printf	@
+ 2934 2250 8C149FE5 		ldr	r1, .L357+32	@,
+ 2935 2254 00C0A0E3 		mov	ip, #0	@ movhi	@,
+ 2936 2258 0300A0E3 		mov	r0, #3	@,
+ 2937 225c B0C0C1E1 		strh	ip, [r1, #0]	@ movhi	@, oneValue
+ 2938 2260 FEFFFFEB 		bl	parseSnmpResponse	@
+ 2939 2264 0150A0E3 		mov	r5, #1	@ ok1,
+ 2940              	.L322:
+ 2941 2268 013028E2 		eor	r3, r8, #1	@ tmp262, ok2,
+ 2942 226c 140056E3 		cmp	r6, #20	@ viive,
+ 2943 2270 01308383 		orrhi	r3, r3, #1	@,, tmp267, tmp262
+ 2944 2274 000053E3 		cmp	r3, #0	@ tmp267,
+ 2945 2278 0180A0E3 		mov	r8, #1	@ ok2,
+ 2946 227c 0E00000A 		beq	.L323	@,
+ 2947 2280 64E49FE5 		ldr	lr, .L357+40	@,
+ 2948 2284 0A30A0E3 		mov	r3, #10	@ movhi	@,
+ 2949 2288 B030CEE1 		strh	r3, [lr, #0]	@ movhi	@, length
+ 2950 228c 8C149FE5 		ldr	r1, .L357+92	@,
+ 2951 2290 0A20A0E3 		mov	r2, #10	@,
+ 2952 2294 0300A0E3 		mov	r0, #3	@,
+ 2953 2298 FEFFFFEB 		bl	parseOutboundMessage	@
+ 2954 229c 8C049FE5 		ldr	r0, .L357+108	@,
+ 2955 22a0 FEFFFFEB 		bl	printf	@
+ 2956 22a4 0510A0E1 		mov	r1, r5	@, ok1
+ 2957 22a8 0430A0E1 		mov	r3, r4	@, ok3
+ 2958 22ac 0820A0E1 		mov	r2, r8	@, ok2
+ 2959 22b0 7C049FE5 		ldr	r0, .L357+112	@,
+ 2960 22b4 FEFFFFEB 		bl	printf	@
+ 2961 22b8 0060A0E3 		mov	r6, #0	@ viive,
+ 2962              	.L323:
+ 2963 22bc BC20D7E1 		ldrh	r2, [r7, #12]	@ game.coordGetOk, game.coordGetOk
+ 2964 22c0 013024E2 		eor	r3, r4, #1	@ tmp279, ok3,
+ 2965 22c4 010052E3 		cmp	r2, #1	@ game.coordGetOk,
+ 2966 22c8 0030A013 		movne	r3, #0	@, tmp282
+ 2967 22cc 01300302 		andeq	r3, r3, #1	@,, tmp282, tmp279
+ 2968 22d0 000053E3 		cmp	r3, #0	@ tmp282,
+ 2969 22d4 0200000A 		beq	.L324	@,
+ 2970 22d8 58049FE5 		ldr	r0, .L357+116	@,
+ 2971 22dc FEFFFFEB 		bl	printf	@
+ 2972 22e0 0140A0E3 		mov	r4, #1	@ ok3,
+ 2973              	.L324:
+ 2974 22e4 3200A0E3 		mov	r0, #50	@,
+ 2975 22e8 FEFFFFEB 		bl	NutSleep	@
+ 2976 22ec 0430A0E1 		mov	r3, r4	@, ok3
+ 2977 22f0 0510A0E1 		mov	r1, r5	@, ok1
+ 2978 22f4 38049FE5 		ldr	r0, .L357+112	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 58
+
+
+ 2979 22f8 0120A0E3 		mov	r2, #1	@,
+ 2980 22fc FEFFFFEB 		bl	printf	@
+ 2981 2300 013086E2 		add	r3, r6, #1	@ tmp244, viive,
+ 2982 2304 0338A0E1 		mov	r3, r3, asl #16	@ tmp245, tmp244,
+ 2983 2308 000055E3 		cmp	r5, #0	@ ok1,
+ 2984 230c 2368A0E1 		mov	r6, r3, lsr #16	@ viive, tmp245,
+ 2985 2310 C3FFFF0A 		beq	.L321	@,
+ 2986 2314 000054E3 		cmp	r4, #0	@ ok3,
+ 2987 2318 C0FFFF0A 		beq	.L326	@,
+ 2988 231c 18049FE5 		ldr	r0, .L357+120	@,
+ 2989 2320 FEFFFFEB 		bl	printf	@
+ 2990 2324 00C0A0E3 		mov	ip, #0	@ movhi	@,
+ 2991 2328 10049FE5 		ldr	r0, .L357+124	@,
+ 2992 232c BEC0C7E1 		strh	ip, [r7, #14]	@ movhi	@, game.coordSend
+ 2993 2330 FEFFFFEB 		bl	printf	@
+ 2994 2334 08449FE5 		ldr	r4, .L357+128	@ ivtmp.1145,
+ 2995 2338 08849FE5 		ldr	r8, .L357+132	@ tmp473,
+ 2996 233c 0050A0E3 		mov	r5, #0	@ ivtmp.1148,
+ 2997 2340 146084E2 		add	r6, r4, #20	@ tmp475, ivtmp.1145,
+ 2998              	.L327:
+ 2999 2344 B030D4E1 		ldrh	r3, [r4, #0]	@ D.2520, oppCoord
+ 3000 2348 B2C0D4E1 		ldrh	ip, [r4, #2]	@ temp.1180, oppCoord
+ 3001 234c F8E39FE5 		ldr	lr, .L357+136	@,
+ 3002 2350 B5C088E1 		strh	ip, [r8, r5]	@ movhi	@ temp.1180, targetSeaShotY
+ 3003 2354 B5308EE1 		strh	r3, [lr, r5]	@ movhi	@ D.2520, targetSeaShotX
+ 3004 2358 0310A0E1 		mov	r1, r3	@, D.2520
+ 3005 235c 0C20A0E1 		mov	r2, ip	@, temp.1180
+ 3006 2360 044084E2 		add	r4, r4, #4	@ ivtmp.1145, ivtmp.1145,
+ 3007 2364 E4039FE5 		ldr	r0, .L357+140	@,
+ 3008 2368 FEFFFFEB 		bl	printf	@
+ 3009 236c 060054E1 		cmp	r4, r6	@ ivtmp.1145, tmp475
+ 3010 2370 025085E2 		add	r5, r5, #2	@ ivtmp.1148, ivtmp.1148,
+ 3011 2374 F2FFFF1A 		bne	.L327	@,
+ 3012 2378 D4039FE5 		ldr	r0, .L357+144	@,
+ 3013 237c FEFFFFEB 		bl	printf	@
+ 3014 2380 0050A0E3 		mov	r5, #0	@ i,
+ 3015 2384 38939FE5 		ldr	r9, .L357	@ tmp464,
+ 3016 2388 B8839FE5 		ldr	r8, .L357+132	@ tmp466,
+ 3017 238c C4A39FE5 		ldr	sl, .L357+148	@ tmp467,
+ 3018 2390 C4639FE5 		ldr	r6, .L357+152	@ tmp471,
+ 3019 2394 170000EA 		b	.L328	@
+ 3020              	.L329:
+ 3021 2398 ACE39FE5 		ldr	lr, .L357+136	@,
+ 3022 239c B4C09EE1 		ldrh	ip, [lr, r4]	@ tmp305, targetSeaShotX
+ 3023 23a0 B4E098E1 		ldrh	lr, [r8, r4]	@ tmp309, targetSeaShotY
+ 3024 23a4 00508DE9 		stmib	sp, {ip, lr}	@ phole stm
+ 3025 23a8 20C39FE5 		ldr	ip, .L357+12	@,
+ 3026 23ac 5CE39FE5 		ldr	lr, .L357+76	@,
+ 3027 23b0 0CC08DE5 		str	ip, [sp, #12]	@,
+ 3028 23b4 10E08DE5 		str	lr, [sp, #16]	@,
+ 3029 23b8 00908DE5 		str	r9, [sp, #0]	@ tmp464,
+ 3030 23bc 14A08DE5 		str	sl, [sp, #20]	@ tmp467,
+ 3031 23c0 FEFFFFEB 		bl	checkShotEffects	@
+ 3032 23c4 80339FE5 		ldr	r3, .L357+136	@,
+ 3033 23c8 B40086E1 		strh	r0, [r6, r4]	@ movhi	@, seaShotEffects
+ 3034 23cc 3C139FE5 		ldr	r1, .L357+76	@,
+ 3035 23d0 B42093E1 		ldrh	r2, [r3, r4]	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 59
+
+
+ 3036 23d4 F4029FE5 		ldr	r0, .L357+12	@,
+ 3037 23d8 B43098E1 		ldrh	r3, [r8, r4]	@,
+ 3038 23dc FEFFFFEB 		bl	setShotsToTargetSea	@
+ 3039 23e0 B41096E1 		ldrh	r1, [r6, r4]	@, seaShotEffects
+ 3040 23e4 74039FE5 		ldr	r0, .L357+156	@,
+ 3041 23e8 FEFFFFEB 		bl	printf	@
+ 3042 23ec 013085E2 		add	r3, r5, #1	@ tmp326, i,
+ 3043 23f0 0338A0E1 		mov	r3, r3, asl #16	@ tmp327, tmp326,
+ 3044 23f4 2358A0E1 		mov	r5, r3, lsr #16	@ i, tmp327,
+ 3045              	.L328:
+ 3046 23f8 B6C2D7E1 		ldrh	ip, [r7, #38]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 3047 23fc 05C06CE2 		rsb	ip, ip, #5	@ tmp330, <variable>.nroSunkenShips,
+ 3048 2400 0C0055E1 		cmp	r5, ip	@ i, tmp330
+ 3049 2404 8540A0E1 		mov	r4, r5, asl #1	@ tmp303, i,
+ 3050 2408 CC129FE5 		ldr	r1, .L357+24	@,
+ 3051 240c CC229FE5 		ldr	r2, .L357+28	@,
+ 3052 2410 BC329FE5 		ldr	r3, .L357+16	@,
+ 3053 2414 BC029FE5 		ldr	r0, .L357+20	@,
+ 3054 2418 DEFFFFBA 		blt	.L329	@,
+ 3055 241c A8C29FE5 		ldr	ip, .L357+8	@,
+ 3056 2420 0030A0E3 		mov	r3, #0	@ movhi	@,
+ 3057 2424 01E0A0E3 		mov	lr, #1	@ movhi	@,
+ 3058 2428 B4129FE5 		ldr	r1, .L357+32	@,
+ 3059 242c B4E1CCE1 		strh	lr, [ip, #20]	@ movhi	@, game.resultReady
+ 3060 2430 B031CCE1 		strh	r3, [ip, #16]	@ movhi	@, game.resultsSend
+ 3061 2434 B0C29FE5 		ldr	ip, .L357+40	@,
+ 3062 2438 0400A0E3 		mov	r0, #4	@,
+ 3063 243c 0020A0E3 		mov	r2, #0	@,
+ 3064 2440 B030C1E1 		strh	r3, [r1, #0]	@ movhi	@, oneValue
+ 3065 2444 B030CCE1 		strh	r3, [ip, #0]	@ movhi	@, length
+ 3066 2448 FEFFFFEB 		bl	parseOutboundMessage	@
+ 3067 244c 0040A0E3 		mov	r4, #0	@ sendResultOk,
+ 3068              	.L355:
+ 3069 2450 3200A0E3 		mov	r0, #50	@,
+ 3070 2454 FEFFFFEB 		bl	NutSleep	@
+ 3071 2458 B221D7E1 		ldrh	r2, [r7, #18]	@ game.resultsAsked, game.resultsAsked
+ 3072 245c 013024E2 		eor	r3, r4, #1	@ tmp349, sendResultOk,
+ 3073 2460 010052E3 		cmp	r2, #1	@ game.resultsAsked,
+ 3074 2464 0030A013 		movne	r3, #0	@, tmp352
+ 3075 2468 01300302 		andeq	r3, r3, #1	@,, tmp352, tmp349
+ 3076 246c 000053E3 		cmp	r3, #0	@ tmp352,
+ 3077 2470 EC029F15 		ldrne	r0, .L357+160	@,
+ 3078 2474 0410A013 		movne	r1, #4	@,
+ 3079 2478 DC229F15 		ldrne	r2, .L357+152	@,
+ 3080 247c 0140A013 		movne	r4, #1	@ sendResultOk,
+ 3081 2480 FEFFFF1B 		blne	parseSnmpResponse_ok	@
+ 3082              	.L330:
+ 3083 2484 DC029FE5 		ldr	r0, .L357+164	@,
+ 3084 2488 B211D7E1 		ldrh	r1, [r7, #18]	@, game.resultsAsked
+ 3085 248c B021D7E1 		ldrh	r2, [r7, #16]	@, game.resultsSend
+ 3086 2490 FEFFFFEB 		bl	printf	@
+ 3087 2494 B231D7E1 		ldrh	r3, [r7, #18]	@ game.resultsAsked, game.resultsAsked
+ 3088 2498 000053E3 		cmp	r3, #0	@ game.resultsAsked,
+ 3089 249c EBFFFF0A 		beq	.L355	@,
+ 3090 24a0 B031D7E1 		ldrh	r3, [r7, #16]	@ game.resultsSend, game.resultsSend
+ 3091 24a4 000053E3 		cmp	r3, #0	@ game.resultsSend,
+ 3092 24a8 E8FFFF0A 		beq	.L355	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 60
+
+
+ 3093 24ac 18E29FE5 		ldr	lr, .L357+8	@,
+ 3094 24b0 0020A0E3 		mov	r2, #0	@ movhi	@,
+ 3095 24b4 B0029FE5 		ldr	r0, .L357+168	@,
+ 3096 24b8 B221CEE1 		strh	r2, [lr, #18]	@ movhi	@, game.resultsAsked
+ 3097 24bc 0060A0E3 		mov	r6, #0	@ i.1170,
+ 3098 24c0 FEFFFFEB 		bl	printf	@
+ 3099 24c4 A4929FE5 		ldr	r9, .L357+172	@ tmp450,
+ 3100 24c8 44A29FE5 		ldr	sl, .L357+80	@ tmp452,
+ 3101 24cc 44829FE5 		ldr	r8, .L357+84	@ tmp453,
+ 3102 24d0 0D0000EA 		b	.L332	@
+ 3103              	.L333:
+ 3104 24d4 B54099E1 		ldrh	r4, [r9, r5]	@ D.2547,* temp.1189
+ 3105 24d8 0410A0E1 		mov	r1, r4	@, D.2547
+ 3106 24dc FEFFFFEB 		bl	printf	@
+ 3107 24e0 0430A0E1 		mov	r3, r4	@, D.2547
+ 3108 24e4 B52098E1 		ldrh	r2, [r8, r5]	@,* temp.1189
+ 3109 24e8 18029FE5 		ldr	r0, .L357+68	@,
+ 3110 24ec B5109AE1 		ldrh	r1, [sl, r5]	@,* temp.1189
+ 3111 24f0 FEFFFFEB 		bl	setShotsToOurTargetSea	@
+ 3112 24f4 0410A0E1 		mov	r1, r4	@, D.2547
+ 3113 24f8 74029FE5 		ldr	r0, .L357+176	@,
+ 3114 24fc FEFFFFEB 		bl	markShotEffectsToPlayerStruct	@
+ 3115 2500 013086E2 		add	r3, r6, #1	@ tmp378, i.1170,
+ 3116 2504 0338A0E1 		mov	r3, r3, asl #16	@ tmp379, tmp378,
+ 3117 2508 2368A0E1 		mov	r6, r3, lsr #16	@ i.1170, tmp379,
+ 3118              	.L332:
+ 3119 250c BE33D7E1 		ldrh	r3, [r7, #62]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 3120 2510 053063E2 		rsb	r3, r3, #5	@ tmp382, <variable>.nroSunkenShips,
+ 3121 2514 030056E1 		cmp	r6, r3	@ i.1170, tmp382
+ 3122 2518 8650A0E1 		mov	r5, r6, asl #1	@ temp.1189, i.1170,
+ 3123 251c 54029FE5 		ldr	r0, .L357+180	@,
+ 3124 2520 EBFFFFBA 		blt	.L333	@,
+ 3125 2524 DC019FE5 		ldr	r0, .L357+68	@ ivtmp.1195,
+ 3126 2528 00E0A0E3 		mov	lr, #0	@ count,
+ 3127 252c C84080E2 		add	r4, r0, #200	@ tmp448, ivtmp.1195,
+ 3128 2530 0D0000EA 		b	.L334	@
+ 3129              	.L336:
+ 3130 2534 013081E2 		add	r3, r1, #1	@ tmp386, i,
+ 3131 2538 0338A0E1 		mov	r3, r3, asl #16	@ tmp387, tmp386,
+ 3132 253c B020DCE1 		ldrh	r2, [ip, #0]	@ tmp383,* ivtmp.1114
+ 3133 2540 2318A0E1 		mov	r1, r3, lsr #16	@ i, tmp387,
+ 3134 2544 01308EE2 		add	r3, lr, #1	@ tmp384, count,
+ 3135 2548 020052E3 		cmp	r2, #2	@ tmp383,
+ 3136 254c 0338A0E1 		mov	r3, r3, asl #16	@ tmp385, tmp384,
+ 3137 2550 23E8A081 		movhi	lr, r3, lsr #16	@ count, tmp385,
+ 3138 2554 0A0051E3 		cmp	r1, #10	@ i,
+ 3139 2558 02C08CE2 		add	ip, ip, #2	@ ivtmp.1114, ivtmp.1114,
+ 3140 255c F4FFFF1A 		bne	.L336	@,
+ 3141 2560 140080E2 		add	r0, r0, #20	@ ivtmp.1195, ivtmp.1195,
+ 3142 2564 040050E1 		cmp	r0, r4	@ ivtmp.1195, tmp448
+ 3143 2568 0200000A 		beq	.L337	@,
+ 3144              	.L334:
+ 3145 256c 00C0A0E1 		mov	ip, r0	@ ivtmp.1114, ivtmp.1195
+ 3146 2570 0010A0E3 		mov	r1, #0	@ i,
+ 3147 2574 EEFFFFEA 		b	.L336	@
+ 3148              	.L337:
+ 3149 2578 BAE4C7E1 		strh	lr, [r7, #74]	@ movhi	@ count, <variable>.nroHits
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 61
+
+
+ 3150 257c 80019FE5 		ldr	r0, .L357+64	@,
+ 3151 2580 FEFFFFEB 		bl	printf	@
+ 3152 2584 84119FE5 		ldr	r1, .L357+76	@,
+ 3153 2588 40019FE5 		ldr	r0, .L357+12	@,
+ 3154 258c FEFFFFEB 		bl	showTwoSeaParallel	@
+ 3155 2590 74019FE5 		ldr	r0, .L357+72	@,
+ 3156 2594 FEFFFFEB 		bl	printf	@
+ 3157 2598 68019FE5 		ldr	r0, .L357+68	@,
+ 3158 259c FEFFFFEB 		bl	showSea	@
+ 3159 25a0 FEFFFFEB 		bl	showGameStatus	@
+ 3160 25a4 B831D7E1 		ldrh	r3, [r7, #24]	@ game.previousTurn_SunkenShips, game.previousTurn_SunkenShips
+ 3161 25a8 052063E2 		rsb	r2, r3, #5	@ D.2559, game.previousTurn_SunkenShips,
+ 3162 25ac 0030A0E3 		mov	r3, #0	@ i.1171,
+ 3163 25b0 020000EA 		b	.L338	@
+ 3164              	.L339:
+ 3165 25b4 013083E2 		add	r3, r3, #1	@ tmp394, i.1171,
+ 3166 25b8 0338A0E1 		mov	r3, r3, asl #16	@ tmp395, tmp394,
+ 3167 25bc 2338A0E1 		mov	r3, r3, lsr #16	@ i.1171, tmp395,
+ 3168              	.L338:
+ 3169 25c0 020053E1 		cmp	r3, r2	@ i.1171, D.2559
+ 3170 25c4 FAFFFFBA 		blt	.L339	@,
+ 3171 25c8 B632D7E1 		ldrh	r3, [r7, #38]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 3172 25cc 050053E3 		cmp	r3, #5	@ <variable>.nroSunkenShips,
+ 3173 25d0 0900000A 		beq	.L356	@,
+ 3174 25d4 BE33D7E1 		ldrh	r3, [r7, #62]	@ <variable>.nroSunkenShips, <variable>.nroSunkenShips
+ 3175 25d8 050053E3 		cmp	r3, #5	@ <variable>.nroSunkenShips,
+ 3176 25dc 0600000A 		beq	.L356	@,
+ 3177 25e0 BA31D7E1 		ldrh	r3, [r7, #26]	@ game.gameStatus, game.gameStatus
+ 3178 25e4 020053E3 		cmp	r3, #2	@ game.gameStatus,
+ 3179 25e8 0300000A 		beq	.L356	@,
+ 3180              	.L341:
+ 3181 25ec FEFFFFEB 		bl	askIfUserWantsToCancel	@
+ 3182 25f0 BA31D7E1 		ldrh	r3, [r7, #26]	@ game.gameStatus, game.gameStatus
+ 3183 25f4 020053E3 		cmp	r3, #2	@ game.gameStatus,
+ 3184 25f8 0F00001A 		bne	.L343	@,
+ 3185              	.L356:
+ 3186 25fc FEFFFFEB 		bl	showGameEndResult	@
+ 3187 2600 DCC09FE5 		ldr	ip, .L357+32	@ tmp411,
+ 3188 2604 E0309FE5 		ldr	r3, .L357+40	@ tmp414,
+ 3189 2608 00E0A0E3 		mov	lr, #0	@ movhi	@,
+ 3190 260c 0020A0E3 		mov	r2, #0	@,
+ 3191 2610 B0E0C3E1 		strh	lr, [r3, #0]	@ movhi	@, length
+ 3192 2614 0C10A0E1 		mov	r1, ip	@, tmp411
+ 3193 2618 0600A0E3 		mov	r0, #6	@,
+ 3194 261c B0E0CCE1 		strh	lr, [ip, #0]	@ movhi	@, oneValue
+ 3195 2620 FEFFFFEB 		bl	parseOutboundMessage	@
+ 3196 2624 A0309FE5 		ldr	r3, .L357+8	@ tmp437,
+ 3197 2628 0020A0E3 		mov	r2, #0	@ movhi	@,
+ 3198 262c BC23C3E1 		strh	r2, [r3, #60]	@ movhi	@, <variable>.playerStatus
+ 3199 2630 1CD08DE2 		add	sp, sp, #28	@,,
+ 3200 2634 F04FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 3201 2638 1EFF2FE1 		bx	lr
+ 3202              	.L343:
+ 3203 263c 01308BE2 		add	r3, fp, #1	@ tmp418, turn,
+ 3204 2640 B621D7E1 		ldrh	r2, [r7, #22]	@ game.startTurn, game.startTurn
+ 3205 2644 0338A0E1 		mov	r3, r3, asl #16	@ tmp419, tmp418,
+ 3206 2648 23B8A0E1 		mov	fp, r3, lsr #16	@ turn, tmp419,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 62
+
+
+ 3207 264c 010052E3 		cmp	r2, #1	@ game.startTurn,
+ 3208 2650 B0B0C7E1 		strh	fp, [r7, #0]	@ movhi	@ turn, game.turn
+ 3209 2654 0500001A 		bne	.L344	@,
+ 3210 2658 0200A0E3 		mov	r0, #2	@,
+ 3211 265c 80109FE5 		ldr	r1, .L357+32	@,
+ 3212 2660 FEFFFFEB 		bl	parseSnmpResponse	@
+ 3213 2664 10019FE5 		ldr	r0, .L357+184	@,
+ 3214 2668 FEFFFFEB 		bl	printf	@
+ 3215 266c 110000EA 		b	.L345	@
+ 3216              	.L344:
+ 3217 2670 6C109FE5 		ldr	r1, .L357+32	@,
+ 3218 2674 70309FE5 		ldr	r3, .L357+40	@,
+ 3219 2678 01C0A0E3 		mov	ip, #1	@ movhi	@,
+ 3220 267c 0200A0E3 		mov	r0, #2	@,
+ 3221 2680 0120A0E3 		mov	r2, #1	@,
+ 3222 2684 B0B0C1E1 		strh	fp, [r1, #0]	@ movhi	@ turn, oneValue
+ 3223 2688 B0C0C3E1 		strh	ip, [r3, #0]	@ movhi	@, length
+ 3224 268c FEFFFFEB 		bl	parseOutboundMessage	@
+ 3225 2690 E8009FE5 		ldr	r0, .L357+188	@,
+ 3226 2694 FEFFFFEB 		bl	printf	@
+ 3227 2698 020000EA 		b	.L346	@
+ 3228              	.L347:
+ 3229 269c FEFFFFEB 		bl	printf	@
+ 3230 26a0 3200A0E3 		mov	r0, #50	@,
+ 3231 26a4 FEFFFFEB 		bl	NutSleep	@
+ 3232              	.L346:
+ 3233 26a8 B631D7E1 		ldrh	r3, [r7, #22]	@ game.startTurn, game.startTurn
+ 3234 26ac 000053E3 		cmp	r3, #0	@ game.startTurn,
+ 3235 26b0 CC009FE5 		ldr	r0, .L357+192	@,
+ 3236 26b4 F8FFFF0A 		beq	.L347	@,
+ 3237              	.L345:
+ 3238 26b8 00E0A0E3 		mov	lr, #0	@ movhi	@,
+ 3239 26bc B6E1C7E1 		strh	lr, [r7, #22]	@ movhi	@, game.startTurn
+ 3240 26c0 A2FEFFEA 		b	.L348	@
+ 3241              	.L358:
+ 3242              		.align	2
+ 3243              	.L357:
+ 3244 26c4 00000000 		.word	des2
+ 3245 26c8 00000000 		.word	temp
+ 3246 26cc 00000000 		.word	game
+ 3247 26d0 00000000 		.word	sea
+ 3248 26d4 00000000 		.word	sub3
+ 3249 26d8 00000000 		.word	air5
+ 3250 26dc 00000000 		.word	bat4
+ 3251 26e0 00000000 		.word	cru3
+ 3252 26e4 00000000 		.word	oneValue
+ 3253 26e8 6F040000 		.word	.LC42
+ 3254 26ec 00000000 		.word	length
+ 3255 26f0 AD040000 		.word	.LC43
+ 3256 26f4 DF040000 		.word	.LC44
+ 3257 26f8 1D050000 		.word	.LC45
+ 3258 26fc 44050000 		.word	.LC46
+ 3259 2700 00000000 		.word	__iob
+ 3260 2704 D5050000 		.word	.LC47
+ 3261 2708 00000000 		.word	oppTargetSea
+ 3262 270c 1B060000 		.word	.LC48
+ 3263 2710 00000000 		.word	targetSea
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 63
+
+
+ 3264 2714 00000000 		.word	targetOppShotX
+ 3265 2718 00000000 		.word	targetOppShotY
+ 3266 271c 40060000 		.word	.LC49
+ 3267 2720 00000000 		.word	ourCoord
+ 3268 2724 60060000 		.word	.LC50
+ 3269 2728 68060000 		.word	.LC51
+ 3270 272c 96060000 		.word	.LC52
+ 3271 2730 BA060000 		.word	.LC53
+ 3272 2734 DA060000 		.word	.LC54
+ 3273 2738 F8060000 		.word	.LC55
+ 3274 273c 2E070000 		.word	.LC56
+ 3275 2740 3F070000 		.word	.LC57
+ 3276 2744 00000000 		.word	oppCoord
+ 3277 2748 00000000 		.word	targetSeaShotY
+ 3278 274c 00000000 		.word	targetSeaShotX
+ 3279 2750 64070000 		.word	.LC58
+ 3280 2754 71070000 		.word	.LC59
+ 3281 2758 20000000 		.word	game+32
+ 3282 275c 00000000 		.word	seaShotEffects
+ 3283 2760 78000000 		.word	.LC7
+ 3284 2764 00000000 		.word	GR_4
+ 3285 2768 98070000 		.word	.LC60
+ 3286 276c CF070000 		.word	.LC61
+ 3287 2770 00000000 		.word	oppShotEffects
+ 3288 2774 38000000 		.word	game+56
+ 3289 2778 96000000 		.word	.LC10
+ 3290 277c F1070000 		.word	.LC62
+ 3291 2780 35080000 		.word	.LC63
+ 3292 2784 77080000 		.word	.LC64
+ 3293              		.size	startTwoPlayerGame, .-startTwoPlayerGame
+ 3294              		.section	.rodata.str1.1
+ 3295              	.LC65:
+ 3296 08a7 0A4F646F 		.ascii	"\012Odotetaan vastaanottajien vastauksia. Anna 1, j"
+ 3296      74657461 
+ 3296      616E2076 
+ 3296      61737461 
+ 3296      616E6F74 
+ 3297 08d7 6F732068 		.ascii	"os haluat lopettaa odottelun.\012\000"
+ 3297      616C7561 
+ 3297      74206C6F 
+ 3297      70657474 
+ 3297      6161206F 
+ 3298              	.LC66:
+ 3299 08f6 0A4C6973 		.ascii	"\012Lista vapaista vastapelaajista:\000"
+ 3299      74612076 
+ 3299      61706169 
+ 3299      73746120 
+ 3299      76617374 
+ 3300              	.LC67:
+ 3301 0917 0A25642E 		.ascii	"\012%d. %s\000"
+ 3301      20257300 
+ 3302              	.LC68:
+ 3303 091f 31206C6F 		.ascii	"1 lopettaa vastustajien etsimisen...\000"
+ 3303      70657474 
+ 3303      61612076 
+ 3303      61737475 
+ 3303      7374616A 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 64
+
+
+ 3304              	.LC69:
+ 3305 0944 30207061 		.ascii	"0 palaa p\344\344valikkoon.\000"
+ 3305      6C616120 
+ 3305      70E4E476 
+ 3305      616C696B 
+ 3305      6B6F6F6E 
+ 3306              	.LC70:
+ 3307 095a 0A56616C 		.ascii	"\012Valitse sopiva vastustaja listasta. Anna indeks"
+ 3307      69747365 
+ 3307      20736F70 
+ 3307      69766120 
+ 3307      76617374 
+ 3308 098a 696E756D 		.ascii	"inumero: \000"
+ 3308      65726F3A 
+ 3308      2000
+ 3309              	.LC71:
+ 3310 0994 56616C69 		.ascii	"Valittu pelaaja: %s\012\000"
+ 3310      74747520 
+ 3310      70656C61 
+ 3310      616A613A 
+ 3310      2025730A 
+ 3311              	.LC72:
+ 3312 09a9 67616D65 		.ascii	"game.playerAddress: %s\012\000"
+ 3312      2E706C61 
+ 3312      79657241 
+ 3312      64647265 
+ 3312      73733A20 
+ 3313              	.LC73:
+ 3314 09c1 0A4F646F 		.ascii	"\012Odotetaan vastaanottajan vastausta\000"
+ 3314      74657461 
+ 3314      616E2076 
+ 3314      61737461 
+ 3314      616E6F74 
+ 3315              	.LC74:
+ 3316 09e5 0A50656C 		.ascii	"\012Peli valitun vastustajan kanssa voi alkaa.\012\000"
+ 3316      69207661 
+ 3316      6C697475 
+ 3316      6E207661 
+ 3316      73747573 
+ 3317              		.text
+ 3318              		.align	2
+ 3319              		.global	findOpponent
+ 3320              		.type	findOpponent, %function
+ 3321              	findOpponent:
+ 3322              		@ Function supports interworking.
+ 3323              		@ args = 0, pretend = 0, frame = 0
+ 3324              		@ frame_needed = 0, uses_anonymous_args = 0
+ 3325 2788 EC319FE5 		ldr	r3, .L381	@ tmp152,
+ 3326 278c 0020A0E3 		mov	r2, #0	@ movhi	@,
+ 3327 2790 F0402DE9 		stmfd	sp!, {r4, r5, r6, r7, lr}	@,
+ 3328 2794 B820C3E1 		strh	r2, [r3, #8]	@ movhi	@, game.selectedOpponentHasAnswered
+ 3329 2798 E0619FE5 		ldr	r6, .L381+4	@ tmp232,
+ 3330 279c 0350A0E1 		mov	r5, r3	@ tmp231, tmp152
+ 3331 27a0 0370A0E1 		mov	r7, r3	@ tmp237, tmp231
+ 3332              	.L374:
+ 3333 27a4 D8C19FE5 		ldr	ip, .L381+8	@ tmp155,
+ 3334 27a8 D8319FE5 		ldr	r3, .L381+12	@ tmp158,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 65
+
+
+ 3335 27ac 00E0A0E3 		mov	lr, #0	@ movhi	@,
+ 3336 27b0 0100A0E3 		mov	r0, #1	@,
+ 3337 27b4 0C10A0E1 		mov	r1, ip	@, tmp155
+ 3338 27b8 0020A0E3 		mov	r2, #0	@,
+ 3339 27bc B0E0C3E1 		strh	lr, [r3, #0]	@ movhi	@, length
+ 3340 27c0 B0E0CCE1 		strh	lr, [ip, #0]	@ movhi	@, oneValue
+ 3341 27c4 FEFFFFEB 		bl	parseOutboundMessage	@
+ 3342 27c8 BC019FE5 		ldr	r0, .L381+16	@,
+ 3343 27cc FEFFFFEB 		bl	puts	@
+ 3344              	.L368:
+ 3345 27d0 B230D5E1 		ldrh	r3, [r5, #2]	@ game.playerAnnounced, game.playerAnnounced
+ 3346 27d4 010053E3 		cmp	r3, #1	@ game.playerAnnounced,
+ 3347 27d8 2500001A 		bne	.L360	@,
+ 3348 27dc 041095E5 		ldr	r1, [r5, #4]	@ D.2429, game.playerAddress
+ 3349 27e0 0020A0E3 		mov	r2, #0	@ i,
+ 3350              	.L363:
+ 3351 27e4 023196E7 		ldr	r3, [r6, r2, asl #2]	@ tmp167, vastustajaLista
+ 3352 27e8 010053E1 		cmp	r3, r1	@ tmp167, D.2429
+ 3353 27ec 1420A003 		moveq	r2, #20	@, i,
+ 3354 27f0 012082E2 		add	r2, r2, #1	@ i, i,
+ 3355 27f4 0000A003 		moveq	r0, #0	@, add
+ 3356 27f8 0100A013 		movne	r0, #1	@, add
+ 3357 27fc 130052E3 		cmp	r2, #19	@ i,
+ 3358 2800 F7FFFFDA 		ble	.L363	@,
+ 3359 2804 0020A0E3 		mov	r2, #0	@ i.1238,
+ 3360              	.L365:
+ 3361 2808 010050E3 		cmp	r0, #1	@ add,
+ 3362 280c 0300001A 		bne	.L364	@,
+ 3363 2810 023196E7 		ldr	r3, [r6, r2, asl #2]	@ tmp169, vastustajaLista
+ 3364 2814 000053E3 		cmp	r3, #0	@ tmp169,
+ 3365 2818 02118607 		streq	r1, [r6, r2, asl #2]	@ D.2429, vastustajaLista
+ 3366 281c 1420A003 		moveq	r2, #20	@ i.1238,
+ 3367              	.L364:
+ 3368 2820 012082E2 		add	r2, r2, #1	@ i.1238, i.1238,
+ 3369 2824 130052E3 		cmp	r2, #19	@ i.1238,
+ 3370 2828 F6FFFFDA 		ble	.L365	@,
+ 3371 282c 5C019FE5 		ldr	r0, .L381+20	@,
+ 3372 2830 FEFFFFEB 		bl	printf	@
+ 3373 2834 0040A0E3 		mov	r4, #0	@ i.1240,
+ 3374              	.L367:
+ 3375 2838 040196E7 		ldr	r0, [r6, r4, asl #2]	@ temp.1239, vastustajaLista
+ 3376 283c 000050E3 		cmp	r0, #0	@ temp.1239,
+ 3377 2840 0400000A 		beq	.L366	@,
+ 3378 2844 FEFFFFEB 		bl	inet_ntoa	@
+ 3379 2848 0410A0E1 		mov	r1, r4	@, i.1240
+ 3380 284c 0020A0E1 		mov	r2, r0	@ D.2430,
+ 3381 2850 3C019FE5 		ldr	r0, .L381+24	@,
+ 3382 2854 FEFFFFEB 		bl	printf	@
+ 3383              	.L366:
+ 3384 2858 014084E2 		add	r4, r4, #1	@ i.1240, i.1240,
+ 3385 285c 140054E3 		cmp	r4, #20	@ i.1240,
+ 3386 2860 F4FFFF1A 		bne	.L367	@,
+ 3387 2864 0A00A0E3 		mov	r0, #10	@,
+ 3388 2868 FEFFFFEB 		bl	putchar	@
+ 3389 286c 0020A0E3 		mov	r2, #0	@ movhi	@,
+ 3390 2870 B220C5E1 		strh	r2, [r5, #2]	@ movhi	@, game.playerAnnounced
+ 3391              	.L360:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 66
+
+
+ 3392 2874 7D0FA0E3 		mov	r0, #500	@,
+ 3393 2878 FEFFFFEB 		bl	NutSleep	@
+ 3394 287c 14019FE5 		ldr	r0, .L381+28	@,
+ 3395 2880 FEFFFFEB 		bl	puts	@
+ 3396 2884 10019FE5 		ldr	r0, .L381+32	@,
+ 3397 2888 FEFFFFEB 		bl	puts	@
+ 3398 288c FEFFFFEB 		bl	getchar	@
+ 3399 2890 FF0000E2 		and	r0, r0, #255	@ ch, D.2431,
+ 3400 2894 303040E2 		sub	r3, r0, #48	@ tmp182, ch,
+ 3401 2898 010053E3 		cmp	r3, #1	@ tmp182,
+ 3402 289c CBFFFF8A 		bhi	.L368	@,
+ 3403 28a0 300050E3 		cmp	r0, #48	@ ch,
+ 3404 28a4 0000A003 		moveq	r0, #0	@ D.2433,
+ 3405 28a8 3100000A 		beq	.L370	@
+ 3406              	.L369:
+ 3407 28ac EC009FE5 		ldr	r0, .L381+36	@,
+ 3408 28b0 FEFFFFEB 		bl	printf	@
+ 3409 28b4 E8309FE5 		ldr	r3, .L381+40	@ tmp184,
+ 3410 28b8 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 3411 28bc FEFFFFEB 		bl	getc	@
+ 3412 28c0 0008A0E1 		mov	r0, r0, asl #16	@ tmp185,,
+ 3413 28c4 200786E0 		add	r0, r6, r0, lsr #14	@, tmp187, tmp232, tmp185,
+ 3414 28c8 C03010E5 		ldr	r3, [r0, #-192]	@ temp.1243, vastustajaLista
+ 3415 28cc 043085E5 		str	r3, [r5, #4]	@ temp.1243, game.playerAddress
+ 3416 28d0 0300A0E1 		mov	r0, r3	@, temp.1243
+ 3417 28d4 FEFFFFEB 		bl	inet_ntoa	@
+ 3418 28d8 0010A0E1 		mov	r1, r0	@ D.2437,
+ 3419 28dc C4009FE5 		ldr	r0, .L381+44	@,
+ 3420 28e0 FEFFFFEB 		bl	printf	@
+ 3421 28e4 040095E5 		ldr	r0, [r5, #4]	@, game.playerAddress
+ 3422 28e8 FEFFFFEB 		bl	inet_ntoa	@
+ 3423 28ec 0010A0E1 		mov	r1, r0	@ D.2438,
+ 3424 28f0 B4009FE5 		ldr	r0, .L381+48	@,
+ 3425 28f4 FEFFFFEB 		bl	printf	@
+ 3426 28f8 84C09FE5 		ldr	ip, .L381+8	@ tmp192,
+ 3427 28fc 84309FE5 		ldr	r3, .L381+12	@ tmp195,
+ 3428 2900 00E0A0E3 		mov	lr, #0	@ movhi	@,
+ 3429 2904 0C10A0E1 		mov	r1, ip	@, tmp192
+ 3430 2908 0200A0E3 		mov	r0, #2	@,
+ 3431 290c 0020A0E3 		mov	r2, #0	@,
+ 3432 2910 B0E0C3E1 		strh	lr, [r3, #0]	@ movhi	@, length
+ 3433 2914 B0E0CCE1 		strh	lr, [ip, #0]	@ movhi	@, oneValue
+ 3434 2918 FEFFFFEB 		bl	parseOutboundMessage	@
+ 3435 291c 020000EA 		b	.L371	@
+ 3436              	.L372:
+ 3437 2920 FEFFFFEB 		bl	NutSleep	@
+ 3438 2924 84009FE5 		ldr	r0, .L381+52	@,
+ 3439 2928 FEFFFFEB 		bl	printf	@
+ 3440              	.L371:
+ 3441 292c B830D5E1 		ldrh	r3, [r5, #8]	@ game.selectedOpponentHasAnswered, game.selectedOpponentHasAnswered
+ 3442 2930 000053E3 		cmp	r3, #0	@ game.selectedOpponentHasAnswered,
+ 3443 2934 3200A0E3 		mov	r0, #50	@,
+ 3444 2938 F8FFFF0A 		beq	.L372	@,
+ 3445 293c FEFFFFEB 		bl	NutSleep	@
+ 3446 2940 BA40D7E1 		ldrh	r4, [r7, #10]	@ game.opponentAnswer, game.opponentAnswer
+ 3447 2944 010054E3 		cmp	r4, #1	@ game.opponentAnswer,
+ 3448 2948 0200001A 		bne	.L373	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 67
+
+
+ 3449 294c 60009FE5 		ldr	r0, .L381+56	@,
+ 3450 2950 FEFFFFEB 		bl	puts	@
+ 3451 2954 BC43C7E1 		strh	r4, [r7, #60]	@ movhi	@ game.opponentAnswer, <variable>.playerStatus
+ 3452              	.L373:
+ 3453 2958 BA30D5E1 		ldrh	r3, [r5, #10]	@ game.opponentAnswer, game.opponentAnswer
+ 3454 295c 000053E3 		cmp	r3, #0	@ game.opponentAnswer,
+ 3455 2960 8FFFFF0A 		beq	.L374	@,
+ 3456 2964 10309FE5 		ldr	r3, .L381	@ tmp208,
+ 3457 2968 0020A0E3 		mov	r2, #0	@ movhi	@,
+ 3458 296c BA20C3E1 		strh	r2, [r3, #10]	@ movhi	@, game.opponentAnswer
+ 3459 2970 0100A0E3 		mov	r0, #1	@ D.2433,
+ 3460              	.L370:
+ 3461 2974 F040BDE8 		ldmfd	sp!, {r4, r5, r6, r7, lr}
+ 3462 2978 1EFF2FE1 		bx	lr
+ 3463              	.L382:
+ 3464              		.align	2
+ 3465              	.L381:
+ 3466 297c 00000000 		.word	game
+ 3467 2980 00000000 		.word	vastustajaLista
+ 3468 2984 00000000 		.word	oneValue
+ 3469 2988 00000000 		.word	length
+ 3470 298c A7080000 		.word	.LC65
+ 3471 2990 F6080000 		.word	.LC66
+ 3472 2994 17090000 		.word	.LC67
+ 3473 2998 1F090000 		.word	.LC68
+ 3474 299c 44090000 		.word	.LC69
+ 3475 29a0 5A090000 		.word	.LC70
+ 3476 29a4 00000000 		.word	__iob
+ 3477 29a8 94090000 		.word	.LC71
+ 3478 29ac A9090000 		.word	.LC72
+ 3479 29b0 C1090000 		.word	.LC73
+ 3480 29b4 E5090000 		.word	.LC74
+ 3481              		.size	findOpponent, .-findOpponent
+ 3482              		.comm	SR_2,264,4
+ 3483              		.comm	GR_4,264,4
+ 3484              		.comm	sea,200,2
+ 3485              		.comm	oppSea,200,2
+ 3486              		.comm	targetSea,200,2
+ 3487              		.comm	oppTargetSea,200,2
+ 3488              		.comm	player1,24,4
+ 3489              		.comm	player2,24,4
+ 3490              		.comm	game,80,4
+ 3491              		.comm	air5,40,4
+ 3492              		.comm	bat4,40,4
+ 3493              		.comm	cru3,40,4
+ 3494              		.comm	sub3,40,4
+ 3495              		.comm	des2,40,4
+ 3496              		.comm	oppAir5,40,4
+ 3497              		.comm	oppBat4,40,4
+ 3498              		.comm	oppCru3,40,4
+ 3499              		.comm	oppSub3,40,4
+ 3500              		.comm	oppDes2,40,4
+ 3501              		.comm	temp,20,2
+ 3502              		.comm	targetSeaShotX,10,2
+ 3503              		.comm	targetSeaShotY,10,2
+ 3504              		.comm	targetOppSeaShotX,10,2
+ 3505              		.comm	targetOppSeaShotY,10,2
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 68
+
+
+ 3506              		.comm	targetOppShotX,10,2
+ 3507              		.comm	targetOppShotY,10,2
+ 3508              		.comm	oneValue,2,2
+ 3509              		.comm	length,2,2
+ 3510              		.comm	ourCoord,20,2
+ 3511              		.comm	oppCoord,20,2
+ 3512              		.comm	seaShotEffects,10,2
+ 3513              		.comm	oppShotEffects,10,2
+ 3514              		.comm	vastustajaLista,80,4
+ 3515              		.comm	u_shortLista,40,2
+ 3516              		.comm	verbose,2,2
+ 3517              		.ident	"GCC: (GNU) 4.3.2"
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 69
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 laiva.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:42     .text:00000000 countHitsFromSea
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:47     .text:00000000 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:84     .text:00000078 resetShip
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:114    .text:000000cc resetWholeGame
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:272    .text:00000318 $d
+                            *COM*:00000014 temp
+                            *COM*:0000000a targetSeaShotX
+                            *COM*:0000000a targetSeaShotY
+                            *COM*:0000000a targetOppSeaShotX
+                            *COM*:0000000a targetOppSeaShotY
+                            *COM*:00000014 ourCoord
+                            *COM*:00000014 oppCoord
+                            *COM*:000000c8 oppTargetSea
+                            *COM*:000000c8 sea
+                            *COM*:000000c8 oppSea
+                            *COM*:000000c8 targetSea
+                            *COM*:0000000a targetOppShotX
+                            *COM*:0000000a targetOppShotY
+                            *COM*:0000000a seaShotEffects
+                            *COM*:0000000a oppShotEffects
+                            *COM*:00000050 vastustajaLista
+                            *COM*:00000028 u_shortLista
+                            *COM*:00000050 game
+                            *COM*:00000028 air5
+                            *COM*:00000028 bat4
+                            *COM*:00000028 cru3
+                            *COM*:00000028 sub3
+                            *COM*:00000028 des2
+                            *COM*:00000028 oppAir5
+                            *COM*:00000028 oppBat4
+                            *COM*:00000028 oppCru3
+                            *COM*:00000028 oppSub3
+                            *COM*:00000028 oppDes2
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:304    .text:00000388 returnAllShipHits
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:309    .text:00000388 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:415    .text:000004f8 returnShipHitCount
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:443    .text:0000053c markShotEffectsToPlayerStruct
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:457    .text:0000055c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:462    .text:0000056c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:512    .text:00000610 returnSeaValue
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:530    .text:00000634 setShipToSea
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:689    .text:00000874 findUpY
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:716    .text:000008bc findDownY
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:743    .text:00000904 findLeftX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:770    .text:0000094c findRightX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:797    .text:00000994 seekUp
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:838    .text:00000a0c seekLeft
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:881    .text:00000a8c seekDown
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:945    .text:00000b08 showTwoSeaParallel
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1021   .text:00000c00 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1041   .text:00000c28 showSea
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1045   .text:00000c28 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1080   .text:00000ca0 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1089   .text:00000cb4 seekRight
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1093   .text:00000cb4 $a
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 70
+
+
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1133   .text:00000d40 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1144   .text:00000d44 tempTul
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1148   .text:00000d44 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1174   .text:00000d98 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1182   .text:00000da8 didShipSink
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1186   .text:00000da8 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1216   .text:00000e0c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1221   .text:00000e10 markShipHit
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1225   .text:00000e10 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1266   .text:00000e9c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1271   .text:00000ea0 checkShotEffects
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1275   .text:00000ea0 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1298   .text:00000ef8 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1304   .text:00000f0c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1417   .text:000010a4 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1438   .text:000010a8 showPlayer
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1442   .text:000010a8 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1493   .text:00001160 $d
+                            *COM*:00000002 verbose
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1505   .text:00001180 setShotsToTargetSea
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1509   .text:00001180 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1542   .text:000011f0 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1547   .text:000011f4 setShotsToOurTargetSea
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1551   .text:000011f4 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1575   .text:00001244 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1594   .text:00001248 showShip
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1598   .text:00001248 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1656   .text:00001310 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1668   .text:00001330 findSecondCoordinate
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1672   .text:00001330 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1693   .text:0000137c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1698   .text:0000138c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1745   .text:0000142c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1750   .text:00001430 findNextCoordinate
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1754   .text:00001430 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1880   .text:00001604 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1886   .text:00001608 findLocationToShip
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1890   .text:00001608 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1981   .text:00001758 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1986   .text:0000175c findLocationToAllShips
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:1990   .text:0000175c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2067   .text:0000186c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2072   .text:00001870 giveMaxFiveShots
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2076   .text:00001870 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2159   .text:00001990 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2173   .text:00001994 askTarget
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2177   .text:00001994 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2212   .text:00001a14 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2221   .text:00001a28 askMaxFiveShots
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2225   .text:00001a28 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2255   .text:00001a74 askIfUserWantsToCancel
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2278   .text:00001ab4 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2296   .text:00001ac0 showGameStatus
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2300   .text:00001ac0 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2341   .text:00001b50 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2372   .text:00001b74 showGameEndResult
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2376   .text:00001b74 $a
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s 			page 71
+
+
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2452   .text:00001c8c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2474   .text:00001cb0 startOnePlayerGame
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2478   .text:00001cb0 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2703   .text:00001ff0 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2795   .text:0000205c startTwoPlayerGame
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:2799   .text:0000205c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:3244   .text:000026c4 $d
+                            *COM*:00000002 oneValue
+                            *COM*:00000002 length
+                            *COM*:00000108 GR_4
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:3321   .text:00002788 findOpponent
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:3325   .text:00002788 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccx6wnlc.s:3466   .text:0000297c $d
+                            *COM*:00000108 SR_2
+                            *COM*:00000018 player1
+                            *COM*:00000018 player2
+
+UNDEFINED SYMBOLS
+memset
+puts
+printf
+fflush
+__iob
+putchar
+rand
+__modsi3
+getc
+inet_ntoa
+led1On
+led2On
+led3On
+led4On
+NutSleep
+led1Off
+led2Off
+led3Off
+led4Off
+system
+parseSnmpResponse
+parseOutboundMessage
+parseSnmpResponse_ok
+getchar

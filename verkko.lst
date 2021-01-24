@@ -1,0 +1,3423 @@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 1
+
+
+   1              		.file	"verkko.c"
+   2              	@ GNU C (GCC) version 4.3.2 (arm-elf)
+   3              	@	compiled by GNU C version 3.4.5 (mingw special), GMP version 4.2.2, MPFR version 2.3.1.
+   4              	@ GGC heuristics: --param ggc-min-expand=99 --param ggc-min-heapsize=131006
+   5              	@ options passed:  -IC:/ethernut-4.7.4/nutbld/include
+   6              	@ -IC:/ethernut-4.7.4/nutbld -IC:/ethernut-4.7.4/nut/include -imultilib
+   7              	@ interwork -iprefix c:\program files\yagarto\bin\../lib/gcc/arm-elf/4.3.2/
+   8              	@ -D__USES_INITFINI__ -DELEKTOR_IR1 verkko.c -mcpu=arm7tdmi
+   9              	@ -mthumb-interwork -auxbase-strip verkko.o -Os -Wall -Wstrict-prototypes
+  10              	@ -fomit-frame-pointer -fverbose-asm
+  11              	@ options enabled:  -falign-loops -fargument-alias -fauto-inc-dec
+  12              	@ -fbranch-count-reg -fcaller-saves -fcommon -fcprop-registers
+  13              	@ -fcrossjumping -fcse-follow-jumps -fdefer-pop
+  14              	@ -fdelete-null-pointer-checks -fearly-inlining
+  15              	@ -feliminate-unused-debug-types -fexpensive-optimizations
+  16              	@ -fforward-propagate -ffunction-cse -fgcse -fgcse-lm
+  17              	@ -fguess-branch-probability -fident -fif-conversion -fif-conversion2
+  18              	@ -finline-functions -finline-functions-called-once
+  19              	@ -finline-small-functions -fipa-pure-const -fipa-reference -fivopts
+  20              	@ -fkeep-static-consts -fleading-underscore -fmath-errno -fmerge-constants
+  21              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  22              	@ -foptimize-register-move -foptimize-sibling-calls -fpeephole -fpeephole2
+  23              	@ -freg-struct-return -fregmove -freorder-functions -frerun-cse-after-loop
+  24              	@ -fsched-interblock -fsched-spec -fsched-stalled-insns-dep
+  25              	@ -fschedule-insns -fschedule-insns2 -fsigned-zeros -fsplit-ivs-in-unroller
+  26              	@ -fsplit-wide-types -fstrict-aliasing -fstrict-overflow -fthread-jumps
+  27              	@ -ftoplevel-reorder -ftrapping-math -ftree-ccp -ftree-copy-prop
+  28              	@ -ftree-copyrename -ftree-cselim -ftree-dce -ftree-dominator-opts
+  29              	@ -ftree-dse -ftree-fre -ftree-loop-im -ftree-loop-ivcanon
+  30              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-reassoc
+  31              	@ -ftree-salias -ftree-scev-cprop -ftree-sink -ftree-sra -ftree-store-ccp
+  32              	@ -ftree-ter -ftree-vect-loop-version -ftree-vrp -funit-at-a-time
+  33              	@ -fverbose-asm -fzero-initialized-in-bss -mlittle-endian -msched-prolog
+  34              	@ -mthumb-interwork
+  35              	
+  36              	@ Compiler executable checksum: 6db586a17c82d36a40d1394fc9f8b6f8
+  37              	
+  38              		.text
+  39              		.align	2
+  40              		.global	snmpReceive
+  41              		.type	snmpReceive, %function
+  42              	snmpReceive:
+  43              		@ Function supports interworking.
+  44              		@ args = 0, pretend = 0, frame = 24
+  45              		@ frame_needed = 0, uses_anonymous_args = 0
+  46              		@ link register save eliminated.
+  47 0000 F00F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp}	@,
+  48 0004 78229FE5 		ldr	r2, .L13	@ tmp225,
+  49 0008 0E80D2E5 		ldrb	r8, [r2, #14]	@ zero_extendqisi2	@ D.2539, vv.daatta
+  50 000c 74329FE5 		ldr	r3, .L13+4	@ tmp224,
+  51 0010 0810D2E5 		ldrb	r1, [r2, #8]	@ zero_extendqisi2	@ vv.daatta, vv.daatta
+  52 0014 0900D2E5 		ldrb	r0, [r2, #9]	@ zero_extendqisi2	@ vv.daatta, vv.daatta
+  53 0018 0AC0D2E5 		ldrb	ip, [r2, #10]	@ zero_extendqisi2	@ vv.daatta, vv.daatta
+  54 001c 0B40D2E5 		ldrb	r4, [r2, #11]	@ zero_extendqisi2	@ vv.daatta, vv.daatta
+  55 0020 0C50D2E5 		ldrb	r5, [r2, #12]	@ zero_extendqisi2	@ vv.daatta, vv.daatta
+  56 0024 0D60D2E5 		ldrb	r6, [r2, #13]	@ zero_extendqisi2	@ vv.daatta, vv.daatta
+  57 0028 107088E2 		add	r7, r8, #16	@ tmp417, D.2539,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 2
+
+
+  58 002c 0010C3E5 		strb	r1, [r3, #0]	@ vv.daatta, vast.message.message_type
+  59 0030 0100C3E5 		strb	r0, [r3, #1]	@ vv.daatta, vast.message.message_length
+  60 0034 18D04DE2 		sub	sp, sp, #24	@,,
+  61 0038 070082E0 		add	r0, r2, r7	@ tmp419, tmp225, tmp417
+  62 003c 04C0C3E5 		strb	ip, [r3, #4]	@ vv.daatta, vast.version.version_type
+  63 0040 0540C3E5 		strb	r4, [r3, #5]	@ vv.daatta, vast.version.version_length
+  64 0044 0650C3E5 		strb	r5, [r3, #6]	@ vv.daatta, vast.version.version_value
+  65 0048 0860C3E5 		strb	r6, [r3, #8]	@ vv.daatta, vast.comm_string.comm_string_type
+  66 004c 0980C3E5 		strb	r8, [r3, #9]	@ D.2539, vast.comm_string.comm_string_length
+  67 0050 0A1083E2 		add	r1, r3, #10	@ ivtmp.121, tmp224,
+  68 0054 0F2082E2 		add	r2, r2, #15	@ ivtmp.117, tmp225,
+  69 0058 010000EA 		b	.L2	@
+  70              	.L3:
+  71 005c 013052E5 		ldrb	r3, [r2, #-1]	@ zero_extendqisi2	@ tmp251, vv.daatta
+  72 0060 013041E5 		strb	r3, [r1, #-1]	@ tmp251, vast.comm_string.comm_string_value
+  73              	.L2:
+  74 0064 012082E2 		add	r2, r2, #1	@ ivtmp.117, ivtmp.117,
+  75 0068 000052E1 		cmp	r2, r0	@ ivtmp.117, tmp419
+  76 006c 011081E2 		add	r1, r1, #1	@ ivtmp.121, ivtmp.121,
+  77 0070 0C729FE5 		ldr	r7, .L13	@ tmp255,
+  78 0074 F8FFFF1A 		bne	.L3	@,
+  79 0078 083087E0 		add	r3, r7, r8	@ tmp279, tmp255, D.2539
+  80 007c 12C0D3E5 		ldrb	ip, [r3, #18]	@ zero_extendqisi2	@ temp.131, vv.daatta
+  81 0080 0320A0E1 		mov	r2, r3	@ tmp266, tmp259
+  82 0084 0310A0E1 		mov	r1, r3	@ tmp273, tmp266
+  83 0088 F8019FE5 		ldr	r0, .L13+4	@ tmp256,
+  84 008c 0F30D3E5 		ldrb	r3, [r3, #15]	@ zero_extendqisi2	@ tmp261, vv.daatta
+  85 0090 1020D2E5 		ldrb	r2, [r2, #16]	@ zero_extendqisi2	@ tmp268, vv.daatta
+  86 0094 1110D1E5 		ldrb	r1, [r1, #17]	@ zero_extendqisi2	@ tmp275, vv.daatta
+  87 0098 01005CE3 		cmp	ip, #1	@ temp.131,
+  88 009c 1430C0E5 		strb	r3, [r0, #20]	@ tmp261, vast.PDU.PDU_type
+  89 00a0 1520C0E5 		strb	r2, [r0, #21]	@ tmp268, vast.PDU.PDU_length
+  90 00a4 1810C0E5 		strb	r1, [r0, #24]	@ tmp275, vast.requestID.requestID_type
+  91 00a8 19C0C0E5 		strb	ip, [r0, #25]	@ temp.131, vast.requestID.requestID_length
+  92 00ac 0B5088E2 		add	r5, r8, #11	@ indeksi.132, D.2539,
+  93 00b0 0D00009A 		bls	.L4	@,
+  94 00b4 1B208CE2 		add	r2, ip, #27	@ tmp414, temp.131,
+  95 00b8 133088E2 		add	r3, r8, #19	@ tmp283, D.2539,
+  96 00bc 024080E0 		add	r4, r0, r2	@ tmp416, tmp256, tmp414
+  97 00c0 031087E0 		add	r1, r7, r3	@ ivtmp.105, tmp255, tmp283
+  98 00c4 1A2080E2 		add	r2, r0, #26	@ ivtmp.109, tmp256,
+  99 00c8 010000EA 		b	.L5	@
+ 100              	.L6:
+ 101 00cc 013051E5 		ldrb	r3, [r1, #-1]	@ zero_extendqisi2	@ tmp285, vv.daatta
+ 102 00d0 013042E5 		strb	r3, [r2, #-1]	@ tmp285, vast.requestID.requestID_value
+ 103              	.L5:
+ 104 00d4 012082E2 		add	r2, r2, #1	@ ivtmp.109, ivtmp.109,
+ 105 00d8 040052E1 		cmp	r2, r4	@ ivtmp.109, tmp416
+ 106 00dc 011081E2 		add	r1, r1, #1	@ ivtmp.105, ivtmp.105,
+ 107 00e0 F9FFFF1A 		bne	.L6	@,
+ 108 00e4 05B08CE0 		add	fp, ip, r5	@ indeksi, temp.131, indeksi.132
+ 109 00e8 030000EA 		b	.L7	@
+ 110              	.L4:
+ 111 00ec 053087E0 		add	r3, r7, r5	@ tmp293, tmp255, indeksi.132
+ 112 00f0 0830D3E5 		ldrb	r3, [r3, #8]	@ zero_extendqisi2	@ tmp295, vv.daatta
+ 113 00f4 1A30C0E5 		strb	r3, [r0, #26]	@ tmp295, vast.requestID.requestID_value
+ 114 00f8 0CB088E2 		add	fp, r8, #12	@ indeksi, D.2539,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 3
+
+
+ 115              	.L7:
+ 116 00fc 01108BE2 		add	r1, fp, #1	@ indeksi.136, indeksi,
+ 117 0100 010081E2 		add	r0, r1, #1	@ indeksi.138, indeksi.136,
+ 118 0104 01C080E2 		add	ip, r0, #1	@ indeksi.140, indeksi.138,
+ 119 0108 01408CE2 		add	r4, ip, #1	@ indeksi.142, indeksi.140,
+ 120 010c 015084E2 		add	r5, r4, #1	@ indeksi.144, indeksi.142,
+ 121 0110 016085E2 		add	r6, r5, #1	@ indeksi.146, indeksi.144,
+ 122 0114 017086E2 		add	r7, r6, #1	@ indeksi.148, indeksi.146,
+ 123 0118 018087E2 		add	r8, r7, #1	@ indeksi.150, indeksi.148,
+ 124 011c 01A088E2 		add	sl, r8, #1	@ indeksi.152, indeksi.150,
+ 125 0120 5C219FE5 		ldr	r2, .L13	@ tmp298,
+ 126 0124 01908AE2 		add	r9, sl, #1	@ indeksi.154, indeksi.152,
+ 127 0128 013089E2 		add	r3, r9, #1	@, indeksi.154,
+ 128 012c 10308DE5 		str	r3, [sp, #16]	@, indeksi.156
+ 129 0130 033082E0 		add	r3, r2, r3	@, tmp298,
+ 130 0134 00308DE5 		str	r3, [sp, #0]	@,
+ 131 0138 0830D3E5 		ldrb	r3, [r3, #8]	@ zero_extendqisi2	@, vv.daatta
+ 132 013c 14308DE5 		str	r3, [sp, #20]	@, temp.157
+ 133 0140 0B3082E0 		add	r3, r2, fp	@ tmp300, tmp298, indeksi
+ 134 0144 0830D3E5 		ldrb	r3, [r3, #8]	@ zero_extendqisi2	@, vv.daatta
+ 135 0148 0C308DE5 		str	r3, [sp, #12]	@,
+ 136 014c 011082E0 		add	r1, r2, r1	@ tmp307, tmp298, indeksi.136
+ 137 0150 0810D1E5 		ldrb	r1, [r1, #8]	@ zero_extendqisi2	@, vv.daatta
+ 138 0154 08108DE5 		str	r1, [sp, #8]	@,
+ 139 0158 000082E0 		add	r0, r2, r0	@ tmp314, tmp298, indeksi.138
+ 140 015c 0800D0E5 		ldrb	r0, [r0, #8]	@ zero_extendqisi2	@, vv.daatta
+ 141 0160 14108BE2 		add	r1, fp, #20	@ tmp380, indeksi,
+ 142 0164 14B09DE5 		ldr	fp, [sp, #20]	@, temp.157
+ 143 0168 04008DE5 		str	r0, [sp, #4]	@,
+ 144 016c 14319FE5 		ldr	r3, .L13+4	@ tmp297,
+ 145 0170 33008BE2 		add	r0, fp, #51	@ tmp411,,
+ 146 0174 0CB09DE5 		ldr	fp, [sp, #12]	@,
+ 147 0178 20B0C3E5 		strb	fp, [r3, #32]	@, vast.error.error_type
+ 148 017c 08B09DE5 		ldr	fp, [sp, #8]	@,
+ 149 0180 0CC082E0 		add	ip, r2, ip	@ tmp321, tmp298, indeksi.140
+ 150 0184 044082E0 		add	r4, r2, r4	@ tmp328, tmp298, indeksi.142
+ 151 0188 055082E0 		add	r5, r2, r5	@ tmp335, tmp298, indeksi.144
+ 152 018c 066082E0 		add	r6, r2, r6	@ tmp342, tmp298, indeksi.146
+ 153 0190 077082E0 		add	r7, r2, r7	@ tmp349, tmp298, indeksi.148
+ 154 0194 088082E0 		add	r8, r2, r8	@ tmp356, tmp298, indeksi.150
+ 155 0198 0AA082E0 		add	sl, r2, sl	@ tmp363, tmp298, indeksi.152
+ 156 019c 099082E0 		add	r9, r2, r9	@ tmp370, tmp298, indeksi.154
+ 157 01a0 21B0C3E5 		strb	fp, [r3, #33]	@, vast.error.error_length
+ 158 01a4 04B09DE5 		ldr	fp, [sp, #4]	@,
+ 159 01a8 08C0DCE5 		ldrb	ip, [ip, #8]	@ zero_extendqisi2	@ tmp323, vv.daatta
+ 160 01ac 0840D4E5 		ldrb	r4, [r4, #8]	@ zero_extendqisi2	@ tmp330, vv.daatta
+ 161 01b0 0850D5E5 		ldrb	r5, [r5, #8]	@ zero_extendqisi2	@ tmp337, vv.daatta
+ 162 01b4 0860D6E5 		ldrb	r6, [r6, #8]	@ zero_extendqisi2	@ tmp344, vv.daatta
+ 163 01b8 0870D7E5 		ldrb	r7, [r7, #8]	@ zero_extendqisi2	@ tmp351, vv.daatta
+ 164 01bc 0880D8E5 		ldrb	r8, [r8, #8]	@ zero_extendqisi2	@ tmp358, vv.daatta
+ 165 01c0 08A0DAE5 		ldrb	sl, [sl, #8]	@ zero_extendqisi2	@ tmp365, vv.daatta
+ 166 01c4 0890D9E5 		ldrb	r9, [r9, #8]	@ zero_extendqisi2	@ tmp372, vv.daatta
+ 167 01c8 011082E0 		add	r1, r2, r1	@ ivtmp.89, tmp298, tmp380
+ 168 01cc 002083E0 		add	r2, r3, r0	@ tmp413, tmp297, tmp411
+ 169 01d0 14009DE5 		ldr	r0, [sp, #20]	@, temp.157
+ 170 01d4 22B0C3E5 		strb	fp, [r3, #34]	@, vast.error.error_value
+ 171 01d8 24C0C3E5 		strb	ip, [r3, #36]	@ tmp323, vast.error_index.error_index_type
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 4
+
+
+ 172 01dc 2540C3E5 		strb	r4, [r3, #37]	@ tmp330, vast.error_index.error_index_length
+ 173 01e0 2650C3E5 		strb	r5, [r3, #38]	@ tmp337, vast.error_index.error_index_value
+ 174 01e4 2860C3E5 		strb	r6, [r3, #40]	@ tmp344, vast.varbind_list.varbind_list_type
+ 175 01e8 2970C3E5 		strb	r7, [r3, #41]	@ tmp351, vast.varbind_list.varbind_list_length
+ 176 01ec 2C80C3E5 		strb	r8, [r3, #44]	@ tmp358, vast.varbind.varbind_type
+ 177 01f0 2DA0C3E5 		strb	sl, [r3, #45]	@ tmp365, vast.varbind.varbind_length
+ 178 01f4 3090C3E5 		strb	r9, [r3, #48]	@ tmp372, vast.OID.OID_type
+ 179 01f8 3100C3E5 		strb	r0, [r3, #49]	@, vast.OID.OID_length
+ 180 01fc 320083E2 		add	r0, r3, #50	@ ivtmp.93, tmp297,
+ 181 0200 010000EA 		b	.L8	@
+ 182              	.L9:
+ 183 0204 013051E5 		ldrb	r3, [r1, #-1]	@ zero_extendqisi2	@ tmp382, vv.daatta
+ 184 0208 013040E5 		strb	r3, [r0, #-1]	@ tmp382, vast.OID.OID_value
+ 185              	.L8:
+ 186 020c 010080E2 		add	r0, r0, #1	@ ivtmp.93, ivtmp.93,
+ 187 0210 020050E1 		cmp	r0, r2	@ ivtmp.93, tmp413
+ 188 0214 011081E2 		add	r1, r1, #1	@ ivtmp.89, ivtmp.89,
+ 189 0218 68409FE5 		ldr	r4, .L13+4	@ tmp386,
+ 190 021c F8FFFF1A 		bne	.L9	@,
+ 191 0220 10208DE2 		add	r2, sp, #16
+ 192 0224 040892E8 		ldmia	r2, {r2, fp}	@ phole ldm
+ 193 0228 013082E2 		add	r3, r2, #1	@ indeksi.158,,
+ 194 022c 50C09FE5 		ldr	ip, .L13	@ tmp388,
+ 195 0230 0B3083E0 		add	r3, r3, fp	@ indeksi.164, indeksi.158,
+ 196 0234 03208CE0 		add	r2, ip, r3	@ tmp390, tmp388, indeksi.164
+ 197 0238 0900D2E5 		ldrb	r0, [r2, #9]	@ zero_extendqisi2	@ temp.162, vv.daatta
+ 198 023c 0820D2E5 		ldrb	r2, [r2, #8]	@ zero_extendqisi2	@ tmp392, vv.daatta
+ 199 0240 0A3083E2 		add	r3, r3, #10	@ tmp400, indeksi.164,
+ 200 0244 111080E2 		add	r1, r0, #17	@ tmp407, temp.162,
+ 201 0248 3C20C4E5 		strb	r2, [r4, #60]	@ tmp392, vast.value.value_type
+ 202 024c 03908CE0 		add	r9, ip, r3	@ ivtmp.70, tmp388, tmp400
+ 203 0250 011184E0 		add	r1, r4, r1, asl #2	@, tmp410, tmp386, tmp407,
+ 204 0254 3D00C4E5 		strb	r0, [r4, #61]	@ temp.162, vast.value.value_length
+ 205 0258 402084E2 		add	r2, r4, #64	@ ivtmp.74, tmp386,
+ 206 025c 010000EA 		b	.L10	@
+ 207              	.L11:
+ 208 0260 013059E5 		ldrb	r3, [r9, #-1]	@ zero_extendqisi2	@ tmp402, vv.daatta
+ 209 0264 043002E5 		str	r3, [r2, #-4]	@ tmp402, vast.value.value_value
+ 210              	.L10:
+ 211 0268 042082E2 		add	r2, r2, #4	@ ivtmp.74, ivtmp.74,
+ 212 026c 010052E1 		cmp	r2, r1	@ ivtmp.74, tmp410
+ 213 0270 019089E2 		add	r9, r9, #1	@ ivtmp.70, ivtmp.70,
+ 214 0274 F9FFFF1A 		bne	.L11	@,
+ 215 0278 18D08DE2 		add	sp, sp, #24	@,,
+ 216 027c F00FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp}
+ 217 0280 1EFF2FE1 		bx	lr
+ 218              	.L14:
+ 219              		.align	2
+ 220              	.L13:
+ 221 0284 00000000 		.word	vv
+ 222 0288 00000000 		.word	vast
+ 223              		.size	snmpReceive, .-snmpReceive
+ 224              		.align	2
+ 225              		.global	calculateLengths
+ 226              		.type	calculateLengths, %function
+ 227              	calculateLengths:
+ 228              		@ Function supports interworking.
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 5
+
+
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231              		@ link register save eliminated.
+ 232 028c 48009FE5 		ldr	r0, .L17	@ tmp137,
+ 233 0290 3130D0E5 		ldrb	r3, [r0, #49]	@ zero_extendqisi2	@ lahteva.OID.OID_length, lahteva.OID.OID_length
+ 234 0294 3D10D0E5 		ldrb	r1, [r0, #61]	@ zero_extendqisi2	@ lahteva.value.value_length, lahteva.value.value_length
+ 235 0298 031081E0 		add	r1, r1, r3	@ tmp143, lahteva.value.value_length, lahteva.OID.OID_length
+ 236 029c 041081E2 		add	r1, r1, #4	@ tmp145, tmp143,
+ 237 02a0 FF1001E2 		and	r1, r1, #255	@ D.2766, tmp145,
+ 238 02a4 1920D0E5 		ldrb	r2, [r0, #25]	@ zero_extendqisi2	@ lahteva.requestID.requestID_length, lahteva.requestID.requ
+ 239 02a8 02C081E2 		add	ip, r1, #2	@ tmp148, D.2766,
+ 240 02ac FFC00CE2 		and	ip, ip, #255	@ D.2768, tmp148,
+ 241 02b0 0A2082E2 		add	r2, r2, #10	@ tmp154, lahteva.requestID.requestID_length,
+ 242 02b4 0930D0E5 		ldrb	r3, [r0, #9]	@ zero_extendqisi2	@ lahteva.comm_string.comm_string_length, lahteva.comm_string
+ 243 02b8 02208CE0 		add	r2, ip, r2	@ tmp156, D.2768, tmp154
+ 244 02bc FF2002E2 		and	r2, r2, #255	@ D.2772, tmp156,
+ 245 02c0 073083E2 		add	r3, r3, #7	@ tmp163, lahteva.comm_string.comm_string_length,
+ 246 02c4 033082E0 		add	r3, r2, r3	@ tmp165, D.2772, tmp163
+ 247 02c8 0130C0E5 		strb	r3, [r0, #1]	@ tmp165, lahteva.message.message_length
+ 248 02cc 2D10C0E5 		strb	r1, [r0, #45]	@ D.2766, lahteva.varbind.varbind_length
+ 249 02d0 29C0C0E5 		strb	ip, [r0, #41]	@ D.2768, lahteva.varbind_list.varbind_list_length
+ 250 02d4 1520C0E5 		strb	r2, [r0, #21]	@ D.2772, lahteva.PDU.PDU_length
+ 251 02d8 1EFF2FE1 		bx	lr	@
+ 252              	.L18:
+ 253              		.align	2
+ 254              	.L17:
+ 255 02dc 00000000 		.word	lahteva
+ 256              		.size	calculateLengths, .-calculateLengths
+ 257              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 258              	.LC0:
+ 259 0000 52656365 		.ascii	"Received READY-TO-PLAY message\000"
+ 259      69766564 
+ 259      20524541 
+ 259      44592D54 
+ 259      4F2D504C 
+ 260              	.LC1:
+ 261 001f 52656365 		.ascii	"Received START-TURN message\000"
+ 261      69766564 
+ 261      20535441 
+ 261      52542D54 
+ 261      55524E20 
+ 262              	.LC2:
+ 263 003b 52656365 		.ascii	"Received SALVO message\000"
+ 263      69766564 
+ 263      2053414C 
+ 263      564F206D 
+ 263      65737361 
+ 264              	.LC3:
+ 265 0052 52656365 		.ascii	"Received SALVO-RESULTS message\000"
+ 265      69766564 
+ 265      2053414C 
+ 265      564F2D52 
+ 265      4553554C 
+ 266              	.LC4:
+ 267 0071 52656365 		.ascii	"Received CHAT MESSAGE message\000"
+ 267      69766564 
+ 267      20434841 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 6
+
+
+ 267      54204D45 
+ 267      53534147 
+ 268              	.LC5:
+ 269 008f 52656365 		.ascii	"Received QUIT-TRAP message\000"
+ 269      69766564 
+ 269      20515549 
+ 269      542D5452 
+ 269      4150206D 
+ 270              	.LC6:
+ 271 00aa 63686563 		.ascii	"checkOID(): Invalid OID value.\000"
+ 271      6B4F4944 
+ 271      28293A20 
+ 271      496E7661 
+ 271      6C696420 
+ 272              		.text
+ 273              		.align	2
+ 274              		.global	checkOID
+ 275              		.type	checkOID, %function
+ 276              	checkOID:
+ 277              		@ Function supports interworking.
+ 278              		@ args = 0, pretend = 0, frame = 0
+ 279              		@ frame_needed = 0, uses_anonymous_args = 0
+ 280 02e0 98309FE5 		ldr	r3, .L31	@ tmp136,
+ 281 02e4 002093E5 		ldr	r2, [r3, #0]	@ vv.osoite, vv.osoite
+ 282 02e8 94309FE5 		ldr	r3, .L31+4	@ tmp137,
+ 283 02ec 10402DE9 		stmfd	sp!, {r4, lr}	@,
+ 284 02f0 043093E5 		ldr	r3, [r3, #4]	@ game.playerAddress, game.playerAddress
+ 285 02f4 030052E1 		cmp	r2, r3	@ vv.osoite, game.playerAddress
+ 286 02f8 88309FE5 		ldr	r3, .L31+8	@ tmp135,
+ 287 02fc 3840D3E5 		ldrb	r4, [r3, #56]	@ zero_extendqisi2	@ D.2566, vast.OID.OID_value
+ 288 0300 1B00001A 		bne	.L20	@,
+ 289 0304 80309FE5 		ldr	r3, .L31+12	@ tmp140,
+ 290 0308 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 291 030c 000053E3 		cmp	r3, #0	@ verbose,
+ 292 0310 1700000A 		beq	.L20	@,
+ 293 0314 013044E2 		sub	r3, r4, #1	@ tmp142, D.2566,
+ 294 0318 050053E3 		cmp	r3, #5	@ tmp142,
+ 295 031c 03F19F97 		ldrls	pc, [pc, r3, asl #2]	@ tmp142
+ 296 0320 110000EA 		b	.L21	@
+ 297              	.L28:
+ 298 0324 3C030000 		.word	.L22
+ 299 0328 44030000 		.word	.L23
+ 300 032c 4C030000 		.word	.L24
+ 301 0330 54030000 		.word	.L25
+ 302 0334 5C030000 		.word	.L26
+ 303 0338 64030000 		.word	.L27
+ 304              	.L22:
+ 305 033c 4C009FE5 		ldr	r0, .L31+16	@,
+ 306 0340 0A0000EA 		b	.L30	@
+ 307              	.L23:
+ 308 0344 48009FE5 		ldr	r0, .L31+20	@,
+ 309 0348 080000EA 		b	.L30	@
+ 310              	.L24:
+ 311 034c 44009FE5 		ldr	r0, .L31+24	@,
+ 312 0350 060000EA 		b	.L30	@
+ 313              	.L25:
+ 314 0354 40009FE5 		ldr	r0, .L31+28	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 7
+
+
+ 315 0358 040000EA 		b	.L30	@
+ 316              	.L26:
+ 317 035c 3C009FE5 		ldr	r0, .L31+32	@,
+ 318 0360 020000EA 		b	.L30	@
+ 319              	.L27:
+ 320 0364 38009FE5 		ldr	r0, .L31+36	@,
+ 321 0368 000000EA 		b	.L30	@
+ 322              	.L21:
+ 323 036c 34009FE5 		ldr	r0, .L31+40	@,
+ 324              	.L30:
+ 325 0370 FEFFFFEB 		bl	puts	@
+ 326              	.L20:
+ 327 0374 0400A0E1 		mov	r0, r4	@, D.2566
+ 328 0378 1040BDE8 		ldmfd	sp!, {r4, lr}
+ 329 037c 1EFF2FE1 		bx	lr
+ 330              	.L32:
+ 331              		.align	2
+ 332              	.L31:
+ 333 0380 00000000 		.word	vv
+ 334 0384 00000000 		.word	game
+ 335 0388 00000000 		.word	vast
+ 336 038c 00000000 		.word	verbose
+ 337 0390 00000000 		.word	.LC0
+ 338 0394 1F000000 		.word	.LC1
+ 339 0398 3B000000 		.word	.LC2
+ 340 039c 52000000 		.word	.LC3
+ 341 03a0 71000000 		.word	.LC4
+ 342 03a4 8F000000 		.word	.LC5
+ 343 03a8 AA000000 		.word	.LC6
+ 344              		.size	checkOID, .-checkOID
+ 345              		.section	.rodata.str1.1
+ 346              	.LC7:
+ 347 00c9 0A0A2A2A 		.ascii	"\012\012*** T\344st\344 alkaa structin tulostus. **"
+ 347      2A2054E4 
+ 347      7374E420 
+ 347      616C6B61 
+ 347      61207374 
+ 348 00f0 2A00     		.ascii	"*\000"
+ 349              	.LC8:
+ 350 00f2 25732E6D 		.ascii	"%s.message.message_type: %x\012\000"
+ 350      65737361 
+ 350      67652E6D 
+ 350      65737361 
+ 350      67655F74 
+ 351              	.LC9:
+ 352 010f 25732E6D 		.ascii	"%s.message.message_length: %x\012\000"
+ 352      65737361 
+ 352      67652E6D 
+ 352      65737361 
+ 352      67655F6C 
+ 353              	.LC10:
+ 354 012e 25732E76 		.ascii	"%s.version.version_type: %x\012\000"
+ 354      65727369 
+ 354      6F6E2E76 
+ 354      65727369 
+ 354      6F6E5F74 
+ 355              	.LC11:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 8
+
+
+ 356 014b 25732E76 		.ascii	"%s.version.version_length: %x\012\000"
+ 356      65727369 
+ 356      6F6E2E76 
+ 356      65727369 
+ 356      6F6E5F6C 
+ 357              	.LC12:
+ 358 016a 25732E76 		.ascii	"%s.version.version_value: %x\012\000"
+ 358      65727369 
+ 358      6F6E2E76 
+ 358      65727369 
+ 358      6F6E5F76 
+ 359              	.LC13:
+ 360 0188 25732E63 		.ascii	"%s.comm_string.comm_string_type: %x\012\000"
+ 360      6F6D6D5F 
+ 360      73747269 
+ 360      6E672E63 
+ 360      6F6D6D5F 
+ 361              	.LC14:
+ 362 01ad 25732E63 		.ascii	"%s.comm_string.comm_string_length: %x\012\000"
+ 362      6F6D6D5F 
+ 362      73747269 
+ 362      6E672E63 
+ 362      6F6D6D5F 
+ 363              	.LC15:
+ 364 01d4 25732E63 		.ascii	"%s.comm_string.comm_string_value[%d]: %x\012\000"
+ 364      6F6D6D5F 
+ 364      73747269 
+ 364      6E672E63 
+ 364      6F6D6D5F 
+ 365              	.LC16:
+ 366 01fe 25732E50 		.ascii	"%s.PDU.PDU_type: %x\012\000"
+ 366      44552E50 
+ 366      44555F74 
+ 366      7970653A 
+ 366      2025780A 
+ 367              	.LC17:
+ 368 0213 25732E50 		.ascii	"%s.PDU.PDU_length: %x\012\000"
+ 368      44552E50 
+ 368      44555F6C 
+ 368      656E6774 
+ 368      683A2025 
+ 369              	.LC18:
+ 370 022a 25732E72 		.ascii	"%s.requestID.requestID_type: %x\012\000"
+ 370      65717565 
+ 370      73744944 
+ 370      2E726571 
+ 370      75657374 
+ 371              	.LC19:
+ 372 024b 25732E72 		.ascii	"%s.requestID.requestID_length: %x\012\000"
+ 372      65717565 
+ 372      73744944 
+ 372      2E726571 
+ 372      75657374 
+ 373              	.LC20:
+ 374 026e 25732E72 		.ascii	"%s.requestID.requestID_value[%d]: %x\012\000"
+ 374      65717565 
+ 374      73744944 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 9
+
+
+ 374      2E726571 
+ 374      75657374 
+ 375              	.LC21:
+ 376 0294 25732E72 		.ascii	"%s.requestID.requestID_value[0]: %x\012\000"
+ 376      65717565 
+ 376      73744944 
+ 376      2E726571 
+ 376      75657374 
+ 377              	.LC22:
+ 378 02b9 25732E65 		.ascii	"%s.error.error_type: %x\012\000"
+ 378      72726F72 
+ 378      2E657272 
+ 378      6F725F74 
+ 378      7970653A 
+ 379              	.LC23:
+ 380 02d2 25732E65 		.ascii	"%s.error.error_length: %x\012\000"
+ 380      72726F72 
+ 380      2E657272 
+ 380      6F725F6C 
+ 380      656E6774 
+ 381              	.LC24:
+ 382 02ed 25732E65 		.ascii	"%s.error.error_value: %x\012\000"
+ 382      72726F72 
+ 382      2E657272 
+ 382      6F725F76 
+ 382      616C7565 
+ 383              	.LC25:
+ 384 0307 25732E65 		.ascii	"%s.error_index.error_index_type: %x\012\000"
+ 384      72726F72 
+ 384      5F696E64 
+ 384      65782E65 
+ 384      72726F72 
+ 385              	.LC26:
+ 386 032c 25732E65 		.ascii	"%s.error_index.error_index_length: %x\012\000"
+ 386      72726F72 
+ 386      5F696E64 
+ 386      65782E65 
+ 386      72726F72 
+ 387              	.LC27:
+ 388 0353 25732E65 		.ascii	"%s.error_index.error_index_value: %x\012\000"
+ 388      72726F72 
+ 388      5F696E64 
+ 388      65782E65 
+ 388      72726F72 
+ 389              	.LC28:
+ 390 0379 25732E76 		.ascii	"%s.varbind_list.varbind_list_type: %x\012\000"
+ 390      61726269 
+ 390      6E645F6C 
+ 390      6973742E 
+ 390      76617262 
+ 391              	.LC29:
+ 392 03a0 25732E76 		.ascii	"%s.varbind_list.varbind_list_length: %x\012\000"
+ 392      61726269 
+ 392      6E645F6C 
+ 392      6973742E 
+ 392      76617262 
+ 393              	.LC30:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 10
+
+
+ 394 03c9 25732E76 		.ascii	"%s.varbind.varbind_type: %x\012\000"
+ 394      61726269 
+ 394      6E642E76 
+ 394      61726269 
+ 394      6E645F74 
+ 395              	.LC31:
+ 396 03e6 25732E76 		.ascii	"%s.varbind.varbind_length: %x\012\000"
+ 396      61726269 
+ 396      6E642E76 
+ 396      61726269 
+ 396      6E645F6C 
+ 397              	.LC32:
+ 398 0405 25732E4F 		.ascii	"%s.OID.OID_type: %x\012\000"
+ 398      49442E4F 
+ 398      49445F74 
+ 398      7970653A 
+ 398      2025780A 
+ 399              	.LC33:
+ 400 041a 25732E4F 		.ascii	"%s.OID.OID_length: %x\012\000"
+ 400      49442E4F 
+ 400      49445F6C 
+ 400      656E6774 
+ 400      683A2025 
+ 401              	.LC34:
+ 402 0431 25732E4F 		.ascii	"%s.OID.OID_value[%d]: %x\012\000"
+ 402      49442E4F 
+ 402      49445F76 
+ 402      616C7565 
+ 402      5B25645D 
+ 403              	.LC35:
+ 404 044b 25732E76 		.ascii	"%s.value.value_type: %x\012\000"
+ 404      616C7565 
+ 404      2E76616C 
+ 404      75655F74 
+ 404      7970653A 
+ 405              	.LC36:
+ 406 0464 25732E76 		.ascii	"%s.value.value_length: %x\012\000"
+ 406      616C7565 
+ 406      2E76616C 
+ 406      75655F6C 
+ 406      656E6774 
+ 407              	.LC37:
+ 408 047f 25732E76 		.ascii	"%s.value.value_value[%d]: %x\012\000"
+ 408      616C7565 
+ 408      2E76616C 
+ 408      75655F76 
+ 408      616C7565 
+ 409              		.text
+ 410              		.align	2
+ 411              		.global	printStruct
+ 412              		.type	printStruct, %function
+ 413              	printStruct:
+ 414              		@ Function supports interworking.
+ 415              		@ args = 0, pretend = 0, frame = 0
+ 416              		@ frame_needed = 0, uses_anonymous_args = 0
+ 417 03ac F0412DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+ 418 03b0 0140A0E1 		mov	r4, r1	@ tulostettava, tulostettava
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 11
+
+
+ 419 03b4 0060A0E1 		mov	r6, r0	@ nimi, nimi
+ 420 03b8 80029FE5 		ldr	r0, .L46	@,
+ 421 03bc FEFFFFEB 		bl	puts	@
+ 422 03c0 0610A0E1 		mov	r1, r6	@, nimi
+ 423 03c4 0020D4E5 		ldrb	r2, [r4, #0]	@ zero_extendqisi2	@, <variable>.message.message_type
+ 424 03c8 74029FE5 		ldr	r0, .L46+4	@,
+ 425 03cc FEFFFFEB 		bl	printf	@
+ 426 03d0 0610A0E1 		mov	r1, r6	@, nimi
+ 427 03d4 0120D4E5 		ldrb	r2, [r4, #1]	@ zero_extendqisi2	@, <variable>.message.message_length
+ 428 03d8 68029FE5 		ldr	r0, .L46+8	@,
+ 429 03dc FEFFFFEB 		bl	printf	@
+ 430 03e0 0610A0E1 		mov	r1, r6	@, nimi
+ 431 03e4 0420D4E5 		ldrb	r2, [r4, #4]	@ zero_extendqisi2	@, <variable>.version.version_type
+ 432 03e8 5C029FE5 		ldr	r0, .L46+12	@,
+ 433 03ec FEFFFFEB 		bl	printf	@
+ 434 03f0 0610A0E1 		mov	r1, r6	@, nimi
+ 435 03f4 0520D4E5 		ldrb	r2, [r4, #5]	@ zero_extendqisi2	@, <variable>.version.version_length
+ 436 03f8 50029FE5 		ldr	r0, .L46+16	@,
+ 437 03fc FEFFFFEB 		bl	printf	@
+ 438 0400 0610A0E1 		mov	r1, r6	@, nimi
+ 439 0404 0620D4E5 		ldrb	r2, [r4, #6]	@ zero_extendqisi2	@, <variable>.version.version_value
+ 440 0408 44029FE5 		ldr	r0, .L46+20	@,
+ 441 040c FEFFFFEB 		bl	printf	@
+ 442 0410 0610A0E1 		mov	r1, r6	@, nimi
+ 443 0414 0820D4E5 		ldrb	r2, [r4, #8]	@ zero_extendqisi2	@, <variable>.comm_string.comm_string_type
+ 444 0418 38029FE5 		ldr	r0, .L46+24	@,
+ 445 041c FEFFFFEB 		bl	printf	@
+ 446 0420 34029FE5 		ldr	r0, .L46+28	@,
+ 447 0424 0610A0E1 		mov	r1, r6	@, nimi
+ 448 0428 0920D4E5 		ldrb	r2, [r4, #9]	@ zero_extendqisi2	@, <variable>.comm_string.comm_string_length
+ 449 042c FEFFFFEB 		bl	printf	@
+ 450 0430 0480A0E1 		mov	r8, r4	@ ivtmp.279, tulostettava
+ 451 0434 0470A0E1 		mov	r7, r4	@ ivtmp.295, tulostettava
+ 452 0438 0050A0E3 		mov	r5, #0	@ i,
+ 453 043c 010000EA 		b	.L34	@
+ 454              	.L35:
+ 455 0440 0930D7E5 		ldrb	r3, [r7, #9]	@ zero_extendqisi2	@, <variable>.comm_string.comm_string_value
+ 456 0444 FEFFFFEB 		bl	printf	@
+ 457              	.L34:
+ 458 0448 0930D4E5 		ldrb	r3, [r4, #9]	@ zero_extendqisi2	@ <variable>.comm_string.comm_string_length, <variable>.comm_
+ 459 044c 030055E1 		cmp	r5, r3	@ i, <variable>.comm_string.comm_string_length
+ 460 0450 0520A0E1 		mov	r2, r5	@, i
+ 461 0454 04029FE5 		ldr	r0, .L46+32	@,
+ 462 0458 0610A0E1 		mov	r1, r6	@, nimi
+ 463 045c 015085E2 		add	r5, r5, #1	@ i, i,
+ 464 0460 017087E2 		add	r7, r7, #1	@ ivtmp.295, ivtmp.295,
+ 465 0464 F5FFFFBA 		blt	.L35	@,
+ 466 0468 1420D4E5 		ldrb	r2, [r4, #20]	@ zero_extendqisi2	@, <variable>.PDU.PDU_type
+ 467 046c F0019FE5 		ldr	r0, .L46+36	@,
+ 468 0470 FEFFFFEB 		bl	printf	@
+ 469 0474 0610A0E1 		mov	r1, r6	@, nimi
+ 470 0478 1520D4E5 		ldrb	r2, [r4, #21]	@ zero_extendqisi2	@, <variable>.PDU.PDU_length
+ 471 047c E4019FE5 		ldr	r0, .L46+40	@,
+ 472 0480 FEFFFFEB 		bl	printf	@
+ 473 0484 0610A0E1 		mov	r1, r6	@, nimi
+ 474 0488 1820D4E5 		ldrb	r2, [r4, #24]	@ zero_extendqisi2	@, <variable>.requestID.requestID_type
+ 475 048c D8019FE5 		ldr	r0, .L46+44	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 12
+
+
+ 476 0490 FEFFFFEB 		bl	printf	@
+ 477 0494 D4019FE5 		ldr	r0, .L46+48	@,
+ 478 0498 0610A0E1 		mov	r1, r6	@, nimi
+ 479 049c 1920D4E5 		ldrb	r2, [r4, #25]	@ zero_extendqisi2	@, <variable>.requestID.requestID_length
+ 480 04a0 FEFFFFEB 		bl	printf	@
+ 481 04a4 1930D4E5 		ldrb	r3, [r4, #25]	@ zero_extendqisi2	@ <variable>.requestID.requestID_length, <variable>.requestI
+ 482 04a8 010053E3 		cmp	r3, #1	@ <variable>.requestID.requestID_length,
+ 483 04ac 0470A081 		movhi	r7, r4	@ ivtmp.293, tulostettava
+ 484 04b0 0050A083 		movhi	r5, #0	@ i.281,
+ 485 04b4 0200008A 		bhi	.L37	@,
+ 486 04b8 0A0000EA 		b	.L45	@
+ 487              	.L38:
+ 488 04bc 1930D7E5 		ldrb	r3, [r7, #25]	@ zero_extendqisi2	@, <variable>.requestID.requestID_value
+ 489 04c0 FEFFFFEB 		bl	printf	@
+ 490              	.L37:
+ 491 04c4 1930D4E5 		ldrb	r3, [r4, #25]	@ zero_extendqisi2	@ <variable>.requestID.requestID_length, <variable>.requestI
+ 492 04c8 030055E1 		cmp	r5, r3	@ i.281, <variable>.requestID.requestID_length
+ 493 04cc 0520A0E1 		mov	r2, r5	@, i.281
+ 494 04d0 9C019FE5 		ldr	r0, .L46+52	@,
+ 495 04d4 0610A0E1 		mov	r1, r6	@, nimi
+ 496 04d8 015085E2 		add	r5, r5, #1	@ i.281, i.281,
+ 497 04dc 017087E2 		add	r7, r7, #1	@ ivtmp.293, ivtmp.293,
+ 498 04e0 F5FFFFBA 		blt	.L38	@,
+ 499 04e4 030000EA 		b	.L39	@
+ 500              	.L45:
+ 501 04e8 88019FE5 		ldr	r0, .L46+56	@,
+ 502 04ec 0610A0E1 		mov	r1, r6	@, nimi
+ 503 04f0 1A20D4E5 		ldrb	r2, [r4, #26]	@ zero_extendqisi2	@, <variable>.requestID.requestID_value
+ 504 04f4 FEFFFFEB 		bl	printf	@
+ 505              	.L39:
+ 506 04f8 0610A0E1 		mov	r1, r6	@, nimi
+ 507 04fc 2020D4E5 		ldrb	r2, [r4, #32]	@ zero_extendqisi2	@, <variable>.error.error_type
+ 508 0500 74019FE5 		ldr	r0, .L46+60	@,
+ 509 0504 FEFFFFEB 		bl	printf	@
+ 510 0508 0610A0E1 		mov	r1, r6	@, nimi
+ 511 050c 2120D4E5 		ldrb	r2, [r4, #33]	@ zero_extendqisi2	@, <variable>.error.error_length
+ 512 0510 68019FE5 		ldr	r0, .L46+64	@,
+ 513 0514 FEFFFFEB 		bl	printf	@
+ 514 0518 0610A0E1 		mov	r1, r6	@, nimi
+ 515 051c 2220D4E5 		ldrb	r2, [r4, #34]	@ zero_extendqisi2	@, <variable>.error.error_value
+ 516 0520 5C019FE5 		ldr	r0, .L46+68	@,
+ 517 0524 FEFFFFEB 		bl	printf	@
+ 518 0528 0610A0E1 		mov	r1, r6	@, nimi
+ 519 052c 2420D4E5 		ldrb	r2, [r4, #36]	@ zero_extendqisi2	@, <variable>.error_index.error_index_type
+ 520 0530 50019FE5 		ldr	r0, .L46+72	@,
+ 521 0534 FEFFFFEB 		bl	printf	@
+ 522 0538 0610A0E1 		mov	r1, r6	@, nimi
+ 523 053c 2520D4E5 		ldrb	r2, [r4, #37]	@ zero_extendqisi2	@, <variable>.error_index.error_index_length
+ 524 0540 44019FE5 		ldr	r0, .L46+76	@,
+ 525 0544 FEFFFFEB 		bl	printf	@
+ 526 0548 0610A0E1 		mov	r1, r6	@, nimi
+ 527 054c 2620D4E5 		ldrb	r2, [r4, #38]	@ zero_extendqisi2	@, <variable>.error_index.error_index_value
+ 528 0550 38019FE5 		ldr	r0, .L46+80	@,
+ 529 0554 FEFFFFEB 		bl	printf	@
+ 530 0558 0610A0E1 		mov	r1, r6	@, nimi
+ 531 055c 2820D4E5 		ldrb	r2, [r4, #40]	@ zero_extendqisi2	@, <variable>.varbind_list.varbind_list_type
+ 532 0560 2C019FE5 		ldr	r0, .L46+84	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 13
+
+
+ 533 0564 FEFFFFEB 		bl	printf	@
+ 534 0568 0610A0E1 		mov	r1, r6	@, nimi
+ 535 056c 2920D4E5 		ldrb	r2, [r4, #41]	@ zero_extendqisi2	@, <variable>.varbind_list.varbind_list_length
+ 536 0570 20019FE5 		ldr	r0, .L46+88	@,
+ 537 0574 FEFFFFEB 		bl	printf	@
+ 538 0578 0610A0E1 		mov	r1, r6	@, nimi
+ 539 057c 2C20D4E5 		ldrb	r2, [r4, #44]	@ zero_extendqisi2	@, <variable>.varbind.varbind_type
+ 540 0580 14019FE5 		ldr	r0, .L46+92	@,
+ 541 0584 FEFFFFEB 		bl	printf	@
+ 542 0588 0610A0E1 		mov	r1, r6	@, nimi
+ 543 058c 2D20D4E5 		ldrb	r2, [r4, #45]	@ zero_extendqisi2	@, <variable>.varbind.varbind_length
+ 544 0590 08019FE5 		ldr	r0, .L46+96	@,
+ 545 0594 FEFFFFEB 		bl	printf	@
+ 546 0598 0610A0E1 		mov	r1, r6	@, nimi
+ 547 059c 3020D4E5 		ldrb	r2, [r4, #48]	@ zero_extendqisi2	@, <variable>.OID.OID_type
+ 548 05a0 FC009FE5 		ldr	r0, .L46+100	@,
+ 549 05a4 FEFFFFEB 		bl	printf	@
+ 550 05a8 F8009FE5 		ldr	r0, .L46+104	@,
+ 551 05ac 0610A0E1 		mov	r1, r6	@, nimi
+ 552 05b0 3120D4E5 		ldrb	r2, [r4, #49]	@ zero_extendqisi2	@, <variable>.OID.OID_length
+ 553 05b4 FEFFFFEB 		bl	printf	@
+ 554 05b8 0470A0E1 		mov	r7, r4	@ ivtmp.294, tulostettava
+ 555 05bc 0050A0E3 		mov	r5, #0	@ i.282,
+ 556 05c0 010000EA 		b	.L40	@
+ 557              	.L41:
+ 558 05c4 3130D7E5 		ldrb	r3, [r7, #49]	@ zero_extendqisi2	@, <variable>.OID.OID_value
+ 559 05c8 FEFFFFEB 		bl	printf	@
+ 560              	.L40:
+ 561 05cc 3130D4E5 		ldrb	r3, [r4, #49]	@ zero_extendqisi2	@ <variable>.OID.OID_length, <variable>.OID.OID_length
+ 562 05d0 030055E1 		cmp	r5, r3	@ i.282, <variable>.OID.OID_length
+ 563 05d4 0520A0E1 		mov	r2, r5	@, i.282
+ 564 05d8 CC009FE5 		ldr	r0, .L46+108	@,
+ 565 05dc 0610A0E1 		mov	r1, r6	@, nimi
+ 566 05e0 015085E2 		add	r5, r5, #1	@ i.282, i.282,
+ 567 05e4 017087E2 		add	r7, r7, #1	@ ivtmp.294, ivtmp.294,
+ 568 05e8 F5FFFFBA 		blt	.L41	@,
+ 569 05ec 3C20D4E5 		ldrb	r2, [r4, #60]	@ zero_extendqisi2	@, <variable>.value.value_type
+ 570 05f0 B8009FE5 		ldr	r0, .L46+112	@,
+ 571 05f4 FEFFFFEB 		bl	printf	@
+ 572 05f8 B4009FE5 		ldr	r0, .L46+116	@,
+ 573 05fc 0610A0E1 		mov	r1, r6	@, nimi
+ 574 0600 3D20D4E5 		ldrb	r2, [r4, #61]	@ zero_extendqisi2	@, <variable>.value.value_length
+ 575 0604 FEFFFFEB 		bl	printf	@
+ 576 0608 0050A0E3 		mov	r5, #0	@ i.283,
+ 577 060c 010000EA 		b	.L42	@
+ 578              	.L43:
+ 579 0610 3C3098E5 		ldr	r3, [r8, #60]	@, <variable>.value.value_value
+ 580 0614 FEFFFFEB 		bl	printf	@
+ 581              	.L42:
+ 582 0618 3D30D4E5 		ldrb	r3, [r4, #61]	@ zero_extendqisi2	@ <variable>.value.value_length, <variable>.value.value_leng
+ 583 061c 030055E1 		cmp	r5, r3	@ i.283, <variable>.value.value_length
+ 584 0620 0520A0E1 		mov	r2, r5	@, i.283
+ 585 0624 8C009FE5 		ldr	r0, .L46+120	@,
+ 586 0628 0610A0E1 		mov	r1, r6	@, nimi
+ 587 062c 015085E2 		add	r5, r5, #1	@ i.283, i.283,
+ 588 0630 048088E2 		add	r8, r8, #4	@ ivtmp.279, ivtmp.279,
+ 589 0634 F5FFFFBA 		blt	.L43	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 14
+
+
+ 590 0638 F041BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, lr}
+ 591 063c 1EFF2FE1 		bx	lr
+ 592              	.L47:
+ 593              		.align	2
+ 594              	.L46:
+ 595 0640 C9000000 		.word	.LC7
+ 596 0644 F2000000 		.word	.LC8
+ 597 0648 0F010000 		.word	.LC9
+ 598 064c 2E010000 		.word	.LC10
+ 599 0650 4B010000 		.word	.LC11
+ 600 0654 6A010000 		.word	.LC12
+ 601 0658 88010000 		.word	.LC13
+ 602 065c AD010000 		.word	.LC14
+ 603 0660 D4010000 		.word	.LC15
+ 604 0664 FE010000 		.word	.LC16
+ 605 0668 13020000 		.word	.LC17
+ 606 066c 2A020000 		.word	.LC18
+ 607 0670 4B020000 		.word	.LC19
+ 608 0674 6E020000 		.word	.LC20
+ 609 0678 94020000 		.word	.LC21
+ 610 067c B9020000 		.word	.LC22
+ 611 0680 D2020000 		.word	.LC23
+ 612 0684 ED020000 		.word	.LC24
+ 613 0688 07030000 		.word	.LC25
+ 614 068c 2C030000 		.word	.LC26
+ 615 0690 53030000 		.word	.LC27
+ 616 0694 79030000 		.word	.LC28
+ 617 0698 A0030000 		.word	.LC29
+ 618 069c C9030000 		.word	.LC30
+ 619 06a0 E6030000 		.word	.LC31
+ 620 06a4 05040000 		.word	.LC32
+ 621 06a8 1A040000 		.word	.LC33
+ 622 06ac 31040000 		.word	.LC34
+ 623 06b0 4B040000 		.word	.LC35
+ 624 06b4 64040000 		.word	.LC36
+ 625 06b8 7F040000 		.word	.LC37
+ 626              		.size	printStruct, .-printStruct
+ 627              		.section	.rodata.str1.1
+ 628              	.LC38:
+ 629 049d 0A2A2A2A 		.ascii	"\012****Send message menu****\000"
+ 629      2A53656E 
+ 629      64206D65 
+ 629      73736167 
+ 629      65206D65 
+ 630              	.LC39:
+ 631 04b8 53656C65 		.ascii	"Select a number.\000"
+ 631      63742061 
+ 631      206E756D 
+ 631      6265722E 
+ 631      00
+ 632              	.LC40:
+ 633 04c9 313A5365 		.ascii	"1:Send READY-TO-PLAY\000"
+ 633      6E642052 
+ 633      45414459 
+ 633      2D544F2D 
+ 633      504C4159 
+ 634              	.LC41:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 15
+
+
+ 635 04de 323A5365 		.ascii	"2:Send START-TURN\000"
+ 635      6E642053 
+ 635      54415254 
+ 635      2D545552 
+ 635      4E00
+ 636              	.LC42:
+ 637 04f0 333A5365 		.ascii	"3:Send SALVO\000"
+ 637      6E642053 
+ 637      414C564F 
+ 637      00
+ 638              	.LC43:
+ 639 04fd 343A5365 		.ascii	"4:Send SALVO-RESULTS\000"
+ 639      6E642053 
+ 639      414C564F 
+ 639      2D524553 
+ 639      554C5453 
+ 640              	.LC44:
+ 641 0512 353A5365 		.ascii	"5:Send CHAT MESSAGE\000"
+ 641      6E642043 
+ 641      48415420 
+ 641      4D455353 
+ 641      41474500 
+ 642              	.LC45:
+ 643 0526 363A5365 		.ascii	"6:Send QUIT-TRAP\000"
+ 643      6E642051 
+ 643      5549542D 
+ 643      54524150 
+ 643      00
+ 644              	.LC46:
+ 645 0537 373A4173 		.ascii	"7:Aseta vastustajan IP-osoite.\000"
+ 645      65746120 
+ 645      76617374 
+ 645      75737461 
+ 645      6A616E20 
+ 646              	.LC47:
+ 647 0556 383A7661 		.ascii	"8:vastustajan ip: 10.10.4.99\000"
+ 647      73747573 
+ 647      74616A61 
+ 647      6E206970 
+ 647      3A203130 
+ 648              		.text
+ 649              		.align	2
+ 650              		.global	printLahetys
+ 651              		.type	printLahetys, %function
+ 652              	printLahetys:
+ 653              		@ Function supports interworking.
+ 654              		@ args = 0, pretend = 0, frame = 0
+ 655              		@ frame_needed = 0, uses_anonymous_args = 0
+ 656 06bc 10402DE9 		stmfd	sp!, {r4, lr}	@,
+ 657 06c0 74009FE5 		ldr	r0, .L50	@,
+ 658 06c4 FEFFFFEB 		bl	puts	@
+ 659 06c8 70009FE5 		ldr	r0, .L50+4	@,
+ 660 06cc FEFFFFEB 		bl	puts	@
+ 661 06d0 6C009FE5 		ldr	r0, .L50+8	@,
+ 662 06d4 FEFFFFEB 		bl	puts	@
+ 663 06d8 68009FE5 		ldr	r0, .L50+12	@,
+ 664 06dc FEFFFFEB 		bl	puts	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 16
+
+
+ 665 06e0 64009FE5 		ldr	r0, .L50+16	@,
+ 666 06e4 FEFFFFEB 		bl	puts	@
+ 667 06e8 60009FE5 		ldr	r0, .L50+20	@,
+ 668 06ec FEFFFFEB 		bl	puts	@
+ 669 06f0 5C009FE5 		ldr	r0, .L50+24	@,
+ 670 06f4 FEFFFFEB 		bl	puts	@
+ 671 06f8 58009FE5 		ldr	r0, .L50+28	@,
+ 672 06fc FEFFFFEB 		bl	puts	@
+ 673 0700 54009FE5 		ldr	r0, .L50+32	@,
+ 674 0704 FEFFFFEB 		bl	puts	@
+ 675 0708 50409FE5 		ldr	r4, .L50+36	@ tmp145,
+ 676 070c 50009FE5 		ldr	r0, .L50+40	@,
+ 677 0710 FEFFFFEB 		bl	printf	@
+ 678 0714 0A00A0E3 		mov	r0, #10	@,
+ 679 0718 FEFFFFEB 		bl	putchar	@
+ 680 071c 000094E5 		ldr	r0, [r4, #0]	@, __iob
+ 681 0720 FEFFFFEB 		bl	fflush	@
+ 682 0724 000094E5 		ldr	r0, [r4, #0]	@, __iob
+ 683 0728 FEFFFFEB 		bl	getc	@
+ 684 072c 0008A0E1 		mov	r0, r0, asl #16	@ tmp149,,
+ 685 0730 2008A0E1 		mov	r0, r0, lsr #16	@, tmp149,
+ 686 0734 1040BDE8 		ldmfd	sp!, {r4, lr}
+ 687 0738 1EFF2FE1 		bx	lr
+ 688              	.L51:
+ 689              		.align	2
+ 690              	.L50:
+ 691 073c 9D040000 		.word	.LC38
+ 692 0740 B8040000 		.word	.LC39
+ 693 0744 C9040000 		.word	.LC40
+ 694 0748 DE040000 		.word	.LC41
+ 695 074c F0040000 		.word	.LC42
+ 696 0750 FD040000 		.word	.LC43
+ 697 0754 12050000 		.word	.LC44
+ 698 0758 26050000 		.word	.LC45
+ 699 075c 37050000 		.word	.LC46
+ 700 0760 00000000 		.word	__iob
+ 701 0764 56050000 		.word	.LC47
+ 702              		.size	printLahetys, .-printLahetys
+ 703              		.section	.rodata.str1.1
+ 704              	.LC48:
+ 705 0573 73656E64 		.ascii	"sendMessageToChannel(): Sending %d bytes to %s:%d. "
+ 705      4D657373 
+ 705      61676554 
+ 705      6F436861 
+ 705      6E6E656C 
+ 706 05a6 00       		.ascii	"\000"
+ 707              	.LC49:
+ 708 05a7 4CE46865 		.ascii	"L\344hetys onnistui.\000"
+ 708      74797320 
+ 708      6F6E6E69 
+ 708      73747569 
+ 708      2E00
+ 709              	.LC50:
+ 710 05b9 2A2A2A2A 		.ascii	"****** SNMP-viestin l\344hetys ep\344onnistui. ****"
+ 710      2A2A2053 
+ 710      4E4D502D 
+ 710      76696573 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 17
+
+
+ 710      74696E20 
+ 711 05e6 2A2A00   		.ascii	"**\000"
+ 712              	.LC51:
+ 713 05e9 56E4E472 		.ascii	"V\344\344r\344 subnet mask tai IP:t\344 ei m\344\344"
+ 713      E4207375 
+ 713      626E6574 
+ 713      206D6173 
+ 713      6B207461 
+ 714 060b 72697465 		.ascii	"ritetty?\012\000"
+ 714      7474793F 
+ 714      0A00
+ 715              		.text
+ 716              		.align	2
+ 717              		.global	sendMessageToChannel
+ 718              		.type	sendMessageToChannel, %function
+ 719              	sendMessageToChannel:
+ 720              		@ Function supports interworking.
+ 721              		@ args = 0, pretend = 0, frame = 0
+ 722              		@ frame_needed = 0, uses_anonymous_args = 0
+ 723 0768 30402DE9 		stmfd	sp!, {r4, r5, lr}	@,
+ 724 076c 8C309FE5 		ldr	r3, .L58	@ tmp137,
+ 725 0770 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 726 0774 000053E3 		cmp	r3, #0	@ verbose,
+ 727 0778 04D04DE2 		sub	sp, sp, #4	@,,
+ 728 077c 0050A0E1 		mov	r5, r0	@ lv, lv
+ 729 0780 0700000A 		beq	.L53	@,
+ 730 0784 B640D0E1 		ldrh	r4, [r0, #6]	@ D.2832, <variable>.daatankoko
+ 731 0788 000090E5 		ldr	r0, [r0, #0]	@, <variable>.osoite
+ 732 078c FEFFFFEB 		bl	inet_ntoa	@
+ 733 0790 0410A0E1 		mov	r1, r4	@, D.2832
+ 734 0794 0020A0E1 		mov	r2, r0	@ D.2834,
+ 735 0798 B430D5E1 		ldrh	r3, [r5, #4]	@, <variable>.portti
+ 736 079c 60009FE5 		ldr	r0, .L58+4	@,
+ 737 07a0 FEFFFFEB 		bl	printf	@
+ 738              	.L53:
+ 739 07a4 5C309FE5 		ldr	r3, .L58+8	@ tmp141,
+ 740 07a8 B6C0D5E1 		ldrh	ip, [r5, #6]	@ <variable>.daatankoko, <variable>.daatankoko
+ 741 07ac 000093E5 		ldr	r0, [r3, #0]	@, sock
+ 742 07b0 B420D5E1 		ldrh	r2, [r5, #4]	@ <variable>.portti, <variable>.portti
+ 743 07b4 001095E5 		ldr	r1, [r5, #0]	@, <variable>.osoite
+ 744 07b8 083085E2 		add	r3, r5, #8	@, lv,
+ 745 07bc 00C08DE5 		str	ip, [sp, #0]	@ <variable>.daatankoko,
+ 746 07c0 FEFFFFEB 		bl	NutUdpSendTo	@
+ 747 07c4 0008B0E1 		movs	r0, r0, asl #16	@,,
+ 748 07c8 0500001A 		bne	.L54	@,
+ 749 07cc 2C309FE5 		ldr	r3, .L58	@ tmp148,
+ 750 07d0 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 751 07d4 000053E3 		cmp	r3, #0	@ verbose,
+ 752 07d8 2C009F15 		ldrne	r0, .L58+12	@,
+ 753 07dc 0400000A 		beq	.L56	@,
+ 754 07e0 020000EA 		b	.L57	@
+ 755              	.L54:
+ 756 07e4 24009FE5 		ldr	r0, .L58+16	@,
+ 757 07e8 FEFFFFEB 		bl	puts	@
+ 758 07ec 20009FE5 		ldr	r0, .L58+20	@,
+ 759              	.L57:
+ 760 07f0 FEFFFFEB 		bl	puts	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 18
+
+
+ 761              	.L56:
+ 762 07f4 04D08DE2 		add	sp, sp, #4	@,,
+ 763 07f8 3040BDE8 		ldmfd	sp!, {r4, r5, lr}
+ 764 07fc 1EFF2FE1 		bx	lr
+ 765              	.L59:
+ 766              		.align	2
+ 767              	.L58:
+ 768 0800 00000000 		.word	verbose
+ 769 0804 73050000 		.word	.LC48
+ 770 0808 00000000 		.word	sock
+ 771 080c A7050000 		.word	.LC49
+ 772 0810 B9050000 		.word	.LC50
+ 773 0814 E9050000 		.word	.LC51
+ 774              		.size	sendMessageToChannel, .-sendMessageToChannel
+ 775              		.align	2
+ 776              		.global	compileOutboundMessage
+ 777              		.type	compileOutboundMessage, %function
+ 778              	compileOutboundMessage:
+ 779              		@ Function supports interworking.
+ 780              		@ args = 0, pretend = 0, frame = 12
+ 781              		@ frame_needed = 0, uses_anonymous_args = 0
+ 782              		@ link register save eliminated.
+ 783 0818 F00F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp}	@,
+ 784 081c 00B0A0E1 		mov	fp, r0	@ lahetettava, lahetettava
+ 785 0820 0030DBE5 		ldrb	r3, [fp, #0]	@ zero_extendqisi2	@ <variable>.message.message_type, <variable>.message.message
+ 786 0824 68029FE5 		ldr	r0, .L70	@ tmp167,
+ 787 0828 0830C0E5 		strb	r3, [r0, #8]	@ <variable>.message.message_type, lv.daatta
+ 788 082c 0130DBE5 		ldrb	r3, [fp, #1]	@ zero_extendqisi2	@ <variable>.message.message_length, <variable>.message.messa
+ 789 0830 0930C0E5 		strb	r3, [r0, #9]	@ <variable>.message.message_length, lv.daatta
+ 790 0834 0430DBE5 		ldrb	r3, [fp, #4]	@ zero_extendqisi2	@ <variable>.version.version_type, <variable>.version.version
+ 791 0838 0A30C0E5 		strb	r3, [r0, #10]	@ <variable>.version.version_type, lv.daatta
+ 792 083c 0530DBE5 		ldrb	r3, [fp, #5]	@ zero_extendqisi2	@ <variable>.version.version_length, <variable>.version.versi
+ 793 0840 0B30C0E5 		strb	r3, [r0, #11]	@ <variable>.version.version_length, lv.daatta
+ 794 0844 0630DBE5 		ldrb	r3, [fp, #6]	@ zero_extendqisi2	@ <variable>.version.version_value, <variable>.version.versio
+ 795 0848 0C30C0E5 		strb	r3, [r0, #12]	@ <variable>.version.version_value, lv.daatta
+ 796 084c 0830DBE5 		ldrb	r3, [fp, #8]	@ zero_extendqisi2	@ <variable>.comm_string.comm_string_type, <variable>.comm_st
+ 797 0850 0D30C0E5 		strb	r3, [r0, #13]	@ <variable>.comm_string.comm_string_type, lv.daatta
+ 798 0854 0228A0E1 		mov	r2, r2, asl #16	@ tmp166, portti,
+ 799 0858 0930DBE5 		ldrb	r3, [fp, #9]	@ zero_extendqisi2	@ <variable>.comm_string.comm_string_length, <variable>.comm_
+ 800 085c 0CD04DE2 		sub	sp, sp, #12	@,,
+ 801 0860 2228A0E1 		mov	r2, r2, lsr #16	@, tmp166,
+ 802 0864 0E30C0E5 		strb	r3, [r0, #14]	@ <variable>.comm_string.comm_string_length, lv.daatta
+ 803 0868 04108DE5 		str	r1, [sp, #4]	@ osoite, osoite
+ 804 086c 00208DE5 		str	r2, [sp, #0]	@, portti
+ 805 0870 0F0080E2 		add	r0, r0, #15	@ ivtmp.403, tmp167,
+ 806 0874 0710A0E3 		mov	r1, #7	@ ivtmp.393,
+ 807 0878 010000EA 		b	.L61	@
+ 808              	.L62:
+ 809 087c 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2	@ tmp189, <variable>.comm_string.comm_string_value
+ 810 0880 013040E5 		strb	r3, [r0, #-1]	@ tmp189, lv.daatta
+ 811              	.L61:
+ 812 0884 0920DBE5 		ldrb	r2, [fp, #9]	@ zero_extendqisi2	@ <variable>.comm_string.comm_string_length, <variable>.comm_
+ 813 0888 073041E2 		sub	r3, r1, #7	@ i.432, ivtmp.393,
+ 814 088c 020053E1 		cmp	r3, r2	@ i.432, <variable>.comm_string.comm_string_length
+ 815 0890 01C0A0E1 		mov	ip, r1	@ indeksi.429, ivtmp.393
+ 816 0894 011081E2 		add	r1, r1, #1	@ ivtmp.393, ivtmp.393,
+ 817 0898 010080E2 		add	r0, r0, #1	@ ivtmp.403, ivtmp.403,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 19
+
+
+ 818 089c 01308BE0 		add	r3, fp, r1	@ tmp188, lahetettava, ivtmp.393
+ 819 08a0 F5FFFFBA 		blt	.L62	@,
+ 820 08a4 E8019FE5 		ldr	r0, .L70	@ tmp192,
+ 821 08a8 1420DBE5 		ldrb	r2, [fp, #20]	@ zero_extendqisi2	@ <variable>.PDU.PDU_type, <variable>.PDU.PDU_type
+ 822 08ac 0C3080E0 		add	r3, r0, ip	@ tmp194, tmp192, indeksi.429
+ 823 08b0 0820C3E5 		strb	r2, [r3, #8]	@ <variable>.PDU.PDU_type, lv.daatta
+ 824 08b4 0120A0E1 		mov	r2, r1	@ indeksi.411, ivtmp.393
+ 825 08b8 1510DBE5 		ldrb	r1, [fp, #21]	@ zero_extendqisi2	@ <variable>.PDU.PDU_length, <variable>.PDU.PDU_length
+ 826 08bc 023080E0 		add	r3, r0, r2	@ tmp200, tmp192, indeksi.411
+ 827 08c0 0810C3E5 		strb	r1, [r3, #8]	@ <variable>.PDU.PDU_length, lv.daatta
+ 828 08c4 012082E2 		add	r2, r2, #1	@ indeksi.412, indeksi.411,
+ 829 08c8 1810DBE5 		ldrb	r1, [fp, #24]	@ zero_extendqisi2	@ <variable>.requestID.requestID_type, <variable>.requestID.
+ 830 08cc 023080E0 		add	r3, r0, r2	@ tmp206, tmp192, indeksi.412
+ 831 08d0 0810C3E5 		strb	r1, [r3, #8]	@ <variable>.requestID.requestID_type, lv.daatta
+ 832 08d4 012082E2 		add	r2, r2, #1	@ indeksi.413, indeksi.412,
+ 833 08d8 1910DBE5 		ldrb	r1, [fp, #25]	@ zero_extendqisi2	@ <variable>.requestID.requestID_length, <variable>.requestI
+ 834 08dc 023080E0 		add	r3, r0, r2	@ tmp212, tmp192, indeksi.413
+ 835 08e0 0CC08CE2 		add	ip, ip, #12	@ tmp216, indeksi.429,
+ 836 08e4 0810C3E5 		strb	r1, [r3, #8]	@ <variable>.requestID.requestID_length, lv.daatta
+ 837 08e8 0C0080E0 		add	r0, r0, ip	@ ivtmp.387, tmp192, tmp216
+ 838 08ec 01A082E2 		add	sl, r2, #1	@ indeksi, indeksi.413,
+ 839 08f0 08B08DE5 		str	fp, [sp, #8]	@ lahetettava, ivtmp.430
+ 840 08f4 0B40A0E1 		mov	r4, fp	@ ivtmp.431, lahetettava
+ 841 08f8 0010A0E3 		mov	r1, #0	@ i,
+ 842 08fc 020000EA 		b	.L63	@
+ 843              	.L64:
+ 844 0900 1930D4E5 		ldrb	r3, [r4, #25]	@ zero_extendqisi2	@ tmp218, <variable>.requestID.requestID_value
+ 845 0904 013040E5 		strb	r3, [r0, #-1]	@ tmp218, lv.daatta
+ 846 0908 02A0A0E1 		mov	sl, r2	@ indeksi, indeksi.415
+ 847              	.L63:
+ 848 090c 1930DBE5 		ldrb	r3, [fp, #25]	@ zero_extendqisi2	@ <variable>.requestID.requestID_length, <variable>.requestI
+ 849 0910 030051E1 		cmp	r1, r3	@ i, <variable>.requestID.requestID_length
+ 850 0914 014084E2 		add	r4, r4, #1	@ ivtmp.431, ivtmp.431,
+ 851 0918 011081E2 		add	r1, r1, #1	@ i, i,
+ 852 091c 010080E2 		add	r0, r0, #1	@ ivtmp.387, ivtmp.387,
+ 853 0920 01208AE2 		add	r2, sl, #1	@ indeksi.415, indeksi,
+ 854 0924 F5FFFFBA 		blt	.L64	@,
+ 855 0928 64019FE5 		ldr	r0, .L70	@ tmp221,
+ 856 092c 0280A0E3 		mov	r8, #2	@ tmp225,
+ 857 0930 0A3080E0 		add	r3, r0, sl	@ tmp223, tmp221, indeksi
+ 858 0934 0880C3E5 		strb	r8, [r3, #8]	@ tmp225, lv.daatta
+ 859 0938 01C082E2 		add	ip, r2, #1	@ indeksi.416, indeksi.415,
+ 860 093c 0130A0E3 		mov	r3, #1	@,
+ 861 0940 022080E0 		add	r2, r0, r2	@ tmp229, tmp221, indeksi.415
+ 862 0944 0830C2E5 		strb	r3, [r2, #8]	@, lv.daatta
+ 863 0948 01408CE2 		add	r4, ip, #1	@ indeksi.417, indeksi.416,
+ 864 094c 013084E2 		add	r3, r4, #1	@ indeksi.418, indeksi.417,
+ 865 0950 2260DBE5 		ldrb	r6, [fp, #34]	@ zero_extendqisi2	@ <variable>.error.error_value, <variable>.error.error_value
+ 866 0954 011083E2 		add	r1, r3, #1	@ indeksi.419, indeksi.418,
+ 867 0958 012081E2 		add	r2, r1, #1	@ indeksi.420, indeksi.419,
+ 868 095c 0CC080E0 		add	ip, r0, ip	@ tmp235, tmp221, indeksi.416
+ 869 0960 0860CCE5 		strb	r6, [ip, #8]	@ <variable>.error.error_value, lv.daatta
+ 870 0964 025080E0 		add	r5, r0, r2	@ tmp259, tmp221, indeksi.420
+ 871 0968 044080E0 		add	r4, r0, r4	@ tmp241, tmp221, indeksi.417
+ 872 096c 033080E0 		add	r3, r0, r3	@ tmp247, tmp221, indeksi.418
+ 873 0970 011080E0 		add	r1, r0, r1	@ tmp253, tmp221, indeksi.419
+ 874 0974 3070A0E3 		mov	r7, #48	@ tmp261,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 20
+
+
+ 875 0978 01C0A0E3 		mov	ip, #1	@,
+ 876 097c 0090A0E3 		mov	r9, #0	@ tmp255,
+ 877 0980 0880C4E5 		strb	r8, [r4, #8]	@ tmp225, lv.daatta
+ 878 0984 08C0C3E5 		strb	ip, [r3, #8]	@, lv.daatta
+ 879 0988 0890C1E5 		strb	r9, [r1, #8]	@ tmp255, lv.daatta
+ 880 098c 0870C5E5 		strb	r7, [r5, #8]	@ tmp261, lv.daatta
+ 881 0990 012082E2 		add	r2, r2, #1	@ indeksi.421, indeksi.420,
+ 882 0994 29C0DBE5 		ldrb	ip, [fp, #41]	@ zero_extendqisi2	@ <variable>.varbind_list.varbind_list_length, <variable>.va
+ 883 0998 013082E2 		add	r3, r2, #1	@ indeksi.422, indeksi.421,
+ 884 099c 031080E0 		add	r1, r0, r3	@ tmp271, tmp221, indeksi.422
+ 885 09a0 022080E0 		add	r2, r0, r2	@ tmp265, tmp221, indeksi.421
+ 886 09a4 08C0C2E5 		strb	ip, [r2, #8]	@ <variable>.varbind_list.varbind_list_length, lv.daatta
+ 887 09a8 0870C1E5 		strb	r7, [r1, #8]	@ tmp261, lv.daatta
+ 888 09ac 013083E2 		add	r3, r3, #1	@ indeksi.423, indeksi.422,
+ 889 09b0 2D10DBE5 		ldrb	r1, [fp, #45]	@ zero_extendqisi2	@ <variable>.varbind.varbind_length, <variable>.varbind.varb
+ 890 09b4 012083E2 		add	r2, r3, #1	@ indeksi.424, indeksi.423,
+ 891 09b8 033080E0 		add	r3, r0, r3	@ tmp277, tmp221, indeksi.423
+ 892 09bc 0810C3E5 		strb	r1, [r3, #8]	@ <variable>.varbind.varbind_length, lv.daatta
+ 893 09c0 014082E2 		add	r4, r2, #1	@ indeksi.425, indeksi.424,
+ 894 09c4 0630A0E3 		mov	r3, #6	@ tmp285,
+ 895 09c8 022080E0 		add	r2, r0, r2	@ tmp283, tmp221, indeksi.424
+ 896 09cc 0830C2E5 		strb	r3, [r2, #8]	@ tmp285, lv.daatta
+ 897 09d0 04C080E0 		add	ip, r0, r4	@ tmp289, tmp221, indeksi.425
+ 898 09d4 14508AE2 		add	r5, sl, #20	@ tmp293, indeksi,
+ 899 09d8 013083E2 		add	r3, r3, #1	@ tmp291, tmp291,
+ 900 09dc 0830CCE5 		strb	r3, [ip, #8]	@ tmp291, lv.daatta
+ 901 09e0 050080E0 		add	r0, r0, r5	@ ivtmp.369, tmp221, tmp293
+ 902 09e4 012084E2 		add	r2, r4, #1	@ indeksi.407, indeksi.425,
+ 903 09e8 0B10A0E1 		mov	r1, fp	@ ivtmp.385, lahetettava
+ 904 09ec 020000EA 		b	.L65	@
+ 905              	.L66:
+ 906 09f0 3130D1E5 		ldrb	r3, [r1, #49]	@ zero_extendqisi2	@ tmp295, <variable>.OID.OID_value
+ 907 09f4 013040E5 		strb	r3, [r0, #-1]	@ tmp295, lv.daatta
+ 908 09f8 012082E2 		add	r2, r2, #1	@ indeksi.407, indeksi.407,
+ 909              	.L65:
+ 910 09fc 3130DBE5 		ldrb	r3, [fp, #49]	@ zero_extendqisi2	@ <variable>.OID.OID_length, <variable>.OID.OID_length
+ 911 0a00 030059E1 		cmp	r9, r3	@ i.408, <variable>.OID.OID_length
+ 912 0a04 011081E2 		add	r1, r1, #1	@ ivtmp.385, ivtmp.385,
+ 913 0a08 019089E2 		add	r9, r9, #1	@ i.408, i.408,
+ 914 0a0c 010080E2 		add	r0, r0, #1	@ ivtmp.369, ivtmp.369,
+ 915 0a10 F6FFFFBA 		blt	.L66	@,
+ 916 0a14 78009FE5 		ldr	r0, .L70	@ tmp298,
+ 917 0a18 3C30DBE5 		ldrb	r3, [fp, #60]	@ zero_extendqisi2	@ <variable>.value.value_type, <variable>.value.value_type
+ 918 0a1c 021080E0 		add	r1, r0, r2	@ tmp300, tmp298, indeksi.407
+ 919 0a20 0830C1E5 		strb	r3, [r1, #8]	@ <variable>.value.value_type, lv.daatta
+ 920 0a24 3D30DBE5 		ldrb	r3, [fp, #61]	@ zero_extendqisi2	@ <variable>.value.value_length, <variable>.value.value_leng
+ 921 0a28 0A2082E2 		add	r2, r2, #10	@ tmp310, indeksi.407,
+ 922 0a2c 0930C1E5 		strb	r3, [r1, #9]	@ <variable>.value.value_length, lv.daatta
+ 923 0a30 020080E0 		add	r0, r0, r2	@ ivtmp.351, tmp298, tmp310
+ 924 0a34 0010A0E3 		mov	r1, #0	@ i.409,
+ 925 0a38 020000EA 		b	.L67	@
+ 926              	.L68:
+ 927 0a3c 08209DE5 		ldr	r2, [sp, #8]	@, ivtmp.430
+ 928 0a40 3C3092E5 		ldr	r3, [r2, #60]	@ tmp312, <variable>.value.value_value
+ 929 0a44 013040E5 		strb	r3, [r0, #-1]	@ tmp312, lv.daatta
+ 930              	.L67:
+ 931 0a48 3D30DBE5 		ldrb	r3, [fp, #61]	@ zero_extendqisi2	@ <variable>.value.value_length, <variable>.value.value_leng
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 21
+
+
+ 932 0a4c 030051E1 		cmp	r1, r3	@ i.409, <variable>.value.value_length
+ 933 0a50 08309DE5 		ldr	r3, [sp, #8]	@, ivtmp.430
+ 934 0a54 043083E2 		add	r3, r3, #4	@,,
+ 935 0a58 011081E2 		add	r1, r1, #1	@ i.409, i.409,
+ 936 0a5c 08308DE5 		str	r3, [sp, #8]	@, ivtmp.430
+ 937 0a60 010080E2 		add	r0, r0, #1	@ ivtmp.351, ivtmp.351,
+ 938 0a64 F4FFFFBA 		blt	.L68	@,
+ 939 0a68 0130DBE5 		ldrb	r3, [fp, #1]	@ zero_extendqisi2	@ <variable>.message.message_length, <variable>.message.messa
+ 940 0a6c 20209FE5 		ldr	r2, .L70	@ tmp315,
+ 941 0a70 023083E2 		add	r3, r3, #2	@ tmp318, <variable>.message.message_length,
+ 942 0a74 B630C2E1 		strh	r3, [r2, #6]	@ movhi	@ tmp318, lv.daatankoko
+ 943 0a78 08109DE8 		ldmia	sp, {r3, ip}	@ phole ldm
+ 944 0a7c 0200A0E1 		mov	r0, r2	@, tmp315
+ 945 0a80 00C082E5 		str	ip, [r2, #0]	@, lv.osoite
+ 946 0a84 B430C2E1 		strh	r3, [r2, #4]	@ movhi	@, lv.portti
+ 947 0a88 0CD08DE2 		add	sp, sp, #12	@,,
+ 948 0a8c F00FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp}
+ 949 0a90 FEFFFFEA 		b	sendMessageToChannel	@
+ 950              	.L71:
+ 951              		.align	2
+ 952              	.L70:
+ 953 0a94 00000000 		.word	lv
+ 954              		.size	compileOutboundMessage, .-compileOutboundMessage
+ 955              		.section	.rodata.str1.1
+ 956              	.LC52:
+ 957 0615 2A2A2A2A 		.ascii	"********** RECEIVER CASE: 1 ***********\000"
+ 957      2A2A2A2A 
+ 957      2A2A2052 
+ 957      45434549 
+ 957      56455220 
+ 958              	.LC53:
+ 959 063d 53656E64 		.ascii	"Sending READY-TO-PLAY answer to %s:%d\012\000"
+ 959      696E6720 
+ 959      52454144 
+ 959      592D544F 
+ 959      2D504C41 
+ 960              	.LC54:
+ 961 0664 2A2A2A2A 		.ascii	"********** RECEIVER CASE: 2 ***********\000"
+ 961      2A2A2A2A 
+ 961      2A2A2052 
+ 961      45434549 
+ 961      56455220 
+ 962              	.LC55:
+ 963 068c 53656E64 		.ascii	"Sending START-TURN answer to %s:%d\012\000"
+ 963      696E6720 
+ 963      53544152 
+ 963      542D5455 
+ 963      524E2061 
+ 964              	.LC56:
+ 965 06b0 2A2A2A2A 		.ascii	"********** RECEIVER CASE: 3 ***********\000"
+ 965      2A2A2A2A 
+ 965      2A2A2052 
+ 965      45434549 
+ 965      56455220 
+ 966              	.LC57:
+ 967 06d8 53656E64 		.ascii	"Sending SALVO answer to %s:%d\012\000"
+ 967      696E6720 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 22
+
+
+ 967      53414C56 
+ 967      4F20616E 
+ 967      73776572 
+ 968              	.LC58:
+ 969 06f7 2A2A2A2A 		.ascii	"********** RECEIVER CASE: 4 ***********\000"
+ 969      2A2A2A2A 
+ 969      2A2A2052 
+ 969      45434549 
+ 969      56455220 
+ 970              	.LC59:
+ 971 071f 53656E64 		.ascii	"Sending SALVO-RESULTS answer to %s:%d\012\000"
+ 971      696E6720 
+ 971      53414C56 
+ 971      4F2D5245 
+ 971      53554C54 
+ 972              	.LC60:
+ 973 0746 2A2A2A2A 		.ascii	"********** RECEIVER CASE: 5 ***********\000"
+ 973      2A2A2A2A 
+ 973      2A2A2052 
+ 973      45434549 
+ 973      56455220 
+ 974              	.LC61:
+ 975 076e 53656E64 		.ascii	"Sending CHAT-MESSAGE confirmation to %s:%d\012\000"
+ 975      696E6720 
+ 975      43484154 
+ 975      2D4D4553 
+ 975      53414745 
+ 976              		.text
+ 977              		.align	2
+ 978              		.global	parseSnmpResponse_ok
+ 979              		.type	parseSnmpResponse_ok, %function
+ 980              	parseSnmpResponse_ok:
+ 981              		@ Function supports interworking.
+ 982              		@ args = 0, pretend = 0, frame = 0
+ 983              		@ frame_needed = 0, uses_anonymous_args = 0
+ 984 0a98 F0472DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}	@,
+ 985 0a9c 64C39FE5 		ldr	ip, .L98	@ tmp199,
+ 986 0aa0 0070A0E1 		mov	r7, r0	@ lahteva_ok, lahteva_ok
+ 987 0aa4 3030A0E3 		mov	r3, #48	@ tmp189,
+ 988 0aa8 0030C7E5 		strb	r3, [r7, #0]	@ tmp189, <variable>.message.message_type
+ 989 0aac 0230A0E3 		mov	r3, #2	@ tmp191,
+ 990 0ab0 0940DCE5 		ldrb	r4, [ip, #9]	@ zero_extendqisi2	@ vast.comm_string.comm_string_length, vast.comm_string.comm_
+ 991 0ab4 0430C7E5 		strb	r3, [r7, #4]	@ tmp191, <variable>.version.version_type
+ 992 0ab8 0130A0E3 		mov	r3, #1	@ tmp193,
+ 993 0abc 0118A0E1 		mov	r1, r1, asl #16	@ tmp187, oid,
+ 994 0ac0 0000A0E3 		mov	r0, #0	@ tmp195,
+ 995 0ac4 0530C7E5 		strb	r3, [r7, #5]	@ tmp193, <variable>.version.version_length
+ 996 0ac8 033083E2 		add	r3, r3, #3	@ tmp197, tmp197,
+ 997 0acc 02A0A0E1 		mov	sl, r2	@ value, value
+ 998 0ad0 0830C7E5 		strb	r3, [r7, #8]	@ tmp197, <variable>.comm_string.comm_string_type
+ 999 0ad4 0940C7E5 		strb	r4, [r7, #9]	@ vast.comm_string.comm_string_length, <variable>.comm_string.comm_string_length
+ 1000 0ad8 2198A0E1 		mov	r9, r1, lsr #16	@ oid, tmp187,
+ 1001 0adc 0600C7E5 		strb	r0, [r7, #6]	@ tmp195, <variable>.version.version_value
+ 1002 0ae0 0AC08CE2 		add	ip, ip, #10	@ ivtmp.504, tmp199,
+ 1003 0ae4 0780A0E1 		mov	r8, r7	@ ivtmp.539, lahteva_ok
+ 1004 0ae8 0720A0E1 		mov	r2, r7	@ ivtmp.540, lahteva_ok
+ 1005 0aec 010000EA 		b	.L73	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 23
+
+
+ 1006              	.L74:
+ 1007 0af0 01305CE5 		ldrb	r3, [ip, #-1]	@ zero_extendqisi2	@ tmp202, vast.comm_string.comm_string_value
+ 1008 0af4 0930C2E5 		strb	r3, [r2, #9]	@ tmp202, <variable>.comm_string.comm_string_value
+ 1009              	.L73:
+ 1010 0af8 0930D7E5 		ldrb	r3, [r7, #9]	@ zero_extendqisi2	@ <variable>.comm_string.comm_string_length, <variable>.comm_
+ 1011 0afc 030050E1 		cmp	r0, r3	@ i, <variable>.comm_string.comm_string_length
+ 1012 0b00 01C08CE2 		add	ip, ip, #1	@ ivtmp.504, ivtmp.504,
+ 1013 0b04 010080E2 		add	r0, r0, #1	@ i, i,
+ 1014 0b08 012082E2 		add	r2, r2, #1	@ ivtmp.540, ivtmp.540,
+ 1015 0b0c F7FFFFBA 		blt	.L74	@,
+ 1016 0b10 F0029FE5 		ldr	r0, .L98	@ tmp207,
+ 1017 0b14 1930D0E5 		ldrb	r3, [r0, #25]	@ zero_extendqisi2	@ D.2667, vast.requestID.requestID_length
+ 1018 0b18 1810D0E5 		ldrb	r1, [r0, #24]	@ zero_extendqisi2	@ vast.requestID.requestID_type, vast.requestID.requestID_ty
+ 1019 0b1c 010053E3 		cmp	r3, #1	@ D.2667,
+ 1020 0b20 5D20E0E3 		mvn	r2, #93	@ tmp205,
+ 1021 0b24 1420C7E5 		strb	r2, [r7, #20]	@ tmp205, <variable>.PDU.PDU_type
+ 1022 0b28 1810C7E5 		strb	r1, [r7, #24]	@ vast.requestID.requestID_type, <variable>.requestID.requestID_type
+ 1023 0b2c 1930C7E5 		strb	r3, [r7, #25]	@ D.2667, <variable>.requestID.requestID_length
+ 1024 0b30 1A008082 		addhi	r0, r0, #26	@ ivtmp.492, tmp207,
+ 1025 0b34 0710A081 		movhi	r1, r7	@ ivtmp.510, lahteva_ok
+ 1026 0b38 5E208282 		addhi	r2, r2, #94	@ i.512, i.512,
+ 1027 0b3c 0200008A 		bhi	.L76	@,
+ 1028 0b40 080000EA 		b	.L97	@
+ 1029              	.L77:
+ 1030 0b44 013050E5 		ldrb	r3, [r0, #-1]	@ zero_extendqisi2	@ tmp212, vast.requestID.requestID_value
+ 1031 0b48 1930C1E5 		strb	r3, [r1, #25]	@ tmp212, <variable>.requestID.requestID_value
+ 1032              	.L76:
+ 1033 0b4c 1930D7E5 		ldrb	r3, [r7, #25]	@ zero_extendqisi2	@ <variable>.requestID.requestID_length, <variable>.requestI
+ 1034 0b50 030052E1 		cmp	r2, r3	@ i.512, <variable>.requestID.requestID_length
+ 1035 0b54 010080E2 		add	r0, r0, #1	@ ivtmp.492, ivtmp.492,
+ 1036 0b58 012082E2 		add	r2, r2, #1	@ i.512, i.512,
+ 1037 0b5c 011081E2 		add	r1, r1, #1	@ ivtmp.510, ivtmp.510,
+ 1038 0b60 F7FFFFBA 		blt	.L77	@,
+ 1039 0b64 010000EA 		b	.L78	@
+ 1040              	.L97:
+ 1041 0b68 1A30D0E5 		ldrb	r3, [r0, #26]	@ zero_extendqisi2	@ vast.requestID.requestID_value, vast.requestID.requestID_v
+ 1042 0b6c 1A30C7E5 		strb	r3, [r7, #26]	@ vast.requestID.requestID_value, <variable>.requestID.requestID_value
+ 1043              	.L78:
+ 1044 0b70 2B30A0E3 		mov	r3, #43	@ tmp238,
+ 1045 0b74 3230C7E5 		strb	r3, [r7, #50]	@ tmp238, <variable>.OID.OID_value
+ 1046 0b78 0330A0E3 		mov	r3, #3	@ tmp244,
+ 1047 0b7c 0110A0E3 		mov	r1, #1	@ tmp220,
+ 1048 0b80 0000A0E3 		mov	r0, #0	@ tmp222,
+ 1049 0b84 0660A0E3 		mov	r6, #6	@ tmp234,
+ 1050 0b88 3530C7E5 		strb	r3, [r7, #53]	@ tmp244, <variable>.OID.OID_value
+ 1051 0b8c 343083E2 		add	r3, r3, #52	@ tmp246, tmp246,
+ 1052 0b90 3630C7E5 		strb	r3, [r7, #54]	@ tmp246, <variable>.OID.OID_value
+ 1053 0b94 3360C7E5 		strb	r6, [r7, #51]	@ tmp234, <variable>.OID.OID_value
+ 1054 0b98 68329FE5 		ldr	r3, .L98	@ tmp250,
+ 1055 0b9c 3410C7E5 		strb	r1, [r7, #52]	@ tmp220, <variable>.OID.OID_value
+ 1056 0ba0 3700C7E5 		strb	r0, [r7, #55]	@ tmp222, <variable>.OID.OID_value
+ 1057 0ba4 38C0D3E5 		ldrb	ip, [r3, #56]	@ zero_extendqisi2	@ vast.OID.OID_value, vast.OID.OID_value
+ 1058 0ba8 0220A0E3 		mov	r2, #2	@ tmp218,
+ 1059 0bac 3040A0E3 		mov	r4, #48	@ tmp230,
+ 1060 0bb0 0730A0E3 		mov	r3, #7	@ tmp236,
+ 1061 0bb4 015049E2 		sub	r5, r9, #1	@ tmp253, oid,
+ 1062 0bb8 2420C7E5 		strb	r2, [r7, #36]	@ tmp218, <variable>.error_index.error_index_type
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 24
+
+
+ 1063 0bbc 2C40C7E5 		strb	r4, [r7, #44]	@ tmp230, <variable>.varbind.varbind_type
+ 1064 0bc0 3130C7E5 		strb	r3, [r7, #49]	@ tmp236, <variable>.OID.OID_length
+ 1065 0bc4 38C0C7E5 		strb	ip, [r7, #56]	@ vast.OID.OID_value, <variable>.OID.OID_value
+ 1066 0bc8 2020C7E5 		strb	r2, [r7, #32]	@ tmp218, <variable>.error.error_type
+ 1067 0bcc 2110C7E5 		strb	r1, [r7, #33]	@ tmp220, <variable>.error.error_length
+ 1068 0bd0 2200C7E5 		strb	r0, [r7, #34]	@ tmp222, <variable>.error.error_value
+ 1069 0bd4 2510C7E5 		strb	r1, [r7, #37]	@ tmp220, <variable>.error_index.error_index_length
+ 1070 0bd8 2600C7E5 		strb	r0, [r7, #38]	@ tmp222, <variable>.error_index.error_index_value
+ 1071 0bdc 2840C7E5 		strb	r4, [r7, #40]	@ tmp230, <variable>.varbind_list.varbind_list_type
+ 1072 0be0 3060C7E5 		strb	r6, [r7, #48]	@ tmp234, <variable>.OID.OID_type
+ 1073 0be4 040055E3 		cmp	r5, #4	@ tmp253,
+ 1074 0be8 05F19F97 		ldrls	pc, [pc, r5, asl #2]	@ tmp253
+ 1075 0bec 680000EA 		b	.L79	@
+ 1076              	.L85:
+ 1077 0bf0 040C0000 		.word	.L80
+ 1078 0bf4 5C0C0000 		.word	.L81
+ 1079 0bf8 900C0000 		.word	.L82
+ 1080 0bfc E00C0000 		.word	.L83
+ 1081 0c00 4C0D0000 		.word	.L84
+ 1082              	.L80:
+ 1083 0c04 00329FE5 		ldr	r3, .L98+4	@ tmp254,
+ 1084 0c08 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1085 0c0c 000053E3 		cmp	r3, #0	@ verbose,
+ 1086 0c10 0800000A 		beq	.L86	@,
+ 1087 0c14 F4419FE5 		ldr	r4, .L98+8	@ tmp257,
+ 1088 0c18 F4019FE5 		ldr	r0, .L98+12	@,
+ 1089 0c1c FEFFFFEB 		bl	puts	@
+ 1090 0c20 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1091 0c24 FEFFFFEB 		bl	inet_ntoa	@
+ 1092 0c28 B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1093 0c2c 0010A0E1 		mov	r1, r0	@ D.2676,
+ 1094 0c30 E0019FE5 		ldr	r0, .L98+16	@,
+ 1095 0c34 FEFFFFEB 		bl	printf	@
+ 1096              	.L86:
+ 1097 0c38 0030A0E3 		mov	r3, #0	@ tmp261,
+ 1098 0c3c 2230C7E5 		strb	r3, [r7, #34]	@ tmp261, <variable>.error.error_value
+ 1099 0c40 023083E2 		add	r3, r3, #2	@ tmp263, tmp263,
+ 1100 0c44 3C30C7E5 		strb	r3, [r7, #60]	@ tmp263, <variable>.value.value_type
+ 1101 0c48 0130A0E3 		mov	r3, #1	@ tmp265,
+ 1102 0c4c 3D30C7E5 		strb	r3, [r7, #61]	@ tmp265, <variable>.value.value_length
+ 1103 0c50 B030DAE1 		ldrh	r3, [sl, #0]	@ tmp267,* value
+ 1104 0c54 403087E5 		str	r3, [r7, #64]	@ tmp267, <variable>.value.value_value
+ 1105 0c58 4D0000EA 		b	.L79	@
+ 1106              	.L81:
+ 1107 0c5c A8319FE5 		ldr	r3, .L98+4	@ tmp268,
+ 1108 0c60 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1109 0c64 000053E3 		cmp	r3, #0	@ verbose,
+ 1110 0c68 1500000A 		beq	.L88	@,
+ 1111 0c6c 9C419FE5 		ldr	r4, .L98+8	@ tmp271,
+ 1112 0c70 A4019FE5 		ldr	r0, .L98+20	@,
+ 1113 0c74 FEFFFFEB 		bl	puts	@
+ 1114 0c78 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1115 0c7c FEFFFFEB 		bl	inet_ntoa	@
+ 1116 0c80 B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1117 0c84 0010A0E1 		mov	r1, r0	@ D.2681,
+ 1118 0c88 90019FE5 		ldr	r0, .L98+24	@,
+ 1119 0c8c 0B0000EA 		b	.L96	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 25
+
+
+ 1120              	.L82:
+ 1121 0c90 74319FE5 		ldr	r3, .L98+4	@ tmp282,
+ 1122 0c94 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1123 0c98 000053E3 		cmp	r3, #0	@ verbose,
+ 1124 0c9c 0800000A 		beq	.L88	@,
+ 1125 0ca0 68419FE5 		ldr	r4, .L98+8	@ tmp285,
+ 1126 0ca4 78019FE5 		ldr	r0, .L98+28	@,
+ 1127 0ca8 FEFFFFEB 		bl	puts	@
+ 1128 0cac 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1129 0cb0 FEFFFFEB 		bl	inet_ntoa	@
+ 1130 0cb4 B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1131 0cb8 0010A0E1 		mov	r1, r0	@ D.2683,
+ 1132 0cbc 64019FE5 		ldr	r0, .L98+32	@,
+ 1133              	.L96:
+ 1134 0cc0 FEFFFFEB 		bl	printf	@
+ 1135              	.L88:
+ 1136 0cc4 B030DAE1 		ldrh	r3, [sl, #0]	@,* value
+ 1137 0cc8 2230C7E5 		strb	r3, [r7, #34]	@ tmp289, <variable>.error.error_value
+ 1138 0ccc 0530A0E3 		mov	r3, #5	@ tmp292,
+ 1139 0cd0 3C30C7E5 		strb	r3, [r7, #60]	@ tmp292, <variable>.value.value_type
+ 1140 0cd4 0030A0E3 		mov	r3, #0	@ tmp294,
+ 1141 0cd8 3D30C7E5 		strb	r3, [r7, #61]	@ tmp294, <variable>.value.value_length
+ 1142 0cdc 2C0000EA 		b	.L79	@
+ 1143              	.L83:
+ 1144 0ce0 24319FE5 		ldr	r3, .L98+4	@ tmp296,
+ 1145 0ce4 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1146 0ce8 000053E3 		cmp	r3, #0	@ verbose,
+ 1147 0cec 0800000A 		beq	.L89	@,
+ 1148 0cf0 18419FE5 		ldr	r4, .L98+8	@ tmp299,
+ 1149 0cf4 30019FE5 		ldr	r0, .L98+36	@,
+ 1150 0cf8 FEFFFFEB 		bl	puts	@
+ 1151 0cfc 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1152 0d00 FEFFFFEB 		bl	inet_ntoa	@
+ 1153 0d04 B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1154 0d08 0010A0E1 		mov	r1, r0	@ D.2684,
+ 1155 0d0c 1C019FE5 		ldr	r0, .L98+40	@,
+ 1156 0d10 FEFFFFEB 		bl	printf	@
+ 1157              	.L89:
+ 1158 0d14 0030A0E3 		mov	r3, #0	@ tmp303,
+ 1159 0d18 3020A0E3 		mov	r2, #48	@ tmp305,
+ 1160 0d1c 3C20C7E5 		strb	r2, [r7, #60]	@ tmp305, <variable>.value.value_type
+ 1161 0d20 2230C7E5 		strb	r3, [r7, #34]	@ tmp303, <variable>.error.error_value
+ 1162 0d24 0520A0E3 		mov	r2, #5	@ tmp307,
+ 1163 0d28 3D20C7E5 		strb	r2, [r7, #61]	@ tmp307, <variable>.value.value_length
+ 1164 0d2c 0320A0E1 		mov	r2, r3	@ ivtmp.484, tmp303
+ 1165              	.L90:
+ 1166 0d30 B2309AE1 		ldrh	r3, [sl, r2]	@ tmp309,* ivtmp.484
+ 1167 0d34 022082E2 		add	r2, r2, #2	@ ivtmp.484, ivtmp.484,
+ 1168 0d38 0A0052E3 		cmp	r2, #10	@ ivtmp.484,
+ 1169 0d3c 403088E5 		str	r3, [r8, #64]	@ tmp309, <variable>.value.value_value
+ 1170 0d40 048088E2 		add	r8, r8, #4	@ ivtmp.539, ivtmp.539,
+ 1171 0d44 F9FFFF1A 		bne	.L90	@,
+ 1172 0d48 110000EA 		b	.L79	@
+ 1173              	.L84:
+ 1174 0d4c B8309FE5 		ldr	r3, .L98+4	@ tmp310,
+ 1175 0d50 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1176 0d54 000053E3 		cmp	r3, #0	@ verbose,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 26
+
+
+ 1177 0d58 0800000A 		beq	.L91	@,
+ 1178 0d5c AC409FE5 		ldr	r4, .L98+8	@ tmp313,
+ 1179 0d60 CC009FE5 		ldr	r0, .L98+44	@,
+ 1180 0d64 FEFFFFEB 		bl	puts	@
+ 1181 0d68 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1182 0d6c FEFFFFEB 		bl	inet_ntoa	@
+ 1183 0d70 B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1184 0d74 0010A0E1 		mov	r1, r0	@ D.2690,
+ 1185 0d78 B8009FE5 		ldr	r0, .L98+48	@,
+ 1186 0d7c FEFFFFEB 		bl	printf	@
+ 1187              	.L91:
+ 1188 0d80 0520A0E3 		mov	r2, #5	@ tmp317,
+ 1189 0d84 0030A0E3 		mov	r3, #0	@ tmp321,
+ 1190 0d88 3C20C7E5 		strb	r2, [r7, #60]	@ tmp317, <variable>.value.value_type
+ 1191 0d8c 3D30C7E5 		strb	r3, [r7, #61]	@ tmp321, <variable>.value.value_length
+ 1192 0d90 2220C7E5 		strb	r2, [r7, #34]	@ tmp317, <variable>.error.error_value
+ 1193              	.L79:
+ 1194 0d94 3130D7E5 		ldrb	r3, [r7, #49]	@ zero_extendqisi2	@ <variable>.OID.OID_length, <variable>.OID.OID_length
+ 1195 0d98 3D10D7E5 		ldrb	r1, [r7, #61]	@ zero_extendqisi2	@ <variable>.value.value_length, <variable>.value.value_leng
+ 1196 0d9c 031081E0 		add	r1, r1, r3	@ tmp327, <variable>.value.value_length, <variable>.OID.OID_length
+ 1197 0da0 041081E2 		add	r1, r1, #4	@ tmp329, tmp327,
+ 1198 0da4 FF1001E2 		and	r1, r1, #255	@ D.2695, tmp329,
+ 1199 0da8 1930D7E5 		ldrb	r3, [r7, #25]	@ zero_extendqisi2	@ <variable>.requestID.requestID_length, <variable>.requestI
+ 1200 0dac 020081E2 		add	r0, r1, #2	@ tmp331, D.2695,
+ 1201 0db0 FF0000E2 		and	r0, r0, #255	@ D.2697, tmp331,
+ 1202 0db4 0920D7E5 		ldrb	r2, [r7, #9]	@ zero_extendqisi2	@ <variable>.comm_string.comm_string_length, <variable>.comm_
+ 1203 0db8 0A3083E2 		add	r3, r3, #10	@ tmp335, <variable>.requestID.requestID_length,
+ 1204 0dbc 033080E0 		add	r3, r0, r3	@ tmp337, D.2697, tmp335
+ 1205 0dc0 FF3003E2 		and	r3, r3, #255	@ D.2700, tmp337,
+ 1206 0dc4 072082E2 		add	r2, r2, #7	@ tmp341, <variable>.comm_string.comm_string_length,
+ 1207 0dc8 010059E3 		cmp	r9, #1	@ oid,
+ 1208 0dcc 022083E0 		add	r2, r3, r2	@ tmp343, D.2700, tmp341
+ 1209 0dd0 2900C7E5 		strb	r0, [r7, #41]	@ D.2697, <variable>.varbind_list.varbind_list_length
+ 1210 0dd4 1530C7E5 		strb	r3, [r7, #21]	@ D.2700, <variable>.PDU.PDU_length
+ 1211 0dd8 0120C7E5 		strb	r2, [r7, #1]	@ tmp343, <variable>.message.message_length
+ 1212 0ddc 2D10C7E5 		strb	r1, [r7, #45]	@ D.2695, <variable>.varbind.varbind_length
+ 1213 0de0 28C09FE5 		ldr	ip, .L98+8	@ tmp351,
+ 1214 0de4 50309F15 		ldrne	r3, .L98+52	@ tmp348,
+ 1215 0de8 B420DC01 		ldreqh	r2, [ip, #4]	@, vv.portti
+ 1216 0dec 00109C05 		ldreq	r1, [ip, #0]	@, vv.osoite
+ 1217 0df0 04109315 		ldrne	r1, [r3, #4]	@, game.playerAddress
+ 1218 0df4 B420DC11 		ldrneh	r2, [ip, #4]	@, vv.portti
+ 1219 0df8 0700A001 		moveq	r0, r7	@, lahteva_ok
+ 1220 0dfc 0700A011 		movne	r0, r7	@, lahteva_ok
+ 1221 0e00 F047BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+ 1222 0e04 FEFFFFEA 		b	compileOutboundMessage	@
+ 1223              	.L99:
+ 1224              		.align	2
+ 1225              	.L98:
+ 1226 0e08 00000000 		.word	vast
+ 1227 0e0c 00000000 		.word	verbose
+ 1228 0e10 00000000 		.word	vv
+ 1229 0e14 15060000 		.word	.LC52
+ 1230 0e18 3D060000 		.word	.LC53
+ 1231 0e1c 64060000 		.word	.LC54
+ 1232 0e20 8C060000 		.word	.LC55
+ 1233 0e24 B0060000 		.word	.LC56
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 27
+
+
+ 1234 0e28 D8060000 		.word	.LC57
+ 1235 0e2c F7060000 		.word	.LC58
+ 1236 0e30 1F070000 		.word	.LC59
+ 1237 0e34 46070000 		.word	.LC60
+ 1238 0e38 6E070000 		.word	.LC61
+ 1239 0e3c 00000000 		.word	game
+ 1240              		.size	parseSnmpResponse_ok, .-parseSnmpResponse_ok
+ 1241              		.align	2
+ 1242              		.global	parseSnmpResponse
+ 1243              		.type	parseSnmpResponse, %function
+ 1244              	parseSnmpResponse:
+ 1245              		@ Function supports interworking.
+ 1246              		@ args = 0, pretend = 0, frame = 0
+ 1247              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1248 0e40 F0412DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+ 1249 0e44 70239FE5 		ldr	r2, .L125	@ tmp153,
+ 1250 0e48 70C39FE5 		ldr	ip, .L125+4	@ tmp168,
+ 1251 0e4c 3030A0E3 		mov	r3, #48	@ tmp154,
+ 1252 0e50 0030C2E5 		strb	r3, [r2, #0]	@ tmp154, lahteva.message.message_type
+ 1253 0e54 0230A0E3 		mov	r3, #2	@ tmp157,
+ 1254 0e58 0950DCE5 		ldrb	r5, [ip, #9]	@ zero_extendqisi2	@ D.2594, vast.comm_string.comm_string_length
+ 1255 0e5c 0430C2E5 		strb	r3, [r2, #4]	@ tmp157, lahteva.version.version_type
+ 1256 0e60 0130A0E3 		mov	r3, #1	@ tmp160,
+ 1257 0e64 0530C2E5 		strb	r3, [r2, #5]	@ tmp160, lahteva.version.version_length
+ 1258 0e68 0030A0E3 		mov	r3, #0	@ tmp163,
+ 1259 0e6c 0630C2E5 		strb	r3, [r2, #6]	@ tmp163, lahteva.version.version_value
+ 1260 0e70 0008A0E1 		mov	r0, r0, asl #16	@ tmp151, oid,
+ 1261 0e74 0B4085E2 		add	r4, r5, #11	@ tmp375, D.2594,
+ 1262 0e78 043083E2 		add	r3, r3, #4	@ tmp166, tmp166,
+ 1263 0e7c 0830C2E5 		strb	r3, [r2, #8]	@ tmp166, lahteva.comm_string.comm_string_type
+ 1264 0e80 04608CE0 		add	r6, ip, r4	@ tmp377, tmp168, tmp375
+ 1265 0e84 0950C2E5 		strb	r5, [r2, #9]	@ D.2594, lahteva.comm_string.comm_string_length
+ 1266 0e88 0170A0E1 		mov	r7, r1	@ value, value
+ 1267 0e8c 2088A0E1 		mov	r8, r0, lsr #16	@ oid, tmp151,
+ 1268 0e90 0A2082E2 		add	r2, r2, #10	@ ivtmp.641, tmp153,
+ 1269 0e94 0AC08CE2 		add	ip, ip, #10	@ ivtmp.637, tmp168,
+ 1270 0e98 010000EA 		b	.L101	@
+ 1271              	.L102:
+ 1272 0e9c 01305CE5 		ldrb	r3, [ip, #-1]	@ zero_extendqisi2	@ tmp171, vast.comm_string.comm_string_value
+ 1273 0ea0 013042E5 		strb	r3, [r2, #-1]	@ tmp171, lahteva.comm_string.comm_string_value
+ 1274              	.L101:
+ 1275 0ea4 01C08CE2 		add	ip, ip, #1	@ ivtmp.637, ivtmp.637,
+ 1276 0ea8 06005CE1 		cmp	ip, r6	@ ivtmp.637, tmp377
+ 1277 0eac 012082E2 		add	r2, r2, #1	@ ivtmp.641, ivtmp.641,
+ 1278 0eb0 08439FE5 		ldr	r4, .L125+4	@ tmp175,
+ 1279 0eb4 F8FFFF1A 		bne	.L102	@,
+ 1280 0eb8 1910D4E5 		ldrb	r1, [r4, #25]	@ zero_extendqisi2	@ D.2600, vast.requestID.requestID_length
+ 1281 0ebc F8029FE5 		ldr	r0, .L125	@ tmp176,
+ 1282 0ec0 5D30E0E3 		mvn	r3, #93	@ tmp177,
+ 1283 0ec4 010051E3 		cmp	r1, #1	@ D.2600,
+ 1284 0ec8 1820D4E5 		ldrb	r2, [r4, #24]	@ zero_extendqisi2	@ vast.requestID.requestID_type, vast.requestID.requestID_ty
+ 1285 0ecc 1430C0E5 		strb	r3, [r0, #20]	@ tmp177, lahteva.PDU.PDU_type
+ 1286 0ed0 1A30D495 		ldrlsb	r3, [r4, #26]	@ zero_extendqisi2	@ vast.requestID.requestID_value, vast.requestID.requestID
+ 1287 0ed4 1820C0E5 		strb	r2, [r0, #24]	@ vast.requestID.requestID_type, lahteva.requestID.requestID_type
+ 1288 0ed8 1910C0E5 		strb	r1, [r0, #25]	@ D.2600, lahteva.requestID.requestID_length
+ 1289 0edc 1A30C095 		strlsb	r3, [r0, #26]	@ vast.requestID.requestID_value, lahteva.requestID.requestID_value
+ 1290 0ee0 0A00009A 		bls	.L106	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 28
+
+
+ 1291 0ee4 1B3081E2 		add	r3, r1, #27	@ tmp372, D.2600,
+ 1292 0ee8 03C084E0 		add	ip, r4, r3	@ tmp374, tmp175, tmp372
+ 1293 0eec 1A1080E2 		add	r1, r0, #26	@ ivtmp.629, tmp176,
+ 1294 0ef0 1A2084E2 		add	r2, r4, #26	@ ivtmp.625, tmp175,
+ 1295 0ef4 010000EA 		b	.L104	@
+ 1296              	.L105:
+ 1297 0ef8 013052E5 		ldrb	r3, [r2, #-1]	@ zero_extendqisi2	@ tmp186, vast.requestID.requestID_value
+ 1298 0efc 013041E5 		strb	r3, [r1, #-1]	@ tmp186, lahteva.requestID.requestID_value
+ 1299              	.L104:
+ 1300 0f00 012082E2 		add	r2, r2, #1	@ ivtmp.625, ivtmp.625,
+ 1301 0f04 0C0052E1 		cmp	r2, ip	@ ivtmp.625, tmp374
+ 1302 0f08 011081E2 		add	r1, r1, #1	@ ivtmp.629, ivtmp.629,
+ 1303 0f0c F9FFFF1A 		bne	.L105	@,
+ 1304              	.L106:
+ 1305 0f10 A8329FE5 		ldr	r3, .L125+4	@ tmp244,
+ 1306 0f14 3820D3E5 		ldrb	r2, [r3, #56]	@ zero_extendqisi2	@ vast.OID.OID_value, vast.OID.OID_value
+ 1307 0f18 9C329FE5 		ldr	r3, .L125	@ tmp195,
+ 1308 0f1c 3820C3E5 		strb	r2, [r3, #56]	@ vast.OID.OID_value, lahteva.OID.OID_value
+ 1309 0f20 0720A0E3 		mov	r2, #7	@ tmp223,
+ 1310 0f24 3120C3E5 		strb	r2, [r3, #49]	@ tmp223, lahteva.OID.OID_length
+ 1311 0f28 242082E2 		add	r2, r2, #36	@ tmp226, tmp226,
+ 1312 0f2c 3220C3E5 		strb	r2, [r3, #50]	@ tmp226, lahteva.OID.OID_value
+ 1313 0f30 0320A0E3 		mov	r2, #3	@ tmp235,
+ 1314 0f34 0110A0E3 		mov	r1, #1	@ tmp199,
+ 1315 0f38 0000A0E3 		mov	r0, #0	@ tmp202,
+ 1316 0f3c 02C0A0E3 		mov	ip, #2	@ tmp196,
+ 1317 0f40 3040A0E3 		mov	r4, #48	@ tmp214,
+ 1318 0f44 0650A0E3 		mov	r5, #6	@ tmp220,
+ 1319 0f48 3520C3E5 		strb	r2, [r3, #53]	@ tmp235, lahteva.OID.OID_value
+ 1320 0f4c 016048E2 		sub	r6, r8, #1	@ tmp247, oid,
+ 1321 0f50 342082E2 		add	r2, r2, #52	@ tmp238, tmp238,
+ 1322 0f54 24C0C3E5 		strb	ip, [r3, #36]	@ tmp196, lahteva.error_index.error_index_type
+ 1323 0f58 2C40C3E5 		strb	r4, [r3, #44]	@ tmp214, lahteva.varbind.varbind_type
+ 1324 0f5c 3350C3E5 		strb	r5, [r3, #51]	@ tmp220, lahteva.OID.OID_value
+ 1325 0f60 3410C3E5 		strb	r1, [r3, #52]	@ tmp199, lahteva.OID.OID_value
+ 1326 0f64 3620C3E5 		strb	r2, [r3, #54]	@ tmp238, lahteva.OID.OID_value
+ 1327 0f68 3700C3E5 		strb	r0, [r3, #55]	@ tmp202, lahteva.OID.OID_value
+ 1328 0f6c 20C0C3E5 		strb	ip, [r3, #32]	@ tmp196, lahteva.error.error_type
+ 1329 0f70 2110C3E5 		strb	r1, [r3, #33]	@ tmp199, lahteva.error.error_length
+ 1330 0f74 2200C3E5 		strb	r0, [r3, #34]	@ tmp202, lahteva.error.error_value
+ 1331 0f78 2510C3E5 		strb	r1, [r3, #37]	@ tmp199, lahteva.error_index.error_index_length
+ 1332 0f7c 2600C3E5 		strb	r0, [r3, #38]	@ tmp202, lahteva.error_index.error_index_value
+ 1333 0f80 2840C3E5 		strb	r4, [r3, #40]	@ tmp214, lahteva.varbind_list.varbind_list_type
+ 1334 0f84 3050C3E5 		strb	r5, [r3, #48]	@ tmp220, lahteva.OID.OID_type
+ 1335 0f88 040056E3 		cmp	r6, #4	@ tmp247,
+ 1336 0f8c 06F19F97 		ldrls	pc, [pc, r6, asl #2]	@ tmp247
+ 1337 0f90 6B0000EA 		b	.L107	@
+ 1338              	.L113:
+ 1339 0f94 A80F0000 		.word	.L108
+ 1340 0f98 04100000 		.word	.L109
+ 1341 0f9c 38100000 		.word	.L110
+ 1342 0fa0 8C100000 		.word	.L111
+ 1343 0fa4 F8100000 		.word	.L112
+ 1344              	.L108:
+ 1345 0fa8 14329FE5 		ldr	r3, .L125+8	@ tmp248,
+ 1346 0fac B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1347 0fb0 000053E3 		cmp	r3, #0	@ verbose,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 29
+
+
+ 1348 0fb4 0800000A 		beq	.L114	@,
+ 1349 0fb8 08429FE5 		ldr	r4, .L125+12	@ tmp251,
+ 1350 0fbc 08029FE5 		ldr	r0, .L125+16	@,
+ 1351 0fc0 FEFFFFEB 		bl	puts	@
+ 1352 0fc4 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1353 0fc8 FEFFFFEB 		bl	inet_ntoa	@
+ 1354 0fcc B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1355 0fd0 0010A0E1 		mov	r1, r0	@ D.2609,
+ 1356 0fd4 F4019FE5 		ldr	r0, .L125+20	@,
+ 1357 0fd8 FEFFFFEB 		bl	printf	@
+ 1358              	.L114:
+ 1359 0fdc D8219FE5 		ldr	r2, .L125	@ tmp255,
+ 1360 0fe0 0030A0E3 		mov	r3, #0	@ tmp256,
+ 1361 0fe4 2230C2E5 		strb	r3, [r2, #34]	@ tmp256, lahteva.error.error_value
+ 1362 0fe8 023083E2 		add	r3, r3, #2	@ tmp259, tmp259,
+ 1363 0fec 3C30C2E5 		strb	r3, [r2, #60]	@ tmp259, lahteva.value.value_type
+ 1364 0ff0 0130A0E3 		mov	r3, #1	@ tmp262,
+ 1365 0ff4 3D30C2E5 		strb	r3, [r2, #61]	@ tmp262, lahteva.value.value_length
+ 1366 0ff8 B030D7E1 		ldrh	r3, [r7, #0]	@ tmp265,* value
+ 1367 0ffc 403082E5 		str	r3, [r2, #64]	@ tmp265, lahteva.value.value_value
+ 1368 1000 4F0000EA 		b	.L107	@
+ 1369              	.L109:
+ 1370 1004 B8319FE5 		ldr	r3, .L125+8	@ tmp266,
+ 1371 1008 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1372 100c 000053E3 		cmp	r3, #0	@ verbose,
+ 1373 1010 1500000A 		beq	.L116	@,
+ 1374 1014 AC419FE5 		ldr	r4, .L125+12	@ tmp269,
+ 1375 1018 B4019FE5 		ldr	r0, .L125+24	@,
+ 1376 101c FEFFFFEB 		bl	puts	@
+ 1377 1020 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1378 1024 FEFFFFEB 		bl	inet_ntoa	@
+ 1379 1028 B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1380 102c 0010A0E1 		mov	r1, r0	@ D.2614,
+ 1381 1030 A0019FE5 		ldr	r0, .L125+28	@,
+ 1382 1034 0B0000EA 		b	.L124	@
+ 1383              	.L110:
+ 1384 1038 84319FE5 		ldr	r3, .L125+8	@ tmp283,
+ 1385 103c B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1386 1040 000053E3 		cmp	r3, #0	@ verbose,
+ 1387 1044 0800000A 		beq	.L116	@,
+ 1388 1048 78419FE5 		ldr	r4, .L125+12	@ tmp286,
+ 1389 104c 88019FE5 		ldr	r0, .L125+32	@,
+ 1390 1050 FEFFFFEB 		bl	puts	@
+ 1391 1054 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1392 1058 FEFFFFEB 		bl	inet_ntoa	@
+ 1393 105c B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1394 1060 0010A0E1 		mov	r1, r0	@ D.2616,
+ 1395 1064 74019FE5 		ldr	r0, .L125+36	@,
+ 1396              	.L124:
+ 1397 1068 FEFFFFEB 		bl	printf	@
+ 1398              	.L116:
+ 1399 106c 48219FE5 		ldr	r2, .L125	@ tmp290,
+ 1400 1070 B010D7E1 		ldrh	r1, [r7, #0]	@,* value
+ 1401 1074 0030A0E3 		mov	r3, #0	@ tmp298,
+ 1402 1078 3D30C2E5 		strb	r3, [r2, #61]	@ tmp298, lahteva.value.value_length
+ 1403 107c 053083E2 		add	r3, r3, #5	@ tmp295, tmp295,
+ 1404 1080 2210C2E5 		strb	r1, [r2, #34]	@ tmp291, lahteva.error.error_value
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 30
+
+
+ 1405 1084 3C30C2E5 		strb	r3, [r2, #60]	@ tmp295, lahteva.value.value_type
+ 1406 1088 2D0000EA 		b	.L107	@
+ 1407              	.L111:
+ 1408 108c 30319FE5 		ldr	r3, .L125+8	@ tmp300,
+ 1409 1090 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1410 1094 000053E3 		cmp	r3, #0	@ verbose,
+ 1411 1098 0800000A 		beq	.L117	@,
+ 1412 109c 24419FE5 		ldr	r4, .L125+12	@ tmp303,
+ 1413 10a0 3C019FE5 		ldr	r0, .L125+40	@,
+ 1414 10a4 FEFFFFEB 		bl	puts	@
+ 1415 10a8 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1416 10ac FEFFFFEB 		bl	inet_ntoa	@
+ 1417 10b0 B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1418 10b4 0010A0E1 		mov	r1, r0	@ D.2617,
+ 1419 10b8 28019FE5 		ldr	r0, .L125+44	@,
+ 1420 10bc FEFFFFEB 		bl	printf	@
+ 1421              	.L117:
+ 1422 10c0 F4209FE5 		ldr	r2, .L125	@ tmp307,
+ 1423 10c4 3030A0E3 		mov	r3, #48	@ tmp311,
+ 1424 10c8 0010A0E3 		mov	r1, #0	@ tmp308,
+ 1425 10cc 3C30C2E5 		strb	r3, [r2, #60]	@ tmp311, lahteva.value.value_type
+ 1426 10d0 0530A0E3 		mov	r3, #5	@ tmp314,
+ 1427 10d4 3D30C2E5 		strb	r3, [r2, #61]	@ tmp314, lahteva.value.value_length
+ 1428 10d8 2210C2E5 		strb	r1, [r2, #34]	@ tmp308, lahteva.error.error_value
+ 1429              	.L118:
+ 1430 10dc B13097E1 		ldrh	r3, [r7, r1]	@ tmp316,* ivtmp.617
+ 1431 10e0 021081E2 		add	r1, r1, #2	@ ivtmp.617, ivtmp.617,
+ 1432 10e4 0A0051E3 		cmp	r1, #10	@ ivtmp.617,
+ 1433 10e8 403082E5 		str	r3, [r2, #64]	@ tmp316, lahteva.value.value_value
+ 1434 10ec 042082E2 		add	r2, r2, #4	@ ivtmp.620, ivtmp.620,
+ 1435 10f0 F9FFFF1A 		bne	.L118	@,
+ 1436 10f4 120000EA 		b	.L107	@
+ 1437              	.L112:
+ 1438 10f8 C4309FE5 		ldr	r3, .L125+8	@ tmp317,
+ 1439 10fc B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1440 1100 000053E3 		cmp	r3, #0	@ verbose,
+ 1441 1104 0800000A 		beq	.L119	@,
+ 1442 1108 B8409FE5 		ldr	r4, .L125+12	@ tmp320,
+ 1443 110c D8009FE5 		ldr	r0, .L125+48	@,
+ 1444 1110 FEFFFFEB 		bl	puts	@
+ 1445 1114 000094E5 		ldr	r0, [r4, #0]	@, vv.osoite
+ 1446 1118 FEFFFFEB 		bl	inet_ntoa	@
+ 1447 111c B420D4E1 		ldrh	r2, [r4, #4]	@, vv.portti
+ 1448 1120 0010A0E1 		mov	r1, r0	@ D.2623,
+ 1449 1124 C4009FE5 		ldr	r0, .L125+52	@,
+ 1450 1128 FEFFFFEB 		bl	printf	@
+ 1451              	.L119:
+ 1452 112c 88309FE5 		ldr	r3, .L125	@ tmp324,
+ 1453 1130 0510A0E3 		mov	r1, #5	@ tmp325,
+ 1454 1134 0020A0E3 		mov	r2, #0	@ tmp331,
+ 1455 1138 3D20C3E5 		strb	r2, [r3, #61]	@ tmp331, lahteva.value.value_length
+ 1456 113c 3C10C3E5 		strb	r1, [r3, #60]	@ tmp325, lahteva.value.value_type
+ 1457 1140 2210C3E5 		strb	r1, [r3, #34]	@ tmp325, lahteva.error.error_value
+ 1458              	.L107:
+ 1459 1144 70C09FE5 		ldr	ip, .L125	@ tmp333,
+ 1460 1148 3130DCE5 		ldrb	r3, [ip, #49]	@ zero_extendqisi2	@ lahteva.OID.OID_length, lahteva.OID.OID_length
+ 1461 114c 3D10DCE5 		ldrb	r1, [ip, #61]	@ zero_extendqisi2	@ lahteva.value.value_length, lahteva.value.value_length
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 31
+
+
+ 1462 1150 031081E0 		add	r1, r1, r3	@ tmp339, lahteva.value.value_length, lahteva.OID.OID_length
+ 1463 1154 041081E2 		add	r1, r1, #4	@ tmp341, tmp339,
+ 1464 1158 FF1001E2 		and	r1, r1, #255	@ D.2628, tmp341,
+ 1465 115c 1930DCE5 		ldrb	r3, [ip, #25]	@ zero_extendqisi2	@ lahteva.requestID.requestID_length, lahteva.requestID.requ
+ 1466 1160 020081E2 		add	r0, r1, #2	@ tmp344, D.2628,
+ 1467 1164 FF0000E2 		and	r0, r0, #255	@ D.2630, tmp344,
+ 1468 1168 0920DCE5 		ldrb	r2, [ip, #9]	@ zero_extendqisi2	@ lahteva.comm_string.comm_string_length, lahteva.comm_string
+ 1469 116c 0A3083E2 		add	r3, r3, #10	@ tmp350, lahteva.requestID.requestID_length,
+ 1470 1170 033080E0 		add	r3, r0, r3	@ tmp352, D.2630, tmp350
+ 1471 1174 010058E3 		cmp	r8, #1	@ oid,
+ 1472 1178 FF3003E2 		and	r3, r3, #255	@ D.2633, tmp352,
+ 1473 117c 072082E2 		add	r2, r2, #7	@ tmp359, lahteva.comm_string.comm_string_length,
+ 1474 1180 022083E0 		add	r2, r3, r2	@ tmp361, D.2633, tmp359
+ 1475 1184 3C409FE5 		ldr	r4, .L125+12	@ tmp371,
+ 1476 1188 1530CCE5 		strb	r3, [ip, #21]	@ D.2633, lahteva.PDU.PDU_length
+ 1477 118c 60309F15 		ldrne	r3, .L125+56	@ tmp368,
+ 1478 1190 0120CCE5 		strb	r2, [ip, #1]	@ tmp361, lahteva.message.message_length
+ 1479 1194 2D10CCE5 		strb	r1, [ip, #45]	@ D.2628, lahteva.varbind.varbind_length
+ 1480 1198 B420D401 		ldreqh	r2, [r4, #4]	@, vv.portti
+ 1481 119c 00109405 		ldreq	r1, [r4, #0]	@, vv.osoite
+ 1482 11a0 04109315 		ldrne	r1, [r3, #4]	@, game.playerAddress
+ 1483 11a4 B420D411 		ldrneh	r2, [r4, #4]	@, vv.portti
+ 1484 11a8 2900CCE5 		strb	r0, [ip, #41]	@ D.2630, lahteva.varbind_list.varbind_list_length
+ 1485 11ac 0C00A001 		moveq	r0, ip	@, tmp333
+ 1486 11b0 0C00A011 		movne	r0, ip	@, tmp333
+ 1487 11b4 F041BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, lr}
+ 1488 11b8 FEFFFFEA 		b	compileOutboundMessage	@
+ 1489              	.L126:
+ 1490              		.align	2
+ 1491              	.L125:
+ 1492 11bc 00000000 		.word	lahteva
+ 1493 11c0 00000000 		.word	vast
+ 1494 11c4 00000000 		.word	verbose
+ 1495 11c8 00000000 		.word	vv
+ 1496 11cc 15060000 		.word	.LC52
+ 1497 11d0 3D060000 		.word	.LC53
+ 1498 11d4 64060000 		.word	.LC54
+ 1499 11d8 8C060000 		.word	.LC55
+ 1500 11dc B0060000 		.word	.LC56
+ 1501 11e0 D8060000 		.word	.LC57
+ 1502 11e4 F7060000 		.word	.LC58
+ 1503 11e8 1F070000 		.word	.LC59
+ 1504 11ec 46070000 		.word	.LC60
+ 1505 11f0 6E070000 		.word	.LC61
+ 1506 11f4 00000000 		.word	game
+ 1507              		.size	parseSnmpResponse, .-parseSnmpResponse
+ 1508              		.section	.rodata.str1.1
+ 1509              	.LC62:
+ 1510 079a 53454E44 		.ascii	"SENDER CASE: 1 *** \000"
+ 1510      45522043 
+ 1510      4153453A 
+ 1510      2031202A 
+ 1510      2A2A2000 
+ 1511              	.LC63:
+ 1512 07ae 31302E31 		.ascii	"10.10.255.255\000"
+ 1512      302E3235 
+ 1512      352E3235 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 32
+
+
+ 1512      3500
+ 1513              	.LC64:
+ 1514 07bc 53656E64 		.ascii	"Sending READY-TO-PLAY request to %s:%d\012\000"
+ 1514      696E6720 
+ 1514      52454144 
+ 1514      592D544F 
+ 1514      2D504C41 
+ 1515              	.LC65:
+ 1516 07e4 53454E44 		.ascii	"SENDER CASE: 2 *** \000"
+ 1516      45522043 
+ 1516      4153453A 
+ 1516      2032202A 
+ 1516      2A2A2000 
+ 1517              	.LC66:
+ 1518 07f8 53656E64 		.ascii	"Sending START-TURN request to %s:%d\012\000"
+ 1518      696E6720 
+ 1518      53544152 
+ 1518      542D5455 
+ 1518      524E2072 
+ 1519              	.LC67:
+ 1520 081d 53454E44 		.ascii	"SENDER CASE: 3 *** \000"
+ 1520      45522043 
+ 1520      4153453A 
+ 1520      2033202A 
+ 1520      2A2A2000 
+ 1521              	.LC68:
+ 1522 0831 53656E64 		.ascii	"Sending SALVO request to %s:%d\012\000"
+ 1522      696E6720 
+ 1522      53414C56 
+ 1522      4F207265 
+ 1522      71756573 
+ 1523              	.LC69:
+ 1524 0851 53454E44 		.ascii	"SENDER CASE: 4 *** \000"
+ 1524      45522043 
+ 1524      4153453A 
+ 1524      2034202A 
+ 1524      2A2A2000 
+ 1525              	.LC70:
+ 1526 0865 53656E64 		.ascii	"Sending SALVO-RESULTS request to %s:%d\012\000"
+ 1526      696E6720 
+ 1526      53414C56 
+ 1526      4F2D5245 
+ 1526      53554C54 
+ 1527              	.LC71:
+ 1528 088d 53454E44 		.ascii	"SENDER CASE: 5 *** \000"
+ 1528      45522043 
+ 1528      4153453A 
+ 1528      2035202A 
+ 1528      2A2A2000 
+ 1529              	.LC72:
+ 1530 08a1 53656E64 		.ascii	"Sending CHAT-MESSAGE to %s:%d\012\000"
+ 1530      696E6720 
+ 1530      43484154 
+ 1530      2D4D4553 
+ 1530      53414745 
+ 1531              	.LC73:
+ 1532 08c0 53454E44 		.ascii	"SENDER CASE: 6 / TRAP *** \000"
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 33
+
+
+ 1532      45522043 
+ 1532      4153453A 
+ 1532      2036202F 
+ 1532      20545241 
+ 1533              	.LC74:
+ 1534 08db 53656E64 		.ascii	"Sending TRAP to %s:%d\012\000"
+ 1534      696E6720 
+ 1534      54524150 
+ 1534      20746F20 
+ 1534      25733A25 
+ 1535              		.text
+ 1536              		.align	2
+ 1537              		.global	parseOutboundMessage
+ 1538              		.type	parseOutboundMessage, %function
+ 1539              	parseOutboundMessage:
+ 1540              		@ Function supports interworking.
+ 1541              		@ args = 0, pretend = 0, frame = 264
+ 1542              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1543 11f8 F0452DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}	@,
+ 1544 11fc 0A30A0E3 		mov	r3, #10	@ tmp169,
+ 1545 1200 42DF4DE2 		sub	sp, sp, #264	@,,
+ 1546 1204 0930CDE5 		strb	r3, [sp, #9]	@ tmp169, outb.comm_string.comm_string_length
+ 1547 1208 383083E2 		add	r3, r3, #56	@ tmp171, tmp171,
+ 1548 120c 0A30CDE5 		strb	r3, [sp, #10]	@ tmp171, outb.comm_string.comm_string_value
+ 1549 1210 1F3083E2 		add	r3, r3, #31	@ tmp173, tmp173,
+ 1550 1214 0B30CDE5 		strb	r3, [sp, #11]	@ tmp173, outb.comm_string.comm_string_value
+ 1551 1218 0B3083E2 		add	r3, r3, #11	@ tmp179, tmp179,
+ 1552 121c 0E30CDE5 		strb	r3, [sp, #14]	@ tmp179, outb.comm_string.comm_string_value
+ 1553 1220 6530A0E3 		mov	r3, #101	@ tmp181,
+ 1554 1224 0F30CDE5 		strb	r3, [sp, #15]	@ tmp181, outb.comm_string.comm_string_value
+ 1555 1228 0E3083E2 		add	r3, r3, #14	@ tmp183, tmp183,
+ 1556 122c 01C0A0E3 		mov	ip, #1	@ tmp163,
+ 1557 1230 1030CDE5 		strb	r3, [sp, #16]	@ tmp183, outb.comm_string.comm_string_value
+ 1558 1234 6830A0E3 		mov	r3, #104	@ tmp185,
+ 1559 1238 1130CDE5 		strb	r3, [sp, #17]	@ tmp185, outb.comm_string.comm_string_value
+ 1560 123c 0C3083E0 		add	r3, r3, ip	@ tmp187, tmp187,
+ 1561 1240 1230CDE5 		strb	r3, [sp, #18]	@ tmp187, outb.comm_string.comm_string_value
+ 1562 1244 073083E2 		add	r3, r3, #7	@ tmp189, tmp189,
+ 1563 1248 1330CDE5 		strb	r3, [sp, #19]	@ tmp189, outb.comm_string.comm_string_value
+ 1564 124c 0730A0E3 		mov	r3, #7	@ tmp215,
+ 1565 1250 3130CDE5 		strb	r3, [sp, #49]	@ tmp215, outb.OID.OID_length
+ 1566 1254 243083E2 		add	r3, r3, #36	@ tmp217, tmp217,
+ 1567 1258 3230CDE5 		strb	r3, [sp, #50]	@ tmp217, outb.OID.OID_value
+ 1568 125c CC339FE5 		ldr	r3, .L148	@ tmp158,
+ 1569 1260 0040A0E3 		mov	r4, #0	@ tmp165,
+ 1570 1264 02E0A0E3 		mov	lr, #2	@ tmp161,
+ 1571 1268 3050A0E3 		mov	r5, #48	@ tmp159,
+ 1572 126c 0460A0E3 		mov	r6, #4	@ tmp167,
+ 1573 1270 7470A0E3 		mov	r7, #116	@ tmp175,
+ 1574 1274 0680A0E3 		mov	r8, #6	@ tmp213,
+ 1575 1278 04A093E5 		ldr	sl, [r3, #4]	@ osoite, game.playerAddress
+ 1576 127c FF0000E2 		and	r0, r0, #255	@ OIDlastValue, OIDlastValue,
+ 1577 1280 0330A0E3 		mov	r3, #3	@ tmp223,
+ 1578 1284 2C50CDE5 		strb	r5, [sp, #44]	@ tmp159, outb.varbind.varbind_type
+ 1579 1288 0050CDE5 		strb	r5, [sp, #0]	@ tmp159, outb.message.message_type
+ 1580 128c 0640CDE5 		strb	r4, [sp, #6]	@ tmp165, outb.version.version_value
+ 1581 1290 2240CDE5 		strb	r4, [sp, #34]	@ tmp165, outb.error.error_value
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 34
+
+
+ 1582 1294 2640CDE5 		strb	r4, [sp, #38]	@ tmp165, outb.error_index.error_index_value
+ 1583 1298 2850CDE5 		strb	r5, [sp, #40]	@ tmp159, outb.varbind_list.varbind_list_type
+ 1584 129c 0228A0E1 		mov	r2, r2, asl #16	@ tmp157, value_length,
+ 1585 12a0 0D70CDE5 		strb	r7, [sp, #13]	@ tmp175, outb.comm_string.comm_string_value
+ 1586 12a4 1A60CDE5 		strb	r6, [sp, #26]	@ tmp167, outb.requestID.requestID_value
+ 1587 12a8 24E0CDE5 		strb	lr, [sp, #36]	@ tmp161, outb.error_index.error_index_type
+ 1588 12ac 3380CDE5 		strb	r8, [sp, #51]	@ tmp213, outb.OID.OID_value
+ 1589 12b0 34C0CDE5 		strb	ip, [sp, #52]	@ tmp163, outb.OID.OID_value
+ 1590 12b4 04E0CDE5 		strb	lr, [sp, #4]	@ tmp161, outb.version.version_type
+ 1591 12b8 05C0CDE5 		strb	ip, [sp, #5]	@ tmp163, outb.version.version_length
+ 1592 12bc 0860CDE5 		strb	r6, [sp, #8]	@ tmp167, outb.comm_string.comm_string_type
+ 1593 12c0 0C70CDE5 		strb	r7, [sp, #12]	@ tmp175, outb.comm_string.comm_string_value
+ 1594 12c4 18E0CDE5 		strb	lr, [sp, #24]	@ tmp161, outb.requestID.requestID_type
+ 1595 12c8 19C0CDE5 		strb	ip, [sp, #25]	@ tmp163, outb.requestID.requestID_length
+ 1596 12cc 20E0CDE5 		strb	lr, [sp, #32]	@ tmp161, outb.error.error_type
+ 1597 12d0 21C0CDE5 		strb	ip, [sp, #33]	@ tmp163, outb.error.error_length
+ 1598 12d4 25C0CDE5 		strb	ip, [sp, #37]	@ tmp163, outb.error_index.error_index_length
+ 1599 12d8 010040E2 		sub	r0, r0, #1	@ tmp229, OIDlastValue,
+ 1600 12dc 3080CDE5 		strb	r8, [sp, #48]	@ tmp213, outb.OID.OID_type
+ 1601 12e0 3530CDE5 		strb	r3, [sp, #53]	@ tmp223, outb.OID.OID_value
+ 1602 12e4 343083E2 		add	r3, r3, #52	@ tmp225, tmp225,
+ 1603 12e8 3740CDE5 		strb	r4, [sp, #55]	@ tmp165, outb.OID.OID_value
+ 1604 12ec 3630CDE5 		strb	r3, [sp, #54]	@ tmp225, outb.OID.OID_value
+ 1605 12f0 0140A0E1 		mov	r4, r1	@ value, value
+ 1606 12f4 2258A0E1 		mov	r5, r2, lsr #16	@ value_length, tmp157,
+ 1607 12f8 050050E3 		cmp	r0, #5	@ tmp229,
+ 1608 12fc 00F19F97 		ldrls	pc, [pc, r0, asl #2]	@ tmp229
+ 1609 1300 B10000EA 		b	.L128	@
+ 1610              	.L135:
+ 1611 1304 1C130000 		.word	.L129
+ 1612 1308 80130000 		.word	.L130
+ 1613 130c E0130000 		.word	.L131
+ 1614 1310 5C140000 		.word	.L132
+ 1615 1314 B8140000 		.word	.L133
+ 1616 1318 38150000 		.word	.L134
+ 1617              	.L129:
+ 1618 131c 10339FE5 		ldr	r3, .L148+4	@ tmp230,
+ 1619 1320 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1620 1324 000053E3 		cmp	r3, #0	@ verbose,
+ 1621 1328 08039F15 		ldrne	r0, .L148+8	@,
+ 1622 132c FEFFFF1B 		blne	printf	@
+ 1623              	.L136:
+ 1624 1330 5F30E0E3 		mvn	r3, #95	@ tmp233,
+ 1625 1334 1430CDE5 		strb	r3, [sp, #20]	@ tmp233, outb.PDU.PDU_type
+ 1626 1338 613083E2 		add	r3, r3, #97	@ tmp235, tmp235,
+ 1627 133c 3830CDE5 		strb	r3, [sp, #56]	@ tmp235, outb.OID.OID_value
+ 1628 1340 043083E2 		add	r3, r3, #4	@ tmp237, tmp237,
+ 1629 1344 3C30CDE5 		strb	r3, [sp, #60]	@ tmp237, outb.value.value_type
+ 1630 1348 EC029FE5 		ldr	r0, .L148+12	@,
+ 1631 134c 0030A0E3 		mov	r3, #0	@ tmp239,
+ 1632 1350 3D30CDE5 		strb	r3, [sp, #61]	@ tmp239, outb.value.value_length
+ 1633 1354 FEFFFFEB 		bl	inet_addr	@
+ 1634 1358 D4329FE5 		ldr	r3, .L148+4	@ tmp242,
+ 1635 135c B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1636 1360 000053E3 		cmp	r3, #0	@ verbose,
+ 1637 1364 00A0A0E1 		mov	sl, r0	@ osoite,
+ 1638 1368 9700000A 		beq	.L128	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 35
+
+
+ 1639 136c FEFFFFEB 		bl	inet_ntoa	@
+ 1640 1370 A120A0E3 		mov	r2, #161	@,
+ 1641 1374 0010A0E1 		mov	r1, r0	@ D.2730,
+ 1642 1378 C0029FE5 		ldr	r0, .L148+16	@,
+ 1643 137c 910000EA 		b	.L147	@
+ 1644              	.L130:
+ 1645 1380 AC329FE5 		ldr	r3, .L148+4	@ tmp245,
+ 1646 1384 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1647 1388 000053E3 		cmp	r3, #0	@ verbose,
+ 1648 138c B0029F15 		ldrne	r0, .L148+20	@,
+ 1649 1390 FEFFFF1B 		blne	printf	@
+ 1650              	.L137:
+ 1651 1394 98329FE5 		ldr	r3, .L148+4	@ tmp257,
+ 1652 1398 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1653 139c B010D4E1 		ldrh	r1, [r4, #0]	@ tmp256,* value
+ 1654 13a0 000053E3 		cmp	r3, #0	@ verbose,
+ 1655 13a4 5C30E0E3 		mvn	r3, #92	@ tmp248,
+ 1656 13a8 0220A0E3 		mov	r2, #2	@ tmp250,
+ 1657 13ac 1430CDE5 		strb	r3, [sp, #20]	@ tmp248, outb.PDU.PDU_type
+ 1658 13b0 5E3083E2 		add	r3, r3, #94	@ tmp254, tmp254,
+ 1659 13b4 3C20CDE5 		strb	r2, [sp, #60]	@ tmp250, outb.value.value_type
+ 1660 13b8 3D30CDE5 		strb	r3, [sp, #61]	@ tmp254, outb.value.value_length
+ 1661 13bc 40108DE5 		str	r1, [sp, #64]	@ tmp256, outb.value.value_value
+ 1662 13c0 3820CDE5 		strb	r2, [sp, #56]	@ tmp250, outb.OID.OID_value
+ 1663 13c4 8000000A 		beq	.L128	@,
+ 1664 13c8 0A00A0E1 		mov	r0, sl	@, osoite
+ 1665 13cc FEFFFFEB 		bl	inet_ntoa	@
+ 1666 13d0 A120A0E3 		mov	r2, #161	@,
+ 1667 13d4 0010A0E1 		mov	r1, r0	@ D.2734,
+ 1668 13d8 68029FE5 		ldr	r0, .L148+24	@,
+ 1669 13dc 790000EA 		b	.L147	@
+ 1670              	.L131:
+ 1671 13e0 4C329FE5 		ldr	r3, .L148+4	@ tmp260,
+ 1672 13e4 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1673 13e8 000053E3 		cmp	r3, #0	@ verbose,
+ 1674 13ec 58029F15 		ldrne	r0, .L148+28	@,
+ 1675 13f0 FEFFFF1B 		blne	printf	@
+ 1676              	.L138:
+ 1677 13f4 5C30E0E3 		mvn	r3, #92	@ tmp263,
+ 1678 13f8 1430CDE5 		strb	r3, [sp, #20]	@ tmp263, outb.PDU.PDU_type
+ 1679 13fc 603083E2 		add	r3, r3, #96	@ tmp265, tmp265,
+ 1680 1400 3830CDE5 		strb	r3, [sp, #56]	@ tmp265, outb.OID.OID_value
+ 1681 1404 2D3083E2 		add	r3, r3, #45	@ tmp267, tmp267,
+ 1682 1408 3C30CDE5 		strb	r3, [sp, #60]	@ tmp267, outb.value.value_type
+ 1683 140c 0A30A0E3 		mov	r3, #10	@ tmp269,
+ 1684 1410 3D30CDE5 		strb	r3, [sp, #61]	@ tmp269, outb.value.value_length
+ 1685 1414 0D10A0E1 		mov	r1, sp	@ ivtmp.727,
+ 1686 1418 0020A0E3 		mov	r2, #0	@ ivtmp.724,
+ 1687              	.L139:
+ 1688 141c B23094E1 		ldrh	r3, [r4, r2]	@ tmp271,* ivtmp.724
+ 1689 1420 022082E2 		add	r2, r2, #2	@ ivtmp.724, ivtmp.724,
+ 1690 1424 140052E3 		cmp	r2, #20	@ ivtmp.724,
+ 1691 1428 403081E5 		str	r3, [r1, #64]	@ tmp271, outb.value.value_value
+ 1692 142c 041081E2 		add	r1, r1, #4	@ ivtmp.727, ivtmp.727,
+ 1693 1430 F9FFFF1A 		bne	.L139	@,
+ 1694 1434 F8319FE5 		ldr	r3, .L148+4	@ tmp272,
+ 1695 1438 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 36
+
+
+ 1696 143c 000053E3 		cmp	r3, #0	@ verbose,
+ 1697 1440 6100000A 		beq	.L128	@,
+ 1698 1444 0A00A0E1 		mov	r0, sl	@, osoite
+ 1699 1448 FEFFFFEB 		bl	inet_ntoa	@
+ 1700 144c A120A0E3 		mov	r2, #161	@,
+ 1701 1450 0010A0E1 		mov	r1, r0	@ D.2741,
+ 1702 1454 F4019FE5 		ldr	r0, .L148+32	@,
+ 1703 1458 5A0000EA 		b	.L147	@
+ 1704              	.L132:
+ 1705 145c D0319FE5 		ldr	r3, .L148+4	@ tmp275,
+ 1706 1460 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1707 1464 000053E3 		cmp	r3, #0	@ verbose,
+ 1708 1468 E4019F15 		ldrne	r0, .L148+36	@,
+ 1709 146c FEFFFF1B 		blne	printf	@
+ 1710              	.L140:
+ 1711 1470 BC319FE5 		ldr	r3, .L148+4	@ tmp286,
+ 1712 1474 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1713 1478 000053E3 		cmp	r3, #0	@ verbose,
+ 1714 147c 5F30E0E3 		mvn	r3, #95	@ tmp278,
+ 1715 1480 1430CDE5 		strb	r3, [sp, #20]	@ tmp278, outb.PDU.PDU_type
+ 1716 1484 643083E2 		add	r3, r3, #100	@ tmp280, tmp280,
+ 1717 1488 3830CDE5 		strb	r3, [sp, #56]	@ tmp280, outb.OID.OID_value
+ 1718 148c 013083E2 		add	r3, r3, #1	@ tmp282, tmp282,
+ 1719 1490 3C30CDE5 		strb	r3, [sp, #60]	@ tmp282, outb.value.value_type
+ 1720 1494 0030A0E3 		mov	r3, #0	@ tmp284,
+ 1721 1498 3D30CDE5 		strb	r3, [sp, #61]	@ tmp284, outb.value.value_length
+ 1722 149c 4A00000A 		beq	.L128	@,
+ 1723 14a0 0A00A0E1 		mov	r0, sl	@, osoite
+ 1724 14a4 FEFFFFEB 		bl	inet_ntoa	@
+ 1725 14a8 A120A0E3 		mov	r2, #161	@,
+ 1726 14ac 0010A0E1 		mov	r1, r0	@ D.2742,
+ 1727 14b0 A0019FE5 		ldr	r0, .L148+40	@,
+ 1728 14b4 430000EA 		b	.L147	@
+ 1729              	.L133:
+ 1730 14b8 74319FE5 		ldr	r3, .L148+4	@ tmp289,
+ 1731 14bc B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1732 14c0 000053E3 		cmp	r3, #0	@ verbose,
+ 1733 14c4 90019F15 		ldrne	r0, .L148+44	@,
+ 1734 14c8 FEFFFF1B 		blne	printf	@
+ 1735              	.L141:
+ 1736 14cc 5C20E0E3 		mvn	r2, #92	@ tmp292,
+ 1737 14d0 0530A0E3 		mov	r3, #5	@ tmp294,
+ 1738 14d4 1420CDE5 		strb	r2, [sp, #20]	@ tmp292, outb.PDU.PDU_type
+ 1739 14d8 612082E2 		add	r2, r2, #97	@ tmp296, tmp296,
+ 1740 14dc 3C20CDE5 		strb	r2, [sp, #60]	@ tmp296, outb.value.value_type
+ 1741 14e0 3D30CDE5 		strb	r3, [sp, #61]	@ tmp294, outb.value.value_length
+ 1742 14e4 3830CDE5 		strb	r3, [sp, #56]	@ tmp294, outb.OID.OID_value
+ 1743 14e8 8520A0E1 		mov	r2, r5, asl #1	@ tmp350, value_length,
+ 1744 14ec 40008DE2 		add	r0, sp, #64	@ ivtmp.738,,
+ 1745 14f0 0010A0E3 		mov	r1, #0	@ ivtmp.737,
+ 1746 14f4 020000EA 		b	.L142	@
+ 1747              	.L143:
+ 1748 14f8 B13094E1 		ldrh	r3, [r4, r1]	@ tmp301,* ivtmp.737
+ 1749 14fc 043000E5 		str	r3, [r0, #-4]	@ tmp301, outb.value.value_value
+ 1750 1500 021081E2 		add	r1, r1, #2	@ ivtmp.737, ivtmp.737,
+ 1751              	.L142:
+ 1752 1504 020051E1 		cmp	r1, r2	@ ivtmp.737, tmp350
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 37
+
+
+ 1753 1508 040080E2 		add	r0, r0, #4	@ ivtmp.738, ivtmp.738,
+ 1754 150c F9FFFF1A 		bne	.L143	@,
+ 1755 1510 1C319FE5 		ldr	r3, .L148+4	@ tmp303,
+ 1756 1514 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1757 1518 000053E3 		cmp	r3, #0	@ verbose,
+ 1758 151c 2A00000A 		beq	.L128	@,
+ 1759 1520 0A00A0E1 		mov	r0, sl	@, osoite
+ 1760 1524 FEFFFFEB 		bl	inet_ntoa	@
+ 1761 1528 A120A0E3 		mov	r2, #161	@,
+ 1762 152c 0010A0E1 		mov	r1, r0	@ D.2743,
+ 1763 1530 28019FE5 		ldr	r0, .L148+48	@,
+ 1764 1534 230000EA 		b	.L147	@
+ 1765              	.L134:
+ 1766 1538 F4309FE5 		ldr	r3, .L148+4	@ tmp306,
+ 1767 153c B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1768 1540 000053E3 		cmp	r3, #0	@ verbose,
+ 1769 1544 18019F15 		ldrne	r0, .L148+52	@,
+ 1770 1548 FEFFFF1B 		blne	printf	@
+ 1771              	.L144:
+ 1772 154c E0309FE5 		ldr	r3, .L148+4	@ tmp324,
+ 1773 1550 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 1774 1554 000053E3 		cmp	r3, #0	@ verbose,
+ 1775 1558 5B30E0E3 		mvn	r3, #91	@ tmp309,
+ 1776 155c 1430CDE5 		strb	r3, [sp, #20]	@ tmp309, outb.PDU.PDU_type
+ 1777 1560 623083E2 		add	r3, r3, #98	@ tmp311, tmp311,
+ 1778 1564 3830CDE5 		strb	r3, [sp, #56]	@ tmp311, outb.OID.OID_value
+ 1779 1568 0430A0E3 		mov	r3, #4	@ tmp313,
+ 1780 156c 3C30CDE5 		strb	r3, [sp, #60]	@ tmp313, outb.value.value_type
+ 1781 1570 033083E2 		add	r3, r3, #3	@ tmp315, tmp315,
+ 1782 1574 3D30CDE5 		strb	r3, [sp, #61]	@ tmp315, outb.value.value_length
+ 1783 1578 423083E2 		add	r3, r3, #66	@ tmp317, tmp317,
+ 1784 157c 40308DE5 		str	r3, [sp, #64]	@ tmp317, outb.value.value_value
+ 1785 1580 2030A0E3 		mov	r3, #32	@ tmp318,
+ 1786 1584 44308DE5 		str	r3, [sp, #68]	@ tmp318, outb.value.value_value
+ 1787 1588 513083E2 		add	r3, r3, #81	@ tmp319, tmp319,
+ 1788 158c 48308DE5 		str	r3, [sp, #72]	@ tmp319, outb.value.value_value
+ 1789 1590 043083E2 		add	r3, r3, #4	@ tmp320, tmp320,
+ 1790 1594 4C308DE5 		str	r3, [sp, #76]	@ tmp320, outb.value.value_value
+ 1791 1598 6930A0E3 		mov	r3, #105	@ tmp321,
+ 1792 159c 50308DE5 		str	r3, [sp, #80]	@ tmp321, outb.value.value_value
+ 1793 15a0 0B3083E2 		add	r3, r3, #11	@ tmp322, tmp322,
+ 1794 15a4 54308DE5 		str	r3, [sp, #84]	@ tmp322, outb.value.value_value
+ 1795 15a8 2E30A0E3 		mov	r3, #46	@ tmp323,
+ 1796 15ac 58308DE5 		str	r3, [sp, #88]	@ tmp323, outb.value.value_value
+ 1797 15b0 0500000A 		beq	.L128	@,
+ 1798 15b4 0A00A0E1 		mov	r0, sl	@, osoite
+ 1799 15b8 FEFFFFEB 		bl	inet_ntoa	@
+ 1800 15bc 0010A0E1 		mov	r1, r0	@ D.2744,
+ 1801 15c0 A0009FE5 		ldr	r0, .L148+56	@,
+ 1802 15c4 A120A0E3 		mov	r2, #161	@,
+ 1803              	.L147:
+ 1804 15c8 FEFFFFEB 		bl	printf	@
+ 1805              	.L128:
+ 1806 15cc 3130DDE5 		ldrb	r3, [sp, #49]	@ zero_extendqisi2	@ outb.OID.OID_length, outb.OID.OID_length
+ 1807 15d0 3DC0DDE5 		ldrb	ip, [sp, #61]	@ zero_extendqisi2	@ outb.value.value_length, outb.value.value_length
+ 1808 15d4 03C08CE0 		add	ip, ip, r3	@ tmp331, outb.value.value_length, outb.OID.OID_length
+ 1809 15d8 04C08CE2 		add	ip, ip, #4	@ tmp333, tmp331,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 38
+
+
+ 1810 15dc FFC00CE2 		and	ip, ip, #255	@ D.2749, tmp333,
+ 1811 15e0 1930DDE5 		ldrb	r3, [sp, #25]	@ zero_extendqisi2	@ outb.requestID.requestID_length, outb.requestID.requestID_
+ 1812 15e4 02408CE2 		add	r4, ip, #2	@ tmp335, D.2749,
+ 1813 15e8 FF4004E2 		and	r4, r4, #255	@ D.2751, tmp335,
+ 1814 15ec 09E0DDE5 		ldrb	lr, [sp, #9]	@ zero_extendqisi2	@ outb.comm_string.comm_string_length, outb.comm_string.comm_
+ 1815 15f0 0A3083E2 		add	r3, r3, #10	@ tmp339, outb.requestID.requestID_length,
+ 1816 15f4 033084E0 		add	r3, r4, r3	@ tmp341, D.2751, tmp339
+ 1817 15f8 FF3003E2 		and	r3, r3, #255	@ D.2755, tmp341,
+ 1818 15fc 07E08EE2 		add	lr, lr, #7	@ tmp345, outb.comm_string.comm_string_length,
+ 1819 1600 0EE083E0 		add	lr, r3, lr	@ tmp347, D.2755, tmp345
+ 1820 1604 0A10A0E1 		mov	r1, sl	@, osoite
+ 1821 1608 0D00A0E1 		mov	r0, sp	@,
+ 1822 160c A120A0E3 		mov	r2, #161	@,
+ 1823 1610 01E0CDE5 		strb	lr, [sp, #1]	@ tmp347, outb.message.message_length
+ 1824 1614 2DC0CDE5 		strb	ip, [sp, #45]	@ D.2749, outb.varbind.varbind_length
+ 1825 1618 2940CDE5 		strb	r4, [sp, #41]	@ D.2751, outb.varbind_list.varbind_list_length
+ 1826 161c 1530CDE5 		strb	r3, [sp, #21]	@ D.2755, outb.PDU.PDU_length
+ 1827 1620 FEFFFFEB 		bl	compileOutboundMessage	@
+ 1828 1624 42DF8DE2 		add	sp, sp, #264	@,,
+ 1829 1628 F045BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}
+ 1830 162c 1EFF2FE1 		bx	lr
+ 1831              	.L149:
+ 1832              		.align	2
+ 1833              	.L148:
+ 1834 1630 00000000 		.word	game
+ 1835 1634 00000000 		.word	verbose
+ 1836 1638 9A070000 		.word	.LC62
+ 1837 163c AE070000 		.word	.LC63
+ 1838 1640 BC070000 		.word	.LC64
+ 1839 1644 E4070000 		.word	.LC65
+ 1840 1648 F8070000 		.word	.LC66
+ 1841 164c 1D080000 		.word	.LC67
+ 1842 1650 31080000 		.word	.LC68
+ 1843 1654 51080000 		.word	.LC69
+ 1844 1658 65080000 		.word	.LC70
+ 1845 165c 8D080000 		.word	.LC71
+ 1846 1660 A1080000 		.word	.LC72
+ 1847 1664 C0080000 		.word	.LC73
+ 1848 1668 DB080000 		.word	.LC74
+ 1849              		.size	parseOutboundMessage, .-parseOutboundMessage
+ 1850              		.section	.rodata.str1.1
+ 1851              	.LC75:
+ 1852 08f2 53656E64 		.ascii	"Sending READY-TO-PLAY...\000"
+ 1852      696E6720 
+ 1852      52454144 
+ 1852      592D544F 
+ 1852      2D504C41 
+ 1853              	.LC76:
+ 1854 090b 53656E64 		.ascii	"Sending START-TURN...\000"
+ 1854      696E6720 
+ 1854      53544152 
+ 1854      542D5455 
+ 1854      524E2E2E 
+ 1855              	.LC77:
+ 1856 0921 53656E64 		.ascii	"Sending SALVO...\000"
+ 1856      696E6720 
+ 1856      53414C56 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 39
+
+
+ 1856      4F2E2E2E 
+ 1856      00
+ 1857              	.LC78:
+ 1858 0932 53656E64 		.ascii	"Sending SALVO-RESULTS...\000"
+ 1858      696E6720 
+ 1858      53414C56 
+ 1858      4F2D5245 
+ 1858      53554C54 
+ 1859              	.LC79:
+ 1860 094b 4B69726A 		.ascii	"Kirjoita chat viesti. (max. 50 merkki\344)\000"
+ 1860      6F697461 
+ 1860      20636861 
+ 1860      74207669 
+ 1860      65737469 
+ 1861              	.LC80:
+ 1862 0973 6B6F6B6F 		.ascii	"koko: %d\000"
+ 1862      3A202564 
+ 1862      00
+ 1863              	.LC81:
+ 1864 097c 53656E64 		.ascii	"Sending CHAT MESSAGE...\000"
+ 1864      696E6720 
+ 1864      43484154 
+ 1864      204D4553 
+ 1864      53414745 
+ 1865              	.LC82:
+ 1866 0994 53656E64 		.ascii	"Sending QUIT-TRAP...\000"
+ 1866      696E6720 
+ 1866      51554954 
+ 1866      2D545241 
+ 1866      502E2E2E 
+ 1867              	.LC83:
+ 1868 09a9 626C6161 		.ascii	"blaablaa\000"
+ 1868      626C6161 
+ 1868      00
+ 1869              	.LC84:
+ 1870 09b2 416E6E61 		.ascii	"Anna vastustajan IP-osoite: \000"
+ 1870      20766173 
+ 1870      74757374 
+ 1870      616A616E 
+ 1870      2049502D 
+ 1871              	.LC85:
+ 1872 09cf 257300   		.ascii	"%s\000"
+ 1873              	.LC86:
+ 1874 09d2 496E7661 		.ascii	"Invalid choice.\000"
+ 1874      6C696420 
+ 1874      63686F69 
+ 1874      63652E00 
+ 1875              		.text
+ 1876              		.align	2
+ 1877              		.global	sendSnmpMessageTestaus
+ 1878              		.type	sendSnmpMessageTestaus, %function
+ 1879              	sendSnmpMessageTestaus:
+ 1880              		@ Function supports interworking.
+ 1881              		@ args = 0, pretend = 0, frame = 68
+ 1882              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1883 166c 10402DE9 		stmfd	sp!, {r4, lr}	@,
+ 1884 1670 0008A0E1 		mov	r0, r0, asl #16	@ tmp137, choice,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 40
+
+
+ 1885 1674 2008A0E1 		mov	r0, r0, lsr #16	@ choice, tmp137,
+ 1886 1678 310040E2 		sub	r0, r0, #49	@ tmp138, choice,
+ 1887 167c 44D04DE2 		sub	sp, sp, #68	@,,
+ 1888 1680 070050E3 		cmp	r0, #7	@ tmp138,
+ 1889 1684 00F19F97 		ldrls	pc, [pc, r0, asl #2]	@ tmp138
+ 1890 1688 340000EA 		b	.L151	@
+ 1891              	.L160:
+ 1892 168c AC160000 		.word	.L152
+ 1893 1690 C0160000 		.word	.L153
+ 1894 1694 DC160000 		.word	.L154
+ 1895 1698 E4160000 		.word	.L155
+ 1896 169c FC160000 		.word	.L156
+ 1897 16a0 2C170000 		.word	.L157
+ 1898 16a4 48170000 		.word	.L158
+ 1899 16a8 68170000 		.word	.L161
+ 1900              	.L152:
+ 1901 16ac C0009FE5 		ldr	r0, .L166	@,
+ 1902 16b0 FEFFFFEB 		bl	puts	@
+ 1903 16b4 0010A0E3 		mov	r1, #0	@,
+ 1904 16b8 0100A0E3 		mov	r0, #1	@,
+ 1905 16bc 0C0000EA 		b	.L164	@
+ 1906              	.L153:
+ 1907 16c0 B0009FE5 		ldr	r0, .L166+4	@,
+ 1908 16c4 FEFFFFEB 		bl	puts	@
+ 1909 16c8 44108DE2 		add	r1, sp, #68	@ tmp143,,
+ 1910 16cc 0030A0E3 		mov	r3, #0	@ movhi	@,
+ 1911 16d0 B23061E1 		strh	r3, [r1, #-2]!	@ movhi	@, integeri
+ 1912 16d4 0200A0E3 		mov	r0, #2	@,
+ 1913 16d8 170000EA 		b	.L165	@
+ 1914              	.L154:
+ 1915 16dc 98009FE5 		ldr	r0, .L166+8	@,
+ 1916 16e0 1F0000EA 		b	.L163	@
+ 1917              	.L155:
+ 1918 16e4 94009FE5 		ldr	r0, .L166+12	@,
+ 1919 16e8 FEFFFFEB 		bl	puts	@
+ 1920 16ec 0010A0E3 		mov	r1, #0	@,
+ 1921 16f0 0400A0E3 		mov	r0, #4	@,
+ 1922              	.L164:
+ 1923 16f4 0120A0E1 		mov	r2, r1	@,
+ 1924 16f8 100000EA 		b	.L162	@
+ 1925              	.L156:
+ 1926 16fc 0040A0E3 		mov	r4, #0	@ koko,
+ 1927 1700 7C009FE5 		ldr	r0, .L166+16	@,
+ 1928 1704 FEFFFFEB 		bl	puts	@
+ 1929 1708 0410A0E1 		mov	r1, r4	@, koko
+ 1930 170c 74009FE5 		ldr	r0, .L166+20	@,
+ 1931 1710 FEFFFFEB 		bl	printf	@
+ 1932 1714 70009FE5 		ldr	r0, .L166+24	@,
+ 1933 1718 FEFFFFEB 		bl	puts	@
+ 1934 171c 0420A0E1 		mov	r2, r4	@, koko
+ 1935 1720 0500A0E3 		mov	r0, #5	@,
+ 1936 1724 0D10A0E1 		mov	r1, sp	@,
+ 1937 1728 040000EA 		b	.L162	@
+ 1938              	.L157:
+ 1939 172c 5C009FE5 		ldr	r0, .L166+28	@,
+ 1940 1730 FEFFFFEB 		bl	puts	@
+ 1941 1734 58109FE5 		ldr	r1, .L166+32	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 41
+
+
+ 1942 1738 0600A0E3 		mov	r0, #6	@,
+ 1943              	.L165:
+ 1944 173c 0020A0E3 		mov	r2, #0	@,
+ 1945              	.L162:
+ 1946 1740 FEFFFFEB 		bl	parseOutboundMessage	@
+ 1947 1744 070000EA 		b	.L161	@
+ 1948              	.L158:
+ 1949 1748 48009FE5 		ldr	r0, .L166+36	@,
+ 1950 174c FEFFFFEB 		bl	puts	@
+ 1951 1750 32108DE2 		add	r1, sp, #50	@,,
+ 1952 1754 40009FE5 		ldr	r0, .L166+40	@,
+ 1953 1758 FEFFFFEB 		bl	scanf	@
+ 1954 175c 010000EA 		b	.L161	@
+ 1955              	.L151:
+ 1956 1760 38009FE5 		ldr	r0, .L166+44	@,
+ 1957              	.L163:
+ 1958 1764 FEFFFFEB 		bl	puts	@
+ 1959              	.L161:
+ 1960 1768 44D08DE2 		add	sp, sp, #68	@,,
+ 1961 176c 1040BDE8 		ldmfd	sp!, {r4, lr}
+ 1962 1770 1EFF2FE1 		bx	lr
+ 1963              	.L167:
+ 1964              		.align	2
+ 1965              	.L166:
+ 1966 1774 F2080000 		.word	.LC75
+ 1967 1778 0B090000 		.word	.LC76
+ 1968 177c 21090000 		.word	.LC77
+ 1969 1780 32090000 		.word	.LC78
+ 1970 1784 4B090000 		.word	.LC79
+ 1971 1788 73090000 		.word	.LC80
+ 1972 178c 7C090000 		.word	.LC81
+ 1973 1790 94090000 		.word	.LC82
+ 1974 1794 A9090000 		.word	.LC83
+ 1975 1798 B2090000 		.word	.LC84
+ 1976 179c CF090000 		.word	.LC85
+ 1977 17a0 D2090000 		.word	.LC86
+ 1978              		.size	sendSnmpMessageTestaus, .-sendSnmpMessageTestaus
+ 1979              		.section	.rodata.str1.1
+ 1980              	.LC87:
+ 1981 09e2 0A0A3D3D 		.ascii	"\012\012====== Got %d bytes from %s:%d ======\012\000"
+ 1981      3D3D3D3D 
+ 1981      20476F74 
+ 1981      20256420 
+ 1981      62797465 
+ 1982              	.LC88:
+ 1983 0a0b 0A766572 		.ascii	"\012verkko: game.playerAnnounced=1;\000"
+ 1983      6B6B6F3A 
+ 1983      2067616D 
+ 1983      652E706C 
+ 1983      61796572 
+ 1984              	.LC89:
+ 1985 0a2c 72656365 		.ascii	"receiveMessage: game.playerAddress: %s\012\000"
+ 1985      6976654D 
+ 1985      65737361 
+ 1985      67653A20 
+ 1985      67616D65 
+ 1986              	.LC90:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 42
+
+
+ 1987 0a54 67616D65 		.ascii	"game.player[1].playerStatus:%d\000"
+ 1987      2E706C61 
+ 1987      7965725B 
+ 1987      315D2E70 
+ 1987      6C617965 
+ 1988              	.LC91:
+ 1989 0a73 0A737461 		.ascii	"\012startTurn = 1, 2. else-if\000"
+ 1989      72745475 
+ 1989      726E203D 
+ 1989      20312C20 
+ 1989      322E2065 
+ 1990              	.LC92:
+ 1991 0a8e 0A737461 		.ascii	"\012startTurn = 1, 3. else-if\000"
+ 1991      72745475 
+ 1991      726E203D 
+ 1991      20312C20 
+ 1991      332E2065 
+ 1992              	.LC93:
+ 1993 0aa9 446F2079 		.ascii	"Do you want to play with %s?\012\000"
+ 1993      6F752077 
+ 1993      616E7420 
+ 1993      746F2070 
+ 1993      6C617920 
+ 1994              	.LC94:
+ 1995 0ac7 313A2050 		.ascii	"1: Play\012Any other key: Don't play\000"
+ 1995      6C61790A 
+ 1995      416E7920 
+ 1995      6F746865 
+ 1995      72206B65 
+ 1996              	.LC95:
+ 1997 0ae9 50656C69 		.ascii	"Peli\000"
+ 1997      00
+ 1998              	.LC96:
+ 1999 0aee 0A566173 		.ascii	"\012Vastaaotettiin oid==3 ja SET-REQUEST\012*******"
+ 1999      7461616F 
+ 1999      74657474 
+ 1999      69696E20 
+ 1999      6F69643D 
+ 2000 0b1b 2A2A2A2A 		.ascii	"*********************\000"
+ 2000      2A2A2A2A 
+ 2000      2A2A2A2A 
+ 2000      2A2A2A2A 
+ 2000      2A2A2A2A 
+ 2001              	.LC97:
+ 2002 0b31 0A090956 		.ascii	"\012\011\011Vastustajan koordinaatit otettu vastaan"
+ 2002      61737475 
+ 2002      7374616A 
+ 2002      616E206B 
+ 2002      6F6F7264 
+ 2003 0b5b 2E206761 		.ascii	". game.coordSend = 1\000"
+ 2003      6D652E63 
+ 2003      6F6F7264 
+ 2003      53656E64 
+ 2003      203D2031 
+ 2004              	.LC98:
+ 2005 0b70 0A566173 		.ascii	"\012Vastustaja kuittaa saaneensa 10 koordinaattia\000"
+ 2005      74757374 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 43
+
+
+ 2005      616A6120 
+ 2005      6B756974 
+ 2005      74616120 
+ 2006              	.LC99:
+ 2007 0b9f 0A090967 		.ascii	"\012\011\011game.coordGetOk asetettu: 1\000"
+ 2007      616D652E 
+ 2007      636F6F72 
+ 2007      64476574 
+ 2007      4F6B2061 
+ 2008              	.LC100:
+ 2009 0bbe 0A566173 		.ascii	"\012Vastaanotettu viesti: \000"
+ 2009      7461616E 
+ 2009      6F746574 
+ 2009      74752076 
+ 2009      69657374 
+ 2010              	.LC101:
+ 2011 0bd6 256400   		.ascii	"%d\000"
+ 2012              		.text
+ 2013              		.align	2
+ 2014              		.global	receiveMessage
+ 2015              		.type	receiveMessage, %function
+ 2016              	receiveMessage:
+ 2017              		@ Function supports interworking.
+ 2018              		@ args = 0, pretend = 0, frame = 4
+ 2019              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2020 17a4 F0472DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}	@,
+ 2021 17a8 0010A0E3 		mov	r1, #0	@ movhi	@,
+ 2022 17ac 0CD04DE2 		sub	sp, sp, #12	@,,
+ 2023 17b0 18659FE5 		ldr	r6, .L209	@ tmp367,
+ 2024 17b4 18859FE5 		ldr	r8, .L209+4	@ tmp364,
+ 2025 17b8 18759FE5 		ldr	r7, .L209+8	@ tmp365,
+ 2026 17bc 18A59FE5 		ldr	sl, .L209+12	@ tmp369,
+ 2027 17c0 BA10CDE1 		strh	r1, [sp, #10]	@ movhi	@, oneValue
+ 2028 17c4 289086E2 		add	r9, r6, #40	@ tmp370, tmp367,
+ 2029              	.L201:
+ 2030 17c8 08159FE5 		ldr	r1, .L209+8	@,
+ 2031 17cc 7FC0A0E3 		mov	ip, #127	@ tmp155,
+ 2032 17d0 00C08DE5 		str	ip, [sp, #0]	@ tmp155,
+ 2033 17d4 000098E5 		ldr	r0, [r8, #0]	@, sock
+ 2034 17d8 32C0A0E3 		mov	ip, #50	@ tmp156,
+ 2035 17dc 042081E2 		add	r2, r1, #4	@,,
+ 2036 17e0 083081E2 		add	r3, r1, #8	@,,
+ 2037 17e4 04C08DE5 		str	ip, [sp, #4]	@ tmp156,
+ 2038 17e8 FEFFFFEB 		bl	NutUdpReceiveFrom	@
+ 2039 17ec 0008A0E1 		mov	r0, r0, asl #16	@ tmp157,,
+ 2040 17f0 2048A0E1 		mov	r4, r0, lsr #16	@ D.2482, tmp157,
+ 2041 17f4 000054E3 		cmp	r4, #0	@ D.2482,
+ 2042 17f8 B640C7E1 		strh	r4, [r7, #6]	@ movhi	@ D.2482, vv.daatankoko
+ 2043 17fc 2501000A 		beq	.L169	@,
+ 2044 1800 D8349FE5 		ldr	r3, .L209+16	@ tmp159,
+ 2045 1804 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2046 1808 000053E3 		cmp	r3, #0	@ verbose,
+ 2047 180c 0A00000A 		beq	.L170	@,
+ 2048 1810 CC349FE5 		ldr	r3, .L209+20	@ tmp162,
+ 2049 1814 000097E5 		ldr	r0, [r7, #0]	@ D.2485, vv.osoite
+ 2050 1818 043093E5 		ldr	r3, [r3, #4]	@ game.playerAddress, game.playerAddress
+ 2051 181c 030050E1 		cmp	r0, r3	@ D.2485, game.playerAddress
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 44
+
+
+ 2052 1820 0500001A 		bne	.L170	@,
+ 2053 1824 FEFFFFEB 		bl	inet_ntoa	@
+ 2054 1828 0410A0E1 		mov	r1, r4	@, D.2482
+ 2055 182c 0020A0E1 		mov	r2, r0	@ D.2488,
+ 2056 1830 B430D7E1 		ldrh	r3, [r7, #4]	@, vv.portti
+ 2057 1834 AC049FE5 		ldr	r0, .L209+24	@,
+ 2058 1838 FEFFFFEB 		bl	printf	@
+ 2059              	.L170:
+ 2060 183c FEFFFFEB 		bl	snmpReceive	@
+ 2061 1840 FEFFFFEB 		bl	checkOID	@
+ 2062 1844 010050E3 		cmp	r0, #1	@ oid,
+ 2063 1848 0050A0E1 		mov	r5, r0	@ oid,
+ 2064 184c 1500001A 		bne	.L171	@,
+ 2065 1850 2230D6E5 		ldrb	r3, [r6, #34]	@ zero_extendqisi2	@ vast.error.error_value, vast.error.error_value
+ 2066 1854 000053E3 		cmp	r3, #0	@ vast.error.error_value,
+ 2067 1858 1E00001A 		bne	.L172	@,
+ 2068 185c 80449FE5 		ldr	r4, .L209+20	@ tmp170,
+ 2069 1860 BC33D4E1 		ldrh	r3, [r4, #60]	@ <variable>.playerStatus, <variable>.playerStatus
+ 2070 1864 010053E3 		cmp	r3, #1	@ <variable>.playerStatus,
+ 2071 1868 1A00000A 		beq	.L172	@,
+ 2072 186c 6C349FE5 		ldr	r3, .L209+16	@ tmp178,
+ 2073 1870 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2074 1874 002097E5 		ldr	r2, [r7, #0]	@ vv.osoite, vv.osoite
+ 2075 1878 000053E3 		cmp	r3, #0	@ verbose,
+ 2076 187c 042084E5 		str	r2, [r4, #4]	@ vv.osoite, game.playerAddress
+ 2077 1880 B200C4E1 		strh	r0, [r4, #2]	@ movhi	@ oid, game.playerAnnounced
+ 2078 1884 1300000A 		beq	.L172	@,
+ 2079 1888 5C049FE5 		ldr	r0, .L209+28	@,
+ 2080 188c FEFFFFEB 		bl	printf	@
+ 2081 1890 040094E5 		ldr	r0, [r4, #4]	@, game.playerAddress
+ 2082 1894 FEFFFFEB 		bl	inet_ntoa	@
+ 2083 1898 0010A0E1 		mov	r1, r0	@ D.2494,
+ 2084 189c 4C049FE5 		ldr	r0, .L209+32	@,
+ 2085 18a0 FEFFFFEB 		bl	printf	@
+ 2086 18a4 0B0000EA 		b	.L172	@
+ 2087              	.L171:
+ 2088 18a8 020050E3 		cmp	r0, #2	@ oid,
+ 2089 18ac 0900001A 		bne	.L172	@,
+ 2090 18b0 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ vast.PDU.PDU_type, vast.PDU.PDU_type
+ 2091 18b4 A20053E3 		cmp	r3, #162	@ vast.PDU.PDU_type,
+ 2092 18b8 0600001A 		bne	.L172	@,
+ 2093 18bc 2230D6E5 		ldrb	r3, [r6, #34]	@ zero_extendqisi2	@ vast.error.error_value, vast.error.error_value
+ 2094 18c0 1C249FE5 		ldr	r2, .L209+20	@ tmp185,
+ 2095 18c4 013073E2 		rsbs	r3, r3, #1	@ tmp359, vast.error.error_value
+ 2096 18c8 0030A033 		movcc	r3, #0	@ tmp359
+ 2097 18cc BA30C2E1 		strh	r3, [r2, #10]	@ movhi	@ tmp359, game.opponentAnswer
+ 2098 18d0 0130A0E3 		mov	r3, #1	@ movhi	@,
+ 2099 18d4 B830C2E1 		strh	r3, [r2, #8]	@ movhi	@, game.selectedOpponentHasAnswered
+ 2100              	.L172:
+ 2101 18d8 00349FE5 		ldr	r3, .L209+16	@ tmp196,
+ 2102 18dc B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2103 18e0 000053E3 		cmp	r3, #0	@ verbose,
+ 2104 18e4 F8339F15 		ldrne	r3, .L209+20	@ tmp199,
+ 2105 18e8 04049F15 		ldrne	r0, .L209+36	@,
+ 2106 18ec BC13D311 		ldrneh	r1, [r3, #60]	@, <variable>.playerStatus
+ 2107 18f0 FEFFFF1B 		blne	printf	@
+ 2108              	.L174:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 45
+
+
+ 2109 18f4 E8239FE5 		ldr	r2, .L209+20	@ tmp201,
+ 2110 18f8 BC33D2E1 		ldrh	r3, [r2, #60]	@ <variable>.playerStatus, <variable>.playerStatus
+ 2111 18fc 010053E3 		cmp	r3, #1	@ <variable>.playerStatus,
+ 2112 1900 2200001A 		bne	.L175	@,
+ 2113 1904 013045E2 		sub	r3, r5, #1	@ tmp203, oid,
+ 2114 1908 0338A0E1 		mov	r3, r3, asl #16	@ tmp205, tmp203,
+ 2115 190c 010853E3 		cmp	r3, #65536	@ tmp205,
+ 2116 1910 1E00008A 		bhi	.L175	@,
+ 2117 1914 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ vast.PDU.PDU_type, vast.PDU.PDU_type
+ 2118 1918 A20053E3 		cmp	r3, #162	@ vast.PDU.PDU_type,
+ 2119 191c 1B00000A 		beq	.L175	@,
+ 2120 1920 010055E3 		cmp	r5, #1	@ oid,
+ 2121 1924 0C108D02 		addeq	r1, sp, #12	@ tmp210,,
+ 2122 1928 00C0A003 		moveq	ip, #0	@ movhi	@,
+ 2123 192c B2C06101 		streqh	ip, [r1, #-2]!	@ movhi	@, oneValue
+ 2124 1930 0800000A 		beq	.L208	@,
+ 2125 1934 020055E3 		cmp	r5, #2	@ oid,
+ 2126 1938 1400001A 		bne	.L175	@,
+ 2127 193c 042092E5 		ldr	r2, [r2, #4]	@ game.playerAddress, game.playerAddress
+ 2128 1940 003097E5 		ldr	r3, [r7, #0]	@ vv.osoite, vv.osoite
+ 2129 1944 030052E1 		cmp	r2, r3	@ game.playerAddress, vv.osoite
+ 2130 1948 0500000A 		beq	.L177	@,
+ 2131 194c 0C108DE2 		add	r1, sp, #12	@ tmp217,,
+ 2132 1950 0520A0E3 		mov	r2, #5	@ movhi	@,
+ 2133 1954 B22061E1 		strh	r2, [r1, #-2]!	@ movhi	@, oneValue
+ 2134              	.L208:
+ 2135 1958 0500A0E1 		mov	r0, r5	@, oid
+ 2136 195c FEFFFFEB 		bl	parseSnmpResponse	@
+ 2137 1960 0A0000EA 		b	.L175	@
+ 2138              	.L177:
+ 2139 1964 403096E5 		ldr	r3, [r6, #64]	@ vast.value.value_value, vast.value.value_value
+ 2140 1968 010053E3 		cmp	r3, #1	@ vast.value.value_value,
+ 2141 196c 070000DA 		ble	.L175	@,
+ 2142 1970 68339FE5 		ldr	r3, .L209+16	@ tmp220,
+ 2143 1974 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2144 1978 000053E3 		cmp	r3, #0	@ verbose,
+ 2145 197c 74039F15 		ldrne	r0, .L209+40	@,
+ 2146 1980 FEFFFF1B 		blne	printf	@
+ 2147              	.L178:
+ 2148 1984 58339FE5 		ldr	r3, .L209+20	@ tmp223,
+ 2149 1988 01C0A0E3 		mov	ip, #1	@ movhi	@,
+ 2150 198c B6C1C3E1 		strh	ip, [r3, #22]	@ movhi	@, game.startTurn
+ 2151              	.L175:
+ 2152 1990 4C339FE5 		ldr	r3, .L209+20	@ tmp226,
+ 2153 1994 BC23D3E1 		ldrh	r2, [r3, #60]	@ temp.866, <variable>.playerStatus
+ 2154 1998 020055E3 		cmp	r5, #2	@ oid,
+ 2155 199c 0040A013 		movne	r4, #0	@, D.2502
+ 2156 19a0 0140A003 		moveq	r4, #1	@, D.2502
+ 2157 19a4 010052E3 		cmp	r2, #1	@ temp.866,
+ 2158 19a8 02005503 		cmpeq	r5, #2	@, oid,
+ 2159 19ac 0F00001A 		bne	.L179	@,
+ 2160 19b0 042093E5 		ldr	r2, [r3, #4]	@ game.playerAddress, game.playerAddress
+ 2161 19b4 003097E5 		ldr	r3, [r7, #0]	@ vv.osoite, vv.osoite
+ 2162 19b8 030052E1 		cmp	r2, r3	@ game.playerAddress, vv.osoite
+ 2163 19bc 1900001A 		bne	.L180	@,
+ 2164 19c0 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ vast.PDU.PDU_type, vast.PDU.PDU_type
+ 2165 19c4 A20053E3 		cmp	r3, #162	@ vast.PDU.PDU_type,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 46
+
+
+ 2166 19c8 1600001A 		bne	.L180	@,
+ 2167 19cc 0C339FE5 		ldr	r3, .L209+16	@ tmp240,
+ 2168 19d0 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2169 19d4 000053E3 		cmp	r3, #0	@ verbose,
+ 2170 19d8 1C039F15 		ldrne	r0, .L209+44	@,
+ 2171 19dc FEFFFF1B 		blne	printf	@
+ 2172              	.L181:
+ 2173 19e0 FC329FE5 		ldr	r3, .L209+20	@ tmp243,
+ 2174 19e4 0110A0E3 		mov	r1, #1	@ movhi	@,
+ 2175 19e8 B611C3E1 		strh	r1, [r3, #22]	@ movhi	@, game.startTurn
+ 2176 19ec 0D0000EA 		b	.L180	@
+ 2177              	.L179:
+ 2178 19f0 010055E3 		cmp	r5, #1	@ oid,
+ 2179 19f4 0B00001A 		bne	.L180	@,
+ 2180 19f8 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ vast.PDU.PDU_type, vast.PDU.PDU_type
+ 2181 19fc A20053E3 		cmp	r3, #162	@ vast.PDU.PDU_type,
+ 2182 1a00 8500000A 		beq	.L194	@,
+ 2183 1a04 000052E3 		cmp	r2, #0	@ temp.866,
+ 2184 1a08 8300001A 		bne	.L194	@,
+ 2185 1a0c FA0FA0E3 		mov	r0, #1000	@,
+ 2186 1a10 FEFFFFEB 		bl	NutSleep	@
+ 2187 1a14 0C108DE2 		add	r1, sp, #12	@ tmp250,,
+ 2188 1a18 B25061E1 		strh	r5, [r1, #-2]!	@ movhi	@ oid, oneValue
+ 2189 1a1c 0500A0E1 		mov	r0, r5	@, oid
+ 2190 1a20 FEFFFFEB 		bl	parseSnmpResponse	@
+ 2191 1a24 7C0000EA 		b	.L194	@
+ 2192              	.L180:
+ 2193 1a28 000054E3 		cmp	r4, #0	@ D.2502,
+ 2194 1a2c 2200000A 		beq	.L183	@,
+ 2195 1a30 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ vast.PDU.PDU_type, vast.PDU.PDU_type
+ 2196 1a34 A30053E3 		cmp	r3, #163	@ vast.PDU.PDU_type,
+ 2197 1a38 9900001A 		bne	.L184	@,
+ 2198 1a3c A0329FE5 		ldr	r3, .L209+20	@ tmp253,
+ 2199 1a40 BC33D3E1 		ldrh	r3, [r3, #60]	@ <variable>.playerStatus, <variable>.playerStatus
+ 2200 1a44 000053E3 		cmp	r3, #0	@ <variable>.playerStatus,
+ 2201 1a48 9500001A 		bne	.L184	@,
+ 2202 1a4c 404096E5 		ldr	r4, [r6, #64]	@ vast.value.value_value, vast.value.value_value
+ 2203 1a50 000054E3 		cmp	r4, #0	@ vast.value.value_value,
+ 2204 1a54 9200001A 		bne	.L184	@,
+ 2205 1a58 000097E5 		ldr	r0, [r7, #0]	@, vv.osoite
+ 2206 1a5c FEFFFFEB 		bl	inet_ntoa	@
+ 2207 1a60 0010A0E1 		mov	r1, r0	@ D.2504,
+ 2208 1a64 94029FE5 		ldr	r0, .L209+48	@,
+ 2209 1a68 FEFFFFEB 		bl	printf	@
+ 2210 1a6c 90029FE5 		ldr	r0, .L209+52	@,
+ 2211 1a70 FEFFFFEB 		bl	puts	@
+ 2212 1a74 8C329FE5 		ldr	r3, .L209+56	@ tmp260,
+ 2213 1a78 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 2214 1a7c FEFFFFEB 		bl	getc	@
+ 2215 1a80 0008A0E1 		mov	r0, r0, asl #16	@ tmp262,,
+ 2216 1a84 310850E3 		cmp	r0, #3211264	@ tmp262,
+ 2217 1a88 0500001A 		bne	.L185	@,
+ 2218 1a8c 0420A0E1 		mov	r2, r4	@, vast.value.value_value
+ 2219 1a90 74129FE5 		ldr	r1, .L209+60	@,
+ 2220 1a94 033CA0E3 		mov	r3, #768	@,
+ 2221 1a98 70029FE5 		ldr	r0, .L209+64	@,
+ 2222 1a9c FEFFFFEB 		bl	NutThreadCreate	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 47
+
+
+ 2223 1aa0 7F0000EA 		b	.L184	@
+ 2224              	.L185:
+ 2225 1aa4 0C108DE2 		add	r1, sp, #12	@ tmp267,,
+ 2226 1aa8 0520A0E3 		mov	r2, #5	@ movhi	@,
+ 2227 1aac B22061E1 		strh	r2, [r1, #-2]!	@ movhi	@, oneValue
+ 2228 1ab0 0200A0E3 		mov	r0, #2	@,
+ 2229 1ab4 FEFFFFEB 		bl	parseSnmpResponse	@
+ 2230 1ab8 790000EA 		b	.L184	@
+ 2231              	.L183:
+ 2232 1abc 030055E3 		cmp	r5, #3	@ oid,
+ 2233 1ac0 0C00000A 		beq	.L186	@,
+ 2234 1ac4 320000EA 		b	.L187	@
+ 2235              	.L202:
+ 2236 1ac8 14329FE5 		ldr	r3, .L209+20	@ tmp268,
+ 2237 1acc 01C0A0E3 		mov	ip, #1	@ movhi	@,
+ 2238 1ad0 F8119FE5 		ldr	r1, .L209	@,
+ 2239 1ad4 422FA0E3 		mov	r2, #264	@,
+ 2240 1ad8 B2C2C3E1 		strh	ip, [r3, #34]	@ movhi	@, <variable>.shipsSetStatus
+ 2241 1adc 30029FE5 		ldr	r0, .L209+68	@,
+ 2242 1ae0 FEFFFFEB 		bl	memcpy	@
+ 2243 1ae4 730000EA 		b	.L188	@
+ 2244              	.L203:
+ 2245 1ae8 F4319FE5 		ldr	r3, .L209+20	@ tmp277,
+ 2246 1aec 0110A0E3 		mov	r1, #1	@ movhi	@,
+ 2247 1af0 B212C3E1 		strh	r1, [r3, #34]	@ movhi	@, <variable>.shipsSetStatus
+ 2248 1af4 6F0000EA 		b	.L188	@
+ 2249              	.L186:
+ 2250 1af8 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ vast.PDU.PDU_type, vast.PDU.PDU_type
+ 2251 1afc A30053E3 		cmp	r3, #163	@ vast.PDU.PDU_type,
+ 2252 1b00 1400001A 		bne	.L189	@,
+ 2253 1b04 D4319FE5 		ldr	r3, .L209+16	@ tmp282,
+ 2254 1b08 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2255 1b0c 000053E3 		cmp	r3, #0	@ verbose,
+ 2256 1b10 00029F15 		ldrne	r0, .L209+72	@,
+ 2257 1b14 FEFFFF1B 		blne	printf	@
+ 2258              	.L190:
+ 2259 1b18 B0319FE5 		ldr	r3, .L209	@ ivtmp.852,
+ 2260 1b1c 0020A0E3 		mov	r2, #0	@ ivtmp.854,
+ 2261              	.L191:
+ 2262 1b20 B0C4D3E1 		ldrh	ip, [r3, #64]	@, vast.value.value_value
+ 2263 1b24 043083E2 		add	r3, r3, #4	@ ivtmp.852, ivtmp.852,
+ 2264 1b28 090053E1 		cmp	r3, r9	@ ivtmp.852, tmp370
+ 2265 1b2c B2C08AE1 		strh	ip, [sl, r2]	@ movhi	@, oppCoord
+ 2266 1b30 022082E2 		add	r2, r2, #2	@ ivtmp.854, ivtmp.854,
+ 2267 1b34 F9FFFF1A 		bne	.L191	@,
+ 2268 1b38 A0319FE5 		ldr	r3, .L209+16	@ tmp292,
+ 2269 1b3c B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2270 1b40 000053E3 		cmp	r3, #0	@ verbose,
+ 2271 1b44 98319FE5 		ldr	r3, .L209+20	@ tmp289,
+ 2272 1b48 0110A0E3 		mov	r1, #1	@ movhi	@,
+ 2273 1b4c BE10C3E1 		strh	r1, [r3, #14]	@ movhi	@, game.coordSend
+ 2274 1b50 C4019F15 		ldrne	r0, .L209+76	@,
+ 2275 1b54 FEFFFF1B 		blne	puts	@
+ 2276              	.L189:
+ 2277 1b58 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ vast.PDU.PDU_type, vast.PDU.PDU_type
+ 2278 1b5c A20053E3 		cmp	r3, #162	@ vast.PDU.PDU_type,
+ 2279 1b60 5700001A 		bne	.L192	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 48
+
+
+ 2280 1b64 74319FE5 		ldr	r3, .L209+16	@ tmp300,
+ 2281 1b68 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2282 1b6c 000053E3 		cmp	r3, #0	@ verbose,
+ 2283 1b70 6C319FE5 		ldr	r3, .L209+20	@ tmp297,
+ 2284 1b74 0120A0E3 		mov	r2, #1	@ movhi	@,
+ 2285 1b78 BC20C3E1 		strh	r2, [r3, #12]	@ movhi	@, game.coordGetOk
+ 2286 1b7c 5000000A 		beq	.L192	@,
+ 2287 1b80 98019FE5 		ldr	r0, .L209+80	@,
+ 2288 1b84 FEFFFFEB 		bl	printf	@
+ 2289 1b88 94019FE5 		ldr	r0, .L209+84	@,
+ 2290 1b8c FEFFFFEB 		bl	printf	@
+ 2291 1b90 4B0000EA 		b	.L192	@
+ 2292              	.L187:
+ 2293 1b94 040055E3 		cmp	r5, #4	@ oid,
+ 2294 1b98 1B00001A 		bne	.L182	@,
+ 2295 1b9c 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ vast.PDU.PDU_type, vast.PDU.PDU_type
+ 2296 1ba0 A00053E3 		cmp	r3, #160	@ vast.PDU.PDU_type,
+ 2297 1ba4 0600001A 		bne	.L193	@,
+ 2298 1ba8 34319FE5 		ldr	r3, .L209+20	@ tmp306,
+ 2299 1bac 01C0A0E3 		mov	ip, #1	@ movhi	@,
+ 2300 1bb0 70019FE5 		ldr	r0, .L209+88	@,
+ 2301 1bb4 14119FE5 		ldr	r1, .L209	@,
+ 2302 1bb8 422FA0E3 		mov	r2, #264	@,
+ 2303 1bbc B2C1C3E1 		strh	ip, [r3, #18]	@ movhi	@, game.resultsAsked
+ 2304 1bc0 FEFFFFEB 		bl	memcpy	@
+ 2305              	.L193:
+ 2306 1bc4 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ vast.PDU.PDU_type, vast.PDU.PDU_type
+ 2307 1bc8 A20053E3 		cmp	r3, #162	@ vast.PDU.PDU_type,
+ 2308 1bcc 1200001A 		bne	.L194	@,
+ 2309 1bd0 54219FE5 		ldr	r2, .L209+92	@ tmp317,
+ 2310 1bd4 B015D6E1 		ldrh	r1, [r6, #80]	@, vast.value.value_value
+ 2311 1bd8 04319FE5 		ldr	r3, .L209+20	@ tmp332,
+ 2312 1bdc B810C2E1 		strh	r1, [r2, #8]	@ movhi	@, oppShotEffects
+ 2313 1be0 B014D6E1 		ldrh	r1, [r6, #64]	@, vast.value.value_value
+ 2314 1be4 01C0A0E3 		mov	ip, #1	@ movhi	@,
+ 2315 1be8 B0C1C3E1 		strh	ip, [r3, #16]	@ movhi	@, game.resultsSend
+ 2316 1bec B010C2E1 		strh	r1, [r2, #0]	@ movhi	@, oppShotEffects
+ 2317 1bf0 B434D6E1 		ldrh	r3, [r6, #68]	@, vast.value.value_value
+ 2318 1bf4 B8C4D6E1 		ldrh	ip, [r6, #72]	@, vast.value.value_value
+ 2319 1bf8 BC14D6E1 		ldrh	r1, [r6, #76]	@, vast.value.value_value
+ 2320 1bfc B230C2E1 		strh	r3, [r2, #2]	@ movhi	@, oppShotEffects
+ 2321 1c00 B4C0C2E1 		strh	ip, [r2, #4]	@ movhi	@, oppShotEffects
+ 2322 1c04 B610C2E1 		strh	r1, [r2, #6]	@ movhi	@, oppShotEffects
+ 2323 1c08 030000EA 		b	.L194	@
+ 2324              	.L182:
+ 2325 1c0c 060055E3 		cmp	r5, #6	@ oid,
+ 2326 1c10 CC309F05 		ldreq	r3, .L209+20	@ tmp335,
+ 2327 1c14 0220A003 		moveq	r2, #2	@ movhi	@,
+ 2328 1c18 BA21C301 		streqh	r2, [r3, #26]	@ movhi	@, game.gameStatus
+ 2329              	.L194:
+ 2330 1c1c 023045E2 		sub	r3, r5, #2	@ tmp338, oid,
+ 2331 1c20 0338A0E1 		mov	r3, r3, asl #16	@ tmp340, tmp338,
+ 2332 1c24 020853E3 		cmp	r3, #131072	@ tmp340,
+ 2333 1c28 0300008A 		bhi	.L195	@,
+ 2334 1c2c AC309FE5 		ldr	r3, .L209+16	@ tmp341,
+ 2335 1c30 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 2336 1c34 010053E3 		cmp	r3, #1	@ verbose,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 49
+
+
+ 2337 1c38 0100000A 		beq	.L196	@,
+ 2338              	.L195:
+ 2339 1c3c 050055E3 		cmp	r5, #5	@ oid,
+ 2340 1c40 1400001A 		bne	.L169	@,
+ 2341              	.L196:
+ 2342 1c44 E4009FE5 		ldr	r0, .L209+96	@,
+ 2343 1c48 FEFFFFEB 		bl	printf	@
+ 2344 1c4c 0040A0E3 		mov	r4, #0	@ i,
+ 2345 1c50 0A0000EA 		b	.L197	@
+ 2346              	.L200:
+ 2347 1c54 050055E3 		cmp	r5, #5	@ oid,
+ 2348 1c58 103084E2 		add	r3, r4, #16	@ tmp357, i,
+ 2349 1c5c 0200001A 		bne	.L198	@,
+ 2350 1c60 030196E7 		ldr	r0, [r6, r3, asl #2]	@, vast.value.value_value
+ 2351 1c64 FEFFFFEB 		bl	putchar	@
+ 2352 1c68 010000EA 		b	.L199	@
+ 2353              	.L198:
+ 2354 1c6c 031196E7 		ldr	r1, [r6, r3, asl #2]	@, vast.value.value_value
+ 2355 1c70 FEFFFFEB 		bl	printf	@
+ 2356              	.L199:
+ 2357 1c74 013084E2 		add	r3, r4, #1	@ tmp349, i,
+ 2358 1c78 0338A0E1 		mov	r3, r3, asl #16	@ tmp350, tmp349,
+ 2359 1c7c 2348A0E1 		mov	r4, r3, lsr #16	@ i, tmp350,
+ 2360              	.L197:
+ 2361 1c80 3D30D6E5 		ldrb	r3, [r6, #61]	@ zero_extendqisi2	@ tmp354, vast.value.value_length
+ 2362 1c84 040053E1 		cmp	r3, r4	@ tmp354, i
+ 2363 1c88 A4009FE5 		ldr	r0, .L209+100	@,
+ 2364 1c8c F0FFFF8A 		bhi	.L200	@,
+ 2365 1c90 0A00A0E3 		mov	r0, #10	@,
+ 2366 1c94 FEFFFFEB 		bl	putchar	@
+ 2367              	.L169:
+ 2368 1c98 0100A0E3 		mov	r0, #1	@,
+ 2369 1c9c FEFFFFEB 		bl	NutSleep	@
+ 2370 1ca0 C8FEFFEA 		b	.L201	@
+ 2371              	.L184:
+ 2372 1ca4 1430D6E5 		ldrb	r3, [r6, #20]	@ zero_extendqisi2	@ temp.876, vast.PDU.PDU_type
+ 2373 1ca8 A30053E3 		cmp	r3, #163	@ temp.876,
+ 2374 1cac 85FFFF0A 		beq	.L202	@,
+ 2375 1cb0 A20053E3 		cmp	r3, #162	@ temp.876,
+ 2376 1cb4 8BFFFF0A 		beq	.L203	@,
+ 2377              	.L188:
+ 2378 1cb8 030055E3 		cmp	r5, #3	@ oid,
+ 2379 1cbc B4FFFF1A 		bne	.L187	@,
+ 2380 1cc0 A4FFFFEA 		b	.L189	@
+ 2381              	.L192:
+ 2382 1cc4 040055E3 		cmp	r5, #4	@ oid,
+ 2383 1cc8 CFFFFF1A 		bne	.L182	@,
+ 2384 1ccc BCFFFFEA 		b	.L193	@
+ 2385              	.L210:
+ 2386              		.align	2
+ 2387              	.L209:
+ 2388 1cd0 00000000 		.word	vast
+ 2389 1cd4 00000000 		.word	sock
+ 2390 1cd8 00000000 		.word	vv
+ 2391 1cdc 00000000 		.word	oppCoord
+ 2392 1ce0 00000000 		.word	verbose
+ 2393 1ce4 00000000 		.word	game
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 50
+
+
+ 2394 1ce8 E2090000 		.word	.LC87
+ 2395 1cec 0B0A0000 		.word	.LC88
+ 2396 1cf0 2C0A0000 		.word	.LC89
+ 2397 1cf4 540A0000 		.word	.LC90
+ 2398 1cf8 730A0000 		.word	.LC91
+ 2399 1cfc 8E0A0000 		.word	.LC92
+ 2400 1d00 A90A0000 		.word	.LC93
+ 2401 1d04 C70A0000 		.word	.LC94
+ 2402 1d08 00000000 		.word	__iob
+ 2403 1d0c 00000000 		.word	Kaksinpeli
+ 2404 1d10 E90A0000 		.word	.LC95
+ 2405 1d14 00000000 		.word	SR_2
+ 2406 1d18 EE0A0000 		.word	.LC96
+ 2407 1d1c 310B0000 		.word	.LC97
+ 2408 1d20 700B0000 		.word	.LC98
+ 2409 1d24 9F0B0000 		.word	.LC99
+ 2410 1d28 00000000 		.word	GR_4
+ 2411 1d2c 00000000 		.word	oppShotEffects
+ 2412 1d30 BE0B0000 		.word	.LC100
+ 2413 1d34 D60B0000 		.word	.LC101
+ 2414              		.size	receiveMessage, .-receiveMessage
+ 2415              		.section	.rodata.str1.1
+ 2416              	.LC102:
+ 2417 0bd9 52656769 		.ascii	"Registering network device failed! \000"
+ 2417      73746572 
+ 2417      696E6720 
+ 2417      6E657477 
+ 2417      6F726B20 
+ 2418              	.LC103:
+ 2419 0bfd 0A0A3D3D 		.ascii	"\012\012============= Starting Network ============"
+ 2419      3D3D3D3D 
+ 2419      3D3D3D3D 
+ 2419      3D3D3D20 
+ 2419      53746172 
+ 2420 0c2a 3D3D3D00 		.ascii	"===\000"
+ 2421              	.LC104:
+ 2422 0c2e 31302E31 		.ascii	"10.10.4.30\000"
+ 2422      302E342E 
+ 2422      333000
+ 2423              	.LC105:
+ 2424 0c39 3235352E 		.ascii	"255.255.0.0\000"
+ 2424      3235352E 
+ 2424      302E3000 
+ 2425              	.LC106:
+ 2426 0c45 65746830 		.ascii	"eth0\000"
+ 2426      00
+ 2427              	.LC107:
+ 2428 0c4a 25732072 		.ascii	"%s ready\012\000"
+ 2428      65616479 
+ 2428      0A00
+ 2429              	.LC108:
+ 2430 0c54 4C697374 		.ascii	"Listening on port: %d \012\000"
+ 2430      656E696E 
+ 2430      67206F6E 
+ 2430      20706F72 
+ 2430      743A2025 
+ 2431              	.LC109:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 51
+
+
+ 2432 0c6c 543100   		.ascii	"T1\000"
+ 2433              		.text
+ 2434              		.align	2
+ 2435              		.global	initializeNetwork
+ 2436              		.type	initializeNetwork, %function
+ 2437              	initializeNetwork:
+ 2438              		@ Function supports interworking.
+ 2439              		@ args = 0, pretend = 0, frame = 8
+ 2440              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2441 1d38 70402DE9 		stmfd	sp!, {r4, r5, r6, lr}	@,
+ 2442 1d3c 08D04DE2 		sub	sp, sp, #8	@,,
+ 2443 1d40 000000EA 		b	.L212	@
+ 2444              	.L213:
+ 2445 1d44 FEFFFFEB 		bl	printf	@
+ 2446              	.L212:
+ 2447 1d48 0010A0E3 		mov	r1, #0	@,
+ 2448 1d4c 0120A0E1 		mov	r2, r1	@,
+ 2449 1d50 D4009FE5 		ldr	r0, .L215	@,
+ 2450 1d54 FEFFFFEB 		bl	NutRegisterDevice	@
+ 2451 1d58 006050E2 		subs	r6, r0, #0	@ D.2455,
+ 2452 1d5c CC009FE5 		ldr	r0, .L215+4	@,
+ 2453 1d60 F7FFFF1A 		bne	.L213	@,
+ 2454 1d64 C8009FE5 		ldr	r0, .L215+8	@,
+ 2455 1d68 FEFFFFEB 		bl	puts	@
+ 2456 1d6c C4109FE5 		ldr	r1, .L215+12	@,
+ 2457 1d70 0620A0E3 		mov	r2, #6	@,
+ 2458 1d74 0D00A0E1 		mov	r0, sp	@,
+ 2459 1d78 FEFFFFEB 		bl	memcpy	@
+ 2460 1d7c B8009FE5 		ldr	r0, .L215+16	@,
+ 2461 1d80 FEFFFFEB 		bl	inet_addr	@
+ 2462 1d84 0040A0E1 		mov	r4, r0	@ ip_addr,
+ 2463 1d88 B0009FE5 		ldr	r0, .L215+20	@,
+ 2464 1d8c FEFFFFEB 		bl	inet_addr	@
+ 2465 1d90 0420A0E1 		mov	r2, r4	@, ip_addr
+ 2466 1d94 0030A0E1 		mov	r3, r0	@ ip_mask,
+ 2467 1d98 0D10A0E1 		mov	r1, sp	@,
+ 2468 1d9c A0009FE5 		ldr	r0, .L215+24	@,
+ 2469 1da0 FEFFFFEB 		bl	NutNetIfConfig	@
+ 2470 1da4 9C309FE5 		ldr	r3, .L215+28	@ tmp150,
+ 2471 1da8 1120D3E5 		ldrb	r2, [r3, #17]	@ zero_extendqisi2	@ tmp152,
+ 2472 1dac 1000D3E5 		ldrb	r0, [r3, #16]	@ zero_extendqisi2	@ tmp151,
+ 2473 1db0 1210D3E5 		ldrb	r1, [r3, #18]	@ zero_extendqisi2	@ tmp155,
+ 2474 1db4 020480E1 		orr	r0, r0, r2, asl #8	@, tmp154, tmp151, tmp152,
+ 2475 1db8 1330D3E5 		ldrb	r3, [r3, #19]	@ zero_extendqisi2	@ tmp158,
+ 2476 1dbc 010880E1 		orr	r0, r0, r1, asl #16	@, tmp157, tmp154, tmp155,
+ 2477 1dc0 030C80E1 		orr	r0, r0, r3, asl #24	@,, tmp157, tmp158,
+ 2478 1dc4 FEFFFFEB 		bl	inet_ntoa	@
+ 2479 1dc8 0010A0E1 		mov	r1, r0	@ D.2460,
+ 2480 1dcc 78009FE5 		ldr	r0, .L215+32	@,
+ 2481 1dd0 FEFFFFEB 		bl	printf	@
+ 2482 1dd4 A100A0E3 		mov	r0, #161	@,
+ 2483 1dd8 FEFFFFEB 		bl	NutUdpCreateSocket	@
+ 2484 1ddc 08208DE2 		add	r2, sp, #8	@ tmp166,,
+ 2485 1de0 68C09FE5 		ldr	ip, .L215+36	@ tmp162,
+ 2486 1de4 013BA0E3 		mov	r3, #1024	@ movhi	@,
+ 2487 1de8 B23062E1 		strh	r3, [r2, #-2]!	@ movhi	@, rxsz
+ 2488 1dec 60109FE5 		ldr	r1, .L215+40	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 52
+
+
+ 2489 1df0 0230A0E3 		mov	r3, #2	@,
+ 2490 1df4 00008CE5 		str	r0, [ip, #0]	@, sock
+ 2491 1df8 FEFFFFEB 		bl	NutUdpSetSockOpt	@
+ 2492 1dfc A110A0E3 		mov	r1, #161	@,
+ 2493 1e00 50009FE5 		ldr	r0, .L215+44	@,
+ 2494 1e04 FEFFFFEB 		bl	printf	@
+ 2495 1e08 0620A0E1 		mov	r2, r6	@, D.2455
+ 2496 1e0c 48109FE5 		ldr	r1, .L215+48	@,
+ 2497 1e10 7D3EA0E3 		mov	r3, #2000	@,
+ 2498 1e14 44009FE5 		ldr	r0, .L215+52	@,
+ 2499 1e18 0D50A0E1 		mov	r5, sp	@ tmp142,
+ 2500 1e1c FEFFFFEB 		bl	NutThreadCreate	@
+ 2501 1e20 08D08DE2 		add	sp, sp, #8	@,,
+ 2502 1e24 7040BDE8 		ldmfd	sp!, {r4, r5, r6, lr}
+ 2503 1e28 1EFF2FE1 		bx	lr
+ 2504              	.L216:
+ 2505              		.align	2
+ 2506              	.L215:
+ 2507 1e2c 00000000 		.word	devDM9000E
+ 2508 1e30 D90B0000 		.word	.LC102
+ 2509 1e34 FD0B0000 		.word	.LC103
+ 2510 1e38 00000000 		.word	C.1.2456
+ 2511 1e3c 2E0C0000 		.word	.LC104
+ 2512 1e40 390C0000 		.word	.LC105
+ 2513 1e44 450C0000 		.word	.LC106
+ 2514 1e48 00000000 		.word	confnet
+ 2515 1e4c 4A0C0000 		.word	.LC107
+ 2516 1e50 00000000 		.word	sock
+ 2517 1e54 02100000 		.word	4098
+ 2518 1e58 540C0000 		.word	.LC108
+ 2519 1e5c 00000000 		.word	Vastaanotto
+ 2520 1e60 6C0C0000 		.word	.LC109
+ 2521              		.size	initializeNetwork, .-initializeNetwork
+ 2522              		.align	2
+ 2523              		.global	Lahetys
+ 2524              		.type	Lahetys, %function
+ 2525              	Lahetys:
+ 2526              		@ Function supports interworking.
+ 2527              		@ Volatile: function does not return.
+ 2528              		@ args = 0, pretend = 0, frame = 0
+ 2529              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2530              		@ link register save eliminated.
+ 2531 1e64 C800A0E3 		mov	r0, #200	@,
+ 2532 1e68 FEFFFFEB 		bl	NutSleep	@
+ 2533 1e6c 2000A0E3 		mov	r0, #32	@,
+ 2534 1e70 FEFFFFEB 		bl	NutThreadSetPriority	@
+ 2535              	.L218:
+ 2536 1e74 FEFFFFEB 		bl	printLahetys	@
+ 2537 1e78 FEFFFFEB 		bl	sendSnmpMessageTestaus	@
+ 2538 1e7c 9600A0E3 		mov	r0, #150	@,
+ 2539 1e80 FEFFFFEB 		bl	NutSleep	@
+ 2540 1e84 FAFFFFEA 		b	.L218	@
+ 2541              		.size	Lahetys, .-Lahetys
+ 2542              		.section	.rodata.str1.1
+ 2543              	.LC110:
+ 2544 0c6f 4D657373 		.ascii	"Message receiver module ready...\000"
+ 2544      61676520 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 53
+
+
+ 2544      72656365 
+ 2544      69766572 
+ 2544      206D6F64 
+ 2545              		.text
+ 2546              		.align	2
+ 2547              		.global	Vastaanotto
+ 2548              		.type	Vastaanotto, %function
+ 2549              	Vastaanotto:
+ 2550              		@ Function supports interworking.
+ 2551              		@ Volatile: function does not return.
+ 2552              		@ args = 0, pretend = 0, frame = 0
+ 2553              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2554              		@ link register save eliminated.
+ 2555 1e88 2000A0E3 		mov	r0, #32	@,
+ 2556 1e8c FEFFFFEB 		bl	NutThreadSetPriority	@
+ 2557              	.L221:
+ 2558 1e90 10009FE5 		ldr	r0, .L223	@,
+ 2559 1e94 FEFFFFEB 		bl	puts	@
+ 2560 1e98 FEFFFFEB 		bl	receiveMessage	@
+ 2561 1e9c 7D00A0E3 		mov	r0, #125	@,
+ 2562 1ea0 FEFFFFEB 		bl	NutSleep	@
+ 2563 1ea4 F9FFFFEA 		b	.L221	@
+ 2564              	.L224:
+ 2565              		.align	2
+ 2566              	.L223:
+ 2567 1ea8 6F0C0000 		.word	.LC110
+ 2568              		.size	Vastaanotto, .-Vastaanotto
+ 2569              		.section	.rodata.str1.1
+ 2570              	.LC111:
+ 2571 0c90 54485245 		.ascii	"THREAD: Kaksinpeli: Aloitetaan peli.\000"
+ 2571      41443A20 
+ 2571      4B616B73 
+ 2571      696E7065 
+ 2571      6C693A20 
+ 2572              	.LC112:
+ 2573 0cb5 54485245 		.ascii	"THREAD: Kaksinpeli: Peli loppui.\000"
+ 2573      41443A20 
+ 2573      4B616B73 
+ 2573      696E7065 
+ 2573      6C693A20 
+ 2574              	.LC113:
+ 2575 0cd6 53756C6A 		.ascii	"Suljetaan kaksinpeli threadi***************\000"
+ 2575      65746161 
+ 2575      6E206B61 
+ 2575      6B73696E 
+ 2575      70656C69 
+ 2576              		.text
+ 2577              		.align	2
+ 2578              		.global	Kaksinpeli
+ 2579              		.type	Kaksinpeli, %function
+ 2580              	Kaksinpeli:
+ 2581              		@ Function supports interworking.
+ 2582              		@ Volatile: function does not return.
+ 2583              		@ args = 0, pretend = 0, frame = 4
+ 2584              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2585              		@ link register save eliminated.
+ 2586 1eac 04D04DE2 		sub	sp, sp, #4	@,,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 54
+
+
+ 2587 1eb0 0040A0E3 		mov	r4, #0	@ tmp136,
+ 2588 1eb4 04508DE2 		add	r5, sp, #4	@ tmp143,,
+ 2589 1eb8 3000A0E3 		mov	r0, #48	@,
+ 2590 1ebc B24065E1 		strh	r4, [r5, #-2]!	@ movhi	@ tmp136, oneValue
+ 2591 1ec0 FEFFFFEB 		bl	NutThreadSetPriority	@
+ 2592 1ec4 0400A0E1 		mov	r0, r4	@, tmp136
+ 2593 1ec8 FEFFFFEB 		bl	time	@
+ 2594 1ecc FEFFFFEB 		bl	srand	@
+ 2595 1ed0 FEFFFFEB 		bl	resetWholeGame	@
+ 2596 1ed4 48309FE5 		ldr	r3, .L227	@ tmp138,
+ 2597 1ed8 002093E5 		ldr	r2, [r3, #0]	@ vv.osoite, vv.osoite
+ 2598 1edc 44309FE5 		ldr	r3, .L227+4	@ tmp137,
+ 2599 1ee0 042083E5 		str	r2, [r3, #4]	@ vv.osoite, game.playerAddress
+ 2600 1ee4 0120A0E3 		mov	r2, #1	@ movhi	@,
+ 2601 1ee8 BC23C3E1 		strh	r2, [r3, #60]	@ movhi	@, <variable>.playerStatus
+ 2602 1eec FEFFFFEB 		bl	showGameStatus	@
+ 2603 1ef0 0510A0E1 		mov	r1, r5	@, tmp143
+ 2604 1ef4 0200A0E3 		mov	r0, #2	@,
+ 2605 1ef8 FEFFFFEB 		bl	parseSnmpResponse	@
+ 2606 1efc 28009FE5 		ldr	r0, .L227+8	@,
+ 2607 1f00 FEFFFFEB 		bl	puts	@
+ 2608 1f04 FEFFFFEB 		bl	startTwoPlayerGame	@
+ 2609 1f08 20009FE5 		ldr	r0, .L227+12	@,
+ 2610 1f0c FEFFFFEB 		bl	puts	@
+ 2611 1f10 1C009FE5 		ldr	r0, .L227+16	@,
+ 2612 1f14 FEFFFFEB 		bl	puts	@
+ 2613 1f18 FEFFFFEB 		bl	NutThreadExit	@
+ 2614 1f1c 04D08DE2 		add	sp, sp, #4	@,,
+ 2615 1f20 1EFF2FE1 		bx	lr
+ 2616              	.L228:
+ 2617              		.align	2
+ 2618              	.L227:
+ 2619 1f24 00000000 		.word	vv
+ 2620 1f28 00000000 		.word	game
+ 2621 1f2c 900C0000 		.word	.LC111
+ 2622 1f30 B50C0000 		.word	.LC112
+ 2623 1f34 D60C0000 		.word	.LC113
+ 2624              		.size	Kaksinpeli, .-Kaksinpeli
+ 2625              		.section	.rodata
+ 2626              		.type	C.1.2456, %object
+ 2627              		.size	C.1.2456, 6
+ 2628              	C.1.2456:
+ 2629 0000 00       		.byte	0
+ 2630 0001 06       		.byte	6
+ 2631 0002 98       		.byte	-104
+ 2632 0003 00       		.byte	0
+ 2633 0004 00       		.byte	0
+ 2634 0005 00       		.byte	0
+ 2635              		.comm	SR_2,264,4
+ 2636              		.comm	GR_4,264,4
+ 2637              		.comm	sea,200,2
+ 2638              		.comm	oppSea,200,2
+ 2639              		.comm	targetSea,200,2
+ 2640              		.comm	oppTargetSea,200,2
+ 2641              		.comm	player1,24,4
+ 2642              		.comm	player2,24,4
+ 2643              		.comm	game,80,4
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 55
+
+
+ 2644              		.comm	air5,40,4
+ 2645              		.comm	bat4,40,4
+ 2646              		.comm	cru3,40,4
+ 2647              		.comm	sub3,40,4
+ 2648              		.comm	des2,40,4
+ 2649              		.comm	oppAir5,40,4
+ 2650              		.comm	oppBat4,40,4
+ 2651              		.comm	oppCru3,40,4
+ 2652              		.comm	oppSub3,40,4
+ 2653              		.comm	oppDes2,40,4
+ 2654              		.comm	temp,20,2
+ 2655              		.comm	targetSeaShotX,10,2
+ 2656              		.comm	targetSeaShotY,10,2
+ 2657              		.comm	targetOppSeaShotX,10,2
+ 2658              		.comm	targetOppSeaShotY,10,2
+ 2659              		.comm	targetOppShotX,10,2
+ 2660              		.comm	targetOppShotY,10,2
+ 2661              		.comm	oneValue,2,2
+ 2662              		.comm	length,2,2
+ 2663              		.comm	ourCoord,20,2
+ 2664              		.comm	oppCoord,20,2
+ 2665              		.comm	seaShotEffects,10,2
+ 2666              		.comm	oppShotEffects,10,2
+ 2667              		.comm	vastustajaLista,80,4
+ 2668              		.comm	u_shortLista,40,2
+ 2669              		.comm	verbose,2,2
+ 2670              		.comm	sock,4,4
+ 2671              		.comm	addr,4,4
+ 2672              		.comm	port,2,2
+ 2673              		.comm	data,200,1
+ 2674              		.comm	size,2,2
+ 2675              		.comm	parsittudata,200,1
+ 2676              		.comm	vv,136,4
+ 2677              		.comm	lv,136,4
+ 2678              		.comm	vast,264,4
+ 2679              		.comm	lahteva,264,4
+ 2680              		.ident	"GCC: (GNU) 4.3.2"
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 56
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 verkko.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:42     .text:00000000 snmpReceive
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:47     .text:00000000 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:221    .text:00000284 $d
+                            *COM*:00000088 vv
+                            *COM*:00000108 vast
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:227    .text:0000028c calculateLengths
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:232    .text:0000028c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:255    .text:000002dc $d
+                            *COM*:00000108 lahteva
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:276    .text:000002e0 checkOID
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:280    .text:000002e0 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:298    .text:00000324 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:305    .text:0000033c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:333    .text:00000380 $d
+                            *COM*:00000050 game
+                            *COM*:00000002 verbose
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:413    .text:000003ac printStruct
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:417    .text:000003ac $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:595    .text:00000640 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:652    .text:000006bc printLahetys
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:656    .text:000006bc $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:691    .text:0000073c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:719    .text:00000768 sendMessageToChannel
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:723    .text:00000768 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:768    .text:00000800 $d
+                            *COM*:00000004 sock
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:778    .text:00000818 compileOutboundMessage
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:783    .text:00000818 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:953    .text:00000a94 $d
+                            *COM*:00000088 lv
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:980    .text:00000a98 parseSnmpResponse_ok
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:984    .text:00000a98 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1077   .text:00000bf0 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1083   .text:00000c04 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1226   .text:00000e08 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1244   .text:00000e40 parseSnmpResponse
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1248   .text:00000e40 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1339   .text:00000f94 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1345   .text:00000fa8 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1492   .text:000011bc $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1539   .text:000011f8 parseOutboundMessage
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1543   .text:000011f8 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1611   .text:00001304 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1618   .text:0000131c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1834   .text:00001630 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1879   .text:0000166c sendSnmpMessageTestaus
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1883   .text:0000166c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1892   .text:0000168c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1901   .text:000016ac $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:1966   .text:00001774 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2016   .text:000017a4 receiveMessage
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2020   .text:000017a4 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2388   .text:00001cd0 $d
+                            *COM*:00000014 oppCoord
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2580   .text:00001eac Kaksinpeli
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 57
+
+
+                            *COM*:00000108 SR_2
+                            *COM*:00000108 GR_4
+                            *COM*:0000000a oppShotEffects
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2437   .text:00001d38 initializeNetwork
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2441   .text:00001d38 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2507   .text:00001e2c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2628   .rodata:00000000 C.1.2456
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2549   .text:00001e88 Vastaanotto
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2525   .text:00001e64 Lahetys
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2531   .text:00001e64 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2567   .text:00001ea8 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2586   .text:00001eac $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2619   .text:00001f24 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s:2629   .rodata:00000000 $d
+                            *COM*:000000c8 sea
+                            *COM*:000000c8 oppSea
+                            *COM*:000000c8 targetSea
+                            *COM*:000000c8 oppTargetSea
+                            *COM*:00000018 player1
+                            *COM*:00000018 player2
+                            *COM*:00000028 air5
+                            *COM*:00000028 bat4
+                            *COM*:00000028 cru3
+                            *COM*:00000028 sub3
+                            *COM*:00000028 des2
+                            *COM*:00000028 oppAir5
+                            *COM*:00000028 oppBat4
+                            *COM*:00000028 oppCru3
+                            *COM*:00000028 oppSub3
+                            *COM*:00000028 oppDes2
+                            *COM*:00000014 temp
+                            *COM*:0000000a targetSeaShotX
+                            *COM*:0000000a targetSeaShotY
+                            *COM*:0000000a targetOppSeaShotX
+                            *COM*:0000000a targetOppSeaShotY
+                            *COM*:0000000a targetOppShotX
+                            *COM*:0000000a targetOppShotY
+                            *COM*:00000002 oneValue
+                            *COM*:00000002 length
+                            *COM*:00000014 ourCoord
+                            *COM*:0000000a seaShotEffects
+                            *COM*:00000050 vastustajaLista
+                            *COM*:00000028 u_shortLista
+                            *COM*:00000004 addr
+                            *COM*:00000002 port
+                            *COM*:000000c8 data
+                            *COM*:00000002 size
+                            *COM*:000000c8 parsittudata
+
+UNDEFINED SYMBOLS
+puts
+printf
+putchar
+fflush
+getc
+__iob
+inet_ntoa
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc5ZYRKp.s 			page 58
+
+
+NutUdpSendTo
+inet_addr
+scanf
+NutUdpReceiveFrom
+NutSleep
+NutThreadCreate
+memcpy
+NutRegisterDevice
+NutNetIfConfig
+NutUdpCreateSocket
+NutUdpSetSockOpt
+devDM9000E
+confnet
+NutThreadSetPriority
+time
+srand
+resetWholeGame
+showGameStatus
+startTwoPlayerGame
+NutThreadExit

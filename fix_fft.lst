@@ -1,0 +1,1228 @@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 1
+
+
+   1              		.file	"fix_fft.c"
+   2              	@ GNU C (GCC) version 4.3.2 (arm-elf)
+   3              	@	compiled by GNU C version 3.4.5 (mingw special), GMP version 4.2.2, MPFR version 2.3.1.
+   4              	@ GGC heuristics: --param ggc-min-expand=99 --param ggc-min-heapsize=131006
+   5              	@ options passed:  -IC:/ethernut-4.7.4/nutbld/include
+   6              	@ -IC:/ethernut-4.7.4/nutbld -IC:/ethernut-4.7.4/nut/include -imultilib
+   7              	@ interwork -iprefix c:\program files\yagarto\bin\../lib/gcc/arm-elf/4.3.2/
+   8              	@ -D__USES_INITFINI__ -DELEKTOR_IR1 fix_fft.c -mcpu=arm7tdmi
+   9              	@ -mthumb-interwork -auxbase-strip fix_fft.o -Os -Wall -Wstrict-prototypes
+  10              	@ -fomit-frame-pointer -fverbose-asm
+  11              	@ options enabled:  -falign-loops -fargument-alias -fauto-inc-dec
+  12              	@ -fbranch-count-reg -fcaller-saves -fcommon -fcprop-registers
+  13              	@ -fcrossjumping -fcse-follow-jumps -fdefer-pop
+  14              	@ -fdelete-null-pointer-checks -fearly-inlining
+  15              	@ -feliminate-unused-debug-types -fexpensive-optimizations
+  16              	@ -fforward-propagate -ffunction-cse -fgcse -fgcse-lm
+  17              	@ -fguess-branch-probability -fident -fif-conversion -fif-conversion2
+  18              	@ -finline-functions -finline-functions-called-once
+  19              	@ -finline-small-functions -fipa-pure-const -fipa-reference -fivopts
+  20              	@ -fkeep-static-consts -fleading-underscore -fmath-errno -fmerge-constants
+  21              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  22              	@ -foptimize-register-move -foptimize-sibling-calls -fpeephole -fpeephole2
+  23              	@ -freg-struct-return -fregmove -freorder-functions -frerun-cse-after-loop
+  24              	@ -fsched-interblock -fsched-spec -fsched-stalled-insns-dep
+  25              	@ -fschedule-insns -fschedule-insns2 -fsigned-zeros -fsplit-ivs-in-unroller
+  26              	@ -fsplit-wide-types -fstrict-aliasing -fstrict-overflow -fthread-jumps
+  27              	@ -ftoplevel-reorder -ftrapping-math -ftree-ccp -ftree-copy-prop
+  28              	@ -ftree-copyrename -ftree-cselim -ftree-dce -ftree-dominator-opts
+  29              	@ -ftree-dse -ftree-fre -ftree-loop-im -ftree-loop-ivcanon
+  30              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-reassoc
+  31              	@ -ftree-salias -ftree-scev-cprop -ftree-sink -ftree-sra -ftree-store-ccp
+  32              	@ -ftree-ter -ftree-vect-loop-version -ftree-vrp -funit-at-a-time
+  33              	@ -fverbose-asm -fzero-initialized-in-bss -mlittle-endian -msched-prolog
+  34              	@ -mthumb-interwork
+  35              	
+  36              	@ Compiler executable checksum: 6db586a17c82d36a40d1394fc9f8b6f8
+  37              	
+  38              		.text
+  39              		.align	2
+  40              		.global	FIX_MPY
+  41              		.type	FIX_MPY, %function
+  42              	FIX_MPY:
+  43              		@ Function supports interworking.
+  44              		@ args = 0, pretend = 0, frame = 0
+  45              		@ frame_needed = 0, uses_anonymous_args = 0
+  46              		@ link register save eliminated.
+  47 0000 0008A0E1 		mov	r0, r0, asl #16	@ tmp137, a,
+  48 0004 0118A0E1 		mov	r1, r1, asl #16	@ tmp140, b,
+  49 0008 4008A0E1 		mov	r0, r0, asr #16	@ a, tmp137,
+  50 000c 4118A0E1 		mov	r1, r1, asr #16	@ b, tmp140,
+  51 0010 900103E0 		mul	r3, r0, r1	@ tmp141, a, b
+  52 0014 4307A0E1 		mov	r0, r3, asr #14	@ c, tmp141,
+  53 0018 010000E2 		and	r0, r0, #1	@ tmp144, c,
+  54 001c C30780E0 		add	r0, r0, r3, asr #15	@, tmp148, tmp144, tmp141,
+  55 0020 0008A0E1 		mov	r0, r0, asl #16	@ tmp150, tmp148,
+  56 0024 4008A0E1 		mov	r0, r0, asr #16	@, tmp150,
+  57 0028 1EFF2FE1 		bx	lr	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 2
+
+
+  58              		.size	FIX_MPY, .-FIX_MPY
+  59              		.align	2
+  60              		.global	fix_fft
+  61              		.type	fix_fft, %function
+  62              	fix_fft:
+  63              		@ Function supports interworking.
+  64              		@ args = 0, pretend = 0, frame = 60
+  65              		@ frame_needed = 0, uses_anonymous_args = 0
+  66              		@ link register save eliminated.
+  67 002c 0228A0E1 		mov	r2, r2, asl #16	@ tmp226, m,
+  68 0030 4228A0E1 		mov	r2, r2, asr #16	@ m, tmp226,
+  69 0034 01C0A0E3 		mov	ip, #1	@ tmp230,
+  70 0038 1C22A0E1 		mov	r2, ip, asl r2	@, tmp230,
+  71 003c F00F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp}	@,
+  72 0040 010B52E3 		cmp	r2, #1024	@,
+  73 0044 3CD04DE2 		sub	sp, sp, #60	@,,
+  74 0048 0338A0E1 		mov	r3, r3, asl #16	@ tmp229, inverse,
+  75 004c 10008DE5 		str	r0, [sp, #16]	@ fr, fr
+  76 0050 4338A0E1 		mov	r3, r3, asr #16	@, tmp229,
+  77 0054 0000E0C3 		mvngt	r0, #0	@,
+  78 0058 20208DE5 		str	r2, [sp, #32]	@, n
+  79 005c 0C108DE5 		str	r1, [sp, #12]	@ fi, fi
+  80 0060 08308DE5 		str	r3, [sp, #8]	@, inverse
+  81 0064 24008DC5 		strgt	r0, [sp, #36]	@, scale
+  82 0068 D40000CA 		bgt	.L5	@,
+  83 006c 20109DE5 		ldr	r1, [sp, #32]	@, n
+  84 0070 0C50A0E1 		mov	r5, ip	@ ivtmp.63, tmp230
+  85 0074 016041E2 		sub	r6, r1, #1	@ nn,,
+  86 0078 10409DE5 		ldr	r4, [sp, #16]	@ ivtmp.34, fr
+  87 007c 0CC09DE5 		ldr	ip, [sp, #12]	@ ivtmp.85, fi
+  88 0080 0000A0E3 		mov	r0, #0	@ mr,
+  89 0084 190000EA 		b	.L6	@
+  90              	.L9:
+  91 0088 20109DE5 		ldr	r1, [sp, #32]	@ l.70, n
+  92              	.L7:
+  93 008c C110A0E1 		mov	r1, r1, asr #1	@ l.70, l.70,
+  94 0090 003081E0 		add	r3, r1, r0	@ tmp231, l.70, mr
+  95 0094 060053E1 		cmp	r3, r6	@ tmp231, nn
+  96 0098 FBFFFFCA 		bgt	.L7	@,
+  97 009c 013041E2 		sub	r3, r1, #1	@ tmp232, l.70,
+  98 00a0 003003E0 		and	r3, r3, r0	@ D.1231, tmp232, mr
+  99 00a4 010083E0 		add	r0, r3, r1	@ mr, D.1231, l.70
+ 100 00a8 050050E1 		cmp	r0, r5	@ mr, ivtmp.63
+ 101 00ac 0C0000DA 		ble	.L8	@,
+ 102 00b0 10109DE5 		ldr	r1, [sp, #16]	@, fr
+ 103 00b4 8020A0E1 		mov	r2, r0, asl #1	@ D.1236, mr,
+ 104 00b8 B21091E1 		ldrh	r1, [r1, r2]	@,* D.1236
+ 105 00bc B230D4E1 		ldrh	r3, [r4, #2]	@ tr,
+ 106 00c0 B210C4E1 		strh	r1, [r4, #2]	@ movhi	@,
+ 107 00c4 10109DE5 		ldr	r1, [sp, #16]	@, fr
+ 108 00c8 B23081E1 		strh	r3, [r1, r2]	@ movhi	@ tr,* D.1236
+ 109 00cc 0C109DE5 		ldr	r1, [sp, #12]	@, fi
+ 110 00d0 B21091E1 		ldrh	r1, [r1, r2]	@,* D.1236
+ 111 00d4 B230DCE1 		ldrh	r3, [ip, #2]	@ ti,
+ 112 00d8 B210CCE1 		strh	r1, [ip, #2]	@ movhi	@,
+ 113 00dc 0C109DE5 		ldr	r1, [sp, #12]	@, fi
+ 114 00e0 B23081E1 		strh	r3, [r1, r2]	@ movhi	@ ti,* D.1236
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 3
+
+
+ 115              	.L8:
+ 116 00e4 015085E2 		add	r5, r5, #1	@ ivtmp.63, ivtmp.63,
+ 117 00e8 024084E2 		add	r4, r4, #2	@ ivtmp.34, ivtmp.34,
+ 118 00ec 02C08CE2 		add	ip, ip, #2	@ ivtmp.85, ivtmp.85,
+ 119              	.L6:
+ 120 00f0 060055E1 		cmp	r5, r6	@ ivtmp.63, nn
+ 121 00f4 E3FFFFDA 		ble	.L9	@,
+ 122 00f8 0120A0E3 		mov	r2, #1	@,
+ 123 00fc 0930A0E3 		mov	r3, #9	@,
+ 124 0100 00C0A0E3 		mov	ip, #0	@,
+ 125 0104 14208DE5 		str	r2, [sp, #20]	@, l
+ 126 0108 18308DE5 		str	r3, [sp, #24]	@, k
+ 127 010c 24C08DE5 		str	ip, [sp, #36]	@, scale
+ 128 0110 A60000EA 		b	.L10	@
+ 129              	.L23:
+ 130 0114 08009DE5 		ldr	r0, [sp, #8]	@, inverse
+ 131 0118 000050E3 		cmp	r0, #0	@,
+ 132 011c 0110A003 		moveq	r1, #1	@,
+ 133 0120 0000A013 		movne	r0, #0	@ i,
+ 134 0124 28108D05 		streq	r1, [sp, #40]	@, shift
+ 135 0128 0010A011 		movne	r1, r0	@ ivtmp.51, i
+ 136 012c 1400001A 		bne	.L13	@,
+ 137 0130 1F0000EA 		b	.L12	@
+ 138              	.L15:
+ 139 0134 0C209DE5 		ldr	r2, [sp, #12]	@, fi
+ 140 0138 B13092E1 		ldrh	r3, [r2, r1]	@ m.71,* ivtmp.51
+ 141 013c 10C09DE5 		ldr	ip, [sp, #16]	@, fr
+ 142 0140 0338A0E1 		mov	r3, r3, asl #16	@ tmp242, m.71,
+ 143 0144 4338A0E1 		mov	r3, r3, asr #16	@ tmp241, tmp242,
+ 144 0148 F1209CE1 		ldrsh	r2, [ip, r1]	@ j,* ivtmp.51
+ 145 014c 000053E3 		cmp	r3, #0	@ tmp243
+ 146 0150 003063B2 		rsblt	r3, r3, #0	@ tmp243
+ 147 0154 74C29FE5 		ldr	ip, .L26	@,
+ 148 0158 0338A0E1 		mov	r3, r3, asl #16	@ tmp248, tmp243,
+ 149 015c 000052E3 		cmp	r2, #0	@ tmp237
+ 150 0160 002062B2 		rsblt	r2, r2, #0	@ tmp237
+ 151 0164 43085CE1 		cmp	ip, r3, asr #16	@, tmp248,
+ 152 0168 0030A0A3 		movge	r3, #0	@, tmp251
+ 153 016c 0130A0B3 		movlt	r3, #1	@, tmp251
+ 154 0170 0C0052E1 		cmp	r2, ip	@ tmp237,
+ 155 0174 013083C3 		orrgt	r3, r3, #1	@,, tmp254, tmp251
+ 156 0178 000053E3 		cmp	r3, #0	@ tmp254,
+ 157 017c 021081E2 		add	r1, r1, #2	@ ivtmp.51, ivtmp.51,
+ 158 0180 0600001A 		bne	.L14	@,
+ 159              	.L13:
+ 160 0184 20209DE5 		ldr	r2, [sp, #32]	@, n
+ 161 0188 020050E1 		cmp	r0, r2	@ i,
+ 162 018c 010080E2 		add	r0, r0, #1	@ i, i,
+ 163 0190 E7FFFFBA 		blt	.L15	@,
+ 164 0194 0030A0E3 		mov	r3, #0	@,
+ 165 0198 28308DE5 		str	r3, [sp, #40]	@, shift
+ 166 019c 040000EA 		b	.L12	@
+ 167              	.L14:
+ 168 01a0 24C09DE5 		ldr	ip, [sp, #36]	@, scale
+ 169 01a4 0100A0E3 		mov	r0, #1	@,
+ 170 01a8 01C08CE2 		add	ip, ip, #1	@,,
+ 171 01ac 24C08DE5 		str	ip, [sp, #36]	@, scale
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 4
+
+
+ 172 01b0 28008DE5 		str	r0, [sp, #40]	@, shift
+ 173              	.L12:
+ 174 01b4 14109DE5 		ldr	r1, [sp, #20]	@, l
+ 175 01b8 0C208DE2 		add	r2, sp, #12
+ 176 01bc 0C0092E8 		ldmia	r2, {r2, r3}	@ phole ldm
+ 177 01c0 8110A0E1 		mov	r1, r1, asl #1	@,,
+ 178 01c4 012082E0 		add	r2, r2, r1	@,,
+ 179 01c8 013083E0 		add	r3, r3, r1	@,,
+ 180 01cc 1C108DE5 		str	r1, [sp, #28]	@, istep
+ 181 01d0 0CC09DE5 		ldr	ip, [sp, #12]	@, fi
+ 182 01d4 10008DE2 		add	r0, sp, #16
+ 183 01d8 030090E8 		ldmia	r0, {r0, r1}	@ phole ldm
+ 184 01dc 2C208DE5 		str	r2, [sp, #44]	@, ivtmp.33
+ 185 01e0 38308DE5 		str	r3, [sp, #56]	@, ivtmp.83
+ 186 01e4 34C08DE5 		str	ip, [sp, #52]	@, ivtmp.76
+ 187 01e8 30008DE5 		str	r0, [sp, #48]	@, ivtmp.74
+ 188 01ec 0090A0E3 		mov	r9, #0	@ ivtmp.37,
+ 189 01f0 01B1A0E1 		mov	fp, r1, asl #2	@ ivtmp.81,,
+ 190 01f4 650000EA 		b	.L16	@
+ 191              	.L22:
+ 192 01f8 18309DE5 		ldr	r3, [sp, #24]	@, k
+ 193 01fc 1923A0E1 		mov	r2, r9, asl r3	@ j.73, ivtmp.37,
+ 194 0200 CC019FE5 		ldr	r0, .L26+4	@,
+ 195 0204 013C82E2 		add	r3, r2, #256	@ tmp256, j.73,
+ 196 0208 08C09DE5 		ldr	ip, [sp, #8]	@, inverse
+ 197 020c 8220A0E1 		mov	r2, r2, asl #1	@ tmp260, j.73,
+ 198 0210 B22090E1 		ldrh	r2, [r0, r2]	@ wi, Sinewave
+ 199 0214 8330A0E1 		mov	r3, r3, asl #1	@ tmp257, tmp256,
+ 200 0218 00005CE3 		cmp	ip, #0	@,
+ 201 021c B31090E1 		ldrh	r1, [r0, r3]	@ wr, Sinewave
+ 202 0220 00306202 		rsbeq	r3, r2, #0	@ tmp263, wi
+ 203 0224 0338A001 		moveq	r3, r3, asl #16	@ tmp264, tmp263,
+ 204 0228 2328A001 		moveq	r2, r3, lsr #16	@ wi, tmp264,
+ 205 022c 28309DE5 		ldr	r3, [sp, #40]	@, shift
+ 206 0230 000053E3 		cmp	r3, #0	@,
+ 207 0234 0700000A 		beq	.L18	@,
+ 208 0238 0138A0E1 		mov	r3, r1, asl #16	@ tmp266, wr,
+ 209 023c 0228A0E1 		mov	r2, r2, asl #16	@ tmp270, wi,
+ 210 0240 C338A0E1 		mov	r3, r3, asr #17	@ tmp267, tmp266,
+ 211 0244 C228A0E1 		mov	r2, r2, asr #17	@ tmp271, tmp270,
+ 212 0248 0338A0E1 		mov	r3, r3, asl #16	@ tmp268, tmp267,
+ 213 024c 0228A0E1 		mov	r2, r2, asl #16	@ tmp272, tmp271,
+ 214 0250 2318A0E1 		mov	r1, r3, lsr #16	@ wr, tmp268,
+ 215 0254 2228A0E1 		mov	r2, r2, lsr #16	@ wi, tmp272,
+ 216              	.L18:
+ 217 0258 0138A0E1 		mov	r3, r1, asl #16	@ tmp327, wr,
+ 218 025c 0228A0E1 		mov	r2, r2, asl #16	@ tmp329, wi,
+ 219 0260 4338A0E1 		mov	r3, r3, asr #16	@, tmp327,
+ 220 0264 4228A0E1 		mov	r2, r2, asr #16	@, tmp329,
+ 221 0268 0C008DE8 		stmia	sp, {r2, r3}	@ phole stm
+ 222 026c 38809DE5 		ldr	r8, [sp, #56]	@ ivtmp.31, ivtmp.83
+ 223 0270 2C709DE5 		ldr	r7, [sp, #44]	@ ivtmp.77, ivtmp.33
+ 224 0274 30609DE5 		ldr	r6, [sp, #48]	@ ivtmp.84, ivtmp.74
+ 225 0278 34509DE5 		ldr	r5, [sp, #52]	@ ivtmp.35, ivtmp.76
+ 226 027c 00A0A0E3 		mov	sl, #0	@ ivtmp.29,
+ 227 0280 2F0000EA 		b	.L19	@
+ 228              	.L21:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 5
+
+
+ 229 0284 F030D8E1 		ldrsh	r3, [r8, #0]	@ D.1258,* ivtmp.31
+ 230 0288 04409DE5 		ldr	r4, [sp, #4]	@ tmp274,
+ 231 028c F020D7E1 		ldrsh	r2, [r7, #0]	@ D.1264,* ivtmp.77
+ 232 0290 04009DE5 		ldr	r0, [sp, #4]	@ tmp293,
+ 233 0294 930404E0 		mul	r4, r3, r4	@ tmp274, D.1258, tmp274
+ 234 0298 00C09DE5 		ldr	ip, [sp, #0]	@ tmp294,
+ 235 029c 00109DE5 		ldr	r1, [sp, #0]	@ tmp276,
+ 236 02a0 920000E0 		mul	r0, r2, r0	@ tmp293, D.1264, tmp293
+ 237 02a4 930C0CE0 		mul	ip, r3, ip	@ tmp294, D.1258, tmp294
+ 238 02a8 920101E0 		mul	r1, r2, r1	@ tmp276, D.1264, tmp276
+ 239 02ac 4437A0E1 		mov	r3, r4, asr #14	@ c, tmp274,
+ 240 02b0 C027A0E1 		mov	r2, r0, asr #15	@ tmp296, tmp293,
+ 241 02b4 013003E2 		and	r3, r3, #1	@ tmp278, c,
+ 242 02b8 C13743E0 		sub	r3, r3, r1, asr #15	@ tmp282, tmp278, tmp276,
+ 243 02bc CC2782E0 		add	r2, r2, ip, asr #15	@, tmp299, tmp296, tmp294,
+ 244 02c0 8008A0E1 		mov	r0, r0, asl #17	@ tmp301, tmp293,
+ 245 02c4 4117A0E1 		mov	r1, r1, asr #14	@ c, tmp276,
+ 246 02c8 C43783E0 		add	r3, r3, r4, asr #15	@, tmp286, tmp282, tmp274,
+ 247 02cc A02F82E0 		add	r2, r2, r0, lsr #31	@, tmp304, tmp299, tmp301,
+ 248 02d0 011001E2 		and	r1, r1, #1	@ tmp288, c,
+ 249 02d4 8CC8A0E1 		mov	ip, ip, asl #17	@ tmp306, tmp294,
+ 250 02d8 033061E0 		rsb	r3, r1, r3	@ tmp291, tmp288, tmp286
+ 251 02dc AC2F82E0 		add	r2, r2, ip, lsr #31	@, tmp309, tmp304, tmp306,
+ 252 02e0 B010D6E1 		ldrh	r1, [r6, #0]	@ qr,* ivtmp.84
+ 253 02e4 28C09DE5 		ldr	ip, [sp, #40]	@, shift
+ 254 02e8 0338A0E1 		mov	r3, r3, asl #16	@ tmp292, tmp291,
+ 255 02ec 0228A0E1 		mov	r2, r2, asl #16	@ tmp310, tmp309,
+ 256 02f0 00005CE3 		cmp	ip, #0	@,
+ 257 02f4 2348A0E1 		mov	r4, r3, lsr #16	@ D.1267, tmp292,
+ 258 02f8 22C8A0E1 		mov	ip, r2, lsr #16	@ D.1272, tmp310,
+ 259 02fc 0138A0E1 		mov	r3, r1, asl #16	@ tmp312, qr,
+ 260 0300 B020D5E1 		ldrh	r2, [r5, #0]	@ qi,* ivtmp.35
+ 261 0304 C338A0E1 		mov	r3, r3, asr #17	@ tmp313, tmp312,
+ 262 0308 0308A0E1 		mov	r0, r3, asl #16	@ tmp314, tmp313,
+ 263 030c 0238A0E1 		mov	r3, r2, asl #16	@ tmp316, qi,
+ 264 0310 C338A0E1 		mov	r3, r3, asr #17	@ tmp317, tmp316,
+ 265 0314 2018A011 		movne	r1, r0, lsr #16	@ qr, tmp314,
+ 266 0318 0338A0E1 		mov	r3, r3, asl #16	@ tmp318, tmp317,
+ 267 031c 2328A011 		movne	r2, r3, lsr #16	@ qi, tmp318,
+ 268 0320 0130A0E1 		mov	r3, r1	@ qr.5, qr
+ 269 0324 0C0082E0 		add	r0, r2, ip	@ tmp324, qi.7, D.1272
+ 270 0328 041081E0 		add	r1, r1, r4	@ tmp323, qr.5, D.1267
+ 271 032c 033064E0 		rsb	r3, r4, r3	@ tmp320, D.1267, qr.5
+ 272 0330 02206CE0 		rsb	r2, ip, r2	@ tmp322, D.1272, qi.7
+ 273 0334 BB3088E0 		strh	r3, [r8], fp	@ movhi	@ tmp320,
+ 274 0338 BB2087E0 		strh	r2, [r7], fp	@ movhi	@ tmp322,
+ 275 033c BB1086E0 		strh	r1, [r6], fp	@ movhi	@ tmp323,
+ 276 0340 BB0085E0 		strh	r0, [r5], fp	@ movhi	@ tmp324,
+ 277              	.L19:
+ 278 0344 20009DE5 		ldr	r0, [sp, #32]	@, n
+ 279 0348 09308AE0 		add	r3, sl, r9	@ tmp325, ivtmp.29, ivtmp.37
+ 280 034c 1C109DE5 		ldr	r1, [sp, #28]	@, istep
+ 281 0350 000053E1 		cmp	r3, r0	@ tmp325,
+ 282 0354 01A08AE0 		add	sl, sl, r1	@ ivtmp.29, ivtmp.29,
+ 283 0358 C9FFFFBA 		blt	.L21	@,
+ 284 035c 34209DE5 		ldr	r2, [sp, #52]	@, ivtmp.76
+ 285 0360 30309DE5 		ldr	r3, [sp, #48]	@, ivtmp.74
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 6
+
+
+ 286 0364 2CC09DE5 		ldr	ip, [sp, #44]	@, ivtmp.33
+ 287 0368 38009DE5 		ldr	r0, [sp, #56]	@, ivtmp.83
+ 288 036c 022082E2 		add	r2, r2, #2	@,,
+ 289 0370 023083E2 		add	r3, r3, #2	@,,
+ 290 0374 02C08CE2 		add	ip, ip, #2	@,,
+ 291 0378 020080E2 		add	r0, r0, #2	@,,
+ 292 037c 34208DE5 		str	r2, [sp, #52]	@, ivtmp.76
+ 293 0380 30308DE5 		str	r3, [sp, #48]	@, ivtmp.74
+ 294 0384 2CC08DE5 		str	ip, [sp, #44]	@, ivtmp.33
+ 295 0388 38008DE5 		str	r0, [sp, #56]	@, ivtmp.83
+ 296 038c 019089E2 		add	r9, r9, #1	@ ivtmp.37, ivtmp.37,
+ 297              	.L16:
+ 298 0390 14109DE5 		ldr	r1, [sp, #20]	@, l
+ 299 0394 010059E1 		cmp	r9, r1	@ ivtmp.37,
+ 300 0398 96FFFFBA 		blt	.L22	@,
+ 301 039c 18208DE2 		add	r2, sp, #24
+ 302 03a0 0C0092E8 		ldmia	r2, {r2, r3}	@ phole ldm
+ 303 03a4 012042E2 		sub	r2, r2, #1	@,,
+ 304 03a8 18208DE5 		str	r2, [sp, #24]	@, k
+ 305 03ac 14308DE5 		str	r3, [sp, #20]	@, l
+ 306              	.L10:
+ 307 03b0 14C09DE5 		ldr	ip, [sp, #20]	@, l
+ 308 03b4 20009DE5 		ldr	r0, [sp, #32]	@, n
+ 309 03b8 00005CE1 		cmp	ip, r0	@,
+ 310 03bc 54FFFFBA 		blt	.L23	@,
+ 311              	.L5:
+ 312 03c0 24009DE5 		ldr	r0, [sp, #36]	@, scale
+ 313 03c4 3CD08DE2 		add	sp, sp, #60	@,,
+ 314 03c8 F00FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp}
+ 315 03cc 1EFF2FE1 		bx	lr
+ 316              	.L27:
+ 317              		.align	2
+ 318              	.L26:
+ 319 03d0 FF3F0000 		.word	16383
+ 320 03d4 00000000 		.word	Sinewave
+ 321              		.size	fix_fft, .-fix_fft
+ 322              		.align	2
+ 323              		.global	fix_fftr
+ 324              		.type	fix_fftr, %function
+ 325              	fix_fftr:
+ 326              		@ Function supports interworking.
+ 327              		@ args = 0, pretend = 0, frame = 0
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 329 03d8 F0452DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}	@,
+ 330 03dc 0130A0E3 		mov	r3, #1	@ tmp146,
+ 331 03e0 0180A0E1 		mov	r8, r1	@ m, m
+ 332 03e4 011041E2 		sub	r1, r1, #1	@ tmp145, m,
+ 333 03e8 1371A0E1 		mov	r7, r3, asl r1	@ N, tmp146,
+ 334 03ec 005052E2 		subs	r5, r2, #0	@ inverse, inverse
+ 335 03f0 0040A0E1 		mov	r4, r0	@ f, f
+ 336 03f4 876080E0 		add	r6, r0, r7, asl #1	@, fi, f, N,
+ 337 03f8 0500A001 		moveq	r0, r5	@ scale, inverse
+ 338 03fc 0600000A 		beq	.L30	@,
+ 339 0400 0128A0E1 		mov	r2, r1, asl #16	@ tmp151, tmp145,
+ 340 0404 0538A0E1 		mov	r3, r5, asl #16	@ tmp153, inverse,
+ 341 0408 4228A0E1 		mov	r2, r2, asr #16	@, tmp151,
+ 342 040c 4338A0E1 		mov	r3, r3, asr #16	@, tmp153,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 7
+
+
+ 343 0410 0600A0E1 		mov	r0, r6	@, fi
+ 344 0414 0410A0E1 		mov	r1, r4	@, f
+ 345 0418 FEFFFFEB 		bl	fix_fft	@
+ 346              	.L30:
+ 347 041c 0610A0E1 		mov	r1, r6	@ ivtmp.106, fi
+ 348 0420 0420A0E1 		mov	r2, r4	@ ivtmp.112, f
+ 349 0424 01C0A0E3 		mov	ip, #1	@ i,
+ 350 0428 030000EA 		b	.L31	@
+ 351              	.L32:
+ 352 042c B43051E1 		ldrh	r3, [r1, #-4]	@ tt,
+ 353 0430 B2A052E1 		ldrh	sl, [r2, #-2]	@,
+ 354 0434 B4A041E1 		strh	sl, [r1, #-4]	@ movhi	@,
+ 355 0438 B23042E1 		strh	r3, [r2, #-2]	@ movhi	@ tt,
+ 356              	.L31:
+ 357 043c 07005CE1 		cmp	ip, r7	@ i, N
+ 358 0440 041081E2 		add	r1, r1, #4	@ ivtmp.106, ivtmp.106,
+ 359 0444 02C08CE2 		add	ip, ip, #2	@ i, i,
+ 360 0448 042082E2 		add	r2, r2, #4	@ ivtmp.112, ivtmp.112,
+ 361 044c F6FFFFBA 		blt	.L32	@,
+ 362 0450 000055E3 		cmp	r5, #0	@ inverse,
+ 363 0454 0700001A 		bne	.L33	@,
+ 364 0458 012048E2 		sub	r2, r8, #1	@ tmp157, m,
+ 365 045c 0228A0E1 		mov	r2, r2, asl #16	@ tmp159, tmp157,
+ 366 0460 0600A0E1 		mov	r0, r6	@, fi
+ 367 0464 0410A0E1 		mov	r1, r4	@, f
+ 368 0468 4228A0E1 		mov	r2, r2, asr #16	@, tmp159,
+ 369 046c 0530A0E1 		mov	r3, r5	@, inverse
+ 370 0470 F045BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}
+ 371 0474 FEFFFFEA 		b	fix_fft	@
+ 372              	.L33:
+ 373 0478 F045BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}
+ 374 047c 1EFF2FE1 		bx	lr
+ 375              		.size	fix_fftr, .-fix_fftr
+ 376              		.global	Sinewave
+ 377              		.data
+ 378              		.align	1
+ 379              		.type	Sinewave, %object
+ 380              		.size	Sinewave, 1536
+ 381              	Sinewave:
+ 382 0000 0000     		.short	0
+ 383 0002 C900     		.short	201
+ 384 0004 9201     		.short	402
+ 385 0006 5B02     		.short	603
+ 386 0008 2403     		.short	804
+ 387 000a ED03     		.short	1005
+ 388 000c B604     		.short	1206
+ 389 000e 7E05     		.short	1406
+ 390 0010 4706     		.short	1607
+ 391 0012 1007     		.short	1808
+ 392 0014 D907     		.short	2009
+ 393 0016 A108     		.short	2209
+ 394 0018 6A09     		.short	2410
+ 395 001a 320A     		.short	2610
+ 396 001c FB0A     		.short	2811
+ 397 001e C30B     		.short	3011
+ 398 0020 8B0C     		.short	3211
+ 399 0022 530D     		.short	3411
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 8
+
+
+ 400 0024 1B0E     		.short	3611
+ 401 0026 E30E     		.short	3811
+ 402 0028 AB0F     		.short	4011
+ 403 002a 7210     		.short	4210
+ 404 002c 3911     		.short	4409
+ 405 002e 0012     		.short	4608
+ 406 0030 C712     		.short	4807
+ 407 0032 8E13     		.short	5006
+ 408 0034 5514     		.short	5205
+ 409 0036 1B15     		.short	5403
+ 410 0038 E115     		.short	5601
+ 411 003a A716     		.short	5799
+ 412 003c 6D17     		.short	5997
+ 413 003e 3318     		.short	6195
+ 414 0040 F818     		.short	6392
+ 415 0042 BD19     		.short	6589
+ 416 0044 821A     		.short	6786
+ 417 0046 461B     		.short	6982
+ 418 0048 0B1C     		.short	7179
+ 419 004a CF1C     		.short	7375
+ 420 004c 931D     		.short	7571
+ 421 004e 561E     		.short	7766
+ 422 0050 191F     		.short	7961
+ 423 0052 DC1F     		.short	8156
+ 424 0054 9F20     		.short	8351
+ 425 0056 6121     		.short	8545
+ 426 0058 2322     		.short	8739
+ 427 005a E422     		.short	8932
+ 428 005c A623     		.short	9126
+ 429 005e 6724     		.short	9319
+ 430 0060 2725     		.short	9511
+ 431 0062 E725     		.short	9703
+ 432 0064 A726     		.short	9895
+ 433 0066 6727     		.short	10087
+ 434 0068 2628     		.short	10278
+ 435 006a E528     		.short	10469
+ 436 006c A329     		.short	10659
+ 437 006e 612A     		.short	10849
+ 438 0070 1E2B     		.short	11038
+ 439 0072 DB2B     		.short	11227
+ 440 0074 982C     		.short	11416
+ 441 0076 542D     		.short	11604
+ 442 0078 102E     		.short	11792
+ 443 007a CC2E     		.short	11980
+ 444 007c 862F     		.short	12166
+ 445 007e 4130     		.short	12353
+ 446 0080 FB30     		.short	12539
+ 447 0082 B431     		.short	12724
+ 448 0084 6D32     		.short	12909
+ 449 0086 2633     		.short	13094
+ 450 0088 DE33     		.short	13278
+ 451 008a 9634     		.short	13462
+ 452 008c 4D35     		.short	13645
+ 453 008e 0336     		.short	13827
+ 454 0090 B936     		.short	14009
+ 455 0092 6F37     		.short	14191
+ 456 0094 2438     		.short	14372
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 9
+
+
+ 457 0096 D838     		.short	14552
+ 458 0098 8C39     		.short	14732
+ 459 009a 3F3A     		.short	14911
+ 460 009c F23A     		.short	15090
+ 461 009e A43B     		.short	15268
+ 462 00a0 563C     		.short	15446
+ 463 00a2 073D     		.short	15623
+ 464 00a4 B73D     		.short	15799
+ 465 00a6 673E     		.short	15975
+ 466 00a8 163F     		.short	16150
+ 467 00aa C53F     		.short	16325
+ 468 00ac 7340     		.short	16499
+ 469 00ae 2041     		.short	16672
+ 470 00b0 CD41     		.short	16845
+ 471 00b2 7942     		.short	17017
+ 472 00b4 2543     		.short	17189
+ 473 00b6 D043     		.short	17360
+ 474 00b8 7A44     		.short	17530
+ 475 00ba 2345     		.short	17699
+ 476 00bc CC45     		.short	17868
+ 477 00be 7446     		.short	18036
+ 478 00c0 1C47     		.short	18204
+ 479 00c2 C347     		.short	18371
+ 480 00c4 6948     		.short	18537
+ 481 00c6 0E49     		.short	18702
+ 482 00c8 B349     		.short	18867
+ 483 00ca 574A     		.short	19031
+ 484 00cc FA4A     		.short	19194
+ 485 00ce 9D4B     		.short	19357
+ 486 00d0 3F4C     		.short	19519
+ 487 00d2 E04C     		.short	19680
+ 488 00d4 804D     		.short	19840
+ 489 00d6 204E     		.short	20000
+ 490 00d8 BF4E     		.short	20159
+ 491 00da 5D4F     		.short	20317
+ 492 00dc FA4F     		.short	20474
+ 493 00de 9750     		.short	20631
+ 494 00e0 3351     		.short	20787
+ 495 00e2 CE51     		.short	20942
+ 496 00e4 6852     		.short	21096
+ 497 00e6 0153     		.short	21249
+ 498 00e8 9A53     		.short	21402
+ 499 00ea 3254     		.short	21554
+ 500 00ec C954     		.short	21705
+ 501 00ee 5F55     		.short	21855
+ 502 00f0 F455     		.short	22004
+ 503 00f2 8956     		.short	22153
+ 504 00f4 1D57     		.short	22301
+ 505 00f6 B057     		.short	22448
+ 506 00f8 4258     		.short	22594
+ 507 00fa D358     		.short	22739
+ 508 00fc 6359     		.short	22883
+ 509 00fe F359     		.short	23027
+ 510 0100 815A     		.short	23169
+ 511 0102 0F5B     		.short	23311
+ 512 0104 9C5B     		.short	23452
+ 513 0106 285C     		.short	23592
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 10
+
+
+ 514 0108 B35C     		.short	23731
+ 515 010a 3D5D     		.short	23869
+ 516 010c C65D     		.short	24006
+ 517 010e 4F5E     		.short	24143
+ 518 0110 D65E     		.short	24278
+ 519 0112 5D5F     		.short	24413
+ 520 0114 E25F     		.short	24546
+ 521 0116 6760     		.short	24679
+ 522 0118 EB60     		.short	24811
+ 523 011a 6E61     		.short	24942
+ 524 011c F061     		.short	25072
+ 525 011e 7162     		.short	25201
+ 526 0120 F162     		.short	25329
+ 527 0122 7063     		.short	25456
+ 528 0124 EE63     		.short	25582
+ 529 0126 6B64     		.short	25707
+ 530 0128 E764     		.short	25831
+ 531 012a 6265     		.short	25954
+ 532 012c DD65     		.short	26077
+ 533 012e 5666     		.short	26198
+ 534 0130 CE66     		.short	26318
+ 535 0132 4567     		.short	26437
+ 536 0134 BC67     		.short	26556
+ 537 0136 3168     		.short	26673
+ 538 0138 A568     		.short	26789
+ 539 013a 1969     		.short	26905
+ 540 013c 8B69     		.short	27019
+ 541 013e FC69     		.short	27132
+ 542 0140 6C6A     		.short	27244
+ 543 0142 DB6A     		.short	27355
+ 544 0144 4A6B     		.short	27466
+ 545 0146 B76B     		.short	27575
+ 546 0148 236C     		.short	27683
+ 547 014a 8E6C     		.short	27790
+ 548 014c F86C     		.short	27896
+ 549 014e 616D     		.short	28001
+ 550 0150 C96D     		.short	28105
+ 551 0152 306E     		.short	28208
+ 552 0154 956E     		.short	28309
+ 553 0156 FA6E     		.short	28410
+ 554 0158 5E6F     		.short	28510
+ 555 015a C06F     		.short	28608
+ 556 015c 2270     		.short	28706
+ 557 015e 8270     		.short	28802
+ 558 0160 E170     		.short	28897
+ 559 0162 4071     		.short	28992
+ 560 0164 9D71     		.short	29085
+ 561 0166 F971     		.short	29177
+ 562 0168 5472     		.short	29268
+ 563 016a AE72     		.short	29358
+ 564 016c 0673     		.short	29446
+ 565 016e 5E73     		.short	29534
+ 566 0170 B573     		.short	29621
+ 567 0172 0A74     		.short	29706
+ 568 0174 5E74     		.short	29790
+ 569 0176 B174     		.short	29873
+ 570 0178 0375     		.short	29955
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 11
+
+
+ 571 017a 5475     		.short	30036
+ 572 017c A475     		.short	30116
+ 573 017e F375     		.short	30195
+ 574 0180 4076     		.short	30272
+ 575 0182 8D76     		.short	30349
+ 576 0184 D876     		.short	30424
+ 577 0186 2277     		.short	30498
+ 578 0188 6B77     		.short	30571
+ 579 018a B377     		.short	30643
+ 580 018c F977     		.short	30713
+ 581 018e 3F78     		.short	30783
+ 582 0190 8378     		.short	30851
+ 583 0192 C678     		.short	30918
+ 584 0194 0879     		.short	30984
+ 585 0196 4979     		.short	31049
+ 586 0198 8979     		.short	31113
+ 587 019a C779     		.short	31175
+ 588 019c 047A     		.short	31236
+ 589 019e 417A     		.short	31297
+ 590 01a0 7C7A     		.short	31356
+ 591 01a2 B57A     		.short	31413
+ 592 01a4 EE7A     		.short	31470
+ 593 01a6 257B     		.short	31525
+ 594 01a8 5C7B     		.short	31580
+ 595 01aa 917B     		.short	31633
+ 596 01ac C47B     		.short	31684
+ 597 01ae F77B     		.short	31735
+ 598 01b0 297C     		.short	31785
+ 599 01b2 597C     		.short	31833
+ 600 01b4 887C     		.short	31880
+ 601 01b6 B67C     		.short	31926
+ 602 01b8 E27C     		.short	31970
+ 603 01ba 0E7D     		.short	32014
+ 604 01bc 387D     		.short	32056
+ 605 01be 617D     		.short	32097
+ 606 01c0 897D     		.short	32137
+ 607 01c2 B07D     		.short	32176
+ 608 01c4 D57D     		.short	32213
+ 609 01c6 F97D     		.short	32249
+ 610 01c8 1C7E     		.short	32284
+ 611 01ca 3E7E     		.short	32318
+ 612 01cc 5E7E     		.short	32350
+ 613 01ce 7E7E     		.short	32382
+ 614 01d0 9C7E     		.short	32412
+ 615 01d2 B97E     		.short	32441
+ 616 01d4 D47E     		.short	32468
+ 617 01d6 EF7E     		.short	32495
+ 618 01d8 087F     		.short	32520
+ 619 01da 207F     		.short	32544
+ 620 01dc 377F     		.short	32567
+ 621 01de 4C7F     		.short	32588
+ 622 01e0 617F     		.short	32609
+ 623 01e2 747F     		.short	32628
+ 624 01e4 867F     		.short	32646
+ 625 01e6 967F     		.short	32662
+ 626 01e8 A67F     		.short	32678
+ 627 01ea B47F     		.short	32692
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 12
+
+
+ 628 01ec C17F     		.short	32705
+ 629 01ee CD7F     		.short	32717
+ 630 01f0 D77F     		.short	32727
+ 631 01f2 E07F     		.short	32736
+ 632 01f4 E87F     		.short	32744
+ 633 01f6 EF7F     		.short	32751
+ 634 01f8 F57F     		.short	32757
+ 635 01fa F97F     		.short	32761
+ 636 01fc FC7F     		.short	32764
+ 637 01fe FE7F     		.short	32766
+ 638 0200 FF7F     		.short	32767
+ 639 0202 FE7F     		.short	32766
+ 640 0204 FC7F     		.short	32764
+ 641 0206 F97F     		.short	32761
+ 642 0208 F57F     		.short	32757
+ 643 020a EF7F     		.short	32751
+ 644 020c E87F     		.short	32744
+ 645 020e E07F     		.short	32736
+ 646 0210 D77F     		.short	32727
+ 647 0212 CD7F     		.short	32717
+ 648 0214 C17F     		.short	32705
+ 649 0216 B47F     		.short	32692
+ 650 0218 A67F     		.short	32678
+ 651 021a 967F     		.short	32662
+ 652 021c 867F     		.short	32646
+ 653 021e 747F     		.short	32628
+ 654 0220 617F     		.short	32609
+ 655 0222 4C7F     		.short	32588
+ 656 0224 377F     		.short	32567
+ 657 0226 207F     		.short	32544
+ 658 0228 087F     		.short	32520
+ 659 022a EF7E     		.short	32495
+ 660 022c D47E     		.short	32468
+ 661 022e B97E     		.short	32441
+ 662 0230 9C7E     		.short	32412
+ 663 0232 7E7E     		.short	32382
+ 664 0234 5E7E     		.short	32350
+ 665 0236 3E7E     		.short	32318
+ 666 0238 1C7E     		.short	32284
+ 667 023a F97D     		.short	32249
+ 668 023c D57D     		.short	32213
+ 669 023e B07D     		.short	32176
+ 670 0240 897D     		.short	32137
+ 671 0242 617D     		.short	32097
+ 672 0244 387D     		.short	32056
+ 673 0246 0E7D     		.short	32014
+ 674 0248 E27C     		.short	31970
+ 675 024a B67C     		.short	31926
+ 676 024c 887C     		.short	31880
+ 677 024e 597C     		.short	31833
+ 678 0250 297C     		.short	31785
+ 679 0252 F77B     		.short	31735
+ 680 0254 C47B     		.short	31684
+ 681 0256 917B     		.short	31633
+ 682 0258 5C7B     		.short	31580
+ 683 025a 257B     		.short	31525
+ 684 025c EE7A     		.short	31470
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 13
+
+
+ 685 025e B57A     		.short	31413
+ 686 0260 7C7A     		.short	31356
+ 687 0262 417A     		.short	31297
+ 688 0264 047A     		.short	31236
+ 689 0266 C779     		.short	31175
+ 690 0268 8979     		.short	31113
+ 691 026a 4979     		.short	31049
+ 692 026c 0879     		.short	30984
+ 693 026e C678     		.short	30918
+ 694 0270 8378     		.short	30851
+ 695 0272 3F78     		.short	30783
+ 696 0274 F977     		.short	30713
+ 697 0276 B377     		.short	30643
+ 698 0278 6B77     		.short	30571
+ 699 027a 2277     		.short	30498
+ 700 027c D876     		.short	30424
+ 701 027e 8D76     		.short	30349
+ 702 0280 4076     		.short	30272
+ 703 0282 F375     		.short	30195
+ 704 0284 A475     		.short	30116
+ 705 0286 5475     		.short	30036
+ 706 0288 0375     		.short	29955
+ 707 028a B174     		.short	29873
+ 708 028c 5E74     		.short	29790
+ 709 028e 0A74     		.short	29706
+ 710 0290 B573     		.short	29621
+ 711 0292 5E73     		.short	29534
+ 712 0294 0673     		.short	29446
+ 713 0296 AE72     		.short	29358
+ 714 0298 5472     		.short	29268
+ 715 029a F971     		.short	29177
+ 716 029c 9D71     		.short	29085
+ 717 029e 4071     		.short	28992
+ 718 02a0 E170     		.short	28897
+ 719 02a2 8270     		.short	28802
+ 720 02a4 2270     		.short	28706
+ 721 02a6 C06F     		.short	28608
+ 722 02a8 5E6F     		.short	28510
+ 723 02aa FA6E     		.short	28410
+ 724 02ac 956E     		.short	28309
+ 725 02ae 306E     		.short	28208
+ 726 02b0 C96D     		.short	28105
+ 727 02b2 616D     		.short	28001
+ 728 02b4 F86C     		.short	27896
+ 729 02b6 8E6C     		.short	27790
+ 730 02b8 236C     		.short	27683
+ 731 02ba B76B     		.short	27575
+ 732 02bc 4A6B     		.short	27466
+ 733 02be DB6A     		.short	27355
+ 734 02c0 6C6A     		.short	27244
+ 735 02c2 FC69     		.short	27132
+ 736 02c4 8B69     		.short	27019
+ 737 02c6 1969     		.short	26905
+ 738 02c8 A568     		.short	26789
+ 739 02ca 3168     		.short	26673
+ 740 02cc BC67     		.short	26556
+ 741 02ce 4567     		.short	26437
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 14
+
+
+ 742 02d0 CE66     		.short	26318
+ 743 02d2 5666     		.short	26198
+ 744 02d4 DD65     		.short	26077
+ 745 02d6 6265     		.short	25954
+ 746 02d8 E764     		.short	25831
+ 747 02da 6B64     		.short	25707
+ 748 02dc EE63     		.short	25582
+ 749 02de 7063     		.short	25456
+ 750 02e0 F162     		.short	25329
+ 751 02e2 7162     		.short	25201
+ 752 02e4 F061     		.short	25072
+ 753 02e6 6E61     		.short	24942
+ 754 02e8 EB60     		.short	24811
+ 755 02ea 6760     		.short	24679
+ 756 02ec E25F     		.short	24546
+ 757 02ee 5D5F     		.short	24413
+ 758 02f0 D65E     		.short	24278
+ 759 02f2 4F5E     		.short	24143
+ 760 02f4 C65D     		.short	24006
+ 761 02f6 3D5D     		.short	23869
+ 762 02f8 B35C     		.short	23731
+ 763 02fa 285C     		.short	23592
+ 764 02fc 9C5B     		.short	23452
+ 765 02fe 0F5B     		.short	23311
+ 766 0300 815A     		.short	23169
+ 767 0302 F359     		.short	23027
+ 768 0304 6359     		.short	22883
+ 769 0306 D358     		.short	22739
+ 770 0308 4258     		.short	22594
+ 771 030a B057     		.short	22448
+ 772 030c 1D57     		.short	22301
+ 773 030e 8956     		.short	22153
+ 774 0310 F455     		.short	22004
+ 775 0312 5F55     		.short	21855
+ 776 0314 C954     		.short	21705
+ 777 0316 3254     		.short	21554
+ 778 0318 9A53     		.short	21402
+ 779 031a 0153     		.short	21249
+ 780 031c 6852     		.short	21096
+ 781 031e CE51     		.short	20942
+ 782 0320 3351     		.short	20787
+ 783 0322 9750     		.short	20631
+ 784 0324 FA4F     		.short	20474
+ 785 0326 5D4F     		.short	20317
+ 786 0328 BF4E     		.short	20159
+ 787 032a 204E     		.short	20000
+ 788 032c 804D     		.short	19840
+ 789 032e E04C     		.short	19680
+ 790 0330 3F4C     		.short	19519
+ 791 0332 9D4B     		.short	19357
+ 792 0334 FA4A     		.short	19194
+ 793 0336 574A     		.short	19031
+ 794 0338 B349     		.short	18867
+ 795 033a 0E49     		.short	18702
+ 796 033c 6948     		.short	18537
+ 797 033e C347     		.short	18371
+ 798 0340 1C47     		.short	18204
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 15
+
+
+ 799 0342 7446     		.short	18036
+ 800 0344 CC45     		.short	17868
+ 801 0346 2345     		.short	17699
+ 802 0348 7A44     		.short	17530
+ 803 034a D043     		.short	17360
+ 804 034c 2543     		.short	17189
+ 805 034e 7942     		.short	17017
+ 806 0350 CD41     		.short	16845
+ 807 0352 2041     		.short	16672
+ 808 0354 7340     		.short	16499
+ 809 0356 C53F     		.short	16325
+ 810 0358 163F     		.short	16150
+ 811 035a 673E     		.short	15975
+ 812 035c B73D     		.short	15799
+ 813 035e 073D     		.short	15623
+ 814 0360 563C     		.short	15446
+ 815 0362 A43B     		.short	15268
+ 816 0364 F23A     		.short	15090
+ 817 0366 3F3A     		.short	14911
+ 818 0368 8C39     		.short	14732
+ 819 036a D838     		.short	14552
+ 820 036c 2438     		.short	14372
+ 821 036e 6F37     		.short	14191
+ 822 0370 B936     		.short	14009
+ 823 0372 0336     		.short	13827
+ 824 0374 4D35     		.short	13645
+ 825 0376 9634     		.short	13462
+ 826 0378 DE33     		.short	13278
+ 827 037a 2633     		.short	13094
+ 828 037c 6D32     		.short	12909
+ 829 037e B431     		.short	12724
+ 830 0380 FB30     		.short	12539
+ 831 0382 4130     		.short	12353
+ 832 0384 862F     		.short	12166
+ 833 0386 CC2E     		.short	11980
+ 834 0388 102E     		.short	11792
+ 835 038a 542D     		.short	11604
+ 836 038c 982C     		.short	11416
+ 837 038e DB2B     		.short	11227
+ 838 0390 1E2B     		.short	11038
+ 839 0392 612A     		.short	10849
+ 840 0394 A329     		.short	10659
+ 841 0396 E528     		.short	10469
+ 842 0398 2628     		.short	10278
+ 843 039a 6727     		.short	10087
+ 844 039c A726     		.short	9895
+ 845 039e E725     		.short	9703
+ 846 03a0 2725     		.short	9511
+ 847 03a2 6724     		.short	9319
+ 848 03a4 A623     		.short	9126
+ 849 03a6 E422     		.short	8932
+ 850 03a8 2322     		.short	8739
+ 851 03aa 6121     		.short	8545
+ 852 03ac 9F20     		.short	8351
+ 853 03ae DC1F     		.short	8156
+ 854 03b0 191F     		.short	7961
+ 855 03b2 561E     		.short	7766
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 16
+
+
+ 856 03b4 931D     		.short	7571
+ 857 03b6 CF1C     		.short	7375
+ 858 03b8 0B1C     		.short	7179
+ 859 03ba 461B     		.short	6982
+ 860 03bc 821A     		.short	6786
+ 861 03be BD19     		.short	6589
+ 862 03c0 F818     		.short	6392
+ 863 03c2 3318     		.short	6195
+ 864 03c4 6D17     		.short	5997
+ 865 03c6 A716     		.short	5799
+ 866 03c8 E115     		.short	5601
+ 867 03ca 1B15     		.short	5403
+ 868 03cc 5514     		.short	5205
+ 869 03ce 8E13     		.short	5006
+ 870 03d0 C712     		.short	4807
+ 871 03d2 0012     		.short	4608
+ 872 03d4 3911     		.short	4409
+ 873 03d6 7210     		.short	4210
+ 874 03d8 AB0F     		.short	4011
+ 875 03da E30E     		.short	3811
+ 876 03dc 1B0E     		.short	3611
+ 877 03de 530D     		.short	3411
+ 878 03e0 8B0C     		.short	3211
+ 879 03e2 C30B     		.short	3011
+ 880 03e4 FB0A     		.short	2811
+ 881 03e6 320A     		.short	2610
+ 882 03e8 6A09     		.short	2410
+ 883 03ea A108     		.short	2209
+ 884 03ec D907     		.short	2009
+ 885 03ee 1007     		.short	1808
+ 886 03f0 4706     		.short	1607
+ 887 03f2 7E05     		.short	1406
+ 888 03f4 B604     		.short	1206
+ 889 03f6 ED03     		.short	1005
+ 890 03f8 2403     		.short	804
+ 891 03fa 5B02     		.short	603
+ 892 03fc 9201     		.short	402
+ 893 03fe C900     		.short	201
+ 894 0400 0000     		.short	0
+ 895 0402 37FF     		.short	-201
+ 896 0404 6EFE     		.short	-402
+ 897 0406 A5FD     		.short	-603
+ 898 0408 DCFC     		.short	-804
+ 899 040a 13FC     		.short	-1005
+ 900 040c 4AFB     		.short	-1206
+ 901 040e 82FA     		.short	-1406
+ 902 0410 B9F9     		.short	-1607
+ 903 0412 F0F8     		.short	-1808
+ 904 0414 27F8     		.short	-2009
+ 905 0416 5FF7     		.short	-2209
+ 906 0418 96F6     		.short	-2410
+ 907 041a CEF5     		.short	-2610
+ 908 041c 05F5     		.short	-2811
+ 909 041e 3DF4     		.short	-3011
+ 910 0420 75F3     		.short	-3211
+ 911 0422 ADF2     		.short	-3411
+ 912 0424 E5F1     		.short	-3611
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 17
+
+
+ 913 0426 1DF1     		.short	-3811
+ 914 0428 55F0     		.short	-4011
+ 915 042a 8EEF     		.short	-4210
+ 916 042c C7EE     		.short	-4409
+ 917 042e 00EE     		.short	-4608
+ 918 0430 39ED     		.short	-4807
+ 919 0432 72EC     		.short	-5006
+ 920 0434 ABEB     		.short	-5205
+ 921 0436 E5EA     		.short	-5403
+ 922 0438 1FEA     		.short	-5601
+ 923 043a 59E9     		.short	-5799
+ 924 043c 93E8     		.short	-5997
+ 925 043e CDE7     		.short	-6195
+ 926 0440 08E7     		.short	-6392
+ 927 0442 43E6     		.short	-6589
+ 928 0444 7EE5     		.short	-6786
+ 929 0446 BAE4     		.short	-6982
+ 930 0448 F5E3     		.short	-7179
+ 931 044a 31E3     		.short	-7375
+ 932 044c 6DE2     		.short	-7571
+ 933 044e AAE1     		.short	-7766
+ 934 0450 E7E0     		.short	-7961
+ 935 0452 24E0     		.short	-8156
+ 936 0454 61DF     		.short	-8351
+ 937 0456 9FDE     		.short	-8545
+ 938 0458 DDDD     		.short	-8739
+ 939 045a 1CDD     		.short	-8932
+ 940 045c 5ADC     		.short	-9126
+ 941 045e 99DB     		.short	-9319
+ 942 0460 D9DA     		.short	-9511
+ 943 0462 19DA     		.short	-9703
+ 944 0464 59D9     		.short	-9895
+ 945 0466 99D8     		.short	-10087
+ 946 0468 DAD7     		.short	-10278
+ 947 046a 1BD7     		.short	-10469
+ 948 046c 5DD6     		.short	-10659
+ 949 046e 9FD5     		.short	-10849
+ 950 0470 E2D4     		.short	-11038
+ 951 0472 25D4     		.short	-11227
+ 952 0474 68D3     		.short	-11416
+ 953 0476 ACD2     		.short	-11604
+ 954 0478 F0D1     		.short	-11792
+ 955 047a 34D1     		.short	-11980
+ 956 047c 7AD0     		.short	-12166
+ 957 047e BFCF     		.short	-12353
+ 958 0480 05CF     		.short	-12539
+ 959 0482 4CCE     		.short	-12724
+ 960 0484 93CD     		.short	-12909
+ 961 0486 DACC     		.short	-13094
+ 962 0488 22CC     		.short	-13278
+ 963 048a 6ACB     		.short	-13462
+ 964 048c B3CA     		.short	-13645
+ 965 048e FDC9     		.short	-13827
+ 966 0490 47C9     		.short	-14009
+ 967 0492 91C8     		.short	-14191
+ 968 0494 DCC7     		.short	-14372
+ 969 0496 28C7     		.short	-14552
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 18
+
+
+ 970 0498 74C6     		.short	-14732
+ 971 049a C1C5     		.short	-14911
+ 972 049c 0EC5     		.short	-15090
+ 973 049e 5CC4     		.short	-15268
+ 974 04a0 AAC3     		.short	-15446
+ 975 04a2 F9C2     		.short	-15623
+ 976 04a4 49C2     		.short	-15799
+ 977 04a6 99C1     		.short	-15975
+ 978 04a8 EAC0     		.short	-16150
+ 979 04aa 3BC0     		.short	-16325
+ 980 04ac 8DBF     		.short	-16499
+ 981 04ae E0BE     		.short	-16672
+ 982 04b0 33BE     		.short	-16845
+ 983 04b2 87BD     		.short	-17017
+ 984 04b4 DBBC     		.short	-17189
+ 985 04b6 30BC     		.short	-17360
+ 986 04b8 86BB     		.short	-17530
+ 987 04ba DDBA     		.short	-17699
+ 988 04bc 34BA     		.short	-17868
+ 989 04be 8CB9     		.short	-18036
+ 990 04c0 E4B8     		.short	-18204
+ 991 04c2 3DB8     		.short	-18371
+ 992 04c4 97B7     		.short	-18537
+ 993 04c6 F2B6     		.short	-18702
+ 994 04c8 4DB6     		.short	-18867
+ 995 04ca A9B5     		.short	-19031
+ 996 04cc 06B5     		.short	-19194
+ 997 04ce 63B4     		.short	-19357
+ 998 04d0 C1B3     		.short	-19519
+ 999 04d2 20B3     		.short	-19680
+ 1000 04d4 80B2     		.short	-19840
+ 1001 04d6 E0B1     		.short	-20000
+ 1002 04d8 41B1     		.short	-20159
+ 1003 04da A3B0     		.short	-20317
+ 1004 04dc 06B0     		.short	-20474
+ 1005 04de 69AF     		.short	-20631
+ 1006 04e0 CDAE     		.short	-20787
+ 1007 04e2 32AE     		.short	-20942
+ 1008 04e4 98AD     		.short	-21096
+ 1009 04e6 FFAC     		.short	-21249
+ 1010 04e8 66AC     		.short	-21402
+ 1011 04ea CEAB     		.short	-21554
+ 1012 04ec 37AB     		.short	-21705
+ 1013 04ee A1AA     		.short	-21855
+ 1014 04f0 0CAA     		.short	-22004
+ 1015 04f2 77A9     		.short	-22153
+ 1016 04f4 E3A8     		.short	-22301
+ 1017 04f6 50A8     		.short	-22448
+ 1018 04f8 BEA7     		.short	-22594
+ 1019 04fa 2DA7     		.short	-22739
+ 1020 04fc 9DA6     		.short	-22883
+ 1021 04fe 0DA6     		.short	-23027
+ 1022 0500 7FA5     		.short	-23169
+ 1023 0502 F1A4     		.short	-23311
+ 1024 0504 64A4     		.short	-23452
+ 1025 0506 D8A3     		.short	-23592
+ 1026 0508 4DA3     		.short	-23731
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 19
+
+
+ 1027 050a C3A2     		.short	-23869
+ 1028 050c 3AA2     		.short	-24006
+ 1029 050e B1A1     		.short	-24143
+ 1030 0510 2AA1     		.short	-24278
+ 1031 0512 A3A0     		.short	-24413
+ 1032 0514 1EA0     		.short	-24546
+ 1033 0516 999F     		.short	-24679
+ 1034 0518 159F     		.short	-24811
+ 1035 051a 929E     		.short	-24942
+ 1036 051c 109E     		.short	-25072
+ 1037 051e 8F9D     		.short	-25201
+ 1038 0520 0F9D     		.short	-25329
+ 1039 0522 909C     		.short	-25456
+ 1040 0524 129C     		.short	-25582
+ 1041 0526 959B     		.short	-25707
+ 1042 0528 199B     		.short	-25831
+ 1043 052a 9E9A     		.short	-25954
+ 1044 052c 239A     		.short	-26077
+ 1045 052e AA99     		.short	-26198
+ 1046 0530 3299     		.short	-26318
+ 1047 0532 BB98     		.short	-26437
+ 1048 0534 4498     		.short	-26556
+ 1049 0536 CF97     		.short	-26673
+ 1050 0538 5B97     		.short	-26789
+ 1051 053a E796     		.short	-26905
+ 1052 053c 7596     		.short	-27019
+ 1053 053e 0496     		.short	-27132
+ 1054 0540 9495     		.short	-27244
+ 1055 0542 2595     		.short	-27355
+ 1056 0544 B694     		.short	-27466
+ 1057 0546 4994     		.short	-27575
+ 1058 0548 DD93     		.short	-27683
+ 1059 054a 7293     		.short	-27790
+ 1060 054c 0893     		.short	-27896
+ 1061 054e 9F92     		.short	-28001
+ 1062 0550 3792     		.short	-28105
+ 1063 0552 D091     		.short	-28208
+ 1064 0554 6B91     		.short	-28309
+ 1065 0556 0691     		.short	-28410
+ 1066 0558 A290     		.short	-28510
+ 1067 055a 4090     		.short	-28608
+ 1068 055c DE8F     		.short	-28706
+ 1069 055e 7E8F     		.short	-28802
+ 1070 0560 1F8F     		.short	-28897
+ 1071 0562 C08E     		.short	-28992
+ 1072 0564 638E     		.short	-29085
+ 1073 0566 078E     		.short	-29177
+ 1074 0568 AC8D     		.short	-29268
+ 1075 056a 528D     		.short	-29358
+ 1076 056c FA8C     		.short	-29446
+ 1077 056e A28C     		.short	-29534
+ 1078 0570 4B8C     		.short	-29621
+ 1079 0572 F68B     		.short	-29706
+ 1080 0574 A28B     		.short	-29790
+ 1081 0576 4F8B     		.short	-29873
+ 1082 0578 FD8A     		.short	-29955
+ 1083 057a AC8A     		.short	-30036
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 20
+
+
+ 1084 057c 5C8A     		.short	-30116
+ 1085 057e 0D8A     		.short	-30195
+ 1086 0580 C089     		.short	-30272
+ 1087 0582 7389     		.short	-30349
+ 1088 0584 2889     		.short	-30424
+ 1089 0586 DE88     		.short	-30498
+ 1090 0588 9588     		.short	-30571
+ 1091 058a 4D88     		.short	-30643
+ 1092 058c 0788     		.short	-30713
+ 1093 058e C187     		.short	-30783
+ 1094 0590 7D87     		.short	-30851
+ 1095 0592 3A87     		.short	-30918
+ 1096 0594 F886     		.short	-30984
+ 1097 0596 B786     		.short	-31049
+ 1098 0598 7786     		.short	-31113
+ 1099 059a 3986     		.short	-31175
+ 1100 059c FC85     		.short	-31236
+ 1101 059e BF85     		.short	-31297
+ 1102 05a0 8485     		.short	-31356
+ 1103 05a2 4B85     		.short	-31413
+ 1104 05a4 1285     		.short	-31470
+ 1105 05a6 DB84     		.short	-31525
+ 1106 05a8 A484     		.short	-31580
+ 1107 05aa 6F84     		.short	-31633
+ 1108 05ac 3C84     		.short	-31684
+ 1109 05ae 0984     		.short	-31735
+ 1110 05b0 D783     		.short	-31785
+ 1111 05b2 A783     		.short	-31833
+ 1112 05b4 7883     		.short	-31880
+ 1113 05b6 4A83     		.short	-31926
+ 1114 05b8 1E83     		.short	-31970
+ 1115 05ba F282     		.short	-32014
+ 1116 05bc C882     		.short	-32056
+ 1117 05be 9F82     		.short	-32097
+ 1118 05c0 7782     		.short	-32137
+ 1119 05c2 5082     		.short	-32176
+ 1120 05c4 2B82     		.short	-32213
+ 1121 05c6 0782     		.short	-32249
+ 1122 05c8 E481     		.short	-32284
+ 1123 05ca C281     		.short	-32318
+ 1124 05cc A281     		.short	-32350
+ 1125 05ce 8281     		.short	-32382
+ 1126 05d0 6481     		.short	-32412
+ 1127 05d2 4781     		.short	-32441
+ 1128 05d4 2C81     		.short	-32468
+ 1129 05d6 1181     		.short	-32495
+ 1130 05d8 F880     		.short	-32520
+ 1131 05da E080     		.short	-32544
+ 1132 05dc C980     		.short	-32567
+ 1133 05de B480     		.short	-32588
+ 1134 05e0 9F80     		.short	-32609
+ 1135 05e2 8C80     		.short	-32628
+ 1136 05e4 7A80     		.short	-32646
+ 1137 05e6 6A80     		.short	-32662
+ 1138 05e8 5A80     		.short	-32678
+ 1139 05ea 4C80     		.short	-32692
+ 1140 05ec 3F80     		.short	-32705
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 21
+
+
+ 1141 05ee 3380     		.short	-32717
+ 1142 05f0 2980     		.short	-32727
+ 1143 05f2 2080     		.short	-32736
+ 1144 05f4 1880     		.short	-32744
+ 1145 05f6 1180     		.short	-32751
+ 1146 05f8 0B80     		.short	-32757
+ 1147 05fa 0780     		.short	-32761
+ 1148 05fc 0480     		.short	-32764
+ 1149 05fe 0280     		.short	-32766
+ 1150              		.ident	"GCC: (GNU) 4.3.2"
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 fix_fft.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s:42     .text:00000000 FIX_MPY
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s:47     .text:00000000 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s:62     .text:0000002c fix_fft
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s:319    .text:000003d0 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s:381    .data:00000000 Sinewave
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s:325    .text:000003d8 fix_fftr
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s:329    .text:000003d8 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/cc3GEUhL.s:382    .data:00000000 $d
+
+NO UNDEFINED SYMBOLS

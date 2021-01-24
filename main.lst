@@ -1,0 +1,4534 @@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 1
+
+
+   1              		.file	"main.c"
+   2              	@ GNU C (GCC) version 4.3.2 (arm-elf)
+   3              	@	compiled by GNU C version 3.4.5 (mingw special), GMP version 4.2.2, MPFR version 2.3.1.
+   4              	@ GGC heuristics: --param ggc-min-expand=99 --param ggc-min-heapsize=131006
+   5              	@ options passed:  -IC:/ethernut-4.7.4/nutbld/include
+   6              	@ -IC:/ethernut-4.7.4/nutbld -IC:/ethernut-4.7.4/nut/include -imultilib
+   7              	@ interwork -iprefix c:\program files\yagarto\bin\../lib/gcc/arm-elf/4.3.2/
+   8              	@ -D__USES_INITFINI__ -DELEKTOR_IR1 main.c -mcpu=arm7tdmi -mthumb-interwork
+   9              	@ -auxbase-strip main.o -Os -Wall -Wstrict-prototypes -fomit-frame-pointer
+  10              	@ -fverbose-asm
+  11              	@ options enabled:  -falign-loops -fargument-alias -fauto-inc-dec
+  12              	@ -fbranch-count-reg -fcaller-saves -fcommon -fcprop-registers
+  13              	@ -fcrossjumping -fcse-follow-jumps -fdefer-pop
+  14              	@ -fdelete-null-pointer-checks -fearly-inlining
+  15              	@ -feliminate-unused-debug-types -fexpensive-optimizations
+  16              	@ -fforward-propagate -ffunction-cse -fgcse -fgcse-lm
+  17              	@ -fguess-branch-probability -fident -fif-conversion -fif-conversion2
+  18              	@ -finline-functions -finline-functions-called-once
+  19              	@ -finline-small-functions -fipa-pure-const -fipa-reference -fivopts
+  20              	@ -fkeep-static-consts -fleading-underscore -fmath-errno -fmerge-constants
+  21              	@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+  22              	@ -foptimize-register-move -foptimize-sibling-calls -fpeephole -fpeephole2
+  23              	@ -freg-struct-return -fregmove -freorder-functions -frerun-cse-after-loop
+  24              	@ -fsched-interblock -fsched-spec -fsched-stalled-insns-dep
+  25              	@ -fschedule-insns -fschedule-insns2 -fsigned-zeros -fsplit-ivs-in-unroller
+  26              	@ -fsplit-wide-types -fstrict-aliasing -fstrict-overflow -fthread-jumps
+  27              	@ -ftoplevel-reorder -ftrapping-math -ftree-ccp -ftree-copy-prop
+  28              	@ -ftree-copyrename -ftree-cselim -ftree-dce -ftree-dominator-opts
+  29              	@ -ftree-dse -ftree-fre -ftree-loop-im -ftree-loop-ivcanon
+  30              	@ -ftree-loop-optimize -ftree-parallelize-loops= -ftree-reassoc
+  31              	@ -ftree-salias -ftree-scev-cprop -ftree-sink -ftree-sra -ftree-store-ccp
+  32              	@ -ftree-ter -ftree-vect-loop-version -ftree-vrp -funit-at-a-time
+  33              	@ -fverbose-asm -fzero-initialized-in-bss -mlittle-endian -msched-prolog
+  34              	@ -mthumb-interwork
+  35              	
+  36              	@ Compiler executable checksum: 6db586a17c82d36a40d1394fc9f8b6f8
+  37              	
+  38              		.section	.rodata.str1.1,"aMS",%progbits,1
+  39              	.LC0:
+  40 0000 0A0A092A 		.ascii	"\012\012\011**** Aliverkon peite ****\000"
+  40      2A2A2A20 
+  40      416C6976 
+  40      65726B6F 
+  40      6E207065 
+  41              	.LC1:
+  42 001d 0956616C 		.ascii	"\011Valitse numero.\000"
+  42      69747365 
+  42      206E756D 
+  42      65726F2E 
+  42      00
+  43              	.LC2:
+  44 002e 09313A41 		.ascii	"\0111:Aliverkon peite: 255.255.255.0\000"
+  44      6C697665 
+  44      726B6F6E 
+  44      20706569 
+  44      74653A20 
+  45              	.LC3:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 2
+
+
+  46 0050 09323A41 		.ascii	"\0112:Aliverkon peite: 255.255.0.0\000"
+  46      6C697665 
+  46      726B6F6E 
+  46      20706569 
+  46      74653A20 
+  47              	.LC4:
+  48 0070 094D7575 		.ascii	"\011Muut numerot palaavat edelliseen valikkoon.\000"
+  48      74206E75 
+  48      6D65726F 
+  48      74207061 
+  48      6C616176 
+  49              	.LC5:
+  50 009d 3235352E 		.ascii	"255.255.255.0\000"
+  50      3235352E 
+  50      3235352E 
+  50      3000
+  51              	.LC6:
+  52 00ab 3235352E 		.ascii	"255.255.0.0\000"
+  52      3235352E 
+  52      302E3000 
+  53              	.LC7:
+  54 00b7 0A09416C 		.ascii	"\012\011Aliverkon peite: %s\012\000"
+  54      69766572 
+  54      6B6F6E20 
+  54      70656974 
+  54      653A2025 
+  55              	.LC8:
+  56 00ce 0954756E 		.ascii	"\011Tuntematon valinta.\000"
+  56      74656D61 
+  56      746F6E20 
+  56      76616C69 
+  56      6E74612E 
+  57              		.text
+  58              		.align	2
+  59              		.global	changeSNM
+  60              		.type	changeSNM, %function
+  61              	changeSNM:
+  62              		@ Function supports interworking.
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65 0000 04E02DE5 		str	lr, [sp, #-4]!	@,
+  66 0004 80009FE5 		ldr	r0, .L11	@,
+  67 0008 FEFFFFEB 		bl	puts	@
+  68 000c 7C009FE5 		ldr	r0, .L11+4	@,
+  69 0010 FEFFFFEB 		bl	puts	@
+  70 0014 78009FE5 		ldr	r0, .L11+8	@,
+  71 0018 FEFFFFEB 		bl	puts	@
+  72 001c 74009FE5 		ldr	r0, .L11+12	@,
+  73 0020 FEFFFFEB 		bl	puts	@
+  74 0024 70009FE5 		ldr	r0, .L11+16	@,
+  75 0028 FEFFFFEB 		bl	puts	@
+  76 002c 6C309FE5 		ldr	r3, .L11+20	@ tmp139,
+  77 0030 000093E5 		ldr	r0, [r3, #0]	@, __iob
+  78 0034 FEFFFFEB 		bl	getc	@
+  79 0038 FF0000E2 		and	r0, r0, #255	@ tmp140, D.2923,
+  80 003c 310050E3 		cmp	r0, #49	@ tmp140,
+  81 0040 0200000A 		beq	.L3	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 3
+
+
+  82 0044 320050E3 		cmp	r0, #50	@ tmp140,
+  83 0048 0800001A 		bne	.L8	@,
+  84 004c 020000EA 		b	.L10	@
+  85              	.L3:
+  86 0050 4C009FE5 		ldr	r0, .L11+24	@,
+  87 0054 FEFFFFEB 		bl	inet_addr	@
+  88 0058 060000EA 		b	.L5	@
+  89              	.L10:
+  90 005c 44009FE5 		ldr	r0, .L11+28	@,
+  91 0060 FEFFFFEB 		bl	inet_addr	@
+  92 0064 3C109FE5 		ldr	r1, .L11+28	@,
+  93 0068 3C009FE5 		ldr	r0, .L11+32	@,
+  94 006c 030000EA 		b	.L9	@
+  95              	.L8:
+  96 0070 38009FE5 		ldr	r0, .L11+36	@,
+  97 0074 FEFFFFEB 		bl	printf	@
+  98              	.L5:
+  99 0078 2C009FE5 		ldr	r0, .L11+32	@,
+ 100 007c 20109FE5 		ldr	r1, .L11+24	@,
+ 101              	.L9:
+ 102 0080 FEFFFFEB 		bl	printf	@
+ 103 0084 04E09DE4 		ldr	lr, [sp], #4
+ 104 0088 1EFF2FE1 		bx	lr
+ 105              	.L12:
+ 106              		.align	2
+ 107              	.L11:
+ 108 008c 00000000 		.word	.LC0
+ 109 0090 1D000000 		.word	.LC1
+ 110 0094 2E000000 		.word	.LC2
+ 111 0098 50000000 		.word	.LC3
+ 112 009c 70000000 		.word	.LC4
+ 113 00a0 00000000 		.word	__iob
+ 114 00a4 9D000000 		.word	.LC5
+ 115 00a8 AB000000 		.word	.LC6
+ 116 00ac B7000000 		.word	.LC7
+ 117 00b0 CE000000 		.word	.LC8
+ 118              		.size	changeSNM, .-changeSNM
+ 119              		.section	.rodata.str1.1
+ 120              	.LC9:
+ 121 00e3 0A0A092A 		.ascii	"\012\012\011****IP valikko****\000"
+ 121      2A2A2A49 
+ 121      50207661 
+ 121      6C696B6B 
+ 121      6F2A2A2A 
+ 122              	.LC10:
+ 123 00f9 09416E6E 		.ascii	"\011Anna uusi IP osoite\000"
+ 123      61207575 
+ 123      73692049 
+ 123      50206F73 
+ 123      6F697465 
+ 124              	.LC11:
+ 125 010e 257300   		.ascii	"%s\000"
+ 126              	.LC12:
+ 127 0111 65746830 		.ascii	"eth0\000"
+ 127      00
+ 128              	.LC13:
+ 129 0116 0A095575 		.ascii	"\012\011Uusi IP on: %s\012\000"
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 4
+
+
+ 129      73692049 
+ 129      50206F6E 
+ 129      3A202573 
+ 129      0A00
+ 130              		.text
+ 131              		.align	2
+ 132              		.global	changeIP
+ 133              		.type	changeIP, %function
+ 134              	changeIP:
+ 135              		@ Function supports interworking.
+ 136              		@ args = 0, pretend = 0, frame = 16
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138 00b4 10402DE9 		stmfd	sp!, {r4, lr}	@,
+ 139 00b8 74009FE5 		ldr	r0, .L15	@,
+ 140 00bc 10D04DE2 		sub	sp, sp, #16	@,,
+ 141 00c0 FEFFFFEB 		bl	puts	@
+ 142 00c4 6C009FE5 		ldr	r0, .L15+4	@,
+ 143 00c8 FEFFFFEB 		bl	puts	@
+ 144 00cc 0D10A0E1 		mov	r1, sp	@,
+ 145 00d0 64009FE5 		ldr	r0, .L15+8	@,
+ 146 00d4 FEFFFFEB 		bl	scanf	@
+ 147 00d8 0D00A0E1 		mov	r0, sp	@,
+ 148 00dc FEFFFFEB 		bl	inet_addr	@
+ 149 00e0 58209FE5 		ldr	r2, .L15+12	@ tmp142,
+ 150 00e4 1510D2E5 		ldrb	r1, [r2, #21]	@ zero_extendqisi2	@ tmp144,
+ 151 00e8 1430D2E5 		ldrb	r3, [r2, #20]	@ zero_extendqisi2	@ tmp143,
+ 152 00ec 0040A0E1 		mov	r4, r0	@ oIP,
+ 153 00f0 1600D2E5 		ldrb	r0, [r2, #22]	@ zero_extendqisi2	@ tmp147,
+ 154 00f4 013483E1 		orr	r3, r3, r1, asl #8	@, tmp146, tmp143, tmp144,
+ 155 00f8 1720D2E5 		ldrb	r2, [r2, #23]	@ zero_extendqisi2	@ tmp150,
+ 156 00fc 003883E1 		orr	r3, r3, r0, asl #16	@, tmp149, tmp146, tmp147,
+ 157 0100 023C83E1 		orr	r3, r3, r2, asl #24	@,, tmp149, tmp150,
+ 158 0104 38109FE5 		ldr	r1, .L15+16	@,
+ 159 0108 0420A0E1 		mov	r2, r4	@, oIP
+ 160 010c 34009FE5 		ldr	r0, .L15+20	@,
+ 161 0110 FEFFFFEB 		bl	NutNetIfConfig	@
+ 162 0114 0400A0E1 		mov	r0, r4	@, oIP
+ 163 0118 FEFFFFEB 		bl	inet_ntoa	@
+ 164 011c 0010A0E1 		mov	r1, r0	@ D.2911,
+ 165 0120 24009FE5 		ldr	r0, .L15+24	@,
+ 166 0124 FEFFFFEB 		bl	printf	@
+ 167 0128 10D08DE2 		add	sp, sp, #16	@,,
+ 168 012c 1040BDE8 		ldmfd	sp!, {r4, lr}
+ 169 0130 1EFF2FE1 		bx	lr
+ 170              	.L16:
+ 171              		.align	2
+ 172              	.L15:
+ 173 0134 E3000000 		.word	.LC9
+ 174 0138 F9000000 		.word	.LC10
+ 175 013c 0E010000 		.word	.LC11
+ 176 0140 00000000 		.word	confnet
+ 177 0144 0A000000 		.word	confnet+10
+ 178 0148 11010000 		.word	.LC12
+ 179 014c 16010000 		.word	.LC13
+ 180              		.size	changeIP, .-changeIP
+ 181              		.section	.rodata.str1.1
+ 182              	.LC14:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 5
+
+
+ 183 0128 0A0A092A 		.ascii	"\012\012\011**** Asetukset ****\012\000"
+ 183      2A2A2A20 
+ 183      41736574 
+ 183      756B7365 
+ 183      74202A2A 
+ 184              	.LC15:
+ 185 0140 09313A20 		.ascii	"\0111: Vaihda IP osoite\000"
+ 185      56616968 
+ 185      64612049 
+ 185      50206F73 
+ 185      6F697465 
+ 186              	.LC16:
+ 187 0155 09323A20 		.ascii	"\0112: Vaihda aliverkon maski\000"
+ 187      56616968 
+ 187      64612061 
+ 187      6C697665 
+ 187      726B6F6E 
+ 188              		.text
+ 189              		.align	2
+ 190              		.global	settings
+ 191              		.type	settings, %function
+ 192              	settings:
+ 193              		@ Function supports interworking.
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 0, uses_anonymous_args = 0
+ 196 0150 04E02DE5 		str	lr, [sp, #-4]!	@,
+ 197 0154 64009FE5 		ldr	r0, .L24	@,
+ 198 0158 FEFFFFEB 		bl	puts	@
+ 199 015c 60009FE5 		ldr	r0, .L24+4	@,
+ 200 0160 FEFFFFEB 		bl	puts	@
+ 201 0164 5C009FE5 		ldr	r0, .L24+8	@,
+ 202 0168 FEFFFFEB 		bl	puts	@
+ 203 016c 58009FE5 		ldr	r0, .L24+12	@,
+ 204 0170 FEFFFFEB 		bl	puts	@
+ 205 0174 54009FE5 		ldr	r0, .L24+16	@,
+ 206 0178 FEFFFFEB 		bl	puts	@
+ 207 017c 50309FE5 		ldr	r3, .L24+20	@ tmp139,
+ 208 0180 000093E5 		ldr	r0, [r3, #0]	@, __iob
+ 209 0184 FEFFFFEB 		bl	getc	@
+ 210 0188 FF0000E2 		and	r0, r0, #255	@ tmp140, D.2900,
+ 211 018c 310050E3 		cmp	r0, #49	@ tmp140,
+ 212 0190 0200000A 		beq	.L19	@,
+ 213 0194 320050E3 		cmp	r0, #50	@ tmp140,
+ 214 0198 0400001A 		bne	.L22	@,
+ 215 019c 010000EA 		b	.L23	@
+ 216              	.L19:
+ 217 01a0 04E09DE4 		ldr	lr, [sp], #4
+ 218 01a4 FEFFFFEA 		b	changeIP	@
+ 219              	.L23:
+ 220 01a8 04E09DE4 		ldr	lr, [sp], #4
+ 221 01ac FEFFFFEA 		b	changeSNM	@
+ 222              	.L22:
+ 223 01b0 20009FE5 		ldr	r0, .L24+24	@,
+ 224 01b4 FEFFFFEB 		bl	printf	@
+ 225 01b8 04E09DE4 		ldr	lr, [sp], #4
+ 226 01bc 1EFF2FE1 		bx	lr
+ 227              	.L25:
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 6
+
+
+ 228              		.align	2
+ 229              	.L24:
+ 230 01c0 28010000 		.word	.LC14
+ 231 01c4 1D000000 		.word	.LC1
+ 232 01c8 40010000 		.word	.LC15
+ 233 01cc 55010000 		.word	.LC16
+ 234 01d0 70000000 		.word	.LC4
+ 235 01d4 00000000 		.word	__iob
+ 236 01d8 CE000000 		.word	.LC8
+ 237              		.size	settings, .-settings
+ 238              		.section	.rodata.str1.1
+ 239              	.LC17:
+ 240 0170 44545776 		.ascii	"DTWvalue: %d\012\000"
+ 240      616C7565 
+ 240      3A202564 
+ 240      0A00
+ 241              	.LC18:
+ 242 017e 54756E6E 		.ascii	"Tunnistettu luku: %d, N\344yteNro: %d, arvot: \012\000"
+ 242      69737465 
+ 242      74747520 
+ 242      6C756B75 
+ 242      3A202564 
+ 243              	.LC19:
+ 244 01ab 25642C20 		.ascii	"%d, \000"
+ 244      00
+ 245              		.text
+ 246              		.align	2
+ 247              		.global	spokenWord
+ 248              		.type	spokenWord, %function
+ 249              	spokenWord:
+ 250              		@ Function supports interworking.
+ 251              		@ args = 0, pretend = 0, frame = 48
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253 01dc F04F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}	@,
+ 254 01e0 30D04DE2 		sub	sp, sp, #48	@,,
+ 255 01e4 0090A0E1 		mov	r9, r0	@ puheenMfcc, puheenMfcc
+ 256 01e8 FEFFFFEB 		bl	speechRecognizer	@
+ 257 01ec 004050E2 		subs	r4, r0, #0	@ puheenNoF,
+ 258 01f0 0400A001 		moveq	r0, r4	@ D.2871, puheenNoF
+ 259 01f4 6100000A 		beq	.L28	@,
+ 260 01f8 0420A0E1 		mov	r2, r4	@, puheenNoF
+ 261 01fc 88119FE5 		ldr	r1, .L42	@,
+ 262 0200 2130A0E3 		mov	r3, #33	@,
+ 263 0204 0900A0E1 		mov	r0, r9	@, puheenMfcc
+ 264 0208 FEFFFFEB 		bl	dynamicTimeWarping	@
+ 265 020c 7C319FE5 		ldr	r3, .L42+4	@ tmp182,
+ 266 0210 030050E1 		cmp	r0, r3	@, tmp182
+ 267 0214 0050A0D1 		movle	r5, r0	@ dtwValue,
+ 268 0218 0420A0E1 		mov	r2, r4	@, puheenNoF
+ 269 021c 00008DE5 		str	r0, [sp, #0]	@, dtwValueTemp
+ 270 0220 6C119FE5 		ldr	r1, .L42+8	@,
+ 271 0224 1F30A0E3 		mov	r3, #31	@,
+ 272 0228 0900A0E1 		mov	r0, r9	@, puheenMfcc
+ 273 022c 64519FC5 		ldrgt	r5, .L42+12	@ dtwValue,
+ 274 0230 0170A0D3 		movle	r7, #1	@ tunnistettuLuku,
+ 275 0234 0070A0C3 		movgt	r7, #0	@ tunnistettuLuku,
+ 276 0238 FEFFFFEB 		bl	dynamicTimeWarping	@
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 7
+
+
+ 277 023c 050050E1 		cmp	r0, r5	@, dtwValue
+ 278 0240 0050A0B1 		movlt	r5, r0	@ dtwValue,
+ 279 0244 0420A0E1 		mov	r2, r4	@, puheenNoF
+ 280 0248 04008DE5 		str	r0, [sp, #4]	@, dtwValueTemp.76
+ 281 024c 48119FE5 		ldr	r1, .L42+16	@,
+ 282 0250 1C30A0E3 		mov	r3, #28	@,
+ 283 0254 0900A0E1 		mov	r0, r9	@, puheenMfcc
+ 284 0258 0780A0E1 		mov	r8, r7	@ nayteNro, tunnistettuLuku
+ 285 025c 0170A0B3 		movlt	r7, #1	@ tunnistettuLuku,
+ 286 0260 0280A0B3 		movlt	r8, #2	@ nayteNro,
+ 287 0264 FEFFFFEB 		bl	dynamicTimeWarping	@
+ 288 0268 050050E1 		cmp	r0, r5	@ dtwValueTemp.78, dtwValue
+ 289 026c 0050A0B1 		movlt	r5, r0	@ dtwValue, dtwValueTemp.78
+ 290 0270 0420A0E1 		mov	r2, r4	@, puheenNoF
+ 291 0274 00B0A0E1 		mov	fp, r0	@ dtwValueTemp.78,
+ 292 0278 20119FE5 		ldr	r1, .L42+20	@,
+ 293 027c 1F30A0E3 		mov	r3, #31	@,
+ 294 0280 0900A0E1 		mov	r0, r9	@, puheenMfcc
+ 295 0284 0270A0B3 		movlt	r7, #2	@ tunnistettuLuku,
+ 296 0288 0180A0B3 		movlt	r8, #1	@ nayteNro,
+ 297 028c FEFFFFEB 		bl	dynamicTimeWarping	@
+ 298 0290 050050E1 		cmp	r0, r5	@ dtwValueTemp.80, dtwValue
+ 299 0294 0050A0B1 		movlt	r5, r0	@ dtwValue, dtwValueTemp.80
+ 300 0298 0420A0E1 		mov	r2, r4	@, puheenNoF
+ 301 029c 00A0A0E1 		mov	sl, r0	@ dtwValueTemp.80,
+ 302 02a0 FC109FE5 		ldr	r1, .L42+24	@,
+ 303 02a4 1C30A0E3 		mov	r3, #28	@,
+ 304 02a8 0900A0E1 		mov	r0, r9	@, puheenMfcc
+ 305 02ac 0370A0B3 		movlt	r7, #3	@ tunnistettuLuku,
+ 306 02b0 0180A0B3 		movlt	r8, #1	@ nayteNro,
+ 307 02b4 FEFFFFEB 		bl	dynamicTimeWarping	@
+ 308 02b8 050050E1 		cmp	r0, r5	@ dtwValueTemp.82, dtwValue
+ 309 02bc 0050A0B1 		movlt	r5, r0	@ dtwValue, dtwValueTemp.82
+ 310 02c0 0420A0E1 		mov	r2, r4	@, puheenNoF
+ 311 02c4 1630A0E3 		mov	r3, #22	@,
+ 312 02c8 0060A0E1 		mov	r6, r0	@ dtwValueTemp.82,
+ 313 02cc D4109FE5 		ldr	r1, .L42+28	@,
+ 314 02d0 0900A0E1 		mov	r0, r9	@, puheenMfcc
+ 315 02d4 0370A0B3 		movlt	r7, #3	@ tunnistettuLuku,
+ 316 02d8 0580A0B3 		movlt	r8, #5	@ nayteNro,
+ 317 02dc FEFFFFEB 		bl	dynamicTimeWarping	@
+ 318 02e0 2820A0E3 		mov	r2, #40	@,
+ 319 02e4 0040A0E1 		mov	r4, r0	@ dtwValueTemp.84,
+ 320 02e8 0010A0E3 		mov	r1, #0	@,
+ 321 02ec 08008DE2 		add	r0, sp, #8	@,,
+ 322 02f0 FEFFFFEB 		bl	memset	@
+ 323 02f4 04309DE5 		ldr	r3, [sp, #4]	@, dtwValueTemp.76
+ 324 02f8 BA30CDE1 		strh	r3, [sp, #10]	@ movhi	@, arvot
+ 325 02fc A8309FE5 		ldr	r3, .L42+32	@ tmp191,
+ 326 0300 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 327 0304 050054E1 		cmp	r4, r5	@ dtwValueTemp.84, dtwValue
+ 328 0308 00209DE5 		ldr	r2, [sp, #0]	@, dtwValueTemp
+ 329 030c 0450A0B1 		movlt	r5, r4	@ dtwValue, dtwValueTemp.84
+ 330 0310 0570A0B3 		movlt	r7, #5	@ tunnistettuLuku,
+ 331 0314 0280A0B3 		movlt	r8, #2	@ nayteNro,
+ 332 0318 000053E3 		cmp	r3, #0	@ verbose,
+ 333 031c B820CDE1 		strh	r2, [sp, #8]	@ movhi	@, arvot
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 8
+
+
+ 334 0320 BCB0CDE1 		strh	fp, [sp, #12]	@ movhi	@ dtwValueTemp.78, arvot
+ 335 0324 B2A1CDE1 		strh	sl, [sp, #18]	@ movhi	@ dtwValueTemp.80, arvot
+ 336 0328 BA61CDE1 		strh	r6, [sp, #26]	@ movhi	@ dtwValueTemp.82, arvot
+ 337 032c B242CDE1 		strh	r4, [sp, #34]	@ movhi	@ dtwValueTemp.84, arvot
+ 338 0330 0510A011 		movne	r1, r5	@, dtwValue
+ 339 0334 74009F15 		ldrne	r0, .L42+36	@,
+ 340 0338 FEFFFF1B 		blne	printf	@
+ 341              	.L36:
+ 342 033c 68309FE5 		ldr	r3, .L42+32	@ tmp194,
+ 343 0340 B030D3E1 		ldrh	r3, [r3, #0]	@ verbose, verbose
+ 344 0344 000053E3 		cmp	r3, #0	@ verbose,
+ 345 0348 0B00000A 		beq	.L37	@,
+ 346 034c 0820A0E1 		mov	r2, r8	@, nayteNro
+ 347 0350 5C009FE5 		ldr	r0, .L42+40	@,
+ 348 0354 0710A0E1 		mov	r1, r7	@, tunnistettuLuku
+ 349 0358 FEFFFFEB 		bl	printf	@
+ 350 035c 0040A0E3 		mov	r4, #0	@ ivtmp.74,
+ 351 0360 08508DE2 		add	r5, sp, #8	@ tmp201,,
+ 352              	.L38:
+ 353 0364 B41095E1 		ldrh	r1, [r5, r4]	@, arvot
+ 354 0368 48009FE5 		ldr	r0, .L42+44	@,
+ 355 036c 024084E2 		add	r4, r4, #2	@ ivtmp.74, ivtmp.74,
+ 356 0370 FEFFFFEB 		bl	printf	@
+ 357 0374 280054E3 		cmp	r4, #40	@ ivtmp.74,
+ 358 0378 F9FFFF1A 		bne	.L38	@,
+ 359              	.L37:
+ 360 037c 0700A0E1 		mov	r0, r7	@ D.2871, tunnistettuLuku
+ 361              	.L28:
+ 362 0380 30D08DE2 		add	sp, sp, #48	@,,
+ 363 0384 F04FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 364 0388 1EFF2FE1 		bx	lr
+ 365              	.L43:
+ 366              		.align	2
+ 367              	.L42:
+ 368 038c 00000000 		.word	yksinpeliV1
+ 369 0390 0E270000 		.word	9998
+ 370 0394 CC090000 		.word	yksinpeliV2
+ 371 0398 0F270000 		.word	9999
+ 372 039c 00130000 		.word	verkkopeliV1
+ 373 03a0 501B0000 		.word	asetuksetV1
+ 374 03a4 84240000 		.word	asetuksetV5
+ 375 03a8 D42C0000 		.word	tulostusV2
+ 376 03ac 00000000 		.word	verbose
+ 377 03b0 70010000 		.word	.LC17
+ 378 03b4 7E010000 		.word	.LC18
+ 379 03b8 AB010000 		.word	.LC19
+ 380              		.size	spokenWord, .-spokenWord
+ 381              		.section	.rodata.str1.1
+ 382              	.LC20:
+ 383 01b0 75617274 		.ascii	"uart0\000"
+ 383      3000
+ 384              	.LC21:
+ 385 01b6 7700     		.ascii	"w\000"
+ 386              	.LC22:
+ 387 01b8 7200     		.ascii	"r\000"
+ 388              	.LC23:
+ 389 01ba 0A0A092A 		.ascii	"\012\012\011**** LAIVANUPOTUSPELI ****\012\000"
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 9
+
+
+ 389      2A2A2A20 
+ 389      4C414956 
+ 389      414E5550 
+ 389      4F545553 
+ 390              	.LC24:
+ 391 01d9 09313A20 		.ascii	"\0111: Yksinpeli\000"
+ 391      596B7369 
+ 391      6E70656C 
+ 391      6900
+ 392              	.LC25:
+ 393 01e7 09323A20 		.ascii	"\0112: Verkkopeli\000"
+ 393      5665726B 
+ 393      6B6F7065 
+ 393      6C6900
+ 394              	.LC26:
+ 395 01f6 09333A20 		.ascii	"\0113: Asetukset\000"
+ 395      41736574 
+ 395      756B7365 
+ 395      7400
+ 396              	.LC27:
+ 397 0204 09343A20 		.ascii	"\0114: Tulostus (Verbose Mode On/Off)\000"
+ 397      54756C6F 
+ 397      73747573 
+ 397      20285665 
+ 397      72626F73 
+ 398              	.LC28:
+ 399 0227 09353A20 		.ascii	"\0115: Puheentunnistus\000"
+ 399      50756865 
+ 399      656E7475 
+ 399      6E6E6973 
+ 399      74757300 
+ 400              	.LC29:
+ 401 023b 0A095661 		.ascii	"\012\011Valitse numero: \000"
+ 401      6C697473 
+ 401      65206E75 
+ 401      6D65726F 
+ 401      3A2000
+ 402              	.LC30:
+ 403 024e 0A507568 		.ascii	"\012Puheentunnistus ep\344onnistui. \012\012\011Val"
+ 403      65656E74 
+ 403      756E6E69 
+ 403      73747573 
+ 403      206570E4 
+ 404 0272 69747365 		.ascii	"itse numero: \000"
+ 404      206E756D 
+ 404      65726F3A 
+ 404      2000
+ 405              	.LC31:
+ 406 0280 0A095661 		.ascii	"\012\011Valinta: %d\012\000"
+ 406      6C696E74 
+ 406      613A2025 
+ 406      640A00
+ 407              	.LC32:
+ 408 028f 09416C6F 		.ascii	"\011Aloitetaan yksinpeli ...\012\000"
+ 408      69746574 
+ 408      61616E20 
+ 408      796B7369 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 10
+
+
+ 408      6E70656C 
+ 409              	.LC33:
+ 410 02aa 09416C6F 		.ascii	"\011Aloitetaan kaksinpeli ...\012\000"
+ 410      69746574 
+ 410      61616E20 
+ 410      6B616B73 
+ 410      696E7065 
+ 411              	.LC34:
+ 412 02c6 0A095665 		.ascii	"\012\011Verbose ei toiminnassa.\012\000"
+ 412      72626F73 
+ 412      65206569 
+ 412      20746F69 
+ 412      6D696E6E 
+ 413              	.LC35:
+ 414 02e1 09566572 		.ascii	"\011Verbose toiminnassa.\012\000"
+ 414      626F7365 
+ 414      20746F69 
+ 414      6D696E6E 
+ 414      61737361 
+ 415              	.LC36:
+ 416 02f8 0A0A0950 		.ascii	"\012\012\011PUHEENTUNNISTUS\000"
+ 416      55484545 
+ 416      4E54554E 
+ 416      4E495354 
+ 416      555300
+ 417              	.LC37:
+ 418 030b 0A0A0953 		.ascii	"\012\012\011Sanasto: Yksinpeli, Verkkopeli, Asetuks"
+ 418      616E6173 
+ 418      746F3A20 
+ 418      596B7369 
+ 418      6E70656C 
+ 419 0335 65742C20 		.ascii	"et, Tulostus\000"
+ 419      54756C6F 
+ 419      73747573 
+ 419      00
+ 420              	.LC38:
+ 421 0342 0A0A0950 		.ascii	"\012\012\011Paina jotain painiketta alottaaksesi.\000"
+ 421      61696E61 
+ 421      206A6F74 
+ 421      61696E20 
+ 421      7061696E 
+ 422              		.text
+ 423              		.align	2
+ 424              		.global	main
+ 425              		.type	main, %function
+ 426              	main:
+ 427              		@ Function supports interworking.
+ 428              		@ args = 0, pretend = 0, frame = 4
+ 429              		@ frame_needed = 0, uses_anonymous_args = 0
+ 430 03bc F0402DE9 		stmfd	sp!, {r4, r5, r6, r7, lr}	@,
+ 431 03c0 44329FE5 		ldr	r3, .L66	@ tmp182,
+ 432 03c4 0010A0E3 		mov	r1, #0	@ movhi	@,
+ 433 03c8 0020A0E3 		mov	r2, #0	@ ivtmp.110,
+ 434 03cc B010C3E1 		strh	r1, [r3, #0]	@ movhi	@, verbose
+ 435 03d0 04D04DE2 		sub	sp, sp, #4	@,,
+ 436 03d4 34129FE5 		ldr	r1, .L66+4	@ ivtmp.116,
+ 437 03d8 4CC0A0E3 		mov	ip, #76	@ tmp252,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 11
+
+
+ 438 03dc 30029FE5 		ldr	r0, .L66+8	@ tmp253,
+ 439 03e0 0260A0E1 		mov	r6, r2	@ tmp254, ivtmp.110
+ 440 03e4 060000EA 		b	.L45	@
+ 441              	.L46:
+ 442 03e8 046083E4 		str	r6, [r3], #4	@ tmp254, puheenMfcc
+ 443 03ec 010053E1 		cmp	r3, r1	@ ivtmp.108, ivtmp.116
+ 444 03f0 FCFFFF1A 		bne	.L46	@,
+ 445 03f4 012082E2 		add	r2, r2, #1	@ ivtmp.110, ivtmp.110,
+ 446 03f8 A00052E3 		cmp	r2, #160	@ ivtmp.110,
+ 447 03fc 4C1083E2 		add	r1, r3, #76	@ ivtmp.116, ivtmp.108,
+ 448 0400 0100000A 		beq	.L47	@,
+ 449              	.L45:
+ 450 0404 9C0223E0 		mla	r3, ip, r2, r0	@ ivtmp.108, tmp252, ivtmp.110, tmp253
+ 451 0408 F6FFFFEA 		b	.L46	@
+ 452              	.L47:
+ 453 040c 04329FE5 		ldr	r3, .L66+12	@ tmp189,
+ 454 0410 04408DE2 		add	r4, sp, #4	@ tmp199,,
+ 455 0414 043024E5 		str	r3, [r4, #-4]!	@ tmp189, baud
+ 456 0418 FC519FE5 		ldr	r5, .L66+16	@ tmp193,
+ 457 041c FEFFFFEB 		bl	resetWholeGame	@
+ 458 0420 0610A0E1 		mov	r1, r6	@, tmp254
+ 459 0424 0620A0E1 		mov	r2, r6	@, tmp254
+ 460 0428 F0019FE5 		ldr	r0, .L66+20	@,
+ 461 042c FEFFFFEB 		bl	NutRegisterDevice	@
+ 462 0430 042095E5 		ldr	r2, [r5, #4]	@, __iob
+ 463 0434 E8119FE5 		ldr	r1, .L66+24	@,
+ 464 0438 E8019FE5 		ldr	r0, .L66+28	@,
+ 465 043c FEFFFFEB 		bl	freopen	@
+ 466 0440 002095E5 		ldr	r2, [r5, #0]	@, __iob
+ 467 0444 E0119FE5 		ldr	r1, .L66+32	@,
+ 468 0448 D8019FE5 		ldr	r0, .L66+28	@,
+ 469 044c FEFFFFEB 		bl	freopen	@
+ 470 0450 040095E5 		ldr	r0, [r5, #4]	@, __iob
+ 471 0454 FEFFFFEB 		bl	_fileno	@
+ 472 0458 0D20A0E1 		mov	r2, sp	@,
+ 473 045c CC119FE5 		ldr	r1, .L66+36	@,
+ 474 0460 FEFFFFEB 		bl	_ioctl	@
+ 475 0464 C800A0E3 		mov	r0, #200	@,
+ 476 0468 FEFFFFEB 		bl	NutSleep	@
+ 477 046c FEFFFFEB 		bl	initAudioDevice	@
+ 478 0470 FEFFFFEB 		bl	initializeNetwork	@
+ 479 0474 6400A0E3 		mov	r0, #100	@,
+ 480 0478 0570A0E1 		mov	r7, r5	@ tmp247, tmp193
+ 481 047c FEFFFFEB 		bl	NutSleep	@
+ 482 0480 0640A0E1 		mov	r4, r6	@ skip, choice
+ 483 0484 80519FE5 		ldr	r5, .L66	@ tmp250,
+ 484 0488 000000EA 		b	.L63	@
+ 485              	.L58:
+ 486 048c 0040A0E3 		mov	r4, #0	@ skip,
+ 487              	.L63:
+ 488 0490 9C019FE5 		ldr	r0, .L66+40	@,
+ 489 0494 FEFFFFEB 		bl	puts	@
+ 490 0498 98019FE5 		ldr	r0, .L66+44	@,
+ 491 049c FEFFFFEB 		bl	puts	@
+ 492 04a0 94019FE5 		ldr	r0, .L66+48	@,
+ 493 04a4 FEFFFFEB 		bl	puts	@
+ 494 04a8 90019FE5 		ldr	r0, .L66+52	@,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 12
+
+
+ 495 04ac FEFFFFEB 		bl	puts	@
+ 496 04b0 8C019FE5 		ldr	r0, .L66+56	@,
+ 497 04b4 FEFFFFEB 		bl	puts	@
+ 498 04b8 88019FE5 		ldr	r0, .L66+60	@,
+ 499 04bc FEFFFFEB 		bl	puts	@
+ 500 04c0 84019FE5 		ldr	r0, .L66+64	@,
+ 501 04c4 FEFFFFEB 		bl	printf	@
+ 502 04c8 000054E3 		cmp	r4, #0	@ skip,
+ 503 04cc 0500000A 		beq	.L65	@,
+ 504              	.L49:
+ 505 04d0 013046E2 		sub	r3, r6, #1	@ tmp211, choice,
+ 506 04d4 0338A0E1 		mov	r3, r3, asl #16	@ tmp213, tmp211,
+ 507 04d8 030853E3 		cmp	r3, #196608	@ tmp213,
+ 508 04dc 0600009A 		bls	.L50	@,
+ 509 04e0 68019FE5 		ldr	r0, .L66+68	@,
+ 510 04e4 FEFFFFEB 		bl	printf	@
+ 511              	.L65:
+ 512 04e8 000097E5 		ldr	r0, [r7, #0]	@, __iob
+ 513 04ec FEFFFFEB 		bl	getc	@
+ 514 04f0 0008A0E1 		mov	r0, r0, asl #16	@ tmp216,,
+ 515 04f4 030640E2 		sub	r0, r0, #3145728	@ tmp218, tmp216,
+ 516 04f8 2068A0E1 		mov	r6, r0, lsr #16	@ choice, tmp218,
+ 517              	.L50:
+ 518 04fc 50019FE5 		ldr	r0, .L66+72	@,
+ 519 0500 0610A0E1 		mov	r1, r6	@, choice
+ 520 0504 FEFFFFEB 		bl	printf	@
+ 521 0508 013046E2 		sub	r3, r6, #1	@ tmp220, choice,
+ 522 050c 040053E3 		cmp	r3, #4	@ tmp220,
+ 523 0510 03F19F97 		ldrls	pc, [pc, r3, asl #2]	@ tmp220
+ 524 0514 390000EA 		b	.L51	@
+ 525              	.L57:
+ 526 0518 2C050000 		.word	.L52
+ 527 051c 54050000 		.word	.L53
+ 528 0520 88050000 		.word	.L54
+ 529 0524 90050000 		.word	.L55
+ 530 0528 C0050000 		.word	.L56
+ 531              	.L52:
+ 532 052c 24019FE5 		ldr	r0, .L66+76	@,
+ 533 0530 FEFFFFEB 		bl	puts	@
+ 534 0534 0000A0E3 		mov	r0, #0	@,
+ 535 0538 FEFFFFEB 		bl	time	@
+ 536 053c FEFFFFEB 		bl	srand	@
+ 537 0540 0040A0E3 		mov	r4, #0	@ skip,
+ 538 0544 FEFFFFEB 		bl	resetWholeGame	@
+ 539 0548 FEFFFFEB 		bl	showGameStatus	@
+ 540 054c FEFFFFEB 		bl	startOnePlayerGame	@
+ 541 0550 CEFFFFEA 		b	.L63	@
+ 542              	.L53:
+ 543 0554 00019FE5 		ldr	r0, .L66+80	@,
+ 544 0558 FEFFFFEB 		bl	puts	@
+ 545 055c 0000A0E3 		mov	r0, #0	@,
+ 546 0560 FEFFFFEB 		bl	time	@
+ 547 0564 FEFFFFEB 		bl	srand	@
+ 548 0568 FEFFFFEB 		bl	resetWholeGame	@
+ 549 056c FEFFFFEB 		bl	showGameStatus	@
+ 550 0570 FEFFFFEB 		bl	findOpponent	@
+ 551 0574 0008A0E1 		mov	r0, r0, asl #16	@ tmp224,,
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 13
+
+
+ 552 0578 010850E3 		cmp	r0, #65536	@ tmp224,
+ 553 057c C2FFFF1A 		bne	.L58	@,
+ 554 0580 FEFFFFEB 		bl	startTwoPlayerGame	@
+ 555 0584 C0FFFFEA 		b	.L58	@
+ 556              	.L54:
+ 557 0588 FEFFFFEB 		bl	settings	@
+ 558 058c BEFFFFEA 		b	.L58	@
+ 559              	.L55:
+ 560 0590 B030D5E1 		ldrh	r3, [r5, #0]	@ verbose, verbose
+ 561 0594 000053E3 		cmp	r3, #0	@ verbose,
+ 562 0598 0020A013 		movne	r2, #0	@ movhi	@,
+ 563 059c 0110A003 		moveq	r1, #1	@ movhi	@,
+ 564 05a0 B8009F15 		ldrne	r0, .L66+84	@,
+ 565 05a4 B020C511 		strneh	r2, [r5, #0]	@ movhi	@, verbose
+ 566 05a8 B4009F05 		ldreq	r0, .L66+88	@,
+ 567 05ac B010C501 		streqh	r1, [r5, #0]	@ movhi	@, verbose
+ 568 05b0 0040A013 		movne	r4, #0	@ skip,
+ 569 05b4 0340A001 		moveq	r4, r3	@ skip, verbose
+ 570 05b8 FEFFFFEB 		bl	puts	@
+ 571 05bc B3FFFFEA 		b	.L63	@
+ 572              	.L56:
+ 573 05c0 A0009FE5 		ldr	r0, .L66+92	@,
+ 574 05c4 FEFFFFEB 		bl	printf	@
+ 575 05c8 9C009FE5 		ldr	r0, .L66+96	@,
+ 576 05cc FEFFFFEB 		bl	printf	@
+ 577 05d0 98009FE5 		ldr	r0, .L66+100	@,
+ 578 05d4 FEFFFFEB 		bl	printf	@
+ 579 05d8 000097E5 		ldr	r0, [r7, #0]	@, __iob
+ 580 05dc FEFFFFEB 		bl	getc	@
+ 581 05e0 2C009FE5 		ldr	r0, .L66+8	@,
+ 582 05e4 FEFFFFEB 		bl	spokenWord	@
+ 583 05e8 050050E3 		cmp	r0, #5	@,
+ 584 05ec 0400A003 		moveq	r0, #4	@ puhe,
+ 585 05f0 0008A0E1 		mov	r0, r0, asl #16	@ tmp240, puhe,
+ 586 05f4 2068A0E1 		mov	r6, r0, lsr #16	@ choice, tmp240,
+ 587 05f8 0140A0E3 		mov	r4, #1	@ skip,
+ 588 05fc A3FFFFEA 		b	.L63	@
+ 589              	.L51:
+ 590 0600 6C009FE5 		ldr	r0, .L66+104	@,
+ 591 0604 FEFFFFEB 		bl	printf	@
+ 592 0608 9FFFFFEA 		b	.L58	@
+ 593              	.L67:
+ 594              		.align	2
+ 595              	.L66:
+ 596 060c 00000000 		.word	verbose
+ 597 0610 E8000000 		.word	puheenMfcc.2813+76
+ 598 0614 9C000000 		.word	puheenMfcc.2813
+ 599 0618 00C20100 		.word	115200
+ 600 061c 00000000 		.word	__iob
+ 601 0620 00000000 		.word	devUsartAt910
+ 602 0624 B6010000 		.word	.LC21
+ 603 0628 B0010000 		.word	.LC20
+ 604 062c B8010000 		.word	.LC22
+ 605 0630 01010000 		.word	257
+ 606 0634 BA010000 		.word	.LC23
+ 607 0638 D9010000 		.word	.LC24
+ 608 063c E7010000 		.word	.LC25
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 14
+
+
+ 609 0640 F6010000 		.word	.LC26
+ 610 0644 04020000 		.word	.LC27
+ 611 0648 27020000 		.word	.LC28
+ 612 064c 3B020000 		.word	.LC29
+ 613 0650 4E020000 		.word	.LC30
+ 614 0654 80020000 		.word	.LC31
+ 615 0658 8F020000 		.word	.LC32
+ 616 065c AA020000 		.word	.LC33
+ 617 0660 C6020000 		.word	.LC34
+ 618 0664 E1020000 		.word	.LC35
+ 619 0668 F8020000 		.word	.LC36
+ 620 066c 0B030000 		.word	.LC37
+ 621 0670 42030000 		.word	.LC38
+ 622 0674 CE000000 		.word	.LC8
+ 623              		.size	main, .-main
+ 624              		.global	temp
+ 625              		.bss
+ 626              		.align	1
+ 627              		.type	temp, %object
+ 628              		.size	temp, 20
+ 629              	temp:
+ 630 0000 00000000 		.space	20
+ 630      00000000 
+ 630      00000000 
+ 630      00000000 
+ 630      00000000 
+ 631              		.global	targetSeaShotX
+ 632              		.align	1
+ 633              		.type	targetSeaShotX, %object
+ 634              		.size	targetSeaShotX, 10
+ 635              	targetSeaShotX:
+ 636 0014 00000000 		.space	10
+ 636      00000000 
+ 636      0000
+ 637              		.global	targetSeaShotY
+ 638              		.align	1
+ 639              		.type	targetSeaShotY, %object
+ 640              		.size	targetSeaShotY, 10
+ 641              	targetSeaShotY:
+ 642 001e 00000000 		.space	10
+ 642      00000000 
+ 642      0000
+ 643              		.global	targetOppSeaShotX
+ 644              		.align	1
+ 645              		.type	targetOppSeaShotX, %object
+ 646              		.size	targetOppSeaShotX, 10
+ 647              	targetOppSeaShotX:
+ 648 0028 00000000 		.space	10
+ 648      00000000 
+ 648      0000
+ 649              		.global	targetOppSeaShotY
+ 650              		.align	1
+ 651              		.type	targetOppSeaShotY, %object
+ 652              		.size	targetOppSeaShotY, 10
+ 653              	targetOppSeaShotY:
+ 654 0032 00000000 		.space	10
+ 654      00000000 
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 15
+
+
+ 654      0000
+ 655              		.global	targetOppShotX
+ 656              		.align	1
+ 657              		.type	targetOppShotX, %object
+ 658              		.size	targetOppShotX, 10
+ 659              	targetOppShotX:
+ 660 003c 00000000 		.space	10
+ 660      00000000 
+ 660      0000
+ 661              		.global	targetOppShotY
+ 662              		.align	1
+ 663              		.type	targetOppShotY, %object
+ 664              		.size	targetOppShotY, 10
+ 665              	targetOppShotY:
+ 666 0046 00000000 		.space	10
+ 666      00000000 
+ 666      0000
+ 667              		.global	oneValue
+ 668              		.align	1
+ 669              		.type	oneValue, %object
+ 670              		.size	oneValue, 2
+ 671              	oneValue:
+ 672 0050 0000     		.space	2
+ 673              		.global	length
+ 674              		.align	1
+ 675              		.type	length, %object
+ 676              		.size	length, 2
+ 677              	length:
+ 678 0052 0000     		.space	2
+ 679              		.global	ourCoord
+ 680              		.align	1
+ 681              		.type	ourCoord, %object
+ 682              		.size	ourCoord, 20
+ 683              	ourCoord:
+ 684 0054 00000000 		.space	20
+ 684      00000000 
+ 684      00000000 
+ 684      00000000 
+ 684      00000000 
+ 685              		.global	oppCoord
+ 686              		.align	1
+ 687              		.type	oppCoord, %object
+ 688              		.size	oppCoord, 20
+ 689              	oppCoord:
+ 690 0068 00000000 		.space	20
+ 690      00000000 
+ 690      00000000 
+ 690      00000000 
+ 690      00000000 
+ 691              		.global	oppSeaShotEffects
+ 692              		.align	1
+ 693              		.type	oppSeaShotEffects, %object
+ 694              		.size	oppSeaShotEffects, 10
+ 695              	oppSeaShotEffects:
+ 696 007c 00000000 		.space	10
+ 696      00000000 
+ 696      0000
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 16
+
+
+ 697              		.global	seaShotEffects
+ 698              		.align	1
+ 699              		.type	seaShotEffects, %object
+ 700              		.size	seaShotEffects, 10
+ 701              	seaShotEffects:
+ 702 0086 00000000 		.space	10
+ 702      00000000 
+ 702      0000
+ 703              		.global	oppShotEffects
+ 704              		.align	1
+ 705              		.type	oppShotEffects, %object
+ 706              		.size	oppShotEffects, 10
+ 707              	oppShotEffects:
+ 708 0090 00000000 		.space	10
+ 708      00000000 
+ 708      0000
+ 709              		.data
+ 710              		.align	2
+ 711              		.type	yksinpeliV1, %object
+ 712              		.size	yksinpeliV1, 2508
+ 713              	yksinpeliV1:
+ 714 0000 15000000 		.word	21
+ 715 0004 FBFFFFFF 		.word	-5
+ 716 0008 0B000000 		.word	11
+ 717 000c FDFFFFFF 		.word	-3
+ 718 0010 F5FFFFFF 		.word	-11
+ 719 0014 FFFFFFFF 		.word	-1
+ 720 0018 FEFFFFFF 		.word	-2
+ 721 001c FFFFFFFF 		.word	-1
+ 722 0020 FEFFFFFF 		.word	-2
+ 723 0024 01000000 		.word	1
+ 724 0028 FFFFFFFF 		.word	-1
+ 725 002c FFFFFFFF 		.word	-1
+ 726 0030 00000000 		.word	0
+ 727 0034 00000000 		.word	0
+ 728 0038 01000000 		.word	1
+ 729 003c FDFFFFFF 		.word	-3
+ 730 0040 01000000 		.word	1
+ 731 0044 00000000 		.word	0
+ 732 0048 00000000 		.word	0
+ 733 004c 0A000000 		.word	10
+ 734 0050 03000000 		.word	3
+ 735 0054 05000000 		.word	5
+ 736 0058 02000000 		.word	2
+ 737 005c FBFFFFFF 		.word	-5
+ 738 0060 FEFFFFFF 		.word	-2
+ 739 0064 FFFFFFFF 		.word	-1
+ 740 0068 FBFFFFFF 		.word	-5
+ 741 006c 00000000 		.word	0
+ 742 0070 02000000 		.word	2
+ 743 0074 FFFFFFFF 		.word	-1
+ 744 0078 00000000 		.word	0
+ 745 007c 00000000 		.word	0
+ 746 0080 FEFFFFFF 		.word	-2
+ 747 0084 FDFFFFFF 		.word	-3
+ 748 0088 00000000 		.word	0
+ 749 008c FFFFFFFF 		.word	-1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 17
+
+
+ 750 0090 00000000 		.word	0
+ 751 0094 00000000 		.word	0
+ 752 0098 00000000 		.word	0
+ 753 009c 00000000 		.word	0
+ 754 00a0 00000000 		.word	0
+ 755 00a4 00000000 		.word	0
+ 756 00a8 00000000 		.word	0
+ 757 00ac 00000000 		.word	0
+ 758 00b0 00000000 		.word	0
+ 759 00b4 00000000 		.word	0
+ 760 00b8 00000000 		.word	0
+ 761 00bc 00000000 		.word	0
+ 762 00c0 00000000 		.word	0
+ 763 00c4 00000000 		.word	0
+ 764 00c8 00000000 		.word	0
+ 765 00cc 00000000 		.word	0
+ 766 00d0 00000000 		.word	0
+ 767 00d4 00000000 		.word	0
+ 768 00d8 00000000 		.word	0
+ 769 00dc 00000000 		.word	0
+ 770 00e0 00000000 		.word	0
+ 771 00e4 00000000 		.word	0
+ 772 00e8 00000000 		.word	0
+ 773 00ec 00000000 		.word	0
+ 774 00f0 00000000 		.word	0
+ 775 00f4 00000000 		.word	0
+ 776 00f8 00000000 		.word	0
+ 777 00fc 00000000 		.word	0
+ 778 0100 00000000 		.word	0
+ 779 0104 00000000 		.word	0
+ 780 0108 00000000 		.word	0
+ 781 010c 00000000 		.word	0
+ 782 0110 00000000 		.word	0
+ 783 0114 00000000 		.word	0
+ 784 0118 00000000 		.word	0
+ 785 011c 00000000 		.word	0
+ 786 0120 00000000 		.word	0
+ 787 0124 00000000 		.word	0
+ 788 0128 00000000 		.word	0
+ 789 012c 00000000 		.word	0
+ 790 0130 00000000 		.word	0
+ 791 0134 00000000 		.word	0
+ 792 0138 00000000 		.word	0
+ 793 013c 00000000 		.word	0
+ 794 0140 00000000 		.word	0
+ 795 0144 00000000 		.word	0
+ 796 0148 00000000 		.word	0
+ 797 014c 00000000 		.word	0
+ 798 0150 00000000 		.word	0
+ 799 0154 00000000 		.word	0
+ 800 0158 00000000 		.word	0
+ 801 015c 00000000 		.word	0
+ 802 0160 00000000 		.word	0
+ 803 0164 00000000 		.word	0
+ 804 0168 00000000 		.word	0
+ 805 016c 00000000 		.word	0
+ 806 0170 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 18
+
+
+ 807 0174 00000000 		.word	0
+ 808 0178 00000000 		.word	0
+ 809 017c 05000000 		.word	5
+ 810 0180 F8FFFFFF 		.word	-8
+ 811 0184 FFFFFFFF 		.word	-1
+ 812 0188 05000000 		.word	5
+ 813 018c 01000000 		.word	1
+ 814 0190 F9FFFFFF 		.word	-7
+ 815 0194 04000000 		.word	4
+ 816 0198 00000000 		.word	0
+ 817 019c 00000000 		.word	0
+ 818 01a0 FDFFFFFF 		.word	-3
+ 819 01a4 00000000 		.word	0
+ 820 01a8 FDFFFFFF 		.word	-3
+ 821 01ac 03000000 		.word	3
+ 822 01b0 FFFFFFFF 		.word	-1
+ 823 01b4 00000000 		.word	0
+ 824 01b8 00000000 		.word	0
+ 825 01bc 01000000 		.word	1
+ 826 01c0 00000000 		.word	0
+ 827 01c4 00000000 		.word	0
+ 828 01c8 19000000 		.word	25
+ 829 01cc EAFFFFFF 		.word	-22
+ 830 01d0 03000000 		.word	3
+ 831 01d4 FBFFFFFF 		.word	-5
+ 832 01d8 01000000 		.word	1
+ 833 01dc F8FFFFFF 		.word	-8
+ 834 01e0 02000000 		.word	2
+ 835 01e4 FDFFFFFF 		.word	-3
+ 836 01e8 05000000 		.word	5
+ 837 01ec 00000000 		.word	0
+ 838 01f0 00000000 		.word	0
+ 839 01f4 FFFFFFFF 		.word	-1
+ 840 01f8 03000000 		.word	3
+ 841 01fc 00000000 		.word	0
+ 842 0200 01000000 		.word	1
+ 843 0204 00000000 		.word	0
+ 844 0208 00000000 		.word	0
+ 845 020c FEFFFFFF 		.word	-2
+ 846 0210 00000000 		.word	0
+ 847 0214 14000000 		.word	20
+ 848 0218 EBFFFFFF 		.word	-21
+ 849 021c 0A000000 		.word	10
+ 850 0220 FBFFFFFF 		.word	-5
+ 851 0224 00000000 		.word	0
+ 852 0228 F7FFFFFF 		.word	-9
+ 853 022c 01000000 		.word	1
+ 854 0230 FDFFFFFF 		.word	-3
+ 855 0234 06000000 		.word	6
+ 856 0238 01000000 		.word	1
+ 857 023c 00000000 		.word	0
+ 858 0240 FDFFFFFF 		.word	-3
+ 859 0244 01000000 		.word	1
+ 860 0248 00000000 		.word	0
+ 861 024c 01000000 		.word	1
+ 862 0250 00000000 		.word	0
+ 863 0254 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 19
+
+
+ 864 0258 FFFFFFFF 		.word	-1
+ 865 025c 00000000 		.word	0
+ 866 0260 08000000 		.word	8
+ 867 0264 EDFFFFFF 		.word	-19
+ 868 0268 10000000 		.word	16
+ 869 026c FAFFFFFF 		.word	-6
+ 870 0270 00000000 		.word	0
+ 871 0274 FFFFFFFF 		.word	-1
+ 872 0278 05000000 		.word	5
+ 873 027c FAFFFFFF 		.word	-6
+ 874 0280 03000000 		.word	3
+ 875 0284 00000000 		.word	0
+ 876 0288 01000000 		.word	1
+ 877 028c FFFFFFFF 		.word	-1
+ 878 0290 02000000 		.word	2
+ 879 0294 00000000 		.word	0
+ 880 0298 00000000 		.word	0
+ 881 029c 00000000 		.word	0
+ 882 02a0 00000000 		.word	0
+ 883 02a4 00000000 		.word	0
+ 884 02a8 00000000 		.word	0
+ 885 02ac 06000000 		.word	6
+ 886 02b0 F0FFFFFF 		.word	-16
+ 887 02b4 0F000000 		.word	15
+ 888 02b8 F8FFFFFF 		.word	-8
+ 889 02bc 00000000 		.word	0
+ 890 02c0 00000000 		.word	0
+ 891 02c4 03000000 		.word	3
+ 892 02c8 FAFFFFFF 		.word	-6
+ 893 02cc 05000000 		.word	5
+ 894 02d0 FEFFFFFF 		.word	-2
+ 895 02d4 02000000 		.word	2
+ 896 02d8 FFFFFFFF 		.word	-1
+ 897 02dc 02000000 		.word	2
+ 898 02e0 FFFFFFFF 		.word	-1
+ 899 02e4 00000000 		.word	0
+ 900 02e8 00000000 		.word	0
+ 901 02ec 00000000 		.word	0
+ 902 02f0 00000000 		.word	0
+ 903 02f4 00000000 		.word	0
+ 904 02f8 05000000 		.word	5
+ 905 02fc F2FFFFFF 		.word	-14
+ 906 0300 0D000000 		.word	13
+ 907 0304 F9FFFFFF 		.word	-7
+ 908 0308 00000000 		.word	0
+ 909 030c 00000000 		.word	0
+ 910 0310 02000000 		.word	2
+ 911 0314 FAFFFFFF 		.word	-6
+ 912 0318 05000000 		.word	5
+ 913 031c FEFFFFFF 		.word	-2
+ 914 0320 02000000 		.word	2
+ 915 0324 00000000 		.word	0
+ 916 0328 02000000 		.word	2
+ 917 032c FFFFFFFF 		.word	-1
+ 918 0330 00000000 		.word	0
+ 919 0334 00000000 		.word	0
+ 920 0338 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 20
+
+
+ 921 033c 00000000 		.word	0
+ 922 0340 00000000 		.word	0
+ 923 0344 04000000 		.word	4
+ 924 0348 F4FFFFFF 		.word	-12
+ 925 034c 0C000000 		.word	12
+ 926 0350 F8FFFFFF 		.word	-8
+ 927 0354 03000000 		.word	3
+ 928 0358 FFFFFFFF 		.word	-1
+ 929 035c 02000000 		.word	2
+ 930 0360 FCFFFFFF 		.word	-4
+ 931 0364 03000000 		.word	3
+ 932 0368 FFFFFFFF 		.word	-1
+ 933 036c 02000000 		.word	2
+ 934 0370 00000000 		.word	0
+ 935 0374 00000000 		.word	0
+ 936 0378 00000000 		.word	0
+ 937 037c 00000000 		.word	0
+ 938 0380 00000000 		.word	0
+ 939 0384 00000000 		.word	0
+ 940 0388 00000000 		.word	0
+ 941 038c 00000000 		.word	0
+ 942 0390 04000000 		.word	4
+ 943 0394 F3FFFFFF 		.word	-13
+ 944 0398 0E000000 		.word	14
+ 945 039c F8FFFFFF 		.word	-8
+ 946 03a0 02000000 		.word	2
+ 947 03a4 00000000 		.word	0
+ 948 03a8 02000000 		.word	2
+ 949 03ac FCFFFFFF 		.word	-4
+ 950 03b0 03000000 		.word	3
+ 951 03b4 FFFFFFFF 		.word	-1
+ 952 03b8 02000000 		.word	2
+ 953 03bc 00000000 		.word	0
+ 954 03c0 01000000 		.word	1
+ 955 03c4 FFFFFFFF 		.word	-1
+ 956 03c8 00000000 		.word	0
+ 957 03cc 00000000 		.word	0
+ 958 03d0 00000000 		.word	0
+ 959 03d4 00000000 		.word	0
+ 960 03d8 00000000 		.word	0
+ 961 03dc 04000000 		.word	4
+ 962 03e0 F3FFFFFF 		.word	-13
+ 963 03e4 0D000000 		.word	13
+ 964 03e8 F8FFFFFF 		.word	-8
+ 965 03ec 02000000 		.word	2
+ 966 03f0 00000000 		.word	0
+ 967 03f4 01000000 		.word	1
+ 968 03f8 FDFFFFFF 		.word	-3
+ 969 03fc 02000000 		.word	2
+ 970 0400 FFFFFFFF 		.word	-1
+ 971 0404 02000000 		.word	2
+ 972 0408 00000000 		.word	0
+ 973 040c 00000000 		.word	0
+ 974 0410 00000000 		.word	0
+ 975 0414 00000000 		.word	0
+ 976 0418 00000000 		.word	0
+ 977 041c 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 21
+
+
+ 978 0420 00000000 		.word	0
+ 979 0424 00000000 		.word	0
+ 980 0428 1E000000 		.word	30
+ 981 042c F4FFFFFF 		.word	-12
+ 982 0430 0B000000 		.word	11
+ 983 0434 F6FFFFFF 		.word	-10
+ 984 0438 01000000 		.word	1
+ 985 043c FCFFFFFF 		.word	-4
+ 986 0440 00000000 		.word	0
+ 987 0444 FCFFFFFF 		.word	-4
+ 988 0448 00000000 		.word	0
+ 989 044c FEFFFFFF 		.word	-2
+ 990 0450 00000000 		.word	0
+ 991 0454 FFFFFFFF 		.word	-1
+ 992 0458 00000000 		.word	0
+ 993 045c 00000000 		.word	0
+ 994 0460 00000000 		.word	0
+ 995 0464 FFFFFFFF 		.word	-1
+ 996 0468 00000000 		.word	0
+ 997 046c FFFFFFFF 		.word	-1
+ 998 0470 FEFFFFFF 		.word	-2
+ 999 0474 1F000000 		.word	31
+ 1000 0478 F3FFFFFF 		.word	-13
+ 1001 047c 0B000000 		.word	11
+ 1002 0480 F4FFFFFF 		.word	-12
+ 1003 0484 00000000 		.word	0
+ 1004 0488 FBFFFFFF 		.word	-5
+ 1005 048c 00000000 		.word	0
+ 1006 0490 FDFFFFFF 		.word	-3
+ 1007 0494 00000000 		.word	0
+ 1008 0498 FDFFFFFF 		.word	-3
+ 1009 049c 00000000 		.word	0
+ 1010 04a0 FEFFFFFF 		.word	-2
+ 1011 04a4 00000000 		.word	0
+ 1012 04a8 00000000 		.word	0
+ 1013 04ac FFFFFFFF 		.word	-1
+ 1014 04b0 00000000 		.word	0
+ 1015 04b4 00000000 		.word	0
+ 1016 04b8 00000000 		.word	0
+ 1017 04bc 00000000 		.word	0
+ 1018 04c0 01000000 		.word	1
+ 1019 04c4 FAFFFFFF 		.word	-6
+ 1020 04c8 07000000 		.word	7
+ 1021 04cc FAFFFFFF 		.word	-6
+ 1022 04d0 03000000 		.word	3
+ 1023 04d4 00000000 		.word	0
+ 1024 04d8 FFFFFFFF 		.word	-1
+ 1025 04dc 01000000 		.word	1
+ 1026 04e0 FFFFFFFF 		.word	-1
+ 1027 04e4 00000000 		.word	0
+ 1028 04e8 01000000 		.word	1
+ 1029 04ec 00000000 		.word	0
+ 1030 04f0 FFFFFFFF 		.word	-1
+ 1031 04f4 02000000 		.word	2
+ 1032 04f8 FFFFFFFF 		.word	-1
+ 1033 04fc 00000000 		.word	0
+ 1034 0500 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 22
+
+
+ 1035 0504 00000000 		.word	0
+ 1036 0508 00000000 		.word	0
+ 1037 050c 00000000 		.word	0
+ 1038 0510 00000000 		.word	0
+ 1039 0514 00000000 		.word	0
+ 1040 0518 00000000 		.word	0
+ 1041 051c 00000000 		.word	0
+ 1042 0520 00000000 		.word	0
+ 1043 0524 00000000 		.word	0
+ 1044 0528 00000000 		.word	0
+ 1045 052c 00000000 		.word	0
+ 1046 0530 00000000 		.word	0
+ 1047 0534 00000000 		.word	0
+ 1048 0538 00000000 		.word	0
+ 1049 053c 00000000 		.word	0
+ 1050 0540 00000000 		.word	0
+ 1051 0544 00000000 		.word	0
+ 1052 0548 00000000 		.word	0
+ 1053 054c 00000000 		.word	0
+ 1054 0550 00000000 		.word	0
+ 1055 0554 00000000 		.word	0
+ 1056 0558 1A000000 		.word	26
+ 1057 055c F3FFFFFF 		.word	-13
+ 1058 0560 03000000 		.word	3
+ 1059 0564 F7FFFFFF 		.word	-9
+ 1060 0568 FFFFFFFF 		.word	-1
+ 1061 056c FCFFFFFF 		.word	-4
+ 1062 0570 00000000 		.word	0
+ 1063 0574 FBFFFFFF 		.word	-5
+ 1064 0578 00000000 		.word	0
+ 1065 057c 00000000 		.word	0
+ 1066 0580 01000000 		.word	1
+ 1067 0584 00000000 		.word	0
+ 1068 0588 00000000 		.word	0
+ 1069 058c 00000000 		.word	0
+ 1070 0590 00000000 		.word	0
+ 1071 0594 00000000 		.word	0
+ 1072 0598 01000000 		.word	1
+ 1073 059c 00000000 		.word	0
+ 1074 05a0 00000000 		.word	0
+ 1075 05a4 27000000 		.word	39
+ 1076 05a8 EEFFFFFF 		.word	-18
+ 1077 05ac 06000000 		.word	6
+ 1078 05b0 F7FFFFFF 		.word	-9
+ 1079 05b4 00000000 		.word	0
+ 1080 05b8 FAFFFFFF 		.word	-6
+ 1081 05bc 01000000 		.word	1
+ 1082 05c0 FCFFFFFF 		.word	-4
+ 1083 05c4 00000000 		.word	0
+ 1084 05c8 FFFFFFFF 		.word	-1
+ 1085 05cc 00000000 		.word	0
+ 1086 05d0 FFFFFFFF 		.word	-1
+ 1087 05d4 00000000 		.word	0
+ 1088 05d8 00000000 		.word	0
+ 1089 05dc 00000000 		.word	0
+ 1090 05e0 FFFFFFFF 		.word	-1
+ 1091 05e4 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 23
+
+
+ 1092 05e8 FFFFFFFF 		.word	-1
+ 1093 05ec 00000000 		.word	0
+ 1094 05f0 29000000 		.word	41
+ 1095 05f4 EEFFFFFF 		.word	-18
+ 1096 05f8 07000000 		.word	7
+ 1097 05fc F6FFFFFF 		.word	-10
+ 1098 0600 00000000 		.word	0
+ 1099 0604 FBFFFFFF 		.word	-5
+ 1100 0608 02000000 		.word	2
+ 1101 060c FCFFFFFF 		.word	-4
+ 1102 0610 00000000 		.word	0
+ 1103 0614 FEFFFFFF 		.word	-2
+ 1104 0618 00000000 		.word	0
+ 1105 061c 00000000 		.word	0
+ 1106 0620 00000000 		.word	0
+ 1107 0624 FFFFFFFF 		.word	-1
+ 1108 0628 FFFFFFFF 		.word	-1
+ 1109 062c FFFFFFFF 		.word	-1
+ 1110 0630 00000000 		.word	0
+ 1111 0634 FFFFFFFF 		.word	-1
+ 1112 0638 00000000 		.word	0
+ 1113 063c 28000000 		.word	40
+ 1114 0640 EFFFFFFF 		.word	-17
+ 1115 0644 08000000 		.word	8
+ 1116 0648 F6FFFFFF 		.word	-10
+ 1117 064c 01000000 		.word	1
+ 1118 0650 FBFFFFFF 		.word	-5
+ 1119 0654 01000000 		.word	1
+ 1120 0658 FBFFFFFF 		.word	-5
+ 1121 065c 00000000 		.word	0
+ 1122 0660 FDFFFFFF 		.word	-3
+ 1123 0664 01000000 		.word	1
+ 1124 0668 FFFFFFFF 		.word	-1
+ 1125 066c FFFFFFFF 		.word	-1
+ 1126 0670 FFFFFFFF 		.word	-1
+ 1127 0674 00000000 		.word	0
+ 1128 0678 FEFFFFFF 		.word	-2
+ 1129 067c 00000000 		.word	0
+ 1130 0680 FFFFFFFF 		.word	-1
+ 1131 0684 00000000 		.word	0
+ 1132 0688 26000000 		.word	38
+ 1133 068c EFFFFFFF 		.word	-17
+ 1134 0690 09000000 		.word	9
+ 1135 0694 F6FFFFFF 		.word	-10
+ 1136 0698 00000000 		.word	0
+ 1137 069c FBFFFFFF 		.word	-5
+ 1138 06a0 02000000 		.word	2
+ 1139 06a4 FCFFFFFF 		.word	-4
+ 1140 06a8 00000000 		.word	0
+ 1141 06ac FDFFFFFF 		.word	-3
+ 1142 06b0 00000000 		.word	0
+ 1143 06b4 00000000 		.word	0
+ 1144 06b8 FFFFFFFF 		.word	-1
+ 1145 06bc FFFFFFFF 		.word	-1
+ 1146 06c0 00000000 		.word	0
+ 1147 06c4 FEFFFFFF 		.word	-2
+ 1148 06c8 FFFFFFFF 		.word	-1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 24
+
+
+ 1149 06cc 00000000 		.word	0
+ 1150 06d0 00000000 		.word	0
+ 1151 06d4 1F000000 		.word	31
+ 1152 06d8 F4FFFFFF 		.word	-12
+ 1153 06dc 0C000000 		.word	12
+ 1154 06e0 F7FFFFFF 		.word	-9
+ 1155 06e4 01000000 		.word	1
+ 1156 06e8 F8FFFFFF 		.word	-8
+ 1157 06ec 01000000 		.word	1
+ 1158 06f0 FBFFFFFF 		.word	-5
+ 1159 06f4 01000000 		.word	1
+ 1160 06f8 FEFFFFFF 		.word	-2
+ 1161 06fc 01000000 		.word	1
+ 1162 0700 FFFFFFFF 		.word	-1
+ 1163 0704 00000000 		.word	0
+ 1164 0708 00000000 		.word	0
+ 1165 070c 00000000 		.word	0
+ 1166 0710 FFFFFFFF 		.word	-1
+ 1167 0714 00000000 		.word	0
+ 1168 0718 00000000 		.word	0
+ 1169 071c FFFFFFFF 		.word	-1
+ 1170 0720 19000000 		.word	25
+ 1171 0724 F6FFFFFF 		.word	-10
+ 1172 0728 0F000000 		.word	15
+ 1173 072c FAFFFFFF 		.word	-6
+ 1174 0730 02000000 		.word	2
+ 1175 0734 F3FFFFFF 		.word	-13
+ 1176 0738 00000000 		.word	0
+ 1177 073c FBFFFFFF 		.word	-5
+ 1178 0740 00000000 		.word	0
+ 1179 0744 00000000 		.word	0
+ 1180 0748 00000000 		.word	0
+ 1181 074c FDFFFFFF 		.word	-3
+ 1182 0750 00000000 		.word	0
+ 1183 0754 FFFFFFFF 		.word	-1
+ 1184 0758 01000000 		.word	1
+ 1185 075c 00000000 		.word	0
+ 1186 0760 00000000 		.word	0
+ 1187 0764 00000000 		.word	0
+ 1188 0768 FEFFFFFF 		.word	-2
+ 1189 076c 18000000 		.word	24
+ 1190 0770 F6FFFFFF 		.word	-10
+ 1191 0774 10000000 		.word	16
+ 1192 0778 F9FFFFFF 		.word	-7
+ 1193 077c 01000000 		.word	1
+ 1194 0780 F3FFFFFF 		.word	-13
+ 1195 0784 00000000 		.word	0
+ 1196 0788 FCFFFFFF 		.word	-4
+ 1197 078c 01000000 		.word	1
+ 1198 0790 FFFFFFFF 		.word	-1
+ 1199 0794 00000000 		.word	0
+ 1200 0798 FEFFFFFF 		.word	-2
+ 1201 079c 01000000 		.word	1
+ 1202 07a0 FFFFFFFF 		.word	-1
+ 1203 07a4 00000000 		.word	0
+ 1204 07a8 00000000 		.word	0
+ 1205 07ac 01000000 		.word	1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 25
+
+
+ 1206 07b0 00000000 		.word	0
+ 1207 07b4 FDFFFFFF 		.word	-3
+ 1208 07b8 16000000 		.word	22
+ 1209 07bc F6FFFFFF 		.word	-10
+ 1210 07c0 14000000 		.word	20
+ 1211 07c4 F8FFFFFF 		.word	-8
+ 1212 07c8 FEFFFFFF 		.word	-2
+ 1213 07cc F6FFFFFF 		.word	-10
+ 1214 07d0 00000000 		.word	0
+ 1215 07d4 FBFFFFFF 		.word	-5
+ 1216 07d8 00000000 		.word	0
+ 1217 07dc FEFFFFFF 		.word	-2
+ 1218 07e0 00000000 		.word	0
+ 1219 07e4 FDFFFFFF 		.word	-3
+ 1220 07e8 00000000 		.word	0
+ 1221 07ec 00000000 		.word	0
+ 1222 07f0 00000000 		.word	0
+ 1223 07f4 00000000 		.word	0
+ 1224 07f8 00000000 		.word	0
+ 1225 07fc FFFFFFFF 		.word	-1
+ 1226 0800 FFFFFFFF 		.word	-1
+ 1227 0804 23000000 		.word	35
+ 1228 0808 F1FFFFFF 		.word	-15
+ 1229 080c 0B000000 		.word	11
+ 1230 0810 F5FFFFFF 		.word	-11
+ 1231 0814 01000000 		.word	1
+ 1232 0818 FAFFFFFF 		.word	-6
+ 1233 081c 00000000 		.word	0
+ 1234 0820 FBFFFFFF 		.word	-5
+ 1235 0824 01000000 		.word	1
+ 1236 0828 FCFFFFFF 		.word	-4
+ 1237 082c 01000000 		.word	1
+ 1238 0830 FEFFFFFF 		.word	-2
+ 1239 0834 00000000 		.word	0
+ 1240 0838 FEFFFFFF 		.word	-2
+ 1241 083c 00000000 		.word	0
+ 1242 0840 FFFFFFFF 		.word	-1
+ 1243 0844 00000000 		.word	0
+ 1244 0848 FFFFFFFF 		.word	-1
+ 1245 084c FFFFFFFF 		.word	-1
+ 1246 0850 23000000 		.word	35
+ 1247 0854 F2FFFFFF 		.word	-14
+ 1248 0858 0B000000 		.word	11
+ 1249 085c F4FFFFFF 		.word	-12
+ 1250 0860 02000000 		.word	2
+ 1251 0864 FBFFFFFF 		.word	-5
+ 1252 0868 00000000 		.word	0
+ 1253 086c FCFFFFFF 		.word	-4
+ 1254 0870 00000000 		.word	0
+ 1255 0874 FDFFFFFF 		.word	-3
+ 1256 0878 00000000 		.word	0
+ 1257 087c FEFFFFFF 		.word	-2
+ 1258 0880 00000000 		.word	0
+ 1259 0884 FFFFFFFF 		.word	-1
+ 1260 0888 00000000 		.word	0
+ 1261 088c 00000000 		.word	0
+ 1262 0890 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 26
+
+
+ 1263 0894 FFFFFFFF 		.word	-1
+ 1264 0898 00000000 		.word	0
+ 1265 089c 21000000 		.word	33
+ 1266 08a0 F3FFFFFF 		.word	-13
+ 1267 08a4 0C000000 		.word	12
+ 1268 08a8 F4FFFFFF 		.word	-12
+ 1269 08ac 01000000 		.word	1
+ 1270 08b0 FAFFFFFF 		.word	-6
+ 1271 08b4 00000000 		.word	0
+ 1272 08b8 FBFFFFFF 		.word	-5
+ 1273 08bc 00000000 		.word	0
+ 1274 08c0 FEFFFFFF 		.word	-2
+ 1275 08c4 00000000 		.word	0
+ 1276 08c8 FDFFFFFF 		.word	-3
+ 1277 08cc 00000000 		.word	0
+ 1278 08d0 00000000 		.word	0
+ 1279 08d4 00000000 		.word	0
+ 1280 08d8 00000000 		.word	0
+ 1281 08dc 00000000 		.word	0
+ 1282 08e0 00000000 		.word	0
+ 1283 08e4 FFFFFFFF 		.word	-1
+ 1284 08e8 1F000000 		.word	31
+ 1285 08ec F5FFFFFF 		.word	-11
+ 1286 08f0 0C000000 		.word	12
+ 1287 08f4 F3FFFFFF 		.word	-13
+ 1288 08f8 01000000 		.word	1
+ 1289 08fc FAFFFFFF 		.word	-6
+ 1290 0900 00000000 		.word	0
+ 1291 0904 FCFFFFFF 		.word	-4
+ 1292 0908 00000000 		.word	0
+ 1293 090c FEFFFFFF 		.word	-2
+ 1294 0910 00000000 		.word	0
+ 1295 0914 FDFFFFFF 		.word	-3
+ 1296 0918 00000000 		.word	0
+ 1297 091c 00000000 		.word	0
+ 1298 0920 00000000 		.word	0
+ 1299 0924 FFFFFFFF 		.word	-1
+ 1300 0928 00000000 		.word	0
+ 1301 092c 00000000 		.word	0
+ 1302 0930 FFFFFFFF 		.word	-1
+ 1303 0934 1A000000 		.word	26
+ 1304 0938 FBFFFFFF 		.word	-5
+ 1305 093c 0B000000 		.word	11
+ 1306 0940 EEFFFFFF 		.word	-18
+ 1307 0944 04000000 		.word	4
+ 1308 0948 FEFFFFFF 		.word	-2
+ 1309 094c FDFFFFFF 		.word	-3
+ 1310 0950 FCFFFFFF 		.word	-4
+ 1311 0954 01000000 		.word	1
+ 1312 0958 FEFFFFFF 		.word	-2
+ 1313 095c 00000000 		.word	0
+ 1314 0960 FDFFFFFF 		.word	-3
+ 1315 0964 00000000 		.word	0
+ 1316 0968 FFFFFFFF 		.word	-1
+ 1317 096c 00000000 		.word	0
+ 1318 0970 FFFFFFFF 		.word	-1
+ 1319 0974 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 27
+
+
+ 1320 0978 00000000 		.word	0
+ 1321 097c FFFFFFFF 		.word	-1
+ 1322 0980 17000000 		.word	23
+ 1323 0984 FDFFFFFF 		.word	-3
+ 1324 0988 09000000 		.word	9
+ 1325 098c F1FFFFFF 		.word	-15
+ 1326 0990 05000000 		.word	5
+ 1327 0994 FDFFFFFF 		.word	-3
+ 1328 0998 FDFFFFFF 		.word	-3
+ 1329 099c FEFFFFFF 		.word	-2
+ 1330 09a0 00000000 		.word	0
+ 1331 09a4 FFFFFFFF 		.word	-1
+ 1332 09a8 FFFFFFFF 		.word	-1
+ 1333 09ac FCFFFFFF 		.word	-4
+ 1334 09b0 00000000 		.word	0
+ 1335 09b4 00000000 		.word	0
+ 1336 09b8 FFFFFFFF 		.word	-1
+ 1337 09bc 00000000 		.word	0
+ 1338 09c0 01000000 		.word	1
+ 1339 09c4 FFFFFFFF 		.word	-1
+ 1340 09c8 FEFFFFFF 		.word	-2
+ 1341              		.align	2
+ 1342              		.type	yksinpeliV2, %object
+ 1343              		.size	yksinpeliV2, 2356
+ 1344              	yksinpeliV2:
+ 1345 09cc 22000000 		.word	34
+ 1346 09d0 F2FFFFFF 		.word	-14
+ 1347 09d4 0A000000 		.word	10
+ 1348 09d8 F7FFFFFF 		.word	-9
+ 1349 09dc 00000000 		.word	0
+ 1350 09e0 FBFFFFFF 		.word	-5
+ 1351 09e4 00000000 		.word	0
+ 1352 09e8 FAFFFFFF 		.word	-6
+ 1353 09ec 00000000 		.word	0
+ 1354 09f0 FEFFFFFF 		.word	-2
+ 1355 09f4 00000000 		.word	0
+ 1356 09f8 FDFFFFFF 		.word	-3
+ 1357 09fc 00000000 		.word	0
+ 1358 0a00 FFFFFFFF 		.word	-1
+ 1359 0a04 00000000 		.word	0
+ 1360 0a08 00000000 		.word	0
+ 1361 0a0c 00000000 		.word	0
+ 1362 0a10 FFFFFFFF 		.word	-1
+ 1363 0a14 00000000 		.word	0
+ 1364 0a18 26000000 		.word	38
+ 1365 0a1c F0FFFFFF 		.word	-16
+ 1366 0a20 0C000000 		.word	12
+ 1367 0a24 F7FFFFFF 		.word	-9
+ 1368 0a28 00000000 		.word	0
+ 1369 0a2c FCFFFFFF 		.word	-4
+ 1370 0a30 00000000 		.word	0
+ 1371 0a34 FBFFFFFF 		.word	-5
+ 1372 0a38 00000000 		.word	0
+ 1373 0a3c FEFFFFFF 		.word	-2
+ 1374 0a40 00000000 		.word	0
+ 1375 0a44 FDFFFFFF 		.word	-3
+ 1376 0a48 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 28
+
+
+ 1377 0a4c FEFFFFFF 		.word	-2
+ 1378 0a50 00000000 		.word	0
+ 1379 0a54 FEFFFFFF 		.word	-2
+ 1380 0a58 00000000 		.word	0
+ 1381 0a5c FFFFFFFF 		.word	-1
+ 1382 0a60 FFFFFFFF 		.word	-1
+ 1383 0a64 25000000 		.word	37
+ 1384 0a68 F0FFFFFF 		.word	-16
+ 1385 0a6c 0B000000 		.word	11
+ 1386 0a70 F9FFFFFF 		.word	-7
+ 1387 0a74 00000000 		.word	0
+ 1388 0a78 FBFFFFFF 		.word	-5
+ 1389 0a7c 00000000 		.word	0
+ 1390 0a80 FAFFFFFF 		.word	-6
+ 1391 0a84 00000000 		.word	0
+ 1392 0a88 FEFFFFFF 		.word	-2
+ 1393 0a8c 00000000 		.word	0
+ 1394 0a90 FDFFFFFF 		.word	-3
+ 1395 0a94 00000000 		.word	0
+ 1396 0a98 FDFFFFFF 		.word	-3
+ 1397 0a9c 00000000 		.word	0
+ 1398 0aa0 FFFFFFFF 		.word	-1
+ 1399 0aa4 FFFFFFFF 		.word	-1
+ 1400 0aa8 FFFFFFFF 		.word	-1
+ 1401 0aac FFFFFFFF 		.word	-1
+ 1402 0ab0 24000000 		.word	36
+ 1403 0ab4 F0FFFFFF 		.word	-16
+ 1404 0ab8 0D000000 		.word	13
+ 1405 0abc F8FFFFFF 		.word	-8
+ 1406 0ac0 00000000 		.word	0
+ 1407 0ac4 FBFFFFFF 		.word	-5
+ 1408 0ac8 00000000 		.word	0
+ 1409 0acc F9FFFFFF 		.word	-7
+ 1410 0ad0 00000000 		.word	0
+ 1411 0ad4 FEFFFFFF 		.word	-2
+ 1412 0ad8 00000000 		.word	0
+ 1413 0adc FDFFFFFF 		.word	-3
+ 1414 0ae0 00000000 		.word	0
+ 1415 0ae4 FEFFFFFF 		.word	-2
+ 1416 0ae8 00000000 		.word	0
+ 1417 0aec 00000000 		.word	0
+ 1418 0af0 00000000 		.word	0
+ 1419 0af4 FEFFFFFF 		.word	-2
+ 1420 0af8 FFFFFFFF 		.word	-1
+ 1421 0afc 14000000 		.word	20
+ 1422 0b00 E7FFFFFF 		.word	-25
+ 1423 0b04 08000000 		.word	8
+ 1424 0b08 F9FFFFFF 		.word	-7
+ 1425 0b0c 03000000 		.word	3
+ 1426 0b10 00000000 		.word	0
+ 1427 0b14 05000000 		.word	5
+ 1428 0b18 FDFFFFFF 		.word	-3
+ 1429 0b1c 02000000 		.word	2
+ 1430 0b20 FDFFFFFF 		.word	-3
+ 1431 0b24 01000000 		.word	1
+ 1432 0b28 FEFFFFFF 		.word	-2
+ 1433 0b2c 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 29
+
+
+ 1434 0b30 00000000 		.word	0
+ 1435 0b34 01000000 		.word	1
+ 1436 0b38 01000000 		.word	1
+ 1437 0b3c 00000000 		.word	0
+ 1438 0b40 00000000 		.word	0
+ 1439 0b44 00000000 		.word	0
+ 1440 0b48 13000000 		.word	19
+ 1441 0b4c E8FFFFFF 		.word	-24
+ 1442 0b50 06000000 		.word	6
+ 1443 0b54 F9FFFFFF 		.word	-7
+ 1444 0b58 05000000 		.word	5
+ 1445 0b5c FFFFFFFF 		.word	-1
+ 1446 0b60 03000000 		.word	3
+ 1447 0b64 FDFFFFFF 		.word	-3
+ 1448 0b68 03000000 		.word	3
+ 1449 0b6c FDFFFFFF 		.word	-3
+ 1450 0b70 01000000 		.word	1
+ 1451 0b74 FEFFFFFF 		.word	-2
+ 1452 0b78 01000000 		.word	1
+ 1453 0b7c 00000000 		.word	0
+ 1454 0b80 01000000 		.word	1
+ 1455 0b84 01000000 		.word	1
+ 1456 0b88 01000000 		.word	1
+ 1457 0b8c FFFFFFFF 		.word	-1
+ 1458 0b90 FFFFFFFF 		.word	-1
+ 1459 0b94 08000000 		.word	8
+ 1460 0b98 EDFFFFFF 		.word	-19
+ 1461 0b9c 0E000000 		.word	14
+ 1462 0ba0 FBFFFFFF 		.word	-5
+ 1463 0ba4 01000000 		.word	1
+ 1464 0ba8 FCFFFFFF 		.word	-4
+ 1465 0bac 04000000 		.word	4
+ 1466 0bb0 FEFFFFFF 		.word	-2
+ 1467 0bb4 02000000 		.word	2
+ 1468 0bb8 FCFFFFFF 		.word	-4
+ 1469 0bbc 03000000 		.word	3
+ 1470 0bc0 00000000 		.word	0
+ 1471 0bc4 00000000 		.word	0
+ 1472 0bc8 FEFFFFFF 		.word	-2
+ 1473 0bcc 01000000 		.word	1
+ 1474 0bd0 00000000 		.word	0
+ 1475 0bd4 00000000 		.word	0
+ 1476 0bd8 00000000 		.word	0
+ 1477 0bdc 00000000 		.word	0
+ 1478 0be0 05000000 		.word	5
+ 1479 0be4 F3FFFFFF 		.word	-13
+ 1480 0be8 0D000000 		.word	13
+ 1481 0bec F7FFFFFF 		.word	-9
+ 1482 0bf0 03000000 		.word	3
+ 1483 0bf4 FFFFFFFF 		.word	-1
+ 1484 0bf8 02000000 		.word	2
+ 1485 0bfc FCFFFFFF 		.word	-4
+ 1486 0c00 03000000 		.word	3
+ 1487 0c04 FEFFFFFF 		.word	-2
+ 1488 0c08 02000000 		.word	2
+ 1489 0c0c 00000000 		.word	0
+ 1490 0c10 01000000 		.word	1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 30
+
+
+ 1491 0c14 00000000 		.word	0
+ 1492 0c18 00000000 		.word	0
+ 1493 0c1c 00000000 		.word	0
+ 1494 0c20 00000000 		.word	0
+ 1495 0c24 00000000 		.word	0
+ 1496 0c28 00000000 		.word	0
+ 1497 0c2c 04000000 		.word	4
+ 1498 0c30 F4FFFFFF 		.word	-12
+ 1499 0c34 0D000000 		.word	13
+ 1500 0c38 F6FFFFFF 		.word	-10
+ 1501 0c3c 04000000 		.word	4
+ 1502 0c40 FFFFFFFF 		.word	-1
+ 1503 0c44 01000000 		.word	1
+ 1504 0c48 FDFFFFFF 		.word	-3
+ 1505 0c4c 03000000 		.word	3
+ 1506 0c50 FDFFFFFF 		.word	-3
+ 1507 0c54 03000000 		.word	3
+ 1508 0c58 00000000 		.word	0
+ 1509 0c5c 00000000 		.word	0
+ 1510 0c60 00000000 		.word	0
+ 1511 0c64 01000000 		.word	1
+ 1512 0c68 00000000 		.word	0
+ 1513 0c6c 00000000 		.word	0
+ 1514 0c70 00000000 		.word	0
+ 1515 0c74 00000000 		.word	0
+ 1516 0c78 16000000 		.word	22
+ 1517 0c7c FAFFFFFF 		.word	-6
+ 1518 0c80 0B000000 		.word	11
+ 1519 0c84 F2FFFFFF 		.word	-14
+ 1520 0c88 03000000 		.word	3
+ 1521 0c8c 00000000 		.word	0
+ 1522 0c90 FFFFFFFF 		.word	-1
+ 1523 0c94 F9FFFFFF 		.word	-7
+ 1524 0c98 03000000 		.word	3
+ 1525 0c9c FCFFFFFF 		.word	-4
+ 1526 0ca0 01000000 		.word	1
+ 1527 0ca4 FEFFFFFF 		.word	-2
+ 1528 0ca8 00000000 		.word	0
+ 1529 0cac FFFFFFFF 		.word	-1
+ 1530 0cb0 00000000 		.word	0
+ 1531 0cb4 FFFFFFFF 		.word	-1
+ 1532 0cb8 00000000 		.word	0
+ 1533 0cbc 00000000 		.word	0
+ 1534 0cc0 FFFFFFFF 		.word	-1
+ 1535 0cc4 23000000 		.word	35
+ 1536 0cc8 F3FFFFFF 		.word	-13
+ 1537 0ccc 0A000000 		.word	10
+ 1538 0cd0 F6FFFFFF 		.word	-10
+ 1539 0cd4 01000000 		.word	1
+ 1540 0cd8 FBFFFFFF 		.word	-5
+ 1541 0cdc 00000000 		.word	0
+ 1542 0ce0 FBFFFFFF 		.word	-5
+ 1543 0ce4 01000000 		.word	1
+ 1544 0ce8 FDFFFFFF 		.word	-3
+ 1545 0cec 00000000 		.word	0
+ 1546 0cf0 FEFFFFFF 		.word	-2
+ 1547 0cf4 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 31
+
+
+ 1548 0cf8 FEFFFFFF 		.word	-2
+ 1549 0cfc FFFFFFFF 		.word	-1
+ 1550 0d00 00000000 		.word	0
+ 1551 0d04 00000000 		.word	0
+ 1552 0d08 00000000 		.word	0
+ 1553 0d0c FFFFFFFF 		.word	-1
+ 1554 0d10 25000000 		.word	37
+ 1555 0d14 F1FFFFFF 		.word	-15
+ 1556 0d18 0A000000 		.word	10
+ 1557 0d1c F4FFFFFF 		.word	-12
+ 1558 0d20 01000000 		.word	1
+ 1559 0d24 FAFFFFFF 		.word	-6
+ 1560 0d28 00000000 		.word	0
+ 1561 0d2c FCFFFFFF 		.word	-4
+ 1562 0d30 00000000 		.word	0
+ 1563 0d34 FDFFFFFF 		.word	-3
+ 1564 0d38 00000000 		.word	0
+ 1565 0d3c FEFFFFFF 		.word	-2
+ 1566 0d40 00000000 		.word	0
+ 1567 0d44 FFFFFFFF 		.word	-1
+ 1568 0d48 00000000 		.word	0
+ 1569 0d4c 00000000 		.word	0
+ 1570 0d50 00000000 		.word	0
+ 1571 0d54 00000000 		.word	0
+ 1572 0d58 00000000 		.word	0
+ 1573 0d5c 26000000 		.word	38
+ 1574 0d60 F2FFFFFF 		.word	-14
+ 1575 0d64 0A000000 		.word	10
+ 1576 0d68 F3FFFFFF 		.word	-13
+ 1577 0d6c 01000000 		.word	1
+ 1578 0d70 FBFFFFFF 		.word	-5
+ 1579 0d74 00000000 		.word	0
+ 1580 0d78 FBFFFFFF 		.word	-5
+ 1581 0d7c 00000000 		.word	0
+ 1582 0d80 FCFFFFFF 		.word	-4
+ 1583 0d84 00000000 		.word	0
+ 1584 0d88 FEFFFFFF 		.word	-2
+ 1585 0d8c 00000000 		.word	0
+ 1586 0d90 FFFFFFFF 		.word	-1
+ 1587 0d94 00000000 		.word	0
+ 1588 0d98 00000000 		.word	0
+ 1589 0d9c 00000000 		.word	0
+ 1590 0da0 FFFFFFFF 		.word	-1
+ 1591 0da4 00000000 		.word	0
+ 1592 0da8 26000000 		.word	38
+ 1593 0dac F2FFFFFF 		.word	-14
+ 1594 0db0 08000000 		.word	8
+ 1595 0db4 F4FFFFFF 		.word	-12
+ 1596 0db8 02000000 		.word	2
+ 1597 0dbc FDFFFFFF 		.word	-3
+ 1598 0dc0 00000000 		.word	0
+ 1599 0dc4 FBFFFFFF 		.word	-5
+ 1600 0dc8 00000000 		.word	0
+ 1601 0dcc FCFFFFFF 		.word	-4
+ 1602 0dd0 01000000 		.word	1
+ 1603 0dd4 FEFFFFFF 		.word	-2
+ 1604 0dd8 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 32
+
+
+ 1605 0ddc 00000000 		.word	0
+ 1606 0de0 00000000 		.word	0
+ 1607 0de4 FFFFFFFF 		.word	-1
+ 1608 0de8 00000000 		.word	0
+ 1609 0dec FFFFFFFF 		.word	-1
+ 1610 0df0 FFFFFFFF 		.word	-1
+ 1611 0df4 23000000 		.word	35
+ 1612 0df8 F5FFFFFF 		.word	-11
+ 1613 0dfc 05000000 		.word	5
+ 1614 0e00 F9FFFFFF 		.word	-7
+ 1615 0e04 00000000 		.word	0
+ 1616 0e08 FDFFFFFF 		.word	-3
+ 1617 0e0c 00000000 		.word	0
+ 1618 0e10 FDFFFFFF 		.word	-3
+ 1619 0e14 FEFFFFFF 		.word	-2
+ 1620 0e18 FEFFFFFF 		.word	-2
+ 1621 0e1c 00000000 		.word	0
+ 1622 0e20 FFFFFFFF 		.word	-1
+ 1623 0e24 00000000 		.word	0
+ 1624 0e28 00000000 		.word	0
+ 1625 0e2c 00000000 		.word	0
+ 1626 0e30 00000000 		.word	0
+ 1627 0e34 00000000 		.word	0
+ 1628 0e38 00000000 		.word	0
+ 1629 0e3c 00000000 		.word	0
+ 1630 0e40 21000000 		.word	33
+ 1631 0e44 F8FFFFFF 		.word	-8
+ 1632 0e48 01000000 		.word	1
+ 1633 0e4c FEFFFFFF 		.word	-2
+ 1634 0e50 FEFFFFFF 		.word	-2
+ 1635 0e54 00000000 		.word	0
+ 1636 0e58 FCFFFFFF 		.word	-4
+ 1637 0e5c 00000000 		.word	0
+ 1638 0e60 FCFFFFFF 		.word	-4
+ 1639 0e64 00000000 		.word	0
+ 1640 0e68 FDFFFFFF 		.word	-3
+ 1641 0e6c FEFFFFFF 		.word	-2
+ 1642 0e70 00000000 		.word	0
+ 1643 0e74 00000000 		.word	0
+ 1644 0e78 00000000 		.word	0
+ 1645 0e7c FEFFFFFF 		.word	-2
+ 1646 0e80 01000000 		.word	1
+ 1647 0e84 FFFFFFFF 		.word	-1
+ 1648 0e88 00000000 		.word	0
+ 1649 0e8c 20000000 		.word	32
+ 1650 0e90 F9FFFFFF 		.word	-7
+ 1651 0e94 01000000 		.word	1
+ 1652 0e98 FEFFFFFF 		.word	-2
+ 1653 0e9c FEFFFFFF 		.word	-2
+ 1654 0ea0 00000000 		.word	0
+ 1655 0ea4 FCFFFFFF 		.word	-4
+ 1656 0ea8 FFFFFFFF 		.word	-1
+ 1657 0eac FCFFFFFF 		.word	-4
+ 1658 0eb0 00000000 		.word	0
+ 1659 0eb4 FDFFFFFF 		.word	-3
+ 1660 0eb8 FDFFFFFF 		.word	-3
+ 1661 0ebc 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 33
+
+
+ 1662 0ec0 FFFFFFFF 		.word	-1
+ 1663 0ec4 00000000 		.word	0
+ 1664 0ec8 FEFFFFFF 		.word	-2
+ 1665 0ecc 01000000 		.word	1
+ 1666 0ed0 00000000 		.word	0
+ 1667 0ed4 FFFFFFFF 		.word	-1
+ 1668 0ed8 1D000000 		.word	29
+ 1669 0edc FCFFFFFF 		.word	-4
+ 1670 0ee0 01000000 		.word	1
+ 1671 0ee4 FDFFFFFF 		.word	-3
+ 1672 0ee8 FDFFFFFF 		.word	-3
+ 1673 0eec 01000000 		.word	1
+ 1674 0ef0 FDFFFFFF 		.word	-3
+ 1675 0ef4 FCFFFFFF 		.word	-4
+ 1676 0ef8 FCFFFFFF 		.word	-4
+ 1677 0efc 02000000 		.word	2
+ 1678 0f00 FCFFFFFF 		.word	-4
+ 1679 0f04 FCFFFFFF 		.word	-4
+ 1680 0f08 01000000 		.word	1
+ 1681 0f0c 00000000 		.word	0
+ 1682 0f10 00000000 		.word	0
+ 1683 0f14 FDFFFFFF 		.word	-3
+ 1684 0f18 01000000 		.word	1
+ 1685 0f1c 00000000 		.word	0
+ 1686 0f20 FFFFFFFF 		.word	-1
+ 1687 0f24 1D000000 		.word	29
+ 1688 0f28 FCFFFFFF 		.word	-4
+ 1689 0f2c 01000000 		.word	1
+ 1690 0f30 FEFFFFFF 		.word	-2
+ 1691 0f34 FDFFFFFF 		.word	-3
+ 1692 0f38 00000000 		.word	0
+ 1693 0f3c FDFFFFFF 		.word	-3
+ 1694 0f40 FEFFFFFF 		.word	-2
+ 1695 0f44 FDFFFFFF 		.word	-3
+ 1696 0f48 00000000 		.word	0
+ 1697 0f4c FEFFFFFF 		.word	-2
+ 1698 0f50 FDFFFFFF 		.word	-3
+ 1699 0f54 00000000 		.word	0
+ 1700 0f58 00000000 		.word	0
+ 1701 0f5c 00000000 		.word	0
+ 1702 0f60 FFFFFFFF 		.word	-1
+ 1703 0f64 00000000 		.word	0
+ 1704 0f68 00000000 		.word	0
+ 1705 0f6c 00000000 		.word	0
+ 1706 0f70 19000000 		.word	25
+ 1707 0f74 01000000 		.word	1
+ 1708 0f78 FFFFFFFF 		.word	-1
+ 1709 0f7c FFFFFFFF 		.word	-1
+ 1710 0f80 FDFFFFFF 		.word	-3
+ 1711 0f84 01000000 		.word	1
+ 1712 0f88 FDFFFFFF 		.word	-3
+ 1713 0f8c FBFFFFFF 		.word	-5
+ 1714 0f90 00000000 		.word	0
+ 1715 0f94 FDFFFFFF 		.word	-3
+ 1716 0f98 01000000 		.word	1
+ 1717 0f9c 00000000 		.word	0
+ 1718 0fa0 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 34
+
+
+ 1719 0fa4 FFFFFFFF 		.word	-1
+ 1720 0fa8 FEFFFFFF 		.word	-2
+ 1721 0fac 00000000 		.word	0
+ 1722 0fb0 00000000 		.word	0
+ 1723 0fb4 FFFFFFFF 		.word	-1
+ 1724 0fb8 00000000 		.word	0
+ 1725 0fbc 11000000 		.word	17
+ 1726 0fc0 00000000 		.word	0
+ 1727 0fc4 FFFFFFFF 		.word	-1
+ 1728 0fc8 03000000 		.word	3
+ 1729 0fcc 00000000 		.word	0
+ 1730 0fd0 FFFFFFFF 		.word	-1
+ 1731 0fd4 01000000 		.word	1
+ 1732 0fd8 00000000 		.word	0
+ 1733 0fdc FBFFFFFF 		.word	-5
+ 1734 0fe0 FBFFFFFF 		.word	-5
+ 1735 0fe4 01000000 		.word	1
+ 1736 0fe8 FFFFFFFF 		.word	-1
+ 1737 0fec 01000000 		.word	1
+ 1738 0ff0 00000000 		.word	0
+ 1739 0ff4 FEFFFFFF 		.word	-2
+ 1740 0ff8 00000000 		.word	0
+ 1741 0ffc 01000000 		.word	1
+ 1742 1000 00000000 		.word	0
+ 1743 1004 FDFFFFFF 		.word	-3
+ 1744 1008 0B000000 		.word	11
+ 1745 100c 00000000 		.word	0
+ 1746 1010 FFFFFFFF 		.word	-1
+ 1747 1014 02000000 		.word	2
+ 1748 1018 FDFFFFFF 		.word	-3
+ 1749 101c FCFFFFFF 		.word	-4
+ 1750 1020 03000000 		.word	3
+ 1751 1024 00000000 		.word	0
+ 1752 1028 FCFFFFFF 		.word	-4
+ 1753 102c FCFFFFFF 		.word	-4
+ 1754 1030 01000000 		.word	1
+ 1755 1034 FFFFFFFF 		.word	-1
+ 1756 1038 00000000 		.word	0
+ 1757 103c 02000000 		.word	2
+ 1758 1040 01000000 		.word	1
+ 1759 1044 00000000 		.word	0
+ 1760 1048 00000000 		.word	0
+ 1761 104c FFFFFFFF 		.word	-1
+ 1762 1050 00000000 		.word	0
+ 1763 1054 04000000 		.word	4
+ 1764 1058 FBFFFFFF 		.word	-5
+ 1765 105c FDFFFFFF 		.word	-3
+ 1766 1060 03000000 		.word	3
+ 1767 1064 00000000 		.word	0
+ 1768 1068 00000000 		.word	0
+ 1769 106c 00000000 		.word	0
+ 1770 1070 FEFFFFFF 		.word	-2
+ 1771 1074 00000000 		.word	0
+ 1772 1078 04000000 		.word	4
+ 1773 107c FCFFFFFF 		.word	-4
+ 1774 1080 FCFFFFFF 		.word	-4
+ 1775 1084 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 35
+
+
+ 1776 1088 02000000 		.word	2
+ 1777 108c 00000000 		.word	0
+ 1778 1090 FFFFFFFF 		.word	-1
+ 1779 1094 00000000 		.word	0
+ 1780 1098 00000000 		.word	0
+ 1781 109c 00000000 		.word	0
+ 1782 10a0 1C000000 		.word	28
+ 1783 10a4 F4FFFFFF 		.word	-12
+ 1784 10a8 05000000 		.word	5
+ 1785 10ac F7FFFFFF 		.word	-9
+ 1786 10b0 02000000 		.word	2
+ 1787 10b4 FBFFFFFF 		.word	-5
+ 1788 10b8 00000000 		.word	0
+ 1789 10bc FEFFFFFF 		.word	-2
+ 1790 10c0 00000000 		.word	0
+ 1791 10c4 FEFFFFFF 		.word	-2
+ 1792 10c8 00000000 		.word	0
+ 1793 10cc FEFFFFFF 		.word	-2
+ 1794 10d0 FFFFFFFF 		.word	-1
+ 1795 10d4 00000000 		.word	0
+ 1796 10d8 00000000 		.word	0
+ 1797 10dc 00000000 		.word	0
+ 1798 10e0 00000000 		.word	0
+ 1799 10e4 00000000 		.word	0
+ 1800 10e8 00000000 		.word	0
+ 1801 10ec 27000000 		.word	39
+ 1802 10f0 F1FFFFFF 		.word	-15
+ 1803 10f4 08000000 		.word	8
+ 1804 10f8 F5FFFFFF 		.word	-11
+ 1805 10fc 01000000 		.word	1
+ 1806 1100 FBFFFFFF 		.word	-5
+ 1807 1104 00000000 		.word	0
+ 1808 1108 FBFFFFFF 		.word	-5
+ 1809 110c 00000000 		.word	0
+ 1810 1110 FEFFFFFF 		.word	-2
+ 1811 1114 00000000 		.word	0
+ 1812 1118 FEFFFFFF 		.word	-2
+ 1813 111c 00000000 		.word	0
+ 1814 1120 FFFFFFFF 		.word	-1
+ 1815 1124 00000000 		.word	0
+ 1816 1128 FFFFFFFF 		.word	-1
+ 1817 112c 00000000 		.word	0
+ 1818 1130 00000000 		.word	0
+ 1819 1134 00000000 		.word	0
+ 1820 1138 27000000 		.word	39
+ 1821 113c F0FFFFFF 		.word	-16
+ 1822 1140 0A000000 		.word	10
+ 1823 1144 F4FFFFFF 		.word	-12
+ 1824 1148 00000000 		.word	0
+ 1825 114c FAFFFFFF 		.word	-6
+ 1826 1150 00000000 		.word	0
+ 1827 1154 FAFFFFFF 		.word	-6
+ 1828 1158 00000000 		.word	0
+ 1829 115c FDFFFFFF 		.word	-3
+ 1830 1160 00000000 		.word	0
+ 1831 1164 FEFFFFFF 		.word	-2
+ 1832 1168 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 36
+
+
+ 1833 116c FEFFFFFF 		.word	-2
+ 1834 1170 FFFFFFFF 		.word	-1
+ 1835 1174 FFFFFFFF 		.word	-1
+ 1836 1178 00000000 		.word	0
+ 1837 117c 00000000 		.word	0
+ 1838 1180 00000000 		.word	0
+ 1839 1184 25000000 		.word	37
+ 1840 1188 F2FFFFFF 		.word	-14
+ 1841 118c 0A000000 		.word	10
+ 1842 1190 F4FFFFFF 		.word	-12
+ 1843 1194 01000000 		.word	1
+ 1844 1198 FBFFFFFF 		.word	-5
+ 1845 119c 00000000 		.word	0
+ 1846 11a0 FBFFFFFF 		.word	-5
+ 1847 11a4 00000000 		.word	0
+ 1848 11a8 FDFFFFFF 		.word	-3
+ 1849 11ac 00000000 		.word	0
+ 1850 11b0 FEFFFFFF 		.word	-2
+ 1851 11b4 00000000 		.word	0
+ 1852 11b8 FFFFFFFF 		.word	-1
+ 1853 11bc 00000000 		.word	0
+ 1854 11c0 00000000 		.word	0
+ 1855 11c4 00000000 		.word	0
+ 1856 11c8 FFFFFFFF 		.word	-1
+ 1857 11cc 00000000 		.word	0
+ 1858 11d0 24000000 		.word	36
+ 1859 11d4 F3FFFFFF 		.word	-13
+ 1860 11d8 0A000000 		.word	10
+ 1861 11dc F5FFFFFF 		.word	-11
+ 1862 11e0 02000000 		.word	2
+ 1863 11e4 FCFFFFFF 		.word	-4
+ 1864 11e8 00000000 		.word	0
+ 1865 11ec FAFFFFFF 		.word	-6
+ 1866 11f0 01000000 		.word	1
+ 1867 11f4 FEFFFFFF 		.word	-2
+ 1868 11f8 00000000 		.word	0
+ 1869 11fc FEFFFFFF 		.word	-2
+ 1870 1200 00000000 		.word	0
+ 1871 1204 FDFFFFFF 		.word	-3
+ 1872 1208 00000000 		.word	0
+ 1873 120c 00000000 		.word	0
+ 1874 1210 00000000 		.word	0
+ 1875 1214 00000000 		.word	0
+ 1876 1218 FFFFFFFF 		.word	-1
+ 1877 121c 21000000 		.word	33
+ 1878 1220 F6FFFFFF 		.word	-10
+ 1879 1224 0A000000 		.word	10
+ 1880 1228 F4FFFFFF 		.word	-12
+ 1881 122c 00000000 		.word	0
+ 1882 1230 FCFFFFFF 		.word	-4
+ 1883 1234 00000000 		.word	0
+ 1884 1238 FCFFFFFF 		.word	-4
+ 1885 123c 00000000 		.word	0
+ 1886 1240 FDFFFFFF 		.word	-3
+ 1887 1244 00000000 		.word	0
+ 1888 1248 FEFFFFFF 		.word	-2
+ 1889 124c 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 37
+
+
+ 1890 1250 FEFFFFFF 		.word	-2
+ 1891 1254 00000000 		.word	0
+ 1892 1258 00000000 		.word	0
+ 1893 125c FFFFFFFF 		.word	-1
+ 1894 1260 00000000 		.word	0
+ 1895 1264 00000000 		.word	0
+ 1896 1268 1A000000 		.word	26
+ 1897 126c FEFFFFFF 		.word	-2
+ 1898 1270 09000000 		.word	9
+ 1899 1274 F2FFFFFF 		.word	-14
+ 1900 1278 00000000 		.word	0
+ 1901 127c 00000000 		.word	0
+ 1902 1280 FCFFFFFF 		.word	-4
+ 1903 1284 FCFFFFFF 		.word	-4
+ 1904 1288 01000000 		.word	1
+ 1905 128c FFFFFFFF 		.word	-1
+ 1906 1290 00000000 		.word	0
+ 1907 1294 00000000 		.word	0
+ 1908 1298 FFFFFFFF 		.word	-1
+ 1909 129c 00000000 		.word	0
+ 1910 12a0 FFFFFFFF 		.word	-1
+ 1911 12a4 FFFFFFFF 		.word	-1
+ 1912 12a8 FFFFFFFF 		.word	-1
+ 1913 12ac 00000000 		.word	0
+ 1914 12b0 FFFFFFFF 		.word	-1
+ 1915 12b4 0E000000 		.word	14
+ 1916 12b8 08000000 		.word	8
+ 1917 12bc 01000000 		.word	1
+ 1918 12c0 FEFFFFFF 		.word	-2
+ 1919 12c4 FDFFFFFF 		.word	-3
+ 1920 12c8 00000000 		.word	0
+ 1921 12cc 00000000 		.word	0
+ 1922 12d0 FEFFFFFF 		.word	-2
+ 1923 12d4 FEFFFFFF 		.word	-2
+ 1924 12d8 FEFFFFFF 		.word	-2
+ 1925 12dc 00000000 		.word	0
+ 1926 12e0 00000000 		.word	0
+ 1927 12e4 00000000 		.word	0
+ 1928 12e8 FEFFFFFF 		.word	-2
+ 1929 12ec FFFFFFFF 		.word	-1
+ 1930 12f0 FFFFFFFF 		.word	-1
+ 1931 12f4 00000000 		.word	0
+ 1932 12f8 FFFFFFFF 		.word	-1
+ 1933 12fc FFFFFFFF 		.word	-1
+ 1934              		.align	2
+ 1935              		.type	verkkopeliV1, %object
+ 1936              		.size	verkkopeliV1, 2128
+ 1937              	verkkopeliV1:
+ 1938 1300 0F000000 		.word	15
+ 1939 1304 00000000 		.word	0
+ 1940 1308 00000000 		.word	0
+ 1941 130c 01000000 		.word	1
+ 1942 1310 F9FFFFFF 		.word	-7
+ 1943 1314 FAFFFFFF 		.word	-6
+ 1944 1318 04000000 		.word	4
+ 1945 131c 01000000 		.word	1
+ 1946 1320 FCFFFFFF 		.word	-4
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 38
+
+
+ 1947 1324 FFFFFFFF 		.word	-1
+ 1948 1328 00000000 		.word	0
+ 1949 132c FEFFFFFF 		.word	-2
+ 1950 1330 00000000 		.word	0
+ 1951 1334 01000000 		.word	1
+ 1952 1338 00000000 		.word	0
+ 1953 133c 00000000 		.word	0
+ 1954 1340 00000000 		.word	0
+ 1955 1344 00000000 		.word	0
+ 1956 1348 02000000 		.word	2
+ 1957 134c 18000000 		.word	24
+ 1958 1350 F8FFFFFF 		.word	-8
+ 1959 1354 03000000 		.word	3
+ 1960 1358 FFFFFFFF 		.word	-1
+ 1961 135c FEFFFFFF 		.word	-2
+ 1962 1360 F9FFFFFF 		.word	-7
+ 1963 1364 02000000 		.word	2
+ 1964 1368 03000000 		.word	3
+ 1965 136c FDFFFFFF 		.word	-3
+ 1966 1370 01000000 		.word	1
+ 1967 1374 FEFFFFFF 		.word	-2
+ 1968 1378 FEFFFFFF 		.word	-2
+ 1969 137c 01000000 		.word	1
+ 1970 1380 00000000 		.word	0
+ 1971 1384 00000000 		.word	0
+ 1972 1388 FFFFFFFF 		.word	-1
+ 1973 138c FDFFFFFF 		.word	-3
+ 1974 1390 00000000 		.word	0
+ 1975 1394 00000000 		.word	0
+ 1976 1398 23000000 		.word	35
+ 1977 139c EEFFFFFF 		.word	-18
+ 1978 13a0 07000000 		.word	7
+ 1979 13a4 F7FFFFFF 		.word	-9
+ 1980 13a8 00000000 		.word	0
+ 1981 13ac FBFFFFFF 		.word	-5
+ 1982 13b0 03000000 		.word	3
+ 1983 13b4 FBFFFFFF 		.word	-5
+ 1984 13b8 00000000 		.word	0
+ 1985 13bc FFFFFFFF 		.word	-1
+ 1986 13c0 00000000 		.word	0
+ 1987 13c4 FEFFFFFF 		.word	-2
+ 1988 13c8 00000000 		.word	0
+ 1989 13cc 00000000 		.word	0
+ 1990 13d0 00000000 		.word	0
+ 1991 13d4 00000000 		.word	0
+ 1992 13d8 00000000 		.word	0
+ 1993 13dc FFFFFFFF 		.word	-1
+ 1994 13e0 FFFFFFFF 		.word	-1
+ 1995 13e4 24000000 		.word	36
+ 1996 13e8 EFFFFFFF 		.word	-17
+ 1997 13ec 07000000 		.word	7
+ 1998 13f0 F8FFFFFF 		.word	-8
+ 1999 13f4 00000000 		.word	0
+ 2000 13f8 F9FFFFFF 		.word	-7
+ 2001 13fc 03000000 		.word	3
+ 2002 1400 FCFFFFFF 		.word	-4
+ 2003 1404 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 39
+
+
+ 2004 1408 FFFFFFFF 		.word	-1
+ 2005 140c 00000000 		.word	0
+ 2006 1410 FEFFFFFF 		.word	-2
+ 2007 1414 00000000 		.word	0
+ 2008 1418 00000000 		.word	0
+ 2009 141c 00000000 		.word	0
+ 2010 1420 FFFFFFFF 		.word	-1
+ 2011 1424 00000000 		.word	0
+ 2012 1428 00000000 		.word	0
+ 2013 142c FFFFFFFF 		.word	-1
+ 2014 1430 13000000 		.word	19
+ 2015 1434 F0FFFFFF 		.word	-16
+ 2016 1438 07000000 		.word	7
+ 2017 143c FBFFFFFF 		.word	-5
+ 2018 1440 FCFFFFFF 		.word	-4
+ 2019 1444 F7FFFFFF 		.word	-9
+ 2020 1448 04000000 		.word	4
+ 2021 144c 01000000 		.word	1
+ 2022 1450 00000000 		.word	0
+ 2023 1454 00000000 		.word	0
+ 2024 1458 01000000 		.word	1
+ 2025 145c 01000000 		.word	1
+ 2026 1460 02000000 		.word	2
+ 2027 1464 02000000 		.word	2
+ 2028 1468 00000000 		.word	0
+ 2029 146c 00000000 		.word	0
+ 2030 1470 00000000 		.word	0
+ 2031 1474 00000000 		.word	0
+ 2032 1478 00000000 		.word	0
+ 2033 147c 12000000 		.word	18
+ 2034 1480 F4FFFFFF 		.word	-12
+ 2035 1484 01000000 		.word	1
+ 2036 1488 FCFFFFFF 		.word	-4
+ 2037 148c FDFFFFFF 		.word	-3
+ 2038 1490 F7FFFFFF 		.word	-9
+ 2039 1494 08000000 		.word	8
+ 2040 1498 FEFFFFFF 		.word	-2
+ 2041 149c 00000000 		.word	0
+ 2042 14a0 FFFFFFFF 		.word	-1
+ 2043 14a4 03000000 		.word	3
+ 2044 14a8 02000000 		.word	2
+ 2045 14ac 00000000 		.word	0
+ 2046 14b0 00000000 		.word	0
+ 2047 14b4 00000000 		.word	0
+ 2048 14b8 00000000 		.word	0
+ 2049 14bc 02000000 		.word	2
+ 2050 14c0 FFFFFFFF 		.word	-1
+ 2051 14c4 FFFFFFFF 		.word	-1
+ 2052 14c8 00000000 		.word	0
+ 2053 14cc 00000000 		.word	0
+ 2054 14d0 00000000 		.word	0
+ 2055 14d4 00000000 		.word	0
+ 2056 14d8 00000000 		.word	0
+ 2057 14dc 00000000 		.word	0
+ 2058 14e0 00000000 		.word	0
+ 2059 14e4 00000000 		.word	0
+ 2060 14e8 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 40
+
+
+ 2061 14ec 00000000 		.word	0
+ 2062 14f0 00000000 		.word	0
+ 2063 14f4 00000000 		.word	0
+ 2064 14f8 00000000 		.word	0
+ 2065 14fc 00000000 		.word	0
+ 2066 1500 00000000 		.word	0
+ 2067 1504 00000000 		.word	0
+ 2068 1508 00000000 		.word	0
+ 2069 150c 00000000 		.word	0
+ 2070 1510 00000000 		.word	0
+ 2071 1514 00000000 		.word	0
+ 2072 1518 00000000 		.word	0
+ 2073 151c 00000000 		.word	0
+ 2074 1520 00000000 		.word	0
+ 2075 1524 00000000 		.word	0
+ 2076 1528 00000000 		.word	0
+ 2077 152c 00000000 		.word	0
+ 2078 1530 00000000 		.word	0
+ 2079 1534 00000000 		.word	0
+ 2080 1538 00000000 		.word	0
+ 2081 153c 00000000 		.word	0
+ 2082 1540 00000000 		.word	0
+ 2083 1544 00000000 		.word	0
+ 2084 1548 00000000 		.word	0
+ 2085 154c 00000000 		.word	0
+ 2086 1550 00000000 		.word	0
+ 2087 1554 00000000 		.word	0
+ 2088 1558 00000000 		.word	0
+ 2089 155c 00000000 		.word	0
+ 2090 1560 00000000 		.word	0
+ 2091 1564 00000000 		.word	0
+ 2092 1568 00000000 		.word	0
+ 2093 156c 00000000 		.word	0
+ 2094 1570 00000000 		.word	0
+ 2095 1574 00000000 		.word	0
+ 2096 1578 00000000 		.word	0
+ 2097 157c 00000000 		.word	0
+ 2098 1580 00000000 		.word	0
+ 2099 1584 00000000 		.word	0
+ 2100 1588 00000000 		.word	0
+ 2101 158c 00000000 		.word	0
+ 2102 1590 00000000 		.word	0
+ 2103 1594 00000000 		.word	0
+ 2104 1598 00000000 		.word	0
+ 2105 159c 00000000 		.word	0
+ 2106 15a0 00000000 		.word	0
+ 2107 15a4 00000000 		.word	0
+ 2108 15a8 00000000 		.word	0
+ 2109 15ac 00000000 		.word	0
+ 2110 15b0 00000000 		.word	0
+ 2111 15b4 00000000 		.word	0
+ 2112 15b8 00000000 		.word	0
+ 2113 15bc 00000000 		.word	0
+ 2114 15c0 00000000 		.word	0
+ 2115 15c4 00000000 		.word	0
+ 2116 15c8 00000000 		.word	0
+ 2117 15cc 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 41
+
+
+ 2118 15d0 00000000 		.word	0
+ 2119 15d4 00000000 		.word	0
+ 2120 15d8 00000000 		.word	0
+ 2121 15dc 00000000 		.word	0
+ 2122 15e0 00000000 		.word	0
+ 2123 15e4 00000000 		.word	0
+ 2124 15e8 00000000 		.word	0
+ 2125 15ec 00000000 		.word	0
+ 2126 15f0 00000000 		.word	0
+ 2127 15f4 00000000 		.word	0
+ 2128 15f8 00000000 		.word	0
+ 2129 15fc 00000000 		.word	0
+ 2130 1600 00000000 		.word	0
+ 2131 1604 00000000 		.word	0
+ 2132 1608 00000000 		.word	0
+ 2133 160c 00000000 		.word	0
+ 2134 1610 00000000 		.word	0
+ 2135 1614 00000000 		.word	0
+ 2136 1618 00000000 		.word	0
+ 2137 161c 00000000 		.word	0
+ 2138 1620 00000000 		.word	0
+ 2139 1624 00000000 		.word	0
+ 2140 1628 00000000 		.word	0
+ 2141 162c 00000000 		.word	0
+ 2142 1630 00000000 		.word	0
+ 2143 1634 00000000 		.word	0
+ 2144 1638 00000000 		.word	0
+ 2145 163c 00000000 		.word	0
+ 2146 1640 00000000 		.word	0
+ 2147 1644 00000000 		.word	0
+ 2148 1648 00000000 		.word	0
+ 2149 164c 00000000 		.word	0
+ 2150 1650 00000000 		.word	0
+ 2151 1654 00000000 		.word	0
+ 2152 1658 00000000 		.word	0
+ 2153 165c 00000000 		.word	0
+ 2154 1660 00000000 		.word	0
+ 2155 1664 00000000 		.word	0
+ 2156 1668 00000000 		.word	0
+ 2157 166c 00000000 		.word	0
+ 2158 1670 00000000 		.word	0
+ 2159 1674 00000000 		.word	0
+ 2160 1678 00000000 		.word	0
+ 2161 167c 00000000 		.word	0
+ 2162 1680 00000000 		.word	0
+ 2163 1684 00000000 		.word	0
+ 2164 1688 00000000 		.word	0
+ 2165 168c 00000000 		.word	0
+ 2166 1690 03000000 		.word	3
+ 2167 1694 00000000 		.word	0
+ 2168 1698 FFFFFFFF 		.word	-1
+ 2169 169c FDFFFFFF 		.word	-3
+ 2170 16a0 FFFFFFFF 		.word	-1
+ 2171 16a4 01000000 		.word	1
+ 2172 16a8 02000000 		.word	2
+ 2173 16ac 02000000 		.word	2
+ 2174 16b0 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 42
+
+
+ 2175 16b4 FFFFFFFF 		.word	-1
+ 2176 16b8 00000000 		.word	0
+ 2177 16bc 00000000 		.word	0
+ 2178 16c0 00000000 		.word	0
+ 2179 16c4 01000000 		.word	1
+ 2180 16c8 01000000 		.word	1
+ 2181 16cc 00000000 		.word	0
+ 2182 16d0 00000000 		.word	0
+ 2183 16d4 00000000 		.word	0
+ 2184 16d8 00000000 		.word	0
+ 2185 16dc 19000000 		.word	25
+ 2186 16e0 FBFFFFFF 		.word	-5
+ 2187 16e4 F8FFFFFF 		.word	-8
+ 2188 16e8 01000000 		.word	1
+ 2189 16ec FDFFFFFF 		.word	-3
+ 2190 16f0 FDFFFFFF 		.word	-3
+ 2191 16f4 00000000 		.word	0
+ 2192 16f8 FCFFFFFF 		.word	-4
+ 2193 16fc FFFFFFFF 		.word	-1
+ 2194 1700 00000000 		.word	0
+ 2195 1704 01000000 		.word	1
+ 2196 1708 01000000 		.word	1
+ 2197 170c 00000000 		.word	0
+ 2198 1710 FFFFFFFF 		.word	-1
+ 2199 1714 00000000 		.word	0
+ 2200 1718 00000000 		.word	0
+ 2201 171c 00000000 		.word	0
+ 2202 1720 01000000 		.word	1
+ 2203 1724 00000000 		.word	0
+ 2204 1728 1D000000 		.word	29
+ 2205 172c FAFFFFFF 		.word	-6
+ 2206 1730 F9FFFFFF 		.word	-7
+ 2207 1734 00000000 		.word	0
+ 2208 1738 01000000 		.word	1
+ 2209 173c F9FFFFFF 		.word	-7
+ 2210 1740 02000000 		.word	2
+ 2211 1744 F9FFFFFF 		.word	-7
+ 2212 1748 00000000 		.word	0
+ 2213 174c FEFFFFFF 		.word	-2
+ 2214 1750 02000000 		.word	2
+ 2215 1754 00000000 		.word	0
+ 2216 1758 00000000 		.word	0
+ 2217 175c FFFFFFFF 		.word	-1
+ 2218 1760 FFFFFFFF 		.word	-1
+ 2219 1764 00000000 		.word	0
+ 2220 1768 FFFFFFFF 		.word	-1
+ 2221 176c 01000000 		.word	1
+ 2222 1770 00000000 		.word	0
+ 2223 1774 1F000000 		.word	31
+ 2224 1778 FBFFFFFF 		.word	-5
+ 2225 177c FDFFFFFF 		.word	-3
+ 2226 1780 FEFFFFFF 		.word	-2
+ 2227 1784 00000000 		.word	0
+ 2228 1788 FBFFFFFF 		.word	-5
+ 2229 178c 02000000 		.word	2
+ 2230 1790 F9FFFFFF 		.word	-7
+ 2231 1794 03000000 		.word	3
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 43
+
+
+ 2232 1798 FCFFFFFF 		.word	-4
+ 2233 179c 01000000 		.word	1
+ 2234 17a0 00000000 		.word	0
+ 2235 17a4 00000000 		.word	0
+ 2236 17a8 00000000 		.word	0
+ 2237 17ac FEFFFFFF 		.word	-2
+ 2238 17b0 00000000 		.word	0
+ 2239 17b4 00000000 		.word	0
+ 2240 17b8 FFFFFFFF 		.word	-1
+ 2241 17bc FFFFFFFF 		.word	-1
+ 2242 17c0 23000000 		.word	35
+ 2243 17c4 F6FFFFFF 		.word	-10
+ 2244 17c8 00000000 		.word	0
+ 2245 17cc FAFFFFFF 		.word	-6
+ 2246 17d0 00000000 		.word	0
+ 2247 17d4 FCFFFFFF 		.word	-4
+ 2248 17d8 00000000 		.word	0
+ 2249 17dc FBFFFFFF 		.word	-5
+ 2250 17e0 00000000 		.word	0
+ 2251 17e4 FEFFFFFF 		.word	-2
+ 2252 17e8 00000000 		.word	0
+ 2253 17ec FFFFFFFF 		.word	-1
+ 2254 17f0 00000000 		.word	0
+ 2255 17f4 00000000 		.word	0
+ 2256 17f8 00000000 		.word	0
+ 2257 17fc 00000000 		.word	0
+ 2258 1800 00000000 		.word	0
+ 2259 1804 00000000 		.word	0
+ 2260 1808 00000000 		.word	0
+ 2261 180c 1C000000 		.word	28
+ 2262 1810 00000000 		.word	0
+ 2263 1814 FAFFFFFF 		.word	-6
+ 2264 1818 FEFFFFFF 		.word	-2
+ 2265 181c FFFFFFFF 		.word	-1
+ 2266 1820 00000000 		.word	0
+ 2267 1824 FCFFFFFF 		.word	-4
+ 2268 1828 FEFFFFFF 		.word	-2
+ 2269 182c 02000000 		.word	2
+ 2270 1830 FDFFFFFF 		.word	-3
+ 2271 1834 01000000 		.word	1
+ 2272 1838 00000000 		.word	0
+ 2273 183c FEFFFFFF 		.word	-2
+ 2274 1840 00000000 		.word	0
+ 2275 1844 00000000 		.word	0
+ 2276 1848 FEFFFFFF 		.word	-2
+ 2277 184c 00000000 		.word	0
+ 2278 1850 00000000 		.word	0
+ 2279 1854 FFFFFFFF 		.word	-1
+ 2280 1858 03000000 		.word	3
+ 2281 185c 00000000 		.word	0
+ 2282 1860 FDFFFFFF 		.word	-3
+ 2283 1864 FDFFFFFF 		.word	-3
+ 2284 1868 00000000 		.word	0
+ 2285 186c 03000000 		.word	3
+ 2286 1870 02000000 		.word	2
+ 2287 1874 00000000 		.word	0
+ 2288 1878 FDFFFFFF 		.word	-3
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 44
+
+
+ 2289 187c FEFFFFFF 		.word	-2
+ 2290 1880 02000000 		.word	2
+ 2291 1884 02000000 		.word	2
+ 2292 1888 01000000 		.word	1
+ 2293 188c 00000000 		.word	0
+ 2294 1890 FFFFFFFF 		.word	-1
+ 2295 1894 00000000 		.word	0
+ 2296 1898 00000000 		.word	0
+ 2297 189c 00000000 		.word	0
+ 2298 18a0 00000000 		.word	0
+ 2299 18a4 03000000 		.word	3
+ 2300 18a8 00000000 		.word	0
+ 2301 18ac FFFFFFFF 		.word	-1
+ 2302 18b0 FDFFFFFF 		.word	-3
+ 2303 18b4 FFFFFFFF 		.word	-1
+ 2304 18b8 01000000 		.word	1
+ 2305 18bc 02000000 		.word	2
+ 2306 18c0 02000000 		.word	2
+ 2307 18c4 00000000 		.word	0
+ 2308 18c8 FFFFFFFF 		.word	-1
+ 2309 18cc 00000000 		.word	0
+ 2310 18d0 00000000 		.word	0
+ 2311 18d4 00000000 		.word	0
+ 2312 18d8 01000000 		.word	1
+ 2313 18dc 01000000 		.word	1
+ 2314 18e0 00000000 		.word	0
+ 2315 18e4 00000000 		.word	0
+ 2316 18e8 00000000 		.word	0
+ 2317 18ec 00000000 		.word	0
+ 2318 18f0 00000000 		.word	0
+ 2319 18f4 00000000 		.word	0
+ 2320 18f8 00000000 		.word	0
+ 2321 18fc 00000000 		.word	0
+ 2322 1900 00000000 		.word	0
+ 2323 1904 00000000 		.word	0
+ 2324 1908 00000000 		.word	0
+ 2325 190c 00000000 		.word	0
+ 2326 1910 00000000 		.word	0
+ 2327 1914 00000000 		.word	0
+ 2328 1918 00000000 		.word	0
+ 2329 191c 00000000 		.word	0
+ 2330 1920 00000000 		.word	0
+ 2331 1924 00000000 		.word	0
+ 2332 1928 00000000 		.word	0
+ 2333 192c 00000000 		.word	0
+ 2334 1930 00000000 		.word	0
+ 2335 1934 00000000 		.word	0
+ 2336 1938 00000000 		.word	0
+ 2337 193c 00000000 		.word	0
+ 2338 1940 00000000 		.word	0
+ 2339 1944 00000000 		.word	0
+ 2340 1948 00000000 		.word	0
+ 2341 194c 00000000 		.word	0
+ 2342 1950 00000000 		.word	0
+ 2343 1954 00000000 		.word	0
+ 2344 1958 00000000 		.word	0
+ 2345 195c 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 45
+
+
+ 2346 1960 00000000 		.word	0
+ 2347 1964 00000000 		.word	0
+ 2348 1968 00000000 		.word	0
+ 2349 196c 00000000 		.word	0
+ 2350 1970 00000000 		.word	0
+ 2351 1974 00000000 		.word	0
+ 2352 1978 00000000 		.word	0
+ 2353 197c 00000000 		.word	0
+ 2354 1980 00000000 		.word	0
+ 2355 1984 00000000 		.word	0
+ 2356 1988 00000000 		.word	0
+ 2357 198c 00000000 		.word	0
+ 2358 1990 00000000 		.word	0
+ 2359 1994 00000000 		.word	0
+ 2360 1998 00000000 		.word	0
+ 2361 199c 00000000 		.word	0
+ 2362 19a0 00000000 		.word	0
+ 2363 19a4 00000000 		.word	0
+ 2364 19a8 00000000 		.word	0
+ 2365 19ac 00000000 		.word	0
+ 2366 19b0 00000000 		.word	0
+ 2367 19b4 00000000 		.word	0
+ 2368 19b8 00000000 		.word	0
+ 2369 19bc 00000000 		.word	0
+ 2370 19c0 00000000 		.word	0
+ 2371 19c4 00000000 		.word	0
+ 2372 19c8 00000000 		.word	0
+ 2373 19cc 00000000 		.word	0
+ 2374 19d0 00000000 		.word	0
+ 2375 19d4 22000000 		.word	34
+ 2376 19d8 F2FFFFFF 		.word	-14
+ 2377 19dc 05000000 		.word	5
+ 2378 19e0 F7FFFFFF 		.word	-9
+ 2379 19e4 00000000 		.word	0
+ 2380 19e8 FCFFFFFF 		.word	-4
+ 2381 19ec 01000000 		.word	1
+ 2382 19f0 FCFFFFFF 		.word	-4
+ 2383 19f4 01000000 		.word	1
+ 2384 19f8 FDFFFFFF 		.word	-3
+ 2385 19fc 00000000 		.word	0
+ 2386 1a00 FEFFFFFF 		.word	-2
+ 2387 1a04 01000000 		.word	1
+ 2388 1a08 FFFFFFFF 		.word	-1
+ 2389 1a0c 00000000 		.word	0
+ 2390 1a10 FFFFFFFF 		.word	-1
+ 2391 1a14 FFFFFFFF 		.word	-1
+ 2392 1a18 FFFFFFFF 		.word	-1
+ 2393 1a1c 00000000 		.word	0
+ 2394 1a20 24000000 		.word	36
+ 2395 1a24 F3FFFFFF 		.word	-13
+ 2396 1a28 06000000 		.word	6
+ 2397 1a2c F6FFFFFF 		.word	-10
+ 2398 1a30 01000000 		.word	1
+ 2399 1a34 FAFFFFFF 		.word	-6
+ 2400 1a38 01000000 		.word	1
+ 2401 1a3c FDFFFFFF 		.word	-3
+ 2402 1a40 01000000 		.word	1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 46
+
+
+ 2403 1a44 FDFFFFFF 		.word	-3
+ 2404 1a48 00000000 		.word	0
+ 2405 1a4c FEFFFFFF 		.word	-2
+ 2406 1a50 00000000 		.word	0
+ 2407 1a54 FFFFFFFF 		.word	-1
+ 2408 1a58 00000000 		.word	0
+ 2409 1a5c FEFFFFFF 		.word	-2
+ 2410 1a60 FFFFFFFF 		.word	-1
+ 2411 1a64 FFFFFFFF 		.word	-1
+ 2412 1a68 FFFFFFFF 		.word	-1
+ 2413 1a6c 24000000 		.word	36
+ 2414 1a70 F4FFFFFF 		.word	-12
+ 2415 1a74 07000000 		.word	7
+ 2416 1a78 F5FFFFFF 		.word	-11
+ 2417 1a7c 01000000 		.word	1
+ 2418 1a80 FBFFFFFF 		.word	-5
+ 2419 1a84 01000000 		.word	1
+ 2420 1a88 FDFFFFFF 		.word	-3
+ 2421 1a8c 00000000 		.word	0
+ 2422 1a90 FDFFFFFF 		.word	-3
+ 2423 1a94 00000000 		.word	0
+ 2424 1a98 FEFFFFFF 		.word	-2
+ 2425 1a9c 00000000 		.word	0
+ 2426 1aa0 FFFFFFFF 		.word	-1
+ 2427 1aa4 00000000 		.word	0
+ 2428 1aa8 FEFFFFFF 		.word	-2
+ 2429 1aac FFFFFFFF 		.word	-1
+ 2430 1ab0 FFFFFFFF 		.word	-1
+ 2431 1ab4 00000000 		.word	0
+ 2432 1ab8 20000000 		.word	32
+ 2433 1abc F8FFFFFF 		.word	-8
+ 2434 1ac0 06000000 		.word	6
+ 2435 1ac4 F3FFFFFF 		.word	-13
+ 2436 1ac8 04000000 		.word	4
+ 2437 1acc FCFFFFFF 		.word	-4
+ 2438 1ad0 00000000 		.word	0
+ 2439 1ad4 FFFFFFFF 		.word	-1
+ 2440 1ad8 00000000 		.word	0
+ 2441 1adc FBFFFFFF 		.word	-5
+ 2442 1ae0 01000000 		.word	1
+ 2443 1ae4 FFFFFFFF 		.word	-1
+ 2444 1ae8 FFFFFFFF 		.word	-1
+ 2445 1aec FFFFFFFF 		.word	-1
+ 2446 1af0 01000000 		.word	1
+ 2447 1af4 FDFFFFFF 		.word	-3
+ 2448 1af8 FEFFFFFF 		.word	-2
+ 2449 1afc 00000000 		.word	0
+ 2450 1b00 00000000 		.word	0
+ 2451 1b04 18000000 		.word	24
+ 2452 1b08 00000000 		.word	0
+ 2453 1b0c 0B000000 		.word	11
+ 2454 1b10 EFFFFFFF 		.word	-17
+ 2455 1b14 02000000 		.word	2
+ 2456 1b18 FDFFFFFF 		.word	-3
+ 2457 1b1c 00000000 		.word	0
+ 2458 1b20 00000000 		.word	0
+ 2459 1b24 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 47
+
+
+ 2460 1b28 FEFFFFFF 		.word	-2
+ 2461 1b2c FFFFFFFF 		.word	-1
+ 2462 1b30 FBFFFFFF 		.word	-5
+ 2463 1b34 FFFFFFFF 		.word	-1
+ 2464 1b38 00000000 		.word	0
+ 2465 1b3c 00000000 		.word	0
+ 2466 1b40 FFFFFFFF 		.word	-1
+ 2467 1b44 FEFFFFFF 		.word	-2
+ 2468 1b48 FDFFFFFF 		.word	-3
+ 2469 1b4c 00000000 		.word	0
+ 2470              		.align	2
+ 2471              		.type	asetuksetV1, %object
+ 2472              		.size	asetuksetV1, 2356
+ 2473              	asetuksetV1:
+ 2474 1b50 01000000 		.word	1
+ 2475 1b54 FBFFFFFF 		.word	-5
+ 2476 1b58 06000000 		.word	6
+ 2477 1b5c FAFFFFFF 		.word	-6
+ 2478 1b60 03000000 		.word	3
+ 2479 1b64 FEFFFFFF 		.word	-2
+ 2480 1b68 01000000 		.word	1
+ 2481 1b6c FEFFFFFF 		.word	-2
+ 2482 1b70 03000000 		.word	3
+ 2483 1b74 FBFFFFFF 		.word	-5
+ 2484 1b78 01000000 		.word	1
+ 2485 1b7c FDFFFFFF 		.word	-3
+ 2486 1b80 00000000 		.word	0
+ 2487 1b84 00000000 		.word	0
+ 2488 1b88 FFFFFFFF 		.word	-1
+ 2489 1b8c 02000000 		.word	2
+ 2490 1b90 00000000 		.word	0
+ 2491 1b94 00000000 		.word	0
+ 2492 1b98 00000000 		.word	0
+ 2493 1b9c 00000000 		.word	0
+ 2494 1ba0 FFFFFFFF 		.word	-1
+ 2495 1ba4 03000000 		.word	3
+ 2496 1ba8 FCFFFFFF 		.word	-4
+ 2497 1bac 04000000 		.word	4
+ 2498 1bb0 FBFFFFFF 		.word	-5
+ 2499 1bb4 05000000 		.word	5
+ 2500 1bb8 FCFFFFFF 		.word	-4
+ 2501 1bbc 03000000 		.word	3
+ 2502 1bc0 FDFFFFFF 		.word	-3
+ 2503 1bc4 02000000 		.word	2
+ 2504 1bc8 FFFFFFFF 		.word	-1
+ 2505 1bcc 00000000 		.word	0
+ 2506 1bd0 00000000 		.word	0
+ 2507 1bd4 00000000 		.word	0
+ 2508 1bd8 00000000 		.word	0
+ 2509 1bdc 00000000 		.word	0
+ 2510 1be0 00000000 		.word	0
+ 2511 1be4 00000000 		.word	0
+ 2512 1be8 00000000 		.word	0
+ 2513 1bec 00000000 		.word	0
+ 2514 1bf0 00000000 		.word	0
+ 2515 1bf4 00000000 		.word	0
+ 2516 1bf8 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 48
+
+
+ 2517 1bfc 00000000 		.word	0
+ 2518 1c00 00000000 		.word	0
+ 2519 1c04 00000000 		.word	0
+ 2520 1c08 00000000 		.word	0
+ 2521 1c0c 00000000 		.word	0
+ 2522 1c10 00000000 		.word	0
+ 2523 1c14 00000000 		.word	0
+ 2524 1c18 00000000 		.word	0
+ 2525 1c1c 00000000 		.word	0
+ 2526 1c20 00000000 		.word	0
+ 2527 1c24 00000000 		.word	0
+ 2528 1c28 00000000 		.word	0
+ 2529 1c2c 00000000 		.word	0
+ 2530 1c30 00000000 		.word	0
+ 2531 1c34 1B000000 		.word	27
+ 2532 1c38 FFFFFFFF 		.word	-1
+ 2533 1c3c FBFFFFFF 		.word	-5
+ 2534 1c40 FAFFFFFF 		.word	-6
+ 2535 1c44 07000000 		.word	7
+ 2536 1c48 F9FFFFFF 		.word	-7
+ 2537 1c4c 02000000 		.word	2
+ 2538 1c50 FFFFFFFF 		.word	-1
+ 2539 1c54 00000000 		.word	0
+ 2540 1c58 FCFFFFFF 		.word	-4
+ 2541 1c5c 01000000 		.word	1
+ 2542 1c60 00000000 		.word	0
+ 2543 1c64 FFFFFFFF 		.word	-1
+ 2544 1c68 FFFFFFFF 		.word	-1
+ 2545 1c6c 00000000 		.word	0
+ 2546 1c70 FEFFFFFF 		.word	-2
+ 2547 1c74 00000000 		.word	0
+ 2548 1c78 FFFFFFFF 		.word	-1
+ 2549 1c7c FFFFFFFF 		.word	-1
+ 2550 1c80 1F000000 		.word	31
+ 2551 1c84 FEFFFFFF 		.word	-2
+ 2552 1c88 FCFFFFFF 		.word	-4
+ 2553 1c8c FAFFFFFF 		.word	-6
+ 2554 1c90 05000000 		.word	5
+ 2555 1c94 F8FFFFFF 		.word	-8
+ 2556 1c98 04000000 		.word	4
+ 2557 1c9c FEFFFFFF 		.word	-2
+ 2558 1ca0 FEFFFFFF 		.word	-2
+ 2559 1ca4 FFFFFFFF 		.word	-1
+ 2560 1ca8 00000000 		.word	0
+ 2561 1cac FFFFFFFF 		.word	-1
+ 2562 1cb0 00000000 		.word	0
+ 2563 1cb4 00000000 		.word	0
+ 2564 1cb8 FFFFFFFF 		.word	-1
+ 2565 1cbc FFFFFFFF 		.word	-1
+ 2566 1cc0 00000000 		.word	0
+ 2567 1cc4 FDFFFFFF 		.word	-3
+ 2568 1cc8 FFFFFFFF 		.word	-1
+ 2569 1ccc 25000000 		.word	37
+ 2570 1cd0 F0FFFFFF 		.word	-16
+ 2571 1cd4 03000000 		.word	3
+ 2572 1cd8 F8FFFFFF 		.word	-8
+ 2573 1cdc 03000000 		.word	3
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 49
+
+
+ 2574 1ce0 FCFFFFFF 		.word	-4
+ 2575 1ce4 02000000 		.word	2
+ 2576 1ce8 FDFFFFFF 		.word	-3
+ 2577 1cec 00000000 		.word	0
+ 2578 1cf0 FCFFFFFF 		.word	-4
+ 2579 1cf4 00000000 		.word	0
+ 2580 1cf8 FEFFFFFF 		.word	-2
+ 2581 1cfc 00000000 		.word	0
+ 2582 1d00 FFFFFFFF 		.word	-1
+ 2583 1d04 00000000 		.word	0
+ 2584 1d08 FFFFFFFF 		.word	-1
+ 2585 1d0c 00000000 		.word	0
+ 2586 1d10 00000000 		.word	0
+ 2587 1d14 00000000 		.word	0
+ 2588 1d18 28000000 		.word	40
+ 2589 1d1c EDFFFFFF 		.word	-19
+ 2590 1d20 03000000 		.word	3
+ 2591 1d24 F7FFFFFF 		.word	-9
+ 2592 1d28 02000000 		.word	2
+ 2593 1d2c FBFFFFFF 		.word	-5
+ 2594 1d30 02000000 		.word	2
+ 2595 1d34 FCFFFFFF 		.word	-4
+ 2596 1d38 00000000 		.word	0
+ 2597 1d3c FCFFFFFF 		.word	-4
+ 2598 1d40 00000000 		.word	0
+ 2599 1d44 FDFFFFFF 		.word	-3
+ 2600 1d48 00000000 		.word	0
+ 2601 1d4c 00000000 		.word	0
+ 2602 1d50 00000000 		.word	0
+ 2603 1d54 00000000 		.word	0
+ 2604 1d58 00000000 		.word	0
+ 2605 1d5c 00000000 		.word	0
+ 2606 1d60 00000000 		.word	0
+ 2607 1d64 28000000 		.word	40
+ 2608 1d68 EFFFFFFF 		.word	-17
+ 2609 1d6c 04000000 		.word	4
+ 2610 1d70 F8FFFFFF 		.word	-8
+ 2611 1d74 02000000 		.word	2
+ 2612 1d78 FAFFFFFF 		.word	-6
+ 2613 1d7c 04000000 		.word	4
+ 2614 1d80 FCFFFFFF 		.word	-4
+ 2615 1d84 FEFFFFFF 		.word	-2
+ 2616 1d88 FDFFFFFF 		.word	-3
+ 2617 1d8c 00000000 		.word	0
+ 2618 1d90 FDFFFFFF 		.word	-3
+ 2619 1d94 00000000 		.word	0
+ 2620 1d98 00000000 		.word	0
+ 2621 1d9c FFFFFFFF 		.word	-1
+ 2622 1da0 FFFFFFFF 		.word	-1
+ 2623 1da4 00000000 		.word	0
+ 2624 1da8 00000000 		.word	0
+ 2625 1dac 00000000 		.word	0
+ 2626 1db0 25000000 		.word	37
+ 2627 1db4 F0FFFFFF 		.word	-16
+ 2628 1db8 05000000 		.word	5
+ 2629 1dbc F8FFFFFF 		.word	-8
+ 2630 1dc0 02000000 		.word	2
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 50
+
+
+ 2631 1dc4 F9FFFFFF 		.word	-7
+ 2632 1dc8 05000000 		.word	5
+ 2633 1dcc FBFFFFFF 		.word	-5
+ 2634 1dd0 00000000 		.word	0
+ 2635 1dd4 FDFFFFFF 		.word	-3
+ 2636 1dd8 00000000 		.word	0
+ 2637 1ddc FEFFFFFF 		.word	-2
+ 2638 1de0 00000000 		.word	0
+ 2639 1de4 00000000 		.word	0
+ 2640 1de8 00000000 		.word	0
+ 2641 1dec FFFFFFFF 		.word	-1
+ 2642 1df0 FFFFFFFF 		.word	-1
+ 2643 1df4 FFFFFFFF 		.word	-1
+ 2644 1df8 00000000 		.word	0
+ 2645 1dfc 1E000000 		.word	30
+ 2646 1e00 F2FFFFFF 		.word	-14
+ 2647 1e04 06000000 		.word	6
+ 2648 1e08 F8FFFFFF 		.word	-8
+ 2649 1e0c 02000000 		.word	2
+ 2650 1e10 F9FFFFFF 		.word	-7
+ 2651 1e14 04000000 		.word	4
+ 2652 1e18 FBFFFFFF 		.word	-5
+ 2653 1e1c 00000000 		.word	0
+ 2654 1e20 FDFFFFFF 		.word	-3
+ 2655 1e24 01000000 		.word	1
+ 2656 1e28 FEFFFFFF 		.word	-2
+ 2657 1e2c 00000000 		.word	0
+ 2658 1e30 00000000 		.word	0
+ 2659 1e34 00000000 		.word	0
+ 2660 1e38 FFFFFFFF 		.word	-1
+ 2661 1e3c 00000000 		.word	0
+ 2662 1e40 FFFFFFFF 		.word	-1
+ 2663 1e44 FFFFFFFF 		.word	-1
+ 2664 1e48 07000000 		.word	7
+ 2665 1e4c F0FFFFFF 		.word	-16
+ 2666 1e50 0A000000 		.word	10
+ 2667 1e54 FFFFFFFF 		.word	-1
+ 2668 1e58 01000000 		.word	1
+ 2669 1e5c FBFFFFFF 		.word	-5
+ 2670 1e60 04000000 		.word	4
+ 2671 1e64 FFFFFFFF 		.word	-1
+ 2672 1e68 00000000 		.word	0
+ 2673 1e6c FDFFFFFF 		.word	-3
+ 2674 1e70 01000000 		.word	1
+ 2675 1e74 00000000 		.word	0
+ 2676 1e78 00000000 		.word	0
+ 2677 1e7c 00000000 		.word	0
+ 2678 1e80 00000000 		.word	0
+ 2679 1e84 01000000 		.word	1
+ 2680 1e88 00000000 		.word	0
+ 2681 1e8c FFFFFFFF 		.word	-1
+ 2682 1e90 00000000 		.word	0
+ 2683 1e94 05000000 		.word	5
+ 2684 1e98 F2FFFFFF 		.word	-14
+ 2685 1e9c 0C000000 		.word	12
+ 2686 1ea0 FCFFFFFF 		.word	-4
+ 2687 1ea4 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 51
+
+
+ 2688 1ea8 FEFFFFFF 		.word	-2
+ 2689 1eac 05000000 		.word	5
+ 2690 1eb0 FDFFFFFF 		.word	-3
+ 2691 1eb4 00000000 		.word	0
+ 2692 1eb8 00000000 		.word	0
+ 2693 1ebc 00000000 		.word	0
+ 2694 1ec0 FDFFFFFF 		.word	-3
+ 2695 1ec4 00000000 		.word	0
+ 2696 1ec8 01000000 		.word	1
+ 2697 1ecc 00000000 		.word	0
+ 2698 1ed0 00000000 		.word	0
+ 2699 1ed4 00000000 		.word	0
+ 2700 1ed8 01000000 		.word	1
+ 2701 1edc 00000000 		.word	0
+ 2702 1ee0 00000000 		.word	0
+ 2703 1ee4 FFFFFFFF 		.word	-1
+ 2704 1ee8 03000000 		.word	3
+ 2705 1eec FCFFFFFF 		.word	-4
+ 2706 1ef0 04000000 		.word	4
+ 2707 1ef4 FDFFFFFF 		.word	-3
+ 2708 1ef8 03000000 		.word	3
+ 2709 1efc FEFFFFFF 		.word	-2
+ 2710 1f00 01000000 		.word	1
+ 2711 1f04 00000000 		.word	0
+ 2712 1f08 01000000 		.word	1
+ 2713 1f0c 00000000 		.word	0
+ 2714 1f10 00000000 		.word	0
+ 2715 1f14 00000000 		.word	0
+ 2716 1f18 00000000 		.word	0
+ 2717 1f1c 00000000 		.word	0
+ 2718 1f20 00000000 		.word	0
+ 2719 1f24 00000000 		.word	0
+ 2720 1f28 00000000 		.word	0
+ 2721 1f2c 01000000 		.word	1
+ 2722 1f30 FCFFFFFF 		.word	-4
+ 2723 1f34 04000000 		.word	4
+ 2724 1f38 FFFFFFFF 		.word	-1
+ 2725 1f3c 00000000 		.word	0
+ 2726 1f40 FEFFFFFF 		.word	-2
+ 2727 1f44 05000000 		.word	5
+ 2728 1f48 FAFFFFFF 		.word	-6
+ 2729 1f4c 03000000 		.word	3
+ 2730 1f50 00000000 		.word	0
+ 2731 1f54 01000000 		.word	1
+ 2732 1f58 00000000 		.word	0
+ 2733 1f5c 01000000 		.word	1
+ 2734 1f60 FFFFFFFF 		.word	-1
+ 2735 1f64 00000000 		.word	0
+ 2736 1f68 00000000 		.word	0
+ 2737 1f6c FFFFFFFF 		.word	-1
+ 2738 1f70 01000000 		.word	1
+ 2739 1f74 00000000 		.word	0
+ 2740 1f78 18000000 		.word	24
+ 2741 1f7c F0FFFFFF 		.word	-16
+ 2742 1f80 02000000 		.word	2
+ 2743 1f84 F5FFFFFF 		.word	-11
+ 2744 1f88 FFFFFFFF 		.word	-1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 52
+
+
+ 2745 1f8c FCFFFFFF 		.word	-4
+ 2746 1f90 01000000 		.word	1
+ 2747 1f94 FDFFFFFF 		.word	-3
+ 2748 1f98 04000000 		.word	4
+ 2749 1f9c FFFFFFFF 		.word	-1
+ 2750 1fa0 03000000 		.word	3
+ 2751 1fa4 01000000 		.word	1
+ 2752 1fa8 03000000 		.word	3
+ 2753 1fac 00000000 		.word	0
+ 2754 1fb0 00000000 		.word	0
+ 2755 1fb4 00000000 		.word	0
+ 2756 1fb8 00000000 		.word	0
+ 2757 1fbc FFFFFFFF 		.word	-1
+ 2758 1fc0 00000000 		.word	0
+ 2759 1fc4 1C000000 		.word	28
+ 2760 1fc8 F4FFFFFF 		.word	-12
+ 2761 1fcc 05000000 		.word	5
+ 2762 1fd0 F9FFFFFF 		.word	-7
+ 2763 1fd4 FEFFFFFF 		.word	-2
+ 2764 1fd8 FBFFFFFF 		.word	-5
+ 2765 1fdc 01000000 		.word	1
+ 2766 1fe0 FAFFFFFF 		.word	-6
+ 2767 1fe4 00000000 		.word	0
+ 2768 1fe8 FFFFFFFF 		.word	-1
+ 2769 1fec 01000000 		.word	1
+ 2770 1ff0 FFFFFFFF 		.word	-1
+ 2771 1ff4 00000000 		.word	0
+ 2772 1ff8 00000000 		.word	0
+ 2773 1ffc 00000000 		.word	0
+ 2774 2000 00000000 		.word	0
+ 2775 2004 00000000 		.word	0
+ 2776 2008 00000000 		.word	0
+ 2777 200c 00000000 		.word	0
+ 2778 2010 25000000 		.word	37
+ 2779 2014 F3FFFFFF 		.word	-13
+ 2780 2018 05000000 		.word	5
+ 2781 201c F9FFFFFF 		.word	-7
+ 2782 2020 00000000 		.word	0
+ 2783 2024 FAFFFFFF 		.word	-6
+ 2784 2028 01000000 		.word	1
+ 2785 202c FCFFFFFF 		.word	-4
+ 2786 2030 00000000 		.word	0
+ 2787 2034 FEFFFFFF 		.word	-2
+ 2788 2038 00000000 		.word	0
+ 2789 203c FEFFFFFF 		.word	-2
+ 2790 2040 00000000 		.word	0
+ 2791 2044 00000000 		.word	0
+ 2792 2048 00000000 		.word	0
+ 2793 204c FFFFFFFF 		.word	-1
+ 2794 2050 FFFFFFFF 		.word	-1
+ 2795 2054 00000000 		.word	0
+ 2796 2058 00000000 		.word	0
+ 2797 205c 1D000000 		.word	29
+ 2798 2060 FFFFFFFF 		.word	-1
+ 2799 2064 FDFFFFFF 		.word	-3
+ 2800 2068 FEFFFFFF 		.word	-2
+ 2801 206c 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 53
+
+
+ 2802 2070 F8FFFFFF 		.word	-8
+ 2803 2074 01000000 		.word	1
+ 2804 2078 FFFFFFFF 		.word	-1
+ 2805 207c FCFFFFFF 		.word	-4
+ 2806 2080 02000000 		.word	2
+ 2807 2084 FFFFFFFF 		.word	-1
+ 2808 2088 00000000 		.word	0
+ 2809 208c FEFFFFFF 		.word	-2
+ 2810 2090 00000000 		.word	0
+ 2811 2094 FDFFFFFF 		.word	-3
+ 2812 2098 00000000 		.word	0
+ 2813 209c 00000000 		.word	0
+ 2814 20a0 FEFFFFFF 		.word	-2
+ 2815 20a4 FFFFFFFF 		.word	-1
+ 2816 20a8 15000000 		.word	21
+ 2817 20ac 04000000 		.word	4
+ 2818 20b0 FAFFFFFF 		.word	-6
+ 2819 20b4 FEFFFFFF 		.word	-2
+ 2820 20b8 00000000 		.word	0
+ 2821 20bc FFFFFFFF 		.word	-1
+ 2822 20c0 FCFFFFFF 		.word	-4
+ 2823 20c4 FFFFFFFF 		.word	-1
+ 2824 20c8 00000000 		.word	0
+ 2825 20cc 00000000 		.word	0
+ 2826 20d0 00000000 		.word	0
+ 2827 20d4 00000000 		.word	0
+ 2828 20d8 FFFFFFFF 		.word	-1
+ 2829 20dc FFFFFFFF 		.word	-1
+ 2830 20e0 00000000 		.word	0
+ 2831 20e4 00000000 		.word	0
+ 2832 20e8 00000000 		.word	0
+ 2833 20ec FFFFFFFF 		.word	-1
+ 2834 20f0 00000000 		.word	0
+ 2835 20f4 0F000000 		.word	15
+ 2836 20f8 FFFFFFFF 		.word	-1
+ 2837 20fc F5FFFFFF 		.word	-11
+ 2838 2100 FDFFFFFF 		.word	-3
+ 2839 2104 02000000 		.word	2
+ 2840 2108 00000000 		.word	0
+ 2841 210c FDFFFFFF 		.word	-3
+ 2842 2110 00000000 		.word	0
+ 2843 2114 02000000 		.word	2
+ 2844 2118 00000000 		.word	0
+ 2845 211c 00000000 		.word	0
+ 2846 2120 01000000 		.word	1
+ 2847 2124 01000000 		.word	1
+ 2848 2128 00000000 		.word	0
+ 2849 212c 00000000 		.word	0
+ 2850 2130 00000000 		.word	0
+ 2851 2134 00000000 		.word	0
+ 2852 2138 FFFFFFFF 		.word	-1
+ 2853 213c 00000000 		.word	0
+ 2854 2140 06000000 		.word	6
+ 2855 2144 FFFFFFFF 		.word	-1
+ 2856 2148 FAFFFFFF 		.word	-6
+ 2857 214c FDFFFFFF 		.word	-3
+ 2858 2150 03000000 		.word	3
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 54
+
+
+ 2859 2154 05000000 		.word	5
+ 2860 2158 00000000 		.word	0
+ 2861 215c FDFFFFFF 		.word	-3
+ 2862 2160 FDFFFFFF 		.word	-3
+ 2863 2164 00000000 		.word	0
+ 2864 2168 00000000 		.word	0
+ 2865 216c 00000000 		.word	0
+ 2866 2170 00000000 		.word	0
+ 2867 2174 00000000 		.word	0
+ 2868 2178 00000000 		.word	0
+ 2869 217c 00000000 		.word	0
+ 2870 2180 FFFFFFFF 		.word	-1
+ 2871 2184 00000000 		.word	0
+ 2872 2188 01000000 		.word	1
+ 2873 218c 0B000000 		.word	11
+ 2874 2190 00000000 		.word	0
+ 2875 2194 FAFFFFFF 		.word	-6
+ 2876 2198 FEFFFFFF 		.word	-2
+ 2877 219c 00000000 		.word	0
+ 2878 21a0 FEFFFFFF 		.word	-2
+ 2879 21a4 FCFFFFFF 		.word	-4
+ 2880 21a8 FFFFFFFF 		.word	-1
+ 2881 21ac 02000000 		.word	2
+ 2882 21b0 03000000 		.word	3
+ 2883 21b4 FFFFFFFF 		.word	-1
+ 2884 21b8 00000000 		.word	0
+ 2885 21bc 00000000 		.word	0
+ 2886 21c0 FEFFFFFF 		.word	-2
+ 2887 21c4 00000000 		.word	0
+ 2888 21c8 01000000 		.word	1
+ 2889 21cc 01000000 		.word	1
+ 2890 21d0 00000000 		.word	0
+ 2891 21d4 FFFFFFFF 		.word	-1
+ 2892 21d8 16000000 		.word	22
+ 2893 21dc F9FFFFFF 		.word	-7
+ 2894 21e0 FCFFFFFF 		.word	-4
+ 2895 21e4 00000000 		.word	0
+ 2896 21e8 01000000 		.word	1
+ 2897 21ec F8FFFFFF 		.word	-8
+ 2898 21f0 03000000 		.word	3
+ 2899 21f4 FAFFFFFF 		.word	-6
+ 2900 21f8 02000000 		.word	2
+ 2901 21fc FFFFFFFF 		.word	-1
+ 2902 2200 01000000 		.word	1
+ 2903 2204 FFFFFFFF 		.word	-1
+ 2904 2208 00000000 		.word	0
+ 2905 220c 00000000 		.word	0
+ 2906 2210 00000000 		.word	0
+ 2907 2214 00000000 		.word	0
+ 2908 2218 00000000 		.word	0
+ 2909 221c 01000000 		.word	1
+ 2910 2220 00000000 		.word	0
+ 2911 2224 1D000000 		.word	29
+ 2912 2228 EBFFFFFF 		.word	-21
+ 2913 222c 03000000 		.word	3
+ 2914 2230 FAFFFFFF 		.word	-6
+ 2915 2234 04000000 		.word	4
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 55
+
+
+ 2916 2238 F9FFFFFF 		.word	-7
+ 2917 223c 03000000 		.word	3
+ 2918 2240 FDFFFFFF 		.word	-3
+ 2919 2244 00000000 		.word	0
+ 2920 2248 FEFFFFFF 		.word	-2
+ 2921 224c 00000000 		.word	0
+ 2922 2250 FEFFFFFF 		.word	-2
+ 2923 2254 01000000 		.word	1
+ 2924 2258 FFFFFFFF 		.word	-1
+ 2925 225c 00000000 		.word	0
+ 2926 2260 00000000 		.word	0
+ 2927 2264 00000000 		.word	0
+ 2928 2268 00000000 		.word	0
+ 2929 226c 00000000 		.word	0
+ 2930 2270 1D000000 		.word	29
+ 2931 2274 E8FFFFFF 		.word	-24
+ 2932 2278 02000000 		.word	2
+ 2933 227c F5FFFFFF 		.word	-11
+ 2934 2280 03000000 		.word	3
+ 2935 2284 F9FFFFFF 		.word	-7
+ 2936 2288 05000000 		.word	5
+ 2937 228c FDFFFFFF 		.word	-3
+ 2938 2290 03000000 		.word	3
+ 2939 2294 FFFFFFFF 		.word	-1
+ 2940 2298 02000000 		.word	2
+ 2941 229c 00000000 		.word	0
+ 2942 22a0 02000000 		.word	2
+ 2943 22a4 00000000 		.word	0
+ 2944 22a8 00000000 		.word	0
+ 2945 22ac 00000000 		.word	0
+ 2946 22b0 00000000 		.word	0
+ 2947 22b4 00000000 		.word	0
+ 2948 22b8 00000000 		.word	0
+ 2949 22bc 0A000000 		.word	10
+ 2950 22c0 EBFFFFFF 		.word	-21
+ 2951 22c4 0F000000 		.word	15
+ 2952 22c8 FCFFFFFF 		.word	-4
+ 2953 22cc 03000000 		.word	3
+ 2954 22d0 FAFFFFFF 		.word	-6
+ 2955 22d4 07000000 		.word	7
+ 2956 22d8 FDFFFFFF 		.word	-3
+ 2957 22dc 01000000 		.word	1
+ 2958 22e0 FDFFFFFF 		.word	-3
+ 2959 22e4 03000000 		.word	3
+ 2960 22e8 00000000 		.word	0
+ 2961 22ec 01000000 		.word	1
+ 2962 22f0 FFFFFFFF 		.word	-1
+ 2963 22f4 02000000 		.word	2
+ 2964 22f8 00000000 		.word	0
+ 2965 22fc 00000000 		.word	0
+ 2966 2300 00000000 		.word	0
+ 2967 2304 00000000 		.word	0
+ 2968 2308 0A000000 		.word	10
+ 2969 230c EBFFFFFF 		.word	-21
+ 2970 2310 0E000000 		.word	14
+ 2971 2314 FDFFFFFF 		.word	-3
+ 2972 2318 01000000 		.word	1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 56
+
+
+ 2973 231c FBFFFFFF 		.word	-5
+ 2974 2320 06000000 		.word	6
+ 2975 2324 FCFFFFFF 		.word	-4
+ 2976 2328 03000000 		.word	3
+ 2977 232c FCFFFFFF 		.word	-4
+ 2978 2330 03000000 		.word	3
+ 2979 2334 FFFFFFFF 		.word	-1
+ 2980 2338 02000000 		.word	2
+ 2981 233c FFFFFFFF 		.word	-1
+ 2982 2340 01000000 		.word	1
+ 2983 2344 01000000 		.word	1
+ 2984 2348 00000000 		.word	0
+ 2985 234c 00000000 		.word	0
+ 2986 2350 01000000 		.word	1
+ 2987 2354 0A000000 		.word	10
+ 2988 2358 EBFFFFFF 		.word	-21
+ 2989 235c 0F000000 		.word	15
+ 2990 2360 FCFFFFFF 		.word	-4
+ 2991 2364 01000000 		.word	1
+ 2992 2368 FBFFFFFF 		.word	-5
+ 2993 236c 07000000 		.word	7
+ 2994 2370 FCFFFFFF 		.word	-4
+ 2995 2374 03000000 		.word	3
+ 2996 2378 FDFFFFFF 		.word	-3
+ 2997 237c 02000000 		.word	2
+ 2998 2380 FFFFFFFF 		.word	-1
+ 2999 2384 02000000 		.word	2
+ 3000 2388 FFFFFFFF 		.word	-1
+ 3001 238c 01000000 		.word	1
+ 3002 2390 00000000 		.word	0
+ 3003 2394 00000000 		.word	0
+ 3004 2398 00000000 		.word	0
+ 3005 239c 00000000 		.word	0
+ 3006 23a0 14000000 		.word	20
+ 3007 23a4 EAFFFFFF 		.word	-22
+ 3008 23a8 08000000 		.word	8
+ 3009 23ac F6FFFFFF 		.word	-10
+ 3010 23b0 02000000 		.word	2
+ 3011 23b4 FDFFFFFF 		.word	-3
+ 3012 23b8 07000000 		.word	7
+ 3013 23bc FBFFFFFF 		.word	-5
+ 3014 23c0 04000000 		.word	4
+ 3015 23c4 FFFFFFFF 		.word	-1
+ 3016 23c8 00000000 		.word	0
+ 3017 23cc FDFFFFFF 		.word	-3
+ 3018 23d0 02000000 		.word	2
+ 3019 23d4 FFFFFFFF 		.word	-1
+ 3020 23d8 00000000 		.word	0
+ 3021 23dc 00000000 		.word	0
+ 3022 23e0 00000000 		.word	0
+ 3023 23e4 00000000 		.word	0
+ 3024 23e8 00000000 		.word	0
+ 3025 23ec 16000000 		.word	22
+ 3026 23f0 F1FFFFFF 		.word	-15
+ 3027 23f4 0F000000 		.word	15
+ 3028 23f8 F9FFFFFF 		.word	-7
+ 3029 23fc 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 57
+
+
+ 3030 2400 FBFFFFFF 		.word	-5
+ 3031 2404 06000000 		.word	6
+ 3032 2408 F7FFFFFF 		.word	-9
+ 3033 240c 02000000 		.word	2
+ 3034 2410 00000000 		.word	0
+ 3035 2414 00000000 		.word	0
+ 3036 2418 FBFFFFFF 		.word	-5
+ 3037 241c 00000000 		.word	0
+ 3038 2420 01000000 		.word	1
+ 3039 2424 00000000 		.word	0
+ 3040 2428 FEFFFFFF 		.word	-2
+ 3041 242c FFFFFFFF 		.word	-1
+ 3042 2430 00000000 		.word	0
+ 3043 2434 00000000 		.word	0
+ 3044 2438 26000000 		.word	38
+ 3045 243c F2FFFFFF 		.word	-14
+ 3046 2440 07000000 		.word	7
+ 3047 2444 F8FFFFFF 		.word	-8
+ 3048 2448 01000000 		.word	1
+ 3049 244c FBFFFFFF 		.word	-5
+ 3050 2450 02000000 		.word	2
+ 3051 2454 FAFFFFFF 		.word	-6
+ 3052 2458 00000000 		.word	0
+ 3053 245c FEFFFFFF 		.word	-2
+ 3054 2460 00000000 		.word	0
+ 3055 2464 FFFFFFFF 		.word	-1
+ 3056 2468 00000000 		.word	0
+ 3057 246c FFFFFFFF 		.word	-1
+ 3058 2470 FFFFFFFF 		.word	-1
+ 3059 2474 FFFFFFFF 		.word	-1
+ 3060 2478 FFFFFFFF 		.word	-1
+ 3061 247c FFFFFFFF 		.word	-1
+ 3062 2480 FEFFFFFF 		.word	-2
+ 3063              		.align	2
+ 3064              		.type	asetuksetV5, %object
+ 3065              		.size	asetuksetV5, 2128
+ 3066              	asetuksetV5:
+ 3067 2484 14000000 		.word	20
+ 3068 2488 FCFFFFFF 		.word	-4
+ 3069 248c 0C000000 		.word	12
+ 3070 2490 F4FFFFFF 		.word	-12
+ 3071 2494 00000000 		.word	0
+ 3072 2498 FDFFFFFF 		.word	-3
+ 3073 249c 06000000 		.word	6
+ 3074 24a0 F9FFFFFF 		.word	-7
+ 3075 24a4 00000000 		.word	0
+ 3076 24a8 FEFFFFFF 		.word	-2
+ 3077 24ac 01000000 		.word	1
+ 3078 24b0 00000000 		.word	0
+ 3079 24b4 01000000 		.word	1
+ 3080 24b8 FDFFFFFF 		.word	-3
+ 3081 24bc FEFFFFFF 		.word	-2
+ 3082 24c0 FFFFFFFF 		.word	-1
+ 3083 24c4 00000000 		.word	0
+ 3084 24c8 FEFFFFFF 		.word	-2
+ 3085 24cc 00000000 		.word	0
+ 3086 24d0 13000000 		.word	19
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 58
+
+
+ 3087 24d4 F9FFFFFF 		.word	-7
+ 3088 24d8 0B000000 		.word	11
+ 3089 24dc F8FFFFFF 		.word	-8
+ 3090 24e0 02000000 		.word	2
+ 3091 24e4 FFFFFFFF 		.word	-1
+ 3092 24e8 00000000 		.word	0
+ 3093 24ec F7FFFFFF 		.word	-9
+ 3094 24f0 03000000 		.word	3
+ 3095 24f4 00000000 		.word	0
+ 3096 24f8 FFFFFFFF 		.word	-1
+ 3097 24fc FBFFFFFF 		.word	-5
+ 3098 2500 00000000 		.word	0
+ 3099 2504 FEFFFFFF 		.word	-2
+ 3100 2508 00000000 		.word	0
+ 3101 250c 01000000 		.word	1
+ 3102 2510 00000000 		.word	0
+ 3103 2514 FFFFFFFF 		.word	-1
+ 3104 2518 FEFFFFFF 		.word	-2
+ 3105 251c 1F000000 		.word	31
+ 3106 2520 FBFFFFFF 		.word	-5
+ 3107 2524 07000000 		.word	7
+ 3108 2528 F5FFFFFF 		.word	-11
+ 3109 252c 00000000 		.word	0
+ 3110 2530 FFFFFFFF 		.word	-1
+ 3111 2534 03000000 		.word	3
+ 3112 2538 F7FFFFFF 		.word	-9
+ 3113 253c 00000000 		.word	0
+ 3114 2540 00000000 		.word	0
+ 3115 2544 FFFFFFFF 		.word	-1
+ 3116 2548 FDFFFFFF 		.word	-3
+ 3117 254c 00000000 		.word	0
+ 3118 2550 00000000 		.word	0
+ 3119 2554 FFFFFFFF 		.word	-1
+ 3120 2558 FFFFFFFF 		.word	-1
+ 3121 255c 00000000 		.word	0
+ 3122 2560 FFFFFFFF 		.word	-1
+ 3123 2564 FEFFFFFF 		.word	-2
+ 3124 2568 1E000000 		.word	30
+ 3125 256c F7FFFFFF 		.word	-9
+ 3126 2570 07000000 		.word	7
+ 3127 2574 FAFFFFFF 		.word	-6
+ 3128 2578 00000000 		.word	0
+ 3129 257c FBFFFFFF 		.word	-5
+ 3130 2580 03000000 		.word	3
+ 3131 2584 FAFFFFFF 		.word	-6
+ 3132 2588 00000000 		.word	0
+ 3133 258c FFFFFFFF 		.word	-1
+ 3134 2590 00000000 		.word	0
+ 3135 2594 00000000 		.word	0
+ 3136 2598 FFFFFFFF 		.word	-1
+ 3137 259c FFFFFFFF 		.word	-1
+ 3138 25a0 00000000 		.word	0
+ 3139 25a4 00000000 		.word	0
+ 3140 25a8 FFFFFFFF 		.word	-1
+ 3141 25ac FEFFFFFF 		.word	-2
+ 3142 25b0 00000000 		.word	0
+ 3143 25b4 22000000 		.word	34
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 59
+
+
+ 3144 25b8 F4FFFFFF 		.word	-12
+ 3145 25bc 08000000 		.word	8
+ 3146 25c0 FAFFFFFF 		.word	-6
+ 3147 25c4 00000000 		.word	0
+ 3148 25c8 FCFFFFFF 		.word	-4
+ 3149 25cc 02000000 		.word	2
+ 3150 25d0 FCFFFFFF 		.word	-4
+ 3151 25d4 00000000 		.word	0
+ 3152 25d8 FFFFFFFF 		.word	-1
+ 3153 25dc 00000000 		.word	0
+ 3154 25e0 FFFFFFFF 		.word	-1
+ 3155 25e4 00000000 		.word	0
+ 3156 25e8 FEFFFFFF 		.word	-2
+ 3157 25ec FFFFFFFF 		.word	-1
+ 3158 25f0 FFFFFFFF 		.word	-1
+ 3159 25f4 FFFFFFFF 		.word	-1
+ 3160 25f8 FFFFFFFF 		.word	-1
+ 3161 25fc 00000000 		.word	0
+ 3162 2600 24000000 		.word	36
+ 3163 2604 EFFFFFFF 		.word	-17
+ 3164 2608 08000000 		.word	8
+ 3165 260c F8FFFFFF 		.word	-8
+ 3166 2610 00000000 		.word	0
+ 3167 2614 FDFFFFFF 		.word	-3
+ 3168 2618 02000000 		.word	2
+ 3169 261c FBFFFFFF 		.word	-5
+ 3170 2620 00000000 		.word	0
+ 3171 2624 FEFFFFFF 		.word	-2
+ 3172 2628 00000000 		.word	0
+ 3173 262c FFFFFFFF 		.word	-1
+ 3174 2630 00000000 		.word	0
+ 3175 2634 FFFFFFFF 		.word	-1
+ 3176 2638 FFFFFFFF 		.word	-1
+ 3177 263c FFFFFFFF 		.word	-1
+ 3178 2640 00000000 		.word	0
+ 3179 2644 FFFFFFFF 		.word	-1
+ 3180 2648 FEFFFFFF 		.word	-2
+ 3181 264c 24000000 		.word	36
+ 3182 2650 EDFFFFFF 		.word	-19
+ 3183 2654 07000000 		.word	7
+ 3184 2658 F6FFFFFF 		.word	-10
+ 3185 265c 00000000 		.word	0
+ 3186 2660 FDFFFFFF 		.word	-3
+ 3187 2664 02000000 		.word	2
+ 3188 2668 FCFFFFFF 		.word	-4
+ 3189 266c 00000000 		.word	0
+ 3190 2670 FEFFFFFF 		.word	-2
+ 3191 2674 00000000 		.word	0
+ 3192 2678 FFFFFFFF 		.word	-1
+ 3193 267c 00000000 		.word	0
+ 3194 2680 00000000 		.word	0
+ 3195 2684 00000000 		.word	0
+ 3196 2688 FFFFFFFF 		.word	-1
+ 3197 268c 00000000 		.word	0
+ 3198 2690 00000000 		.word	0
+ 3199 2694 00000000 		.word	0
+ 3200 2698 22000000 		.word	34
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 60
+
+
+ 3201 269c ECFFFFFF 		.word	-20
+ 3202 26a0 05000000 		.word	5
+ 3203 26a4 F4FFFFFF 		.word	-12
+ 3204 26a8 FFFFFFFF 		.word	-1
+ 3205 26ac FCFFFFFF 		.word	-4
+ 3206 26b0 01000000 		.word	1
+ 3207 26b4 FAFFFFFF 		.word	-6
+ 3208 26b8 00000000 		.word	0
+ 3209 26bc FFFFFFFF 		.word	-1
+ 3210 26c0 02000000 		.word	2
+ 3211 26c4 00000000 		.word	0
+ 3212 26c8 00000000 		.word	0
+ 3213 26cc 00000000 		.word	0
+ 3214 26d0 01000000 		.word	1
+ 3215 26d4 00000000 		.word	0
+ 3216 26d8 01000000 		.word	1
+ 3217 26dc 00000000 		.word	0
+ 3218 26e0 00000000 		.word	0
+ 3219 26e4 21000000 		.word	33
+ 3220 26e8 EEFFFFFF 		.word	-18
+ 3221 26ec 05000000 		.word	5
+ 3222 26f0 F7FFFFFF 		.word	-9
+ 3223 26f4 FFFFFFFF 		.word	-1
+ 3224 26f8 FBFFFFFF 		.word	-5
+ 3225 26fc 02000000 		.word	2
+ 3226 2700 FAFFFFFF 		.word	-6
+ 3227 2704 00000000 		.word	0
+ 3228 2708 FFFFFFFF 		.word	-1
+ 3229 270c 02000000 		.word	2
+ 3230 2710 00000000 		.word	0
+ 3231 2714 00000000 		.word	0
+ 3232 2718 00000000 		.word	0
+ 3233 271c 00000000 		.word	0
+ 3234 2720 00000000 		.word	0
+ 3235 2724 01000000 		.word	1
+ 3236 2728 00000000 		.word	0
+ 3237 272c 00000000 		.word	0
+ 3238 2730 12000000 		.word	18
+ 3239 2734 F9FFFFFF 		.word	-7
+ 3240 2738 08000000 		.word	8
+ 3241 273c FCFFFFFF 		.word	-4
+ 3242 2740 F9FFFFFF 		.word	-7
+ 3243 2744 FBFFFFFF 		.word	-5
+ 3244 2748 04000000 		.word	4
+ 3245 274c FDFFFFFF 		.word	-3
+ 3246 2750 FFFFFFFF 		.word	-1
+ 3247 2754 00000000 		.word	0
+ 3248 2758 03000000 		.word	3
+ 3249 275c 02000000 		.word	2
+ 3250 2760 FEFFFFFF 		.word	-2
+ 3251 2764 03000000 		.word	3
+ 3252 2768 00000000 		.word	0
+ 3253 276c 00000000 		.word	0
+ 3254 2770 00000000 		.word	0
+ 3255 2774 00000000 		.word	0
+ 3256 2778 01000000 		.word	1
+ 3257 277c 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 61
+
+
+ 3258 2780 00000000 		.word	0
+ 3259 2784 00000000 		.word	0
+ 3260 2788 00000000 		.word	0
+ 3261 278c 00000000 		.word	0
+ 3262 2790 00000000 		.word	0
+ 3263 2794 00000000 		.word	0
+ 3264 2798 00000000 		.word	0
+ 3265 279c 00000000 		.word	0
+ 3266 27a0 00000000 		.word	0
+ 3267 27a4 00000000 		.word	0
+ 3268 27a8 00000000 		.word	0
+ 3269 27ac 00000000 		.word	0
+ 3270 27b0 00000000 		.word	0
+ 3271 27b4 00000000 		.word	0
+ 3272 27b8 00000000 		.word	0
+ 3273 27bc 00000000 		.word	0
+ 3274 27c0 00000000 		.word	0
+ 3275 27c4 00000000 		.word	0
+ 3276 27c8 00000000 		.word	0
+ 3277 27cc 00000000 		.word	0
+ 3278 27d0 00000000 		.word	0
+ 3279 27d4 00000000 		.word	0
+ 3280 27d8 00000000 		.word	0
+ 3281 27dc 00000000 		.word	0
+ 3282 27e0 00000000 		.word	0
+ 3283 27e4 00000000 		.word	0
+ 3284 27e8 00000000 		.word	0
+ 3285 27ec 00000000 		.word	0
+ 3286 27f0 00000000 		.word	0
+ 3287 27f4 00000000 		.word	0
+ 3288 27f8 00000000 		.word	0
+ 3289 27fc 00000000 		.word	0
+ 3290 2800 00000000 		.word	0
+ 3291 2804 00000000 		.word	0
+ 3292 2808 00000000 		.word	0
+ 3293 280c 00000000 		.word	0
+ 3294 2810 00000000 		.word	0
+ 3295 2814 00000000 		.word	0
+ 3296 2818 00000000 		.word	0
+ 3297 281c 00000000 		.word	0
+ 3298 2820 00000000 		.word	0
+ 3299 2824 00000000 		.word	0
+ 3300 2828 00000000 		.word	0
+ 3301 282c 00000000 		.word	0
+ 3302 2830 00000000 		.word	0
+ 3303 2834 00000000 		.word	0
+ 3304 2838 00000000 		.word	0
+ 3305 283c 00000000 		.word	0
+ 3306 2840 00000000 		.word	0
+ 3307 2844 00000000 		.word	0
+ 3308 2848 00000000 		.word	0
+ 3309 284c 00000000 		.word	0
+ 3310 2850 00000000 		.word	0
+ 3311 2854 00000000 		.word	0
+ 3312 2858 00000000 		.word	0
+ 3313 285c 00000000 		.word	0
+ 3314 2860 0C000000 		.word	12
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 62
+
+
+ 3315 2864 F1FFFFFF 		.word	-15
+ 3316 2868 06000000 		.word	6
+ 3317 286c F8FFFFFF 		.word	-8
+ 3318 2870 01000000 		.word	1
+ 3319 2874 FEFFFFFF 		.word	-2
+ 3320 2878 0B000000 		.word	11
+ 3321 287c FFFFFFFF 		.word	-1
+ 3322 2880 FFFFFFFF 		.word	-1
+ 3323 2884 FDFFFFFF 		.word	-3
+ 3324 2888 01000000 		.word	1
+ 3325 288c FEFFFFFF 		.word	-2
+ 3326 2890 02000000 		.word	2
+ 3327 2894 00000000 		.word	0
+ 3328 2898 01000000 		.word	1
+ 3329 289c 00000000 		.word	0
+ 3330 28a0 00000000 		.word	0
+ 3331 28a4 00000000 		.word	0
+ 3332 28a8 FFFFFFFF 		.word	-1
+ 3333 28ac 0E000000 		.word	14
+ 3334 28b0 F2FFFFFF 		.word	-14
+ 3335 28b4 05000000 		.word	5
+ 3336 28b8 F9FFFFFF 		.word	-7
+ 3337 28bc 00000000 		.word	0
+ 3338 28c0 FBFFFFFF 		.word	-5
+ 3339 28c4 08000000 		.word	8
+ 3340 28c8 00000000 		.word	0
+ 3341 28cc 00000000 		.word	0
+ 3342 28d0 FEFFFFFF 		.word	-2
+ 3343 28d4 00000000 		.word	0
+ 3344 28d8 00000000 		.word	0
+ 3345 28dc 00000000 		.word	0
+ 3346 28e0 FDFFFFFF 		.word	-3
+ 3347 28e4 00000000 		.word	0
+ 3348 28e8 00000000 		.word	0
+ 3349 28ec 00000000 		.word	0
+ 3350 28f0 00000000 		.word	0
+ 3351 28f4 00000000 		.word	0
+ 3352 28f8 16000000 		.word	22
+ 3353 28fc FDFFFFFF 		.word	-3
+ 3354 2900 FBFFFFFF 		.word	-5
+ 3355 2904 FAFFFFFF 		.word	-6
+ 3356 2908 04000000 		.word	4
+ 3357 290c F6FFFFFF 		.word	-10
+ 3358 2910 00000000 		.word	0
+ 3359 2914 FFFFFFFF 		.word	-1
+ 3360 2918 FFFFFFFF 		.word	-1
+ 3361 291c FFFFFFFF 		.word	-1
+ 3362 2920 03000000 		.word	3
+ 3363 2924 01000000 		.word	1
+ 3364 2928 FEFFFFFF 		.word	-2
+ 3365 292c 00000000 		.word	0
+ 3366 2930 01000000 		.word	1
+ 3367 2934 00000000 		.word	0
+ 3368 2938 01000000 		.word	1
+ 3369 293c 01000000 		.word	1
+ 3370 2940 01000000 		.word	1
+ 3371 2944 18000000 		.word	24
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 63
+
+
+ 3372 2948 FEFFFFFF 		.word	-2
+ 3373 294c FAFFFFFF 		.word	-6
+ 3374 2950 FAFFFFFF 		.word	-6
+ 3375 2954 06000000 		.word	6
+ 3376 2958 F7FFFFFF 		.word	-9
+ 3377 295c 00000000 		.word	0
+ 3378 2960 FEFFFFFF 		.word	-2
+ 3379 2964 00000000 		.word	0
+ 3380 2968 FFFFFFFF 		.word	-1
+ 3381 296c 03000000 		.word	3
+ 3382 2970 01000000 		.word	1
+ 3383 2974 FFFFFFFF 		.word	-1
+ 3384 2978 00000000 		.word	0
+ 3385 297c 00000000 		.word	0
+ 3386 2980 00000000 		.word	0
+ 3387 2984 00000000 		.word	0
+ 3388 2988 00000000 		.word	0
+ 3389 298c 00000000 		.word	0
+ 3390 2990 15000000 		.word	21
+ 3391 2994 00000000 		.word	0
+ 3392 2998 FBFFFFFF 		.word	-5
+ 3393 299c FBFFFFFF 		.word	-5
+ 3394 29a0 04000000 		.word	4
+ 3395 29a4 FBFFFFFF 		.word	-5
+ 3396 29a8 FDFFFFFF 		.word	-3
+ 3397 29ac FEFFFFFF 		.word	-2
+ 3398 29b0 00000000 		.word	0
+ 3399 29b4 00000000 		.word	0
+ 3400 29b8 02000000 		.word	2
+ 3401 29bc 02000000 		.word	2
+ 3402 29c0 FFFFFFFF 		.word	-1
+ 3403 29c4 00000000 		.word	0
+ 3404 29c8 00000000 		.word	0
+ 3405 29cc 01000000 		.word	1
+ 3406 29d0 00000000 		.word	0
+ 3407 29d4 00000000 		.word	0
+ 3408 29d8 01000000 		.word	1
+ 3409 29dc 08000000 		.word	8
+ 3410 29e0 00000000 		.word	0
+ 3411 29e4 FBFFFFFF 		.word	-5
+ 3412 29e8 FEFFFFFF 		.word	-2
+ 3413 29ec 01000000 		.word	1
+ 3414 29f0 00000000 		.word	0
+ 3415 29f4 FBFFFFFF 		.word	-5
+ 3416 29f8 FBFFFFFF 		.word	-5
+ 3417 29fc 00000000 		.word	0
+ 3418 2a00 04000000 		.word	4
+ 3419 2a04 FFFFFFFF 		.word	-1
+ 3420 2a08 01000000 		.word	1
+ 3421 2a0c 00000000 		.word	0
+ 3422 2a10 00000000 		.word	0
+ 3423 2a14 00000000 		.word	0
+ 3424 2a18 00000000 		.word	0
+ 3425 2a1c 00000000 		.word	0
+ 3426 2a20 00000000 		.word	0
+ 3427 2a24 00000000 		.word	0
+ 3428 2a28 02000000 		.word	2
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 64
+
+
+ 3429 2a2c FCFFFFFF 		.word	-4
+ 3430 2a30 01000000 		.word	1
+ 3431 2a34 02000000 		.word	2
+ 3432 2a38 FCFFFFFF 		.word	-4
+ 3433 2a3c 01000000 		.word	1
+ 3434 2a40 02000000 		.word	2
+ 3435 2a44 FDFFFFFF 		.word	-3
+ 3436 2a48 00000000 		.word	0
+ 3437 2a4c 02000000 		.word	2
+ 3438 2a50 00000000 		.word	0
+ 3439 2a54 00000000 		.word	0
+ 3440 2a58 01000000 		.word	1
+ 3441 2a5c FFFFFFFF 		.word	-1
+ 3442 2a60 00000000 		.word	0
+ 3443 2a64 01000000 		.word	1
+ 3444 2a68 00000000 		.word	0
+ 3445 2a6c 00000000 		.word	0
+ 3446 2a70 00000000 		.word	0
+ 3447 2a74 1D000000 		.word	29
+ 3448 2a78 F4FFFFFF 		.word	-12
+ 3449 2a7c 06000000 		.word	6
+ 3450 2a80 FAFFFFFF 		.word	-6
+ 3451 2a84 00000000 		.word	0
+ 3452 2a88 FBFFFFFF 		.word	-5
+ 3453 2a8c 04000000 		.word	4
+ 3454 2a90 FBFFFFFF 		.word	-5
+ 3455 2a94 00000000 		.word	0
+ 3456 2a98 00000000 		.word	0
+ 3457 2a9c 00000000 		.word	0
+ 3458 2aa0 FFFFFFFF 		.word	-1
+ 3459 2aa4 00000000 		.word	0
+ 3460 2aa8 00000000 		.word	0
+ 3461 2aac 00000000 		.word	0
+ 3462 2ab0 00000000 		.word	0
+ 3463 2ab4 FFFFFFFF 		.word	-1
+ 3464 2ab8 00000000 		.word	0
+ 3465 2abc FFFFFFFF 		.word	-1
+ 3466 2ac0 20000000 		.word	32
+ 3467 2ac4 F2FFFFFF 		.word	-14
+ 3468 2ac8 05000000 		.word	5
+ 3469 2acc F9FFFFFF 		.word	-7
+ 3470 2ad0 00000000 		.word	0
+ 3471 2ad4 FAFFFFFF 		.word	-6
+ 3472 2ad8 03000000 		.word	3
+ 3473 2adc FBFFFFFF 		.word	-5
+ 3474 2ae0 00000000 		.word	0
+ 3475 2ae4 00000000 		.word	0
+ 3476 2ae8 00000000 		.word	0
+ 3477 2aec FFFFFFFF 		.word	-1
+ 3478 2af0 00000000 		.word	0
+ 3479 2af4 00000000 		.word	0
+ 3480 2af8 00000000 		.word	0
+ 3481 2afc 00000000 		.word	0
+ 3482 2b00 00000000 		.word	0
+ 3483 2b04 FFFFFFFF 		.word	-1
+ 3484 2b08 00000000 		.word	0
+ 3485 2b0c 1D000000 		.word	29
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 65
+
+
+ 3486 2b10 F2FFFFFF 		.word	-14
+ 3487 2b14 02000000 		.word	2
+ 3488 2b18 F9FFFFFF 		.word	-7
+ 3489 2b1c FFFFFFFF 		.word	-1
+ 3490 2b20 F9FFFFFF 		.word	-7
+ 3491 2b24 03000000 		.word	3
+ 3492 2b28 FBFFFFFF 		.word	-5
+ 3493 2b2c FFFFFFFF 		.word	-1
+ 3494 2b30 00000000 		.word	0
+ 3495 2b34 01000000 		.word	1
+ 3496 2b38 00000000 		.word	0
+ 3497 2b3c 00000000 		.word	0
+ 3498 2b40 00000000 		.word	0
+ 3499 2b44 00000000 		.word	0
+ 3500 2b48 01000000 		.word	1
+ 3501 2b4c 00000000 		.word	0
+ 3502 2b50 01000000 		.word	1
+ 3503 2b54 01000000 		.word	1
+ 3504 2b58 0E000000 		.word	14
+ 3505 2b5c FCFFFFFF 		.word	-4
+ 3506 2b60 06000000 		.word	6
+ 3507 2b64 FBFFFFFF 		.word	-5
+ 3508 2b68 FBFFFFFF 		.word	-5
+ 3509 2b6c F8FFFFFF 		.word	-8
+ 3510 2b70 06000000 		.word	6
+ 3511 2b74 FCFFFFFF 		.word	-4
+ 3512 2b78 FEFFFFFF 		.word	-2
+ 3513 2b7c 03000000 		.word	3
+ 3514 2b80 01000000 		.word	1
+ 3515 2b84 00000000 		.word	0
+ 3516 2b88 00000000 		.word	0
+ 3517 2b8c 02000000 		.word	2
+ 3518 2b90 00000000 		.word	0
+ 3519 2b94 00000000 		.word	0
+ 3520 2b98 00000000 		.word	0
+ 3521 2b9c 02000000 		.word	2
+ 3522 2ba0 00000000 		.word	0
+ 3523 2ba4 00000000 		.word	0
+ 3524 2ba8 00000000 		.word	0
+ 3525 2bac 00000000 		.word	0
+ 3526 2bb0 00000000 		.word	0
+ 3527 2bb4 00000000 		.word	0
+ 3528 2bb8 00000000 		.word	0
+ 3529 2bbc 00000000 		.word	0
+ 3530 2bc0 00000000 		.word	0
+ 3531 2bc4 00000000 		.word	0
+ 3532 2bc8 00000000 		.word	0
+ 3533 2bcc 00000000 		.word	0
+ 3534 2bd0 00000000 		.word	0
+ 3535 2bd4 00000000 		.word	0
+ 3536 2bd8 00000000 		.word	0
+ 3537 2bdc 00000000 		.word	0
+ 3538 2be0 00000000 		.word	0
+ 3539 2be4 00000000 		.word	0
+ 3540 2be8 00000000 		.word	0
+ 3541 2bec 00000000 		.word	0
+ 3542 2bf0 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 66
+
+
+ 3543 2bf4 00000000 		.word	0
+ 3544 2bf8 00000000 		.word	0
+ 3545 2bfc 00000000 		.word	0
+ 3546 2c00 00000000 		.word	0
+ 3547 2c04 00000000 		.word	0
+ 3548 2c08 00000000 		.word	0
+ 3549 2c0c 00000000 		.word	0
+ 3550 2c10 00000000 		.word	0
+ 3551 2c14 00000000 		.word	0
+ 3552 2c18 00000000 		.word	0
+ 3553 2c1c 00000000 		.word	0
+ 3554 2c20 00000000 		.word	0
+ 3555 2c24 00000000 		.word	0
+ 3556 2c28 00000000 		.word	0
+ 3557 2c2c 00000000 		.word	0
+ 3558 2c30 00000000 		.word	0
+ 3559 2c34 00000000 		.word	0
+ 3560 2c38 00000000 		.word	0
+ 3561 2c3c 00000000 		.word	0
+ 3562 2c40 00000000 		.word	0
+ 3563 2c44 00000000 		.word	0
+ 3564 2c48 00000000 		.word	0
+ 3565 2c4c 00000000 		.word	0
+ 3566 2c50 00000000 		.word	0
+ 3567 2c54 00000000 		.word	0
+ 3568 2c58 00000000 		.word	0
+ 3569 2c5c 00000000 		.word	0
+ 3570 2c60 00000000 		.word	0
+ 3571 2c64 00000000 		.word	0
+ 3572 2c68 00000000 		.word	0
+ 3573 2c6c 00000000 		.word	0
+ 3574 2c70 00000000 		.word	0
+ 3575 2c74 00000000 		.word	0
+ 3576 2c78 00000000 		.word	0
+ 3577 2c7c 00000000 		.word	0
+ 3578 2c80 00000000 		.word	0
+ 3579 2c84 00000000 		.word	0
+ 3580 2c88 00000000 		.word	0
+ 3581 2c8c 00000000 		.word	0
+ 3582 2c90 00000000 		.word	0
+ 3583 2c94 00000000 		.word	0
+ 3584 2c98 00000000 		.word	0
+ 3585 2c9c 00000000 		.word	0
+ 3586 2ca0 00000000 		.word	0
+ 3587 2ca4 00000000 		.word	0
+ 3588 2ca8 00000000 		.word	0
+ 3589 2cac 00000000 		.word	0
+ 3590 2cb0 00000000 		.word	0
+ 3591 2cb4 00000000 		.word	0
+ 3592 2cb8 00000000 		.word	0
+ 3593 2cbc 00000000 		.word	0
+ 3594 2cc0 00000000 		.word	0
+ 3595 2cc4 00000000 		.word	0
+ 3596 2cc8 00000000 		.word	0
+ 3597 2ccc 00000000 		.word	0
+ 3598 2cd0 00000000 		.word	0
+ 3599              		.align	2
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 67
+
+
+ 3600              		.type	tulostusV2, %object
+ 3601              		.size	tulostusV2, 1672
+ 3602              	tulostusV2:
+ 3603 2cd4 19000000 		.word	25
+ 3604 2cd8 03000000 		.word	3
+ 3605 2cdc FAFFFFFF 		.word	-6
+ 3606 2ce0 FBFFFFFF 		.word	-5
+ 3607 2ce4 03000000 		.word	3
+ 3608 2ce8 FCFFFFFF 		.word	-4
+ 3609 2cec FEFFFFFF 		.word	-2
+ 3610 2cf0 FDFFFFFF 		.word	-3
+ 3611 2cf4 01000000 		.word	1
+ 3612 2cf8 FEFFFFFF 		.word	-2
+ 3613 2cfc 01000000 		.word	1
+ 3614 2d00 00000000 		.word	0
+ 3615 2d04 FFFFFFFF 		.word	-1
+ 3616 2d08 00000000 		.word	0
+ 3617 2d0c FEFFFFFF 		.word	-2
+ 3618 2d10 02000000 		.word	2
+ 3619 2d14 FFFFFFFF 		.word	-1
+ 3620 2d18 00000000 		.word	0
+ 3621 2d1c 00000000 		.word	0
+ 3622 2d20 22000000 		.word	34
+ 3623 2d24 F6FFFFFF 		.word	-10
+ 3624 2d28 04000000 		.word	4
+ 3625 2d2c FBFFFFFF 		.word	-5
+ 3626 2d30 01000000 		.word	1
+ 3627 2d34 FBFFFFFF 		.word	-5
+ 3628 2d38 00000000 		.word	0
+ 3629 2d3c FBFFFFFF 		.word	-5
+ 3630 2d40 00000000 		.word	0
+ 3631 2d44 FEFFFFFF 		.word	-2
+ 3632 2d48 00000000 		.word	0
+ 3633 2d4c FEFFFFFF 		.word	-2
+ 3634 2d50 FFFFFFFF 		.word	-1
+ 3635 2d54 FFFFFFFF 		.word	-1
+ 3636 2d58 FFFFFFFF 		.word	-1
+ 3637 2d5c FEFFFFFF 		.word	-2
+ 3638 2d60 FFFFFFFF 		.word	-1
+ 3639 2d64 FEFFFFFF 		.word	-2
+ 3640 2d68 FEFFFFFF 		.word	-2
+ 3641 2d6c 26000000 		.word	38
+ 3642 2d70 F1FFFFFF 		.word	-15
+ 3643 2d74 05000000 		.word	5
+ 3644 2d78 F9FFFFFF 		.word	-7
+ 3645 2d7c 02000000 		.word	2
+ 3646 2d80 FBFFFFFF 		.word	-5
+ 3647 2d84 01000000 		.word	1
+ 3648 2d88 FBFFFFFF 		.word	-5
+ 3649 2d8c 00000000 		.word	0
+ 3650 2d90 FDFFFFFF 		.word	-3
+ 3651 2d94 00000000 		.word	0
+ 3652 2d98 FEFFFFFF 		.word	-2
+ 3653 2d9c 00000000 		.word	0
+ 3654 2da0 FFFFFFFF 		.word	-1
+ 3655 2da4 00000000 		.word	0
+ 3656 2da8 FFFFFFFF 		.word	-1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 68
+
+
+ 3657 2dac FFFFFFFF 		.word	-1
+ 3658 2db0 FFFFFFFF 		.word	-1
+ 3659 2db4 FFFFFFFF 		.word	-1
+ 3660 2db8 22000000 		.word	34
+ 3661 2dbc F3FFFFFF 		.word	-13
+ 3662 2dc0 03000000 		.word	3
+ 3663 2dc4 F8FFFFFF 		.word	-8
+ 3664 2dc8 03000000 		.word	3
+ 3665 2dcc F9FFFFFF 		.word	-7
+ 3666 2dd0 03000000 		.word	3
+ 3667 2dd4 FAFFFFFF 		.word	-6
+ 3668 2dd8 01000000 		.word	1
+ 3669 2ddc FDFFFFFF 		.word	-3
+ 3670 2de0 00000000 		.word	0
+ 3671 2de4 FFFFFFFF 		.word	-1
+ 3672 2de8 00000000 		.word	0
+ 3673 2dec FFFFFFFF 		.word	-1
+ 3674 2df0 00000000 		.word	0
+ 3675 2df4 FFFFFFFF 		.word	-1
+ 3676 2df8 00000000 		.word	0
+ 3677 2dfc FEFFFFFF 		.word	-2
+ 3678 2e00 FFFFFFFF 		.word	-1
+ 3679 2e04 17000000 		.word	23
+ 3680 2e08 ECFFFFFF 		.word	-20
+ 3681 2e0c 07000000 		.word	7
+ 3682 2e10 FAFFFFFF 		.word	-6
+ 3683 2e14 06000000 		.word	6
+ 3684 2e18 FAFFFFFF 		.word	-6
+ 3685 2e1c 03000000 		.word	3
+ 3686 2e20 FAFFFFFF 		.word	-6
+ 3687 2e24 00000000 		.word	0
+ 3688 2e28 FCFFFFFF 		.word	-4
+ 3689 2e2c 04000000 		.word	4
+ 3690 2e30 FFFFFFFF 		.word	-1
+ 3691 2e34 00000000 		.word	0
+ 3692 2e38 00000000 		.word	0
+ 3693 2e3c 03000000 		.word	3
+ 3694 2e40 01000000 		.word	1
+ 3695 2e44 02000000 		.word	2
+ 3696 2e48 00000000 		.word	0
+ 3697 2e4c 00000000 		.word	0
+ 3698 2e50 0C000000 		.word	12
+ 3699 2e54 EBFFFFFF 		.word	-21
+ 3700 2e58 0A000000 		.word	10
+ 3701 2e5c FCFFFFFF 		.word	-4
+ 3702 2e60 05000000 		.word	5
+ 3703 2e64 FCFFFFFF 		.word	-4
+ 3704 2e68 06000000 		.word	6
+ 3705 2e6c FBFFFFFF 		.word	-5
+ 3706 2e70 00000000 		.word	0
+ 3707 2e74 FFFFFFFF 		.word	-1
+ 3708 2e78 01000000 		.word	1
+ 3709 2e7c FFFFFFFF 		.word	-1
+ 3710 2e80 00000000 		.word	0
+ 3711 2e84 FFFFFFFF 		.word	-1
+ 3712 2e88 02000000 		.word	2
+ 3713 2e8c 01000000 		.word	1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 69
+
+
+ 3714 2e90 00000000 		.word	0
+ 3715 2e94 FFFFFFFF 		.word	-1
+ 3716 2e98 00000000 		.word	0
+ 3717 2e9c 10000000 		.word	16
+ 3718 2ea0 F0FFFFFF 		.word	-16
+ 3719 2ea4 0C000000 		.word	12
+ 3720 2ea8 FFFFFFFF 		.word	-1
+ 3721 2eac 07000000 		.word	7
+ 3722 2eb0 FDFFFFFF 		.word	-3
+ 3723 2eb4 06000000 		.word	6
+ 3724 2eb8 F8FFFFFF 		.word	-8
+ 3725 2ebc 00000000 		.word	0
+ 3726 2ec0 FDFFFFFF 		.word	-3
+ 3727 2ec4 00000000 		.word	0
+ 3728 2ec8 FDFFFFFF 		.word	-3
+ 3729 2ecc FEFFFFFF 		.word	-2
+ 3730 2ed0 FDFFFFFF 		.word	-3
+ 3731 2ed4 01000000 		.word	1
+ 3732 2ed8 00000000 		.word	0
+ 3733 2edc FFFFFFFF 		.word	-1
+ 3734 2ee0 FFFFFFFF 		.word	-1
+ 3735 2ee4 00000000 		.word	0
+ 3736 2ee8 1A000000 		.word	26
+ 3737 2eec FDFFFFFF 		.word	-3
+ 3738 2ef0 0C000000 		.word	12
+ 3739 2ef4 F5FFFFFF 		.word	-11
+ 3740 2ef8 00000000 		.word	0
+ 3741 2efc FBFFFFFF 		.word	-5
+ 3742 2f00 05000000 		.word	5
+ 3743 2f04 F7FFFFFF 		.word	-9
+ 3744 2f08 00000000 		.word	0
+ 3745 2f0c 00000000 		.word	0
+ 3746 2f10 FFFFFFFF 		.word	-1
+ 3747 2f14 FCFFFFFF 		.word	-4
+ 3748 2f18 00000000 		.word	0
+ 3749 2f1c 00000000 		.word	0
+ 3750 2f20 00000000 		.word	0
+ 3751 2f24 FEFFFFFF 		.word	-2
+ 3752 2f28 FFFFFFFF 		.word	-1
+ 3753 2f2c FEFFFFFF 		.word	-2
+ 3754 2f30 00000000 		.word	0
+ 3755 2f34 12000000 		.word	18
+ 3756 2f38 01000000 		.word	1
+ 3757 2f3c 0A000000 		.word	10
+ 3758 2f40 F9FFFFFF 		.word	-7
+ 3759 2f44 00000000 		.word	0
+ 3760 2f48 F6FFFFFF 		.word	-10
+ 3761 2f4c 05000000 		.word	5
+ 3762 2f50 FDFFFFFF 		.word	-3
+ 3763 2f54 FEFFFFFF 		.word	-2
+ 3764 2f58 FFFFFFFF 		.word	-1
+ 3765 2f5c FEFFFFFF 		.word	-2
+ 3766 2f60 FCFFFFFF 		.word	-4
+ 3767 2f64 01000000 		.word	1
+ 3768 2f68 00000000 		.word	0
+ 3769 2f6c FFFFFFFF 		.word	-1
+ 3770 2f70 FDFFFFFF 		.word	-3
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 70
+
+
+ 3771 2f74 FEFFFFFF 		.word	-2
+ 3772 2f78 FFFFFFFF 		.word	-1
+ 3773 2f7c 00000000 		.word	0
+ 3774 2f80 18000000 		.word	24
+ 3775 2f84 02000000 		.word	2
+ 3776 2f88 03000000 		.word	3
+ 3777 2f8c FAFFFFFF 		.word	-6
+ 3778 2f90 00000000 		.word	0
+ 3779 2f94 FEFFFFFF 		.word	-2
+ 3780 2f98 06000000 		.word	6
+ 3781 2f9c F7FFFFFF 		.word	-9
+ 3782 2fa0 FCFFFFFF 		.word	-4
+ 3783 2fa4 00000000 		.word	0
+ 3784 2fa8 FEFFFFFF 		.word	-2
+ 3785 2fac FDFFFFFF 		.word	-3
+ 3786 2fb0 00000000 		.word	0
+ 3787 2fb4 FEFFFFFF 		.word	-2
+ 3788 2fb8 00000000 		.word	0
+ 3789 2fbc FDFFFFFF 		.word	-3
+ 3790 2fc0 00000000 		.word	0
+ 3791 2fc4 FCFFFFFF 		.word	-4
+ 3792 2fc8 00000000 		.word	0
+ 3793 2fcc 13000000 		.word	19
+ 3794 2fd0 09000000 		.word	9
+ 3795 2fd4 00000000 		.word	0
+ 3796 2fd8 FCFFFFFF 		.word	-4
+ 3797 2fdc FEFFFFFF 		.word	-2
+ 3798 2fe0 00000000 		.word	0
+ 3799 2fe4 FFFFFFFF 		.word	-1
+ 3800 2fe8 FDFFFFFF 		.word	-3
+ 3801 2fec FCFFFFFF 		.word	-4
+ 3802 2ff0 FEFFFFFF 		.word	-2
+ 3803 2ff4 00000000 		.word	0
+ 3804 2ff8 FFFFFFFF 		.word	-1
+ 3805 2ffc FFFFFFFF 		.word	-1
+ 3806 3000 00000000 		.word	0
+ 3807 3004 FFFFFFFF 		.word	-1
+ 3808 3008 FFFFFFFF 		.word	-1
+ 3809 300c FFFFFFFF 		.word	-1
+ 3810 3010 FFFFFFFF 		.word	-1
+ 3811 3014 00000000 		.word	0
+ 3812 3018 05000000 		.word	5
+ 3813 301c 05000000 		.word	5
+ 3814 3020 03000000 		.word	3
+ 3815 3024 02000000 		.word	2
+ 3816 3028 00000000 		.word	0
+ 3817 302c 00000000 		.word	0
+ 3818 3030 FFFFFFFF 		.word	-1
+ 3819 3034 FEFFFFFF 		.word	-2
+ 3820 3038 FEFFFFFF 		.word	-2
+ 3821 303c FEFFFFFF 		.word	-2
+ 3822 3040 00000000 		.word	0
+ 3823 3044 00000000 		.word	0
+ 3824 3048 00000000 		.word	0
+ 3825 304c 00000000 		.word	0
+ 3826 3050 00000000 		.word	0
+ 3827 3054 FFFFFFFF 		.word	-1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 71
+
+
+ 3828 3058 FFFFFFFF 		.word	-1
+ 3829 305c FFFFFFFF 		.word	-1
+ 3830 3060 FFFFFFFF 		.word	-1
+ 3831 3064 00000000 		.word	0
+ 3832 3068 00000000 		.word	0
+ 3833 306c 00000000 		.word	0
+ 3834 3070 00000000 		.word	0
+ 3835 3074 00000000 		.word	0
+ 3836 3078 00000000 		.word	0
+ 3837 307c 00000000 		.word	0
+ 3838 3080 00000000 		.word	0
+ 3839 3084 00000000 		.word	0
+ 3840 3088 00000000 		.word	0
+ 3841 308c 00000000 		.word	0
+ 3842 3090 00000000 		.word	0
+ 3843 3094 00000000 		.word	0
+ 3844 3098 00000000 		.word	0
+ 3845 309c 00000000 		.word	0
+ 3846 30a0 00000000 		.word	0
+ 3847 30a4 00000000 		.word	0
+ 3848 30a8 00000000 		.word	0
+ 3849 30ac 00000000 		.word	0
+ 3850 30b0 0F000000 		.word	15
+ 3851 30b4 EDFFFFFF 		.word	-19
+ 3852 30b8 02000000 		.word	2
+ 3853 30bc FBFFFFFF 		.word	-5
+ 3854 30c0 08000000 		.word	8
+ 3855 30c4 00000000 		.word	0
+ 3856 30c8 03000000 		.word	3
+ 3857 30cc FAFFFFFF 		.word	-6
+ 3858 30d0 01000000 		.word	1
+ 3859 30d4 FDFFFFFF 		.word	-3
+ 3860 30d8 03000000 		.word	3
+ 3861 30dc 00000000 		.word	0
+ 3862 30e0 02000000 		.word	2
+ 3863 30e4 FFFFFFFF 		.word	-1
+ 3864 30e8 00000000 		.word	0
+ 3865 30ec 00000000 		.word	0
+ 3866 30f0 00000000 		.word	0
+ 3867 30f4 FFFFFFFF 		.word	-1
+ 3868 30f8 01000000 		.word	1
+ 3869 30fc 19000000 		.word	25
+ 3870 3100 F6FFFFFF 		.word	-10
+ 3871 3104 01000000 		.word	1
+ 3872 3108 FDFFFFFF 		.word	-3
+ 3873 310c 01000000 		.word	1
+ 3874 3110 F9FFFFFF 		.word	-7
+ 3875 3114 03000000 		.word	3
+ 3876 3118 F9FFFFFF 		.word	-7
+ 3877 311c 01000000 		.word	1
+ 3878 3120 FEFFFFFF 		.word	-2
+ 3879 3124 02000000 		.word	2
+ 3880 3128 00000000 		.word	0
+ 3881 312c 00000000 		.word	0
+ 3882 3130 00000000 		.word	0
+ 3883 3134 00000000 		.word	0
+ 3884 3138 FEFFFFFF 		.word	-2
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 72
+
+
+ 3885 313c 01000000 		.word	1
+ 3886 3140 FEFFFFFF 		.word	-2
+ 3887 3144 00000000 		.word	0
+ 3888 3148 22000000 		.word	34
+ 3889 314c F8FFFFFF 		.word	-8
+ 3890 3150 00000000 		.word	0
+ 3891 3154 FBFFFFFF 		.word	-5
+ 3892 3158 04000000 		.word	4
+ 3893 315c F6FFFFFF 		.word	-10
+ 3894 3160 05000000 		.word	5
+ 3895 3164 F9FFFFFF 		.word	-7
+ 3896 3168 00000000 		.word	0
+ 3897 316c FFFFFFFF 		.word	-1
+ 3898 3170 00000000 		.word	0
+ 3899 3174 00000000 		.word	0
+ 3900 3178 01000000 		.word	1
+ 3901 317c FDFFFFFF 		.word	-3
+ 3902 3180 00000000 		.word	0
+ 3903 3184 FFFFFFFF 		.word	-1
+ 3904 3188 FFFFFFFF 		.word	-1
+ 3905 318c 00000000 		.word	0
+ 3906 3190 FEFFFFFF 		.word	-2
+ 3907 3194 23000000 		.word	35
+ 3908 3198 F7FFFFFF 		.word	-9
+ 3909 319c 00000000 		.word	0
+ 3910 31a0 FAFFFFFF 		.word	-6
+ 3911 31a4 05000000 		.word	5
+ 3912 31a8 F6FFFFFF 		.word	-10
+ 3913 31ac 04000000 		.word	4
+ 3914 31b0 FAFFFFFF 		.word	-6
+ 3915 31b4 FFFFFFFF 		.word	-1
+ 3916 31b8 FFFFFFFF 		.word	-1
+ 3917 31bc 00000000 		.word	0
+ 3918 31c0 00000000 		.word	0
+ 3919 31c4 02000000 		.word	2
+ 3920 31c8 FDFFFFFF 		.word	-3
+ 3921 31cc 00000000 		.word	0
+ 3922 31d0 FFFFFFFF 		.word	-1
+ 3923 31d4 FFFFFFFF 		.word	-1
+ 3924 31d8 00000000 		.word	0
+ 3925 31dc FFFFFFFF 		.word	-1
+ 3926 31e0 23000000 		.word	35
+ 3927 31e4 F5FFFFFF 		.word	-11
+ 3928 31e8 02000000 		.word	2
+ 3929 31ec F8FFFFFF 		.word	-8
+ 3930 31f0 04000000 		.word	4
+ 3931 31f4 F8FFFFFF 		.word	-8
+ 3932 31f8 01000000 		.word	1
+ 3933 31fc FDFFFFFF 		.word	-3
+ 3934 3200 FFFFFFFF 		.word	-1
+ 3935 3204 FEFFFFFF 		.word	-2
+ 3936 3208 00000000 		.word	0
+ 3937 320c FFFFFFFF 		.word	-1
+ 3938 3210 02000000 		.word	2
+ 3939 3214 FEFFFFFF 		.word	-2
+ 3940 3218 00000000 		.word	0
+ 3941 321c FFFFFFFF 		.word	-1
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 73
+
+
+ 3942 3220 00000000 		.word	0
+ 3943 3224 FFFFFFFF 		.word	-1
+ 3944 3228 00000000 		.word	0
+ 3945 322c 20000000 		.word	32
+ 3946 3230 F6FFFFFF 		.word	-10
+ 3947 3234 03000000 		.word	3
+ 3948 3238 F8FFFFFF 		.word	-8
+ 3949 323c 04000000 		.word	4
+ 3950 3240 F9FFFFFF 		.word	-7
+ 3951 3244 00000000 		.word	0
+ 3952 3248 FDFFFFFF 		.word	-3
+ 3953 324c 00000000 		.word	0
+ 3954 3250 FEFFFFFF 		.word	-2
+ 3955 3254 00000000 		.word	0
+ 3956 3258 00000000 		.word	0
+ 3957 325c 01000000 		.word	1
+ 3958 3260 FEFFFFFF 		.word	-2
+ 3959 3264 00000000 		.word	0
+ 3960 3268 FFFFFFFF 		.word	-1
+ 3961 326c FFFFFFFF 		.word	-1
+ 3962 3270 00000000 		.word	0
+ 3963 3274 FFFFFFFF 		.word	-1
+ 3964 3278 1A000000 		.word	26
+ 3965 327c F4FFFFFF 		.word	-12
+ 3966 3280 07000000 		.word	7
+ 3967 3284 F8FFFFFF 		.word	-8
+ 3968 3288 05000000 		.word	5
+ 3969 328c F9FFFFFF 		.word	-7
+ 3970 3290 00000000 		.word	0
+ 3971 3294 FDFFFFFF 		.word	-3
+ 3972 3298 00000000 		.word	0
+ 3973 329c FEFFFFFF 		.word	-2
+ 3974 32a0 00000000 		.word	0
+ 3975 32a4 FEFFFFFF 		.word	-2
+ 3976 32a8 01000000 		.word	1
+ 3977 32ac FEFFFFFF 		.word	-2
+ 3978 32b0 00000000 		.word	0
+ 3979 32b4 00000000 		.word	0
+ 3980 32b8 00000000 		.word	0
+ 3981 32bc 00000000 		.word	0
+ 3982 32c0 FFFFFFFF 		.word	-1
+ 3983 32c4 04000000 		.word	4
+ 3984 32c8 F3FFFFFF 		.word	-13
+ 3985 32cc 0D000000 		.word	13
+ 3986 32d0 F7FFFFFF 		.word	-9
+ 3987 32d4 03000000 		.word	3
+ 3988 32d8 FEFFFFFF 		.word	-2
+ 3989 32dc 03000000 		.word	3
+ 3990 32e0 FDFFFFFF 		.word	-3
+ 3991 32e4 01000000 		.word	1
+ 3992 32e8 00000000 		.word	0
+ 3993 32ec 00000000 		.word	0
+ 3994 32f0 FFFFFFFF 		.word	-1
+ 3995 32f4 03000000 		.word	3
+ 3996 32f8 FEFFFFFF 		.word	-2
+ 3997 32fc 00000000 		.word	0
+ 3998 3300 00000000 		.word	0
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 74
+
+
+ 3999 3304 00000000 		.word	0
+ 4000 3308 00000000 		.word	0
+ 4001 330c 00000000 		.word	0
+ 4002 3310 07000000 		.word	7
+ 4003 3314 EEFFFFFF 		.word	-18
+ 4004 3318 0C000000 		.word	12
+ 4005 331c FCFFFFFF 		.word	-4
+ 4006 3320 03000000 		.word	3
+ 4007 3324 FAFFFFFF 		.word	-6
+ 4008 3328 05000000 		.word	5
+ 4009 332c 00000000 		.word	0
+ 4010 3330 00000000 		.word	0
+ 4011 3334 FFFFFFFF 		.word	-1
+ 4012 3338 01000000 		.word	1
+ 4013 333c 00000000 		.word	0
+ 4014 3340 01000000 		.word	1
+ 4015 3344 FFFFFFFF 		.word	-1
+ 4016 3348 01000000 		.word	1
+ 4017 334c 01000000 		.word	1
+ 4018 3350 00000000 		.word	0
+ 4019 3354 00000000 		.word	0
+ 4020 3358 00000000 		.word	0
+ 4021              		.bss
+ 4022 009a 0000     		.align	2
+ 4023              	puheenMfcc.2813:
+ 4024 009c 00000000 		.space	12160
+ 4024      00000000 
+ 4024      00000000 
+ 4024      00000000 
+ 4024      00000000 
+ 4025              		.comm	verbose,2,2
+ 4026              		.comm	SR_2,264,4
+ 4027              		.comm	GR_4,264,4
+ 4028              		.comm	sea,200,2
+ 4029              		.comm	oppSea,200,2
+ 4030              		.comm	targetSea,200,2
+ 4031              		.comm	oppTargetSea,200,2
+ 4032              		.comm	player1,24,4
+ 4033              		.comm	player2,24,4
+ 4034              		.comm	game,80,4
+ 4035              		.comm	air5,40,4
+ 4036              		.comm	bat4,40,4
+ 4037              		.comm	cru3,40,4
+ 4038              		.comm	sub3,40,4
+ 4039              		.comm	des2,40,4
+ 4040              		.comm	oppAir5,40,4
+ 4041              		.comm	oppBat4,40,4
+ 4042              		.comm	oppCru3,40,4
+ 4043              		.comm	oppSub3,40,4
+ 4044              		.comm	oppDes2,40,4
+ 4045              		.comm	vastustajaLista,80,4
+ 4046              		.comm	u_shortLista,40,2
+ 4047              		.ident	"GCC: (GNU) 4.3.2"
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 75
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:61     .text:00000000 changeSNM
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:65     .text:00000000 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:108    .text:0000008c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:134    .text:000000b4 changeIP
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:138    .text:000000b4 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:173    .text:00000134 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:192    .text:00000150 settings
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:196    .text:00000150 $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:230    .text:000001c0 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:249    .text:000001dc spokenWord
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:253    .text:000001dc $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:368    .text:0000038c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:713    .data:00000000 yksinpeliV1
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:1344   .data:000009cc yksinpeliV2
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:1937   .data:00001300 verkkopeliV1
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:2473   .data:00001b50 asetuksetV1
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:3066   .data:00002484 asetuksetV5
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:3602   .data:00002cd4 tulostusV2
+                            *COM*:00000002 verbose
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:426    .text:000003bc main
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:430    .text:000003bc $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:526    .text:00000518 $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:532    .text:0000052c $a
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:596    .text:0000060c $d
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:4023   .bss:0000009c puheenMfcc.2813
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:629    .bss:00000000 temp
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:635    .bss:00000014 targetSeaShotX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:641    .bss:0000001e targetSeaShotY
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:647    .bss:00000028 targetOppSeaShotX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:653    .bss:00000032 targetOppSeaShotY
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:659    .bss:0000003c targetOppShotX
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:665    .bss:00000046 targetOppShotY
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:671    .bss:00000050 oneValue
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:677    .bss:00000052 length
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:683    .bss:00000054 ourCoord
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:689    .bss:00000068 oppCoord
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:695    .bss:0000007c oppSeaShotEffects
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:701    .bss:00000086 seaShotEffects
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:707    .bss:00000090 oppShotEffects
+C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s:714    .data:00000000 $d
+                            *COM*:00000108 SR_2
+                            *COM*:00000108 GR_4
+                            *COM*:000000c8 sea
+                            *COM*:000000c8 oppSea
+                            *COM*:000000c8 targetSea
+                            *COM*:000000c8 oppTargetSea
+                            *COM*:00000018 player1
+                            *COM*:00000018 player2
+                            *COM*:00000050 game
+                            *COM*:00000028 air5
+                            *COM*:00000028 bat4
+                            *COM*:00000028 cru3
+                            *COM*:00000028 sub3
+                            *COM*:00000028 des2
+                            *COM*:00000028 oppAir5
+ARM GAS  C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp/ccWkGqa7.s 			page 76
+
+
+                            *COM*:00000028 oppBat4
+                            *COM*:00000028 oppCru3
+                            *COM*:00000028 oppSub3
+                            *COM*:00000028 oppDes2
+                            *COM*:00000050 vastustajaLista
+                            *COM*:00000028 u_shortLista
+
+UNDEFINED SYMBOLS
+puts
+getc
+inet_addr
+printf
+__iob
+scanf
+NutNetIfConfig
+inet_ntoa
+confnet
+speechRecognizer
+dynamicTimeWarping
+memset
+resetWholeGame
+NutRegisterDevice
+freopen
+_fileno
+_ioctl
+NutSleep
+initAudioDevice
+initializeNetwork
+time
+srand
+showGameStatus
+startOnePlayerGame
+findOpponent
+startTwoPlayerGame
+devUsartAt910

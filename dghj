@@ -1,0 +1,1055 @@
+/*
+ * Copyright (C) 2001-2003 by egnite Software GmbH. All rights reserved.
+ * changed by CWi
+ */
+
+
+#define LPORT   161
+#define TIMEOUT 6000
+
+/* These values are used if there is no valid configuration in EEPROM. */
+#define MYMAC   0x00, 0x06, 0x98, 0x00, 0x00, 0x00
+#define MYIP    "10.10.30.1"
+#define MYIP2   "10.10.100.1"
+#define MYMASK  "255.255.255.0"
+#define UDP_BCA "10.10.255.255"
+
+#define MYNAME "IceMan"
+
+
+#include <string.h>
+#include <io.h>
+
+#ifdef ETHERNUT2
+#include <dev/lanc111.h>
+#else
+#include <dev/nicrtl.h>
+#endif
+
+#include <dev/debug.h>
+#include <dev/urom.h>
+
+#include <sys/version.h>
+#include <sys/thread.h>
+#include <sys/timer.h>
+#include <sys/heap.h>
+#include <sys/confnet.h>
+#include <sys/socket.h>
+
+#include <arpa/inet.h>
+
+#include <pro/httpd.h>
+#include <pro/dhcp.h>
+
+#ifdef NUTDEBUG
+#include <sys/osdebug.h>
+#include <net/netdebug.h>
+#endif
+
+#include <dev/board.h>/***********************************************/
+#include <stdio.h>/***************************************************/
+#include <cfg/crt.h>/*************************************************/
+#include <ctype.h>/***************************************************/
+
+static prog_char SA[] = "\n\n============= Starting up ===============\n";
+static prog_char RF[] = "Registering device failed";
+static prog_char LP[] = "Listening on port: ";
+
+
+/* Kiinteat IP-osoitteet */
+//u_long ip_udp_bca = inet_addr(UDP_BCA);
+
+
+/* Funktiot */
+void receiveMessage();
+void checkOID();
+int checkName();
+int sendGetRequest_Name();
+void sendGetResponse_Name();
+
+void ParseSendMessage(u_char *data, u_short size);
+void sendMessage(u_long osoite, u_char viesti[200], u_short koko);
+
+void sendSetRequest();
+void sendGetResponse();
+
+void snmpReceive();
+void snmpSend();
+
+void sendActualMessage(u_long osoite, u_short portti, u_char daatta[], u_short daatankoko);
+
+/* Muuttujat */
+UDPSOCKET *sock;
+u_long addr;
+u_short port;
+u_char data[200];
+u_short  size;
+u_char parsittudata[200];
+
+u_long baud = 115200;
+
+/*! \struct viesti
+ *  \brief Strukti, joka pitää sisällään viestin tietoja.
+ */
+struct viesti {
+   u_long osoite;
+   u_short portti;
+
+   u_short daatankoko;
+
+   u_char daatta[127];
+
+   int data_alkaa_indeksi;
+   int data_length;
+};
+
+struct viesti vv;    // vastaanotettu viesti
+struct viesti lv;    // lähetettävä viesti
+
+
+/* SNMP viestin purkaminen */
+
+/*! \struct snmp_message
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_message osion.
+ */
+struct snmp_message{
+	u_char message_type;
+	u_char message_length;
+};
+
+/*! \struct snmp_version
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_version osion.
+ */
+struct snmp_version{
+	u_char version_type;
+	u_char version_length;
+	u_char version_value;
+};
+
+/*! \struct snmp_comm_string
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_comm_string osion.
+ */
+struct snmp_comm_string{
+	u_char comm_string_type;
+	u_char comm_string_length;
+	u_char comm_string_value[20];
+};
+
+/*! \struct snmp_PDU
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_PDU osion.
+ */
+struct snmp_PDU{
+	u_char PDU_type;
+	u_char PDU_length;
+};
+
+/*! \struct snmp_requestID
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_requestID osion.
+ */
+struct snmp_requestID{
+	u_char requestID_type;
+	u_char requestID_length;
+	u_char requestID_value[2];
+};
+
+/*! \struct snmp_error
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_error osion.
+ */
+struct snmp_error{
+	u_char error_type;
+	u_char error_length;
+	u_char error_value;
+};
+
+/*! \struct snmp_error_index
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_error_index osion.
+ */
+struct snmp_error_index{
+	u_char error_index_type;
+	u_char error_index_length;
+	u_char error_index_value;
+};
+
+/*! \struct snmp_varbind_list
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_varbind_list osion.
+ */
+struct snmp_varbind_list{
+	u_char varbind_list_type;
+	u_char varbind_list_length;
+};
+
+/*! \struct snmp_varbind
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_varbind osion.
+ */
+struct snmp_varbind{
+	u_char varbind_type;
+	u_char varbind_length;
+};
+
+/*! \struct snmp_OID
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_OID osion.
+ */
+struct snmp_OID{
+	u_char OID_type;
+	u_char OID_length;
+	u_char OID_value[7];
+};
+
+/*! \struct snmp_value
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_value osion.
+ */
+struct snmp_value{
+	u_char value_type;
+	u_char value_length;
+	u_char value_value[50];
+};
+
+/*! \struct snmp
+ *  \brief Strukti, joka pitää sisällään snmp-viestin osaset.
+ */
+struct snmp{
+	struct snmp_message message;
+	struct snmp_version version;
+	struct snmp_comm_string comm_string;
+	struct snmp_PDU PDU;
+	struct snmp_requestID requestID;
+	struct snmp_error error;
+	struct snmp_error_index error_index;
+	struct snmp_varbind_list varbind_list;
+	struct snmp_varbind varbind;
+	struct snmp_OID OID;
+	struct snmp_value value;
+
+};
+
+
+struct snmp vast;
+struct snmp lahteva;
+
+/* Muuttujia käyttäjiä varten */
+
+/*! \struct snmp_version
+ *  \brief Strukti, joka pitää sisällään snmp-viestin snmp_version osion.
+ */
+struct user{
+	u_long IP;
+	char nick[20];
+};
+
+struct user user_list[5];
+
+
+/* Threadit */
+
+THREAD(Control, arg) {
+   NutThreadSetPriority(16);
+
+   while(1) {
+      receiveMessage();
+		NutSleep(125);
+   }
+}
+
+THREAD(Kanava, arg) {
+   NutThreadSetPriority(32);
+
+   while (1) {
+      receiveMessage();
+		NutSleep(125);
+   }
+}
+
+static char inbuf[128];/*******************************************************/
+static prog_char presskey_P[] = "Press any key...";/***************************/
+
+/*!
+ *  \brief Main-funktio.
+ *
+ *  Nut/OS kutsuu main-funktiota automaattisesti.
+ */
+int main(void)
+{
+//  u_long baud = 115200;
+//  FILE *uart0;
+	char choice;
+   int got;
+    /*
+     * Initialize the uart device.
+     */
+FILE *uart;/**************************************/
+NutRegisterDevice(&DEV_UART, 0, 0);/**************/
+uart = fopen(DEV_UART_NAME, "r+");/***************/
+
+//    NutRegisterDevice(&devDebug0, 0, 0);
+//    freopen("uart0", "w", stdout);
+
+//    freopen("uart0", "r", stdin);
+//    _ioctl(_fileno(stdin), UART_SPEED, &baud);
+
+
+    _ioctl(_fileno(uart/*stdout*/), UART_SETSPEED, &baud);
+//    NutSleep(200);
+
+    /*
+     * Register Ethernet controller.
+     */
+    if (NutRegisterDevice(&DEV_ETHER, 0x8300, 5))
+      _write_P(_fileno(uart/*stdout*/), RF, sizeof(RF));
+
+
+    _write_P(_fileno(uart/*stdout*/), SA, sizeof(SA));
+_write_P(_fileno(uart), presskey_P, sizeof(presskey_P));/****/
+
+
+//   u_char inbuf[128];
+
+
+
+_write(_fileno(uart), 0, 0);
+//printf("syota tekstia\n");
+got = _read(_fileno(uart), inbuf, sizeof(inbuf));/******/
+//printf("syota tekstia2\n");
+_write(_fileno(uart), inbuf, got);/*********************/
+//   got = _read(_fileno(stdin), inbuf, sizeof(inbuf));
+//   got = _write_P(_fileno(stdout), got, sizeof(got));
+
+fprintf(uart, "Painappa nappia niin alkaa toimiin\n");
+choice = fgetc(uart);
+//got = atoi(fgets(inbuf, sizeof(inbuf), uart));
+//fprintf(uart, "Current frequency: %d\n", got);
+   fprintf(uart, "choice on : %c \n", choice);
+
+
+
+    /*
+     * LAN configuration using fixed values.
+     */
+    u_char mac[] = { MYMAC };
+    u_long ip_addr = inet_addr(MYIP);
+    u_long ip_mask = inet_addr(MYMASK);
+//    u_long ip_udp_bca = inet_addr(UDP_BCA);
+
+    NutNetIfConfig("eth0", mac, ip_addr, ip_mask);
+
+	//tähän tilttaa, tulostaa "10."
+    fprintf(uart, "%s ready\n", inet_ntoa(confnet.cdn_ip_addr));
+
+
+
+	sock = NutUdpCreateSocket(LPORT);
+    _write_P(_fileno(stdout), LP, sizeof(LP));
+    fprintf(uart, "%d\n\n",LPORT);
+
+ 	NutThreadCreate("T1", Control, 0, 768);
+	NutThreadCreate("T2", Kanava, 0, 768);
+
+   /*
+    * Lähetään kuunteleen porttia 161
+    */
+//	receiveMessage();
+   while (1) {
+   		//receiveMessage();
+		NutSleep(125);
+	}
+
+	return 0;
+
+}
+
+/* ****************************************** */
+/* Funktio, joka hoitaa viestien vastaanoton. */
+/* ****************************************** */
+
+/*! \fn void receiveMessage()
+ *  \brief Funktio, joka hoitaa viestien vastaanoton.
+ *  \return void.
+ */
+void receiveMessage()
+{
+
+	int i;
+
+	while (1) {
+
+	/* Talletetaan kanavasta tuleva data */
+    vv.daatankoko = NutUdpReceiveFrom(sock,&vv.osoite,&vv.portti,vv.daatta,sizeof(vv.daatta),5000);
+
+	/* Tulostetaan vastaanotetun datan tiedot */
+    if (vv.daatankoko > 0) {
+
+		printf("\nGot %d bytes from %s:%d\n",vv.daatankoko,inet_ntoa(vv.osoite),vv.portti);
+
+		//Tulostetaan vastaanotettu data
+		for(i=0 ; i<vv.daatankoko ; i++){
+			printf("%x." , vv.daatta[i]);
+    	 	if (i == 9 || i == 19 || i == 29 || i == 39 || i == 49)
+         		printf("\n");
+			}
+			printf("\n");
+
+			snmpReceive();
+
+			//Tulostetaan vastaanotettu viesti
+			printf("Vastaanotettu viesti: ");
+
+			for(i=0 ; i<vast.value.value_length ; i++) {
+				printf("%c", vast.value.value_value[i]);
+			}
+			printf("\n");
+
+			checkOID();
+
+//			sendMessage(ip_addr2, vv.daatta, vv.daatankoko);
+			NutSleep(125);
+      }
+   }
+
+}
+
+/* ************************************************************************ */
+/* Funktio, joka tarkastaa vastaanotetun viestin Object Identifierin arvon  */
+/* ja valitsee suoritettavan toiminnon.												 */
+/* ************************************************************************ */
+
+/*! \fn void checkOID()
+ *  \brief Funktio, joka tarkastaa vastaanotetun viestin
+ *         Object Identifierin arvon
+ *         ja valitsee suoritettavan toiminnon.
+ *  \return void.
+ */
+void checkOID()
+{
+
+	switch (vast.OID.OID_value[vast.OID.OID_length - 1]) {
+
+		case 1 : printf("SNMP-viesti vastaanotettu\n");
+					/* TODO: lähetä GET_RESPONSE */
+        			sendGetResponse();
+					if ( checkName() )
+						;
+						/* TODO: syntetisoi viesti */
+					else {
+						if( sendGetRequest_Name() ){
+//							storeUser;
+						/* TODO: syntetisoi viesti */
+						}
+						else
+							printf("Käyttäjä ei vastannut nimipyyntöön.\n");
+					}
+					break;
+
+   		case 2 : printf("Nimipyynto vastaanotettu\n");
+					/* TODO: lähetä GET_RESPONSE ja kerro nimi */
+					/* toimii */
+					sendGetResponse_Name();
+					break;
+
+		case 3 : printf("Kanavapyynto vastaanotettu\n");
+					/* TODO: lähetä GET_RESPONSE ja kerro kanavan nimi*/
+//					sendGetResponse();
+					break;
+
+		case 4 :	printf("Kayttaja nimelta \n");
+					/* TODO: kuka lähti, IP jos nimi ei tiedossa */
+					break;
+
+		default : printf("Invaliidi OID_identifier\n");
+					 break;
+	}
+
+}
+
+/* ***************************************************************************** */
+/* Funktio, joka tarkastaa, onko vastaanotetun viestin lähettäjän nimi tiedossa. */
+/* ***************************************************************************** */
+
+/*! \fn int checkName()
+ *  \brief Funktio, joka tarkastaa, onko
+ *         vastaanotetun viestin lähettäjän nimi tiedossa.
+ *  \return IP-taulukon indeksi.
+ */
+int checkName()
+{
+
+	int i, j;
+//	u_long ip_addr = inet_addr(MYIP2);
+	user_list[4].IP = inet_addr(MYIP2);
+
+	for (i=0 ; i<5 ; i++) {
+		if (user_list[i].IP == vv.osoite) {
+			printf("\nuser_list[%d].IP: %s\n\n", i, inet_ntoa(user_list[i].IP) );
+			j = 1;
+		}
+		else
+			j = 0;
+	}
+	return j;
+
+}
+
+/* **************************************** */
+/* Funktio, joka kysyy käyttäjän nimeä.	  	*/
+/* **************************************** */
+
+/*! \fn int sendGetRequest_Name()
+ *  \brief Funktio, joka kysyy käyttäjän nimeä.
+ *  \return Ykkönen.
+ */
+int sendGetRequest_Name()
+{
+
+	lahteva.PDU.PDU_type = 0xA0;
+	lahteva.OID.OID_value[lahteva.OID.OID_length - 1] = 0x02;
+	lahteva.value.value_type = 0x05;
+	lahteva.value.value_length = 0x00;
+
+	snmpSend();/****************************** tässä pitäisi lähettää viesti??? ******/
+	return 1;
+
+}
+
+/* ********************************************************* */
+/* Funktio, joka palauttaa nimen sitä kysyvälle käyttäjälle. */
+/* ********************************************************* */
+
+/*! \fn void sendGetResponse_Name()
+ *  \brief Funktio, joka palauttaa nimen sitä kysyvälle käyttäjälle.
+ *  \return void.
+ */
+void sendGetResponse_Name()
+{
+	int i;
+
+	lahteva.PDU.PDU_type = 0xA2;
+	lahteva.OID.OID_value[lahteva.OID.OID_length - 1] = 0x02;
+	lahteva.value.value_type = 0x04;
+	lahteva.value.value_length = 0x06;
+	for (i=0 ; i<6 ; i++)
+		lahteva.value.value_value[i] = MYNAME[i];
+
+	snmpSend();
+
+	sendActualMessage(vv.osoite, vv.portti, lv.daatta, lv.daatankoko);
+}
+
+/* **************************************** */
+/* Funktio, joka hoitaa viestien lähetyksen */
+/* **************************************** */
+
+/* Tarkasta onko tarpeellinen */
+void sendMessage(u_long osoite, u_char viesti[200], u_short koko)
+{
+/*	int error;
+
+	printf("Sending to %s:%d\n",inet_ntoa(osoite),LPORT);
+
+	error = NutUdpSendTo(sock,osoite,LPORT,viesti,koko);
+
+	if(error == 0)
+		printf("Lähetys onnistui.\n");
+	else
+		printf("Lähetys epäonnistui.\n");
+*/
+}
+
+/*! \fn void ParseSendMessage(u_char *data, u_short size)
+ *  \brief Funktio, joka parsii lähetettävän viestin.
+ *  \param *data Lähetettävä data.
+ *  \param size Lähetettävän datan koko.
+ *  \return void.
+ */
+void ParseSendMessage(u_char *data, u_short size)
+{
+//length-tavujen paikat:
+//	SNMP-message: 1
+//	SNMP-version: 3
+//	SNMP-community string: 6
+//  SNMP PDU: 6 + strlen(kanavan nimi) + 2
+//	Varbind list: SNMP PDU indeksi + 11
+//	Varbind: Varbind list indeksi + 2
+//	OID: Varbind indeksi + 2
+//	Value: OID indeksi + OID pituus(vakio 7) + 2
+
+	int i, OID_identifier;
+	int OID_alkaa_indeksi, OID_length, data_alkaa_indeksi, data_length;
+
+	printf("\n");
+
+   for(i=0 ; i<size ; i++){
+		if (data[i]==0x2b && data[i+1]==0x06 && data[i+2]==0x01 && data[i+3]==0x03 && data[i+4]==0x37 && data[i+5]==0x00) {
+
+
+		OID_identifier = data[i+6];
+
+		switch (OID_identifier) {
+
+			case '1' :  printf("Lähetetään viesti\n");
+						/* TODO: lähetä SET_REQUEST UDP broadcast osoitteeseen */
+						break;
+
+			case '2' :  printf("Lähetetään nimipyyntö");
+						/* TODO: lähetä GET_REQUEST halutulle käyttäjälle ja pyydä nimeä */
+						break;
+
+			case '3' :  printf("Lähetetään kanavapyyntö");
+						/* TODO: lähetä GET_REQUEST UDP broadcast osoitteeseen ja kysy kanavien nimet */
+						break;
+
+			case '4' :	printf("Poistutaan kanavalta");
+						/* TODO: lähetä TRAP viesti */
+						break;
+
+			default  : 	printf("Invaliidi toiminto");
+						break;
+
+		}
+
+			OID_alkaa_indeksi = i-2;
+			OID_length = data[i-1];
+			data_alkaa_indeksi = OID_alkaa_indeksi + OID_length + 1;
+			data_length = data[data_alkaa_indeksi + 1];
+		}
+	}
+	printf("OID_alkaa_indeksi: %d, OID_length: %d\n", OID_alkaa_indeksi, OID_length);
+	printf("data_alkaa_indeksi: %d, data_length: %d\n", data_alkaa_indeksi, data_length);
+
+	//Tulostetaan vastaanotettu viesti
+	printf("Vastaanotettu viesti: ");
+	for(i=0 ; i<data_length ; i++) {
+		printf("%c", data[data_alkaa_indeksi + i + 2]);
+	}
+	printf("\n");
+}
+
+/* Use Case 1 - Send a message to the channel */
+
+/*! \fn void sendSetRequest()
+ *  \brief Funktio, joka hoitaa Set requestin lähetyksen.
+ *  \return void.
+ */
+void sendSetRequest()
+{
+//   lv.OID_identifier = 1;
+//   lv.kanavannimi = ; /* Community string kertoo mille kanavalle viesti kuuluu */
+//   lv.value_encoding = 4;
+//   lv.teksti = ; /* Lahetettava viesti */
+
+}
+
+/*! \fn void sendGetResponse()
+ *  \brief Funktio, joka hoitaa Set responsen lähetyksen.
+ *  \return void.
+ */
+void sendGetResponse()
+{
+
+   lv.osoite = vv.osoite;
+   lv.portti = vv.portti;
+//	lv.osoite = inet_addr(MYIP2);
+//	lv.portti = LPORT;
+
+
+/*   lv.daatankoko = vv.daatankoko - vv.data_length;
+
+   int i;
+   for(i = 0 ; i < vv.daatankoko - vv.data_length ; i++) {
+      lv.daatta[i] = vv.daatta[i];
+
+      if(vv.daatta[i] == 0xA3)
+         lv.daatta[i] = 0xA2;
+   }*/
+
+	lahteva.PDU.PDU_type = 0xA2;
+	lahteva.OID.OID_value[vast.OID.OID_length - 1] = 0x01;
+	lahteva.value.value_type = 0x05;
+	lahteva.value.value_length = 0x00;
+
+	snmpSend();
+
+	/*	Lähetetään GetResponse */
+	sendActualMessage(vv.osoite, vv.portti, lv.daatta, lv.daatankoko);
+
+}
+
+/* ******************************************* */
+/* Funktio, joka lähettää viestin kanavaan.	   */
+/* ******************************************* */
+
+/*! \fn void sendActualMessage(u_long osoite, u_short portti, u_char daatta[], u_short daatankoko)
+ *  \brief Funktio, joka lähettää viestin kanavaan.
+ *  \param osoite Osoite, johon viesti lähetetään.
+ *  \param portti Portti, johon viesti lähetetään.
+ *  \param daatta[] Lähetettävä data.
+ *  \param daatankoko Lähetettävän datan koko.
+ *  \return void.
+ */
+void sendActualMessage(u_long osoite, u_short portti, u_char daatta[], u_short daatankoko)
+{
+	int error;
+
+	printf("Sending to %s:%d\n", inet_ntoa(osoite), portti);
+   	printf("lv.osoite on: %s\n", inet_ntoa(osoite));
+   	printf("lv.daatankoko on: %d\n", daatankoko);
+
+	//poistetaan/verbose modeen
+	int j;
+	printf("Lähteva data:\n");
+   	for(j = 0 ; j < daatankoko ; j++){
+      	printf("%x\n", daatta[j]);
+   	}
+
+	error = NutUdpSendTo(sock,osoite,portti,daatta,daatankoko);
+// size = NutUdpSendTo(sock,ip_addr2,LPORT,data,size);
+
+	if(error == 0)
+		printf("Lähetys onnistui.\n");
+	else
+		printf("Lähetys epäonnistui.\n");
+//   sendMessage(lv.osoite, lv.daatta, lv.daatankoko);
+	NutSleep(125);
+
+}
+
+/* ******************************************* */
+/* Funktio, joka parsii vastaanotetun viestin. */
+/* ******************************************* */
+
+/*! \fn void snmpReceive()
+ *  \brief Funktio, joka parsii vastaanotetun viestin.
+ *  \return void.
+ */
+void snmpReceive()
+{
+	int indeksi;
+	vast.message.message_type = vv.daatta[0];
+	vast.message.message_length = vv.daatta[1];
+
+	vast.version.version_type = vv.daatta[2];
+	vast.version.version_length = vv.daatta[3];
+	vast.version.version_value = vv.daatta[4];
+
+	vast.comm_string.comm_string_type = vv.daatta[5];
+	vast.comm_string.comm_string_length = vv.daatta[6];
+
+	int i;
+	for(i = 0 ; i < vast.comm_string.comm_string_length ; i++){
+		vast.comm_string.comm_string_value[i] = vv.daatta[7 + i];
+	}
+	indeksi = 7 + i;
+
+	vast.PDU.PDU_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.PDU.PDU_length = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.requestID.requestID_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.requestID.requestID_length = vv.daatta[indeksi];
+	indeksi++;
+
+	if(vast.requestID.requestID_length > 1){
+		for(i = 0 ; i < vast.requestID.requestID_length ; i++){
+			vast.requestID.requestID_value[i] = vv.daatta[indeksi];
+			indeksi++;
+		}
+	}
+	else{
+		vast.requestID.requestID_value[0] = vv.daatta[indeksi];
+		indeksi++;
+	}
+
+	vast.error.error_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.error.error_length = vv.daatta[indeksi];
+	indeksi++;
+	vast.error.error_value = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.error_index.error_index_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.error_index.error_index_length = vv.daatta[indeksi];
+	indeksi++;
+	vast.error_index.error_index_value = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.varbind_list.varbind_list_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.varbind_list.varbind_list_length = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.varbind.varbind_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.varbind.varbind_length = vv.daatta[indeksi];
+	indeksi++;
+
+	vast.OID.OID_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.OID.OID_length = vv.daatta[indeksi];
+	indeksi++;
+
+	for(i = 0 ; i < vast.OID.OID_length ; i++){
+		vast.OID.OID_value[i] = vv.daatta[indeksi];
+		indeksi++;
+	}
+
+	vast.value.value_type = vv.daatta[indeksi];
+	indeksi++;
+	vast.value.value_length = vv.daatta[indeksi];
+	indeksi++;
+
+	for(i = 0 ; i < vast.value.value_length ; i++){
+		vast.value.value_value[i] = vv.daatta[indeksi];
+		indeksi++;
+	}
+
+/* Testitulostus */
+/*	printf("vast.message.message_type: %x\n",vast.message.message_type);
+	printf("vast.message.message_length: %x\n",vast.message.message_length);
+
+	printf("vast.version.version_type: %x\n",vast.version.version_type);
+	printf("vast.version.version_length: %x\n",vast.version.version_length);
+	printf("vast.version.version_value: %x\n",vast.version.version_value);
+
+	printf("vast.comm_string.comm_string_type: %x\n",vast.comm_string.comm_string_type);
+	printf("vast.comm_string.comm_string_length: %x\n",vast.comm_string.comm_string_length);
+
+
+	for(i = 0 ; i < vast.comm_string.comm_string_length ; i++){
+		printf("vast.comm_string.comm_string_value[%d]: %x\n", i, vast.comm_string.comm_string_value[i]);
+	}
+
+	printf("vast.PDU.PDU_type: %x\n",vast.PDU.PDU_type);
+	printf("vast.PDU.PDU_length: %x\n",vast.PDU.PDU_length);
+
+	printf("vast.requestID.requestID_type: %x\n",vast.requestID.requestID_type);
+	printf("vast.requestID.requestID_length: %x\n",vast.requestID.requestID_length);
+
+
+
+	if(vast.requestID.requestID_length > 1){
+		for(i = 0 ; i < vast.requestID.requestID_length ; i++){
+			printf("vast.requestID.requestID_value[%d]: %x\n", i, vast.requestID.requestID_value[i]);
+		}
+	}
+	else{
+		printf("vast.requestID.requestID_value[0]: %x\n",vast.requestID.requestID_value[0]);
+	}
+
+	printf("vast.error.error_type: %x\n",vast.error.error_type);
+	printf("vast.error.error_length: %x\n",vast.error.error_length);
+	printf("vast.error.error_value: %x\n",vast.error.error_value);
+
+	printf("vast.error_index.error_index_type: %x\n",vast.error_index.error_index_type);
+	printf("vast.error_index.error_index_length: %x\n",vast.error_index.error_index_length);
+	printf("vast.error_index.error_index_value: %x\n",vast.error_index.error_index_value);
+
+	printf("vast.varbind_list.varbind_list_type: %x\n",vast.varbind_list.varbind_list_type);
+	printf("vast.varbind_list.varbind_list_length: %x\n",vast.varbind_list.varbind_list_length);
+
+	printf("vast.varbind.varbind_type: %x\n",vast.varbind.varbind_type);
+	printf("vast.varbind.varbind_length: %x\n",vast.varbind.varbind_length);
+
+	printf("vast.OID.OID_type: %x\n",vast.OID.OID_type);
+	printf("vast.OID.OID_length: %x\n",vast.OID.OID_length);
+
+
+
+	for(i = 0 ; i < vast.OID.OID_length ; i++){
+		printf("vast.OID.OID_value[%d]: %x\n", i, vast.OID.OID_value[i]);
+	}
+
+	printf("vast.value.value_type: %x\n",vast.value.value_type);
+	printf("vast.value.value_length: %x\n",vast.value.value_length);
+
+
+
+
+	for(i = 0 ; i < vast.value.value_length ; i++){
+		printf("vast.value.value_value[%d]: %x\n", i, vast.value.value_value[i]);
+	}*/
+
+}
+
+/* ***************************************** */
+/* Funktio, joka parsii lähetettävän viestin */
+/* ***************************************** */
+
+/*! \fn void snmpSend()
+ *  \brief Funktio, joka parsii lähetettävän viestin.
+ *  \return void.
+ */
+void snmpSend()
+{
+	int indeksi;
+	lahteva.message.message_type = 0x30;
+//	lahteva.message.message_length = vv.daatta[1];
+
+	lahteva.version.version_type = 0x02;
+	lahteva.version.version_length = 0x01;
+	lahteva.version.version_value = 0x00;
+
+	lahteva.comm_string.comm_string_type = 0x04;
+	lahteva.comm_string.comm_string_length = vast.comm_string.comm_string_length;
+
+	int i;
+	for(i = 0 ; i < lahteva.comm_string.comm_string_length ; i++){
+		lahteva.comm_string.comm_string_value[i] = vast.comm_string.comm_string_value[i];
+	}
+	indeksi = 7 + i;
+
+//	lahteva.PDU.PDU_type = vv.daatta[indeksi];
+	indeksi++;
+//	lahteva.PDU.PDU_length = vv.daatta[indeksi];
+	indeksi++;
+
+	lahteva.requestID.requestID_type = vast.requestID.requestID_type;
+	indeksi++;
+	lahteva.requestID.requestID_length = vast.requestID.requestID_length;
+	indeksi++;
+
+	if(lahteva.requestID.requestID_length > 1){
+		for(i = 0 ; i < lahteva.requestID.requestID_length ; i++){
+			lahteva.requestID.requestID_value[i] = vast.requestID.requestID_value[i];
+			indeksi++;
+		}
+	}
+	else{
+		lahteva.requestID.requestID_value[0] = vast.requestID.requestID_value[0];
+		indeksi++;
+	}
+
+	lahteva.error.error_type = 0x02;
+	indeksi++;
+	lahteva.error.error_length = 0x01;
+	indeksi++;
+	lahteva.error.error_value = 0x00;
+	indeksi++;
+
+	lahteva.error_index.error_index_type = 0x02;
+	indeksi++;
+	lahteva.error_index.error_index_length = 0x01;
+	indeksi++;
+	lahteva.error_index.error_index_value = 0x00;
+	indeksi++;
+
+	lahteva.varbind_list.varbind_list_type = 0x30;
+	indeksi++;
+//	lahteva.varbind_list.varbind_list_length = vv.daatta[indeksi];
+	indeksi++;
+
+	lahteva.varbind.varbind_type = 0x30;
+	indeksi++;
+//	lahteva.varbind.varbind_length = vv.daatta[indeksi];
+	indeksi++;
+
+	lahteva.OID.OID_type = 0x06;
+	indeksi++;
+	lahteva.OID.OID_length = 0x07;
+	indeksi++;
+
+	lahteva.OID.OID_value[0] = 0x2B;
+	indeksi++;
+	lahteva.OID.OID_value[1] = 0x06;
+	indeksi++;
+	lahteva.OID.OID_value[2] = 0x01;
+	indeksi++;
+	lahteva.OID.OID_value[3] = 0x03;
+	indeksi++;
+	lahteva.OID.OID_value[4] = 0x37;
+	indeksi++;
+	lahteva.OID.OID_value[5] = 0x00;
+	indeksi++;
+//	lahteva.OID.OID_value[0] = 0x43;
+	indeksi++;
+
+//	lahteva.value.value_type = vv.daatta[indeksi];
+	indeksi++;
+//	lahteva.value.value_length = vv.daatta[indeksi];
+	indeksi++;
+
+/*	for(i = 0 ; i < lahteva.value.value_length ; i++){
+		lahteva.value.value_value[i] = vv.daatta[indeksi];
+		indeksi++;
+	}
+*/
+
+	//Määritetään pituuskenttien arvot
+
+	lahteva.varbind.varbind_length = lahteva.value.value_length + 2 + lahteva.OID.OID_length + 2;
+	lahteva.varbind_list.varbind_list_length = lahteva.varbind.varbind_length + 2;
+	lahteva.PDU.PDU_length = lahteva.varbind_list.varbind_list_length + 10 + lahteva.requestID.requestID_length;
+	lahteva.message.message_length = lahteva.PDU.PDU_length + 7 + lahteva.comm_string.comm_string_length;
+
+	indeksi = 0;
+	lv.daatta[indeksi] = lahteva.message.message_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.message.message_length;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.version.version_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.version.version_length;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.version.version_value;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.comm_string.comm_string_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.comm_string.comm_string_length;
+	indeksi++;
+	for (i=0 ; i<lahteva.comm_string.comm_string_length ; i++) {
+		lv.daatta[indeksi] = lahteva.comm_string.comm_string_value[i];
+		indeksi++;
+	}
+	lv.daatta[indeksi] = lahteva.PDU.PDU_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.PDU.PDU_length;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.requestID.requestID_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.requestID.requestID_length;
+	indeksi++;
+	for (i=0 ; i<lahteva.requestID.requestID_length ; i++ ) {
+		lv.daatta[indeksi] = lahteva.requestID.requestID_value[i];
+		indeksi++;
+	}
+	lv.daatta[indeksi] = 0x02;
+	indeksi++;
+	lv.daatta[indeksi] = 0x01;
+	indeksi++;
+	lv.daatta[indeksi] = 0x00;
+	indeksi++;
+	lv.daatta[indeksi] = 0x02;
+	indeksi++;
+	lv.daatta[indeksi] = 0x01;
+	indeksi++;
+	lv.daatta[indeksi] = 0x00;
+	indeksi++;
+	lv.daatta[indeksi] = 0x30;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.varbind_list.varbind_list_length;
+	indeksi++;
+	lv.daatta[indeksi] = 0x30;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.varbind.varbind_length;
+	indeksi++;
+	lv.daatta[indeksi] = 0x06;
+	indeksi++;
+	lv.daatta[indeksi] = 0x07;
+	indeksi++;
+	for (i=0 ; i<lahteva.OID.OID_length ; i++) {
+		lv.daatta[indeksi] = lahteva.OID.OID_value[i];
+		indeksi++;
+	}
+	lv.daatta[indeksi] = lahteva.value.value_type;
+	indeksi++;
+	lv.daatta[indeksi] = lahteva.value.value_length;
+	indeksi++;
+	for (i=0 ; i<lahteva.value.value_length ; i++) {
+		lv.daatta[indeksi] = lahteva.value.value_value[i];
+		indeksi++;
+	}
+
+	lv.daatankoko = lahteva.message.message_length + 2;
+}
+
+
+
